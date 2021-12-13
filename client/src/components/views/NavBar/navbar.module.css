@@ -1,0 +1,11 @@
+.loginStyle {
+    font-size: large;
+    align: center;
+    cursor: pointer;
+}
+
+.loginStyle:hover {
+    transform: scale(1.5);
+    transition-duration: 0.5s;
+    border-radius: 50;
+}
