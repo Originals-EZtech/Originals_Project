@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MainPage from './components/views/MainPage/MainPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
+import Login from './components/views/LoginPage/Login';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
     <div>
         <Routes>
           <Route exact path="/" element={<MainPage/>} />
-          <Route exact path="/login" element={<LoginPage/>} />
+          <Route exact path="/login" element={<Login/>} />
           <Route exact path="/register" element={<RegisterPage/>} />
         </Routes>
       </div>
