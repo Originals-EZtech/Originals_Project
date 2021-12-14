@@ -6,7 +6,6 @@
 .pnp.js
 
 # db
-../server/dbConfig.js
 dbConfig.js
 
 # testing
