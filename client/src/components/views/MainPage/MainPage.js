@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
+import {Link} from 'react-router-dom'
 
 function MainPage() {
   
@@ -120,9 +121,9 @@ function MainPage() {
                                     <span>I love Teaching</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                                    <li><a href="#" class="fa fa-twitter"></a></li>
-                                    <li><a href="#" class="fa fa-instagram"></a></li>
+                                    <li><Link to="" class="fa fa-facebook-square" attr="facebook icon"></Link></li>
+                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                         </div>
                     </div>
@@ -136,8 +137,8 @@ function MainPage() {
                                     <span>Education is the key!</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-google"></a></li>
-                                    <li><a href="#" class="fa fa-instagram"></a></li>
+                                    <li><Link to="" class="fa fa-google"></Link></li>
+                                    <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                         </div>
                     </div>
@@ -151,9 +152,9 @@ function MainPage() {
                                     <span>I like Online Courses</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-twitter"></a></li>
-                                    <li><a href="#" class="fa fa-envelope-o"></a></li>
-                                    <li><a href="#" class="fa fa-linkedin"></a></li>
+                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fa fa-envelope-o"></Link></li>
+                                    <li><Link to="" class="fa fa-linkedin"></Link></li>
                                 </ul>
                         </div>
                     </div>
@@ -167,9 +168,9 @@ function MainPage() {
                                     <span>Learning is fun</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-twitter"></a></li>
-                                    <li><a href="#" class="fa fa-google"></a></li>
-                                    <li><a href="#" class="fa fa-behance"></a></li>
+                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fa fa-google"></Link></li>
+                                    <li><Link to="" class="fa fa-behance"></Link></li>
                                 </ul>
                         </div>
                     </div>
@@ -199,7 +200,7 @@ function MainPage() {
                                                     </div>
                                             </div>
                                             <div class="courses-detail">
-                                                    <h3><a href="#">Social Media Management</a></h3>
+                                                    <h3><Link to="">Social Media Management</Link></h3>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                             </div>
                                             <div class="courses-info">
@@ -208,7 +209,7 @@ function MainPage() {
                                                         <span>Mark Wilson</span>
                                                     </div>
                                                     <div class="courses-price">
-                                                        <a href="#"><span>USD 25</span></a>
+                                                        <Link to=""><span>USD 25</span></Link>
                                                     </div>
                                             </div>
                                         </div>
@@ -227,7 +228,7 @@ function MainPage() {
                                                     </div>
                                             </div>
                                             <div class="courses-detail">
-                                                    <h3><a href="#">Graphic & Web Design</a></h3>
+                                                    <h3><Link to="">Graphic & Web Design</Link></h3>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                             </div>
                                             <div class="courses-info">
@@ -236,7 +237,7 @@ function MainPage() {
                                                         <span>Jessica</span>
                                                     </div>
                                                     <div class="courses-price">
-                                                        <a href="#"><span>USD 80</span></a>
+                                                        <Link to=""><span>USD 80</span></Link>
                                                     </div>
                                             </div>
                                         </div>
@@ -255,7 +256,7 @@ function MainPage() {
                                                     </div>
                                             </div>
                                             <div class="courses-detail">
-                                                    <h3><a href="#">Marketing Communication</a></h3>
+                                                    <h3><Link to="">Marketing Communication</Link></h3>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                             </div>
                                             <div class="courses-info">
@@ -264,7 +265,7 @@ function MainPage() {
                                                         <span>Catherine</span>
                                                     </div>
                                                     <div class="courses-price free">
-                                                        <a href="#"><span>Free</span></a>
+                                                        <Link to=""><span>Free</span></Link>
                                                     </div>
                                             </div>
                                         </div>
@@ -283,7 +284,7 @@ function MainPage() {
                                                     </div>
                                             </div>
                                             <div class="courses-detail">
-                                                    <h3><a href="#">Summer Kids</a></h3>
+                                                    <h3><Link to="">Summer Kids</Link></h3>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                             </div>
                                             <div class="courses-info">
@@ -292,7 +293,7 @@ function MainPage() {
                                                         <span>Mark Wilson</span>
                                                     </div>
                                                     <div class="courses-price">
-                                                        <a href="#"><span>USD 45</span></a>
+                                                        <Link to=""><span>USD 45</span></Link>
                                                     </div>
                                             </div>
                                         </div>
@@ -311,7 +312,7 @@ function MainPage() {
                                                     </div>
                                             </div>
                                             <div class="courses-detail">
-                                                    <h3><a href="#">Business &amp; Management</a></h3>
+                                                    <h3><Link to="">Business &amp; Management</Link></h3>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                             </div>
                                             <div class="courses-info">
@@ -320,7 +321,7 @@ function MainPage() {
                                                         <span>Jessica</span>
                                                     </div>
                                                     <div class="courses-price free">
-                                                        <a href="#"><span>Free</span></a>
+                                                        <Link to=""><span>Free</span></Link>
                                                     </div>
                                             </div>
                                         </div>
@@ -351,9 +352,9 @@ function MainPage() {
                                     <span>I love Teaching</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                                    <li><a href="#" class="fa fa-twitter"></a></li>
-                                    <li><a href="#" class="fa fa-instagram"></a></li>
+                                    <li><Link to="" class="fa fa-facebook-square" attr="facebook icon"></Link></li>
+                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -367,8 +368,8 @@ function MainPage() {
                                     <span>Education is the key!</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-google"></a></li>
-                                    <li><a href="#" class="fa fa-instagram"></a></li>
+                                    <li><Link to="" class="fa fa-google"></Link></li>
+                                    <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -382,9 +383,9 @@ function MainPage() {
                                     <span>I like Online Courses</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-twitter"></a></li>
-                                    <li><a href="#" class="fa fa-envelope-o"></a></li>
-                                    <li><a href="#" class="fa fa-linkedin"></a></li>
+                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fa fa-envelope-o"></Link></li>
+                                    <li><Link to="" class="fa fa-linkedin"></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -398,9 +399,9 @@ function MainPage() {
                                     <span>Learning is fun</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-twitter"></a></li>
-                                    <li><a href="#" class="fa fa-google"></a></li>
-                                    <li><a href="#" class="fa fa-behance"></a></li>
+                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fa fa-google"></Link></li>
+                                    <li><Link to="" class="fa fa-behance"></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -414,9 +415,9 @@ function MainPage() {
                                     <span>I love Teaching</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                                    <li><a href="#" class="fa fa-twitter"></a></li>
-                                    <li><a href="#" class="fa fa-instagram"></a></li>
+                                    <li><Link to="" class="fa fa-facebook-square" attr="facebook icon"></Link></li>
+                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -430,9 +431,9 @@ function MainPage() {
                                     <span>I like Online Courses</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-twitter"></a></li>
-                                    <li><a href="#" class="fa fa-envelope-o"></a></li>
-                                    <li><a href="#" class="fa fa-linkedin"></a></li>
+                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fa fa-envelope-o"></Link></li>
+                                    <li><Link to="" class="fa fa-linkedin"></Link></li>
                                 </ul>
                             </div>
                         </div>
