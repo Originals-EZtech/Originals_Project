@@ -5,17 +5,18 @@ import Footer from '../Footer/Footer';
 import {Link} from 'react-router-dom'
 
 function MainPage() {
-  
-    // useEffect(() => {
-	// 	axios.get('/api/hello')
-	// 	.then(response => console.log(response.data))
-	// }, [])
+
+    const mainStyle={
+        paddingTop: 70
+    }
 
     return (
       <div>
        
         <NavBar />
-
+        
+        <div style={mainStyle}></div>
+  
         {/* 메인 화면 */}
         <section id="home">
             <div class="row">
