@@ -15,7 +15,8 @@ oracledb.autoCommit = true;
 const mybatisMapper = require('mybatis-mapper');
 
 // Mapper Load
-mybatisMapper.createMapper(['C:/Users/user/Desktop/Project/Originals_Project__/Originals-Project/server/mybatis/oracle-mapper.xml']);
+mybatisMapper.createMapper(['C:/originalsproject_yoonseon/Originals_Project/server/mybatis/oracle-mapper.xml']);
+
 
 
 
