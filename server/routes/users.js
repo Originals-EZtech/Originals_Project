@@ -4,33 +4,25 @@ const oracledb = require('oracledb');
 const dbConfig = require('../config/dbConfig');
 const mailConfig = require('../config/mailConfig');
 const bcrypt = require('bcrypt');
+const ejs = require('ejs');
 const saltRounds = 10
-// const ejs = require('ejs')
-// const path = require('path');
-// const appDir2 = path.dirname(require.main);
-// const appDir = path.dirname(require.main.filename);
 oracledb.autoCommit = true;
-
 const nodemailer = require('nodemailer');
 
 
     
 
   router.get('/emailAuth', async(req, res) => {
-//     console.log(appDir2)
+    const userEmail = req.body.email;
 
-//       console.log(appDir)
-
-//     let authNum = Math.random().toString().substring(2,6);
-//     let emailTemplete;
-//     ejs.renderFile('./routes/emailAuth.ejs', {authCode : authNum}, function (err, data) {
-//       if(err){
-//           console.log("error~~~~~~~~~~~",err)
-//         }
-//       emailTemplete = data;
-//       console.log("data~~~~~~~~~~~~~~~",data)
-//       console.log("emailTemplete~~~~~~~~~~~~~~~",emailTemplete)
-//     });
+    let authNum = Math.random().toString().substring(2,6);
+    let emailTemplete;
+    ejs.renderFile('./server/emailAuth.ejs', {authCode : authNum}, function (err, data) {
+      if(err){
+          console.log(err)
+        }
+      emailTemplete = data;
+    });
 
     const smtpTransport = nodemailer.createTransport({
     service: "Gmail",
@@ -42,28 +34,24 @@ const nodemailer = require('nodemailer');
 
     const mailOptions = {
       from: "Orignals",
-      to: "sukhyunil19@gmail.com",
+      to: userEmail,
       subject: "Originals 회원가입 코드",
-    //   html : emailTemplete
-      text: "Originals 회원가입 코드내용"
+      html : emailTemplete
+      
     };
+    console.log(userEmail);
     
-    await smtpTransport.sendMail(mailOptions, (error, responses) =>{
+    await smtpTransport.sendMail(mailOptions, (error, res) =>{
         if(error){
             res.json({msg:'err'});
         }else{
             res.json({msg:'sucess'});
+            // res.send(authNum);
         }
         smtpTransport.close();
     });
   });
 
-
-// let emailTemplete;
-// ejs.renderFile('../../server/emailAuth.ejs', {authCode : authNum}, function (err, data) {
-//   if(err){console.log('ejs.renderFile err')}
-//   emailTemplete = data;
-// });
 
 //oracledb connection
 var conn;
@@ -76,10 +64,10 @@ oracledb.getConnection(dbConfig, function (err, con) {
     console.log('접속 성공');
 });
 
-// SELECT query test
+// SELECT query users
 router.get("/list", function (req, res) {
 
-    conn.execute("select * from test", function (err, result, fields) {
+    conn.execute("select * from users", function (err, result, fields) {
         if (err) {
             console.log("조회 실패");
         }
@@ -93,12 +81,12 @@ router.get("/list", function (req, res) {
 
 // signup
 router.post("/register", function (req, res) {
-    const param = [req.body.id, req.body.pw]
+    const param = [req.body.email, req.body.password]
     console.log("req: ", req.body)
     bcrypt.hash(param[1], saltRounds, (err, hash) => {
         param[1] = hash
 
-        conn.execute('insert into test (ID, PW) values(:ID,:PW)', param, function (err, result, fields) {
+        conn.execute('insert into users (EMAIL, PASSWORD) values(:email,:password)', param, function (err, result, fields) {
             if (err) {
                 console.log("insert 실패");
             }
@@ -111,11 +99,13 @@ router.post("/register", function (req, res) {
 
 //siginin
 router.post("/login", function (req, res) {
-    const paramid = [req.body.id]
-    const parampw = [req.body.pw]
+    const userEamil = [req.body.email]
+    const userPassword = req.body.password
     console.log("req: ", req.body)
+    console.log("reqemail: ", req.body.email)
+    console.log("reqpassword: ", req.body.password)
     
-    conn.execute('select ID, PW from test where ID = :id ',paramid, function (err, result) {
+    conn.execute('select EMAIL, PASSWORD from users where EMAIL = :email ',userEamil, function (err, result) {
         if(err) console.log("select err",err)
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
@@ -124,16 +114,22 @@ router.post("/login", function (req, res) {
             return;
         }
         // 아이디가 존재한다면
-        bcrypt.compare(parampw,result.rows[0].pw,(err,resultt) => {
+        console.log("result.rows[0][1]",result.rows[0][1]);
+        console.log(userPassword);
+        bcrypt.compare(userPassword,result.rows[0][1],(err,resultt) => {
             // console.log("req.body.pw: ",req.body.pw);
             // console.log("result.rows[0][1]: ",result.rows[0][1]);
             // console.log(typeof(resultt))
             if(resultt){
                 console.log(resultt)
                 // res.send("비번 일치o")
-                res.send(result.rows[0]);
+                // res.send(result.rows[0]);
+                res.status(200).json({
+                    loginSuccess: true
+                })
                 console.log("비밀번호 일치");
             }else{
+                console.log(resultt)
                 console.log("비밀번호가 틀렸습니다.")
                 res.send("비밀번호가 틀렸습니다.")
             }

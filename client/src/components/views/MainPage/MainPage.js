@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import MainNavBar from '../NavBar/MainNavBar';
 import Footer from '../Footer/Footer';
 import {Link} from 'react-router-dom';
@@ -22,7 +21,7 @@ function MainPage() {
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                        <img src="assets/images/main_pic.svg" />
+                        <img src="assets/images/main_pic.svg" alt=""/>
                     </div>
                 </div>
             </div>
