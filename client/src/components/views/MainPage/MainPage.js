@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import RoomJoin from '../Room/RoomJoin';
 
 function MainPage() {
 
@@ -109,7 +110,7 @@ function MainPage() {
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="section-title">
-                                <h2>Components <small>사용 기술 및 스택 소개</small></h2>
+                                <h2>Components <small>방 만들기  방 참여하기</small></h2>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -118,7 +119,7 @@ function MainPage() {
                                     <img src="assets/images/author-image1.jpg" class="img-responsive" alt="" />
                                 </div>
                                 <div class="team-info">
-                                    <h3>Mark Wilson</h3>
+                                    <h3>방 만들기</h3>
                                     <span>I love Teaching</span>
                                 </div>
                                 <ul class="social-icon">
@@ -134,7 +135,8 @@ function MainPage() {
                                     <img src="assets/images/author-image2.jpg" class="img-responsive" alt="" />
                                 </div>
                                 <div class="team-info">
-                                    <h3>Catherine</h3>
+                                    <h3>방 참여하기</h3>
+                                    <RoomJoin />
                                     <span>Education is the key!</span>
                                 </div>
                                 <ul class="social-icon">
