@@ -4,6 +4,9 @@ import MainPage from './components/views/MainPage/MainPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import Login from './components/views/LoginPage/Login';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
+import Room from './components/views/Room/Room';
+import RoomCreate from './components/views/Room/RoomCreate';
+import RoomJoin from './components/views/Room/RoomJoin';
 
 function App() {
   return (
@@ -12,6 +15,9 @@ function App() {
           <Route exact path="/" element={<MainPage/>} />
           <Route exact path="/login" element={<Login/>} />
           <Route exact path="/register" element={<RegisterPage/>} />
+          <Route exact path="/room" element={<Room/>} />
+          <Route exact path="/roomcreate" element={<RoomCreate/>} />
+          <Route exact path="/roomjoin" element={<RoomJoin/>} />
         </Routes>
       </div>
   );

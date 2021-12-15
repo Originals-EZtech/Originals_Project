@@ -51,8 +51,8 @@ function LoginPage() {
 				<br />
 				<button>
 					Login
-				</button>
-			</form>
+				</button>          
+			</form>           
 		</div>
 	)
 }

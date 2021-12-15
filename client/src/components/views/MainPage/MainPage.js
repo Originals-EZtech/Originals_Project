@@ -3,7 +3,6 @@ import axios from 'axios';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import {Link} from 'react-router-dom';
-import RoomJoin from '../Room/RoomJoin';
 
 function MainPage() {
 
@@ -135,8 +134,8 @@ function MainPage() {
                                     <img src="assets/images/author-image2.jpg" class="img-responsive" alt="" />
                                 </div>
                                 <div class="team-info">
-                                    <h3>방 참여하기</h3>
-                                    <RoomJoin />
+                                    
+                                    <h3><li><a href="/room" >방 참여하기</a></li></h3>
                                     <span>Education is the key!</span>
                                 </div>
                                 <ul class="social-icon">

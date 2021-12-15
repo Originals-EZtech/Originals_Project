@@ -6,6 +6,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api/users', require('./routes/users'));
+app.use('/api/data2', require('./routes/rooms'));
 
 /* 12/15 작업중-------------------------------------
 
@@ -88,39 +89,6 @@ app.get('/api/hello', (req, res) => {
     } 
 });
 
-app.post("/api/data2", (req, res) => {
-    console.log("1");
-    oracledb.getConnection(dbConfig, (err, conn) => {
-        todoWork(err, conn);
-    });
-        function todoWork(err, connection) {
-            if (err) {
-                console.error(err.message);
-                console.log("데이터 가져오기 실패");
-                return;
-            }
-            console.log("123123");
-            connection.execute("select room_name from room_table", [], function (err, result) {
-                if (err) {
-                    console.error(err.message);
-                    doRelease(connection);
-                    return;
-                }
-                console.log("rows=" + result.rows);
-                console.log("rows[0]=" + result.rows[0]);
-                res.send(result.rows);
-                doRelease(connection);
-            });
-        function doRelease(connection) {
-            connection.release(function (err) {
-                if (err) {
-                    console.error(err.message);
-        
-                }
-            });
-        }
-    }
-});
 
 
 
