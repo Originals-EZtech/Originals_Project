@@ -85,7 +85,7 @@ app.get('/api/hello', (req, res) => {
 
             }
         });
-    }
+    } 
 });
 
 app.post("/api/data2", (req, res) => {
