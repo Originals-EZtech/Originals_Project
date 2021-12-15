@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from '../LoginPage/login.module.css';
 import classnames from 'classnames';
-import { Route,Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import SubNavBar from '../NavBar/SubNavBar';
 
 function Login() {
 
@@ -12,6 +13,8 @@ function Login() {
                     <span class="spinner-rotate"></span>
                 </div>
             </section> */}
+
+            <SubNavBar />
 
             <img className={styles.wave} src="assets/images/wave.png" />
             <div className={styles.container}>
