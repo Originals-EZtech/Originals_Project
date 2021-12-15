@@ -6,8 +6,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api/users', require('./routes/users'));
-
 /* 12/15 작업중-------------------------------------
+
+// const session =require('express-session')
+// const cookieParser = require('cookie-parser')
+
+// app.use(cookieParser());
+// app.use(
+//     session({
+//         key:"loginData",
+//         secret: "testSecret",
+//         resave: false,
+//         saveUninitialized :false,
+//         cookie:{
+//             expires: 60 * 60 
+//         }
+//     })
+// )
+
 
 DB 설정
 const oracledb = require('oracledb');
