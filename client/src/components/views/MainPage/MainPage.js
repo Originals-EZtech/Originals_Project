@@ -3,7 +3,7 @@ import axios from 'axios';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import {Link} from 'react-router-dom';
-// import RoomJoin from '../Room/RoomJoin';
+import RoomJoin from '../Room/RoomJoin';
 
 function MainPage() {
   
@@ -135,6 +135,7 @@ function MainPage() {
                                 </div>
                                 <div class="team-info">
                                     <h3>방 참여하기</h3>
+                                    <RoomJoin />
                                     <span>Education is the key!</span>
                                 </div>
                                 <ul class="social-icon">

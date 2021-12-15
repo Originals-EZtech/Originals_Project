@@ -10,7 +10,7 @@ export default class RoomJoin extends React.Component {
   }
 
   onclick = () => {
-    fetch("http://localhost:5000/data2", { 
+    fetch("/api/data2", { 
       method: "post", //통신방법
       headers: {
         "content-type": "application/json",
@@ -29,7 +29,7 @@ export default class RoomJoin extends React.Component {
   render() {
     return (
       <div>
-        <h1>데이터 가져오기</h1>
+        <h2>테이블 명 가져오기</h2>
         <h3>{this.state.data}</h3>
         <button onClick={this.onclick}>가져오기</button>
       </div>
