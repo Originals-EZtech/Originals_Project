@@ -5,9 +5,10 @@ const dbConfig = require('../config/dbConfig');
 const mailConfig = require('../config/mailConfig');
 const bcrypt = require('bcrypt');
 const saltRounds = 10
-const ejs = require('ejs')
-const path = require('path');
-const appDir = path.dirname(require.main.filename);
+// const ejs = require('ejs')
+// const path = require('path');
+// const appDir2 = path.dirname(require.main);
+// const appDir = path.dirname(require.main.filename);
 oracledb.autoCommit = true;
 
 const nodemailer = require('nodemailer');
@@ -16,17 +17,20 @@ const nodemailer = require('nodemailer');
     
 
   router.get('/emailAuth', async(req, res) => {
+//     console.log(appDir2)
 
-    let authNum = Math.random().toString().substring(2,6);
-    let emailTemplete;
-    ejs.renderFile('./routes/emailAuth.ejs', {authCode : authNum}, function (err, data) {
-      if(err){
-          console.log("error~~~~~~~~~~~",err)
-        }
-      emailTemplete = data;
-      console.log("data~~~~~~~~~~~~~~~",data)
-      console.log("emailTemplete~~~~~~~~~~~~~~~",emailTemplete)
-    });
+//       console.log(appDir)
+
+//     let authNum = Math.random().toString().substring(2,6);
+//     let emailTemplete;
+//     ejs.renderFile('./routes/emailAuth.ejs', {authCode : authNum}, function (err, data) {
+//       if(err){
+//           console.log("error~~~~~~~~~~~",err)
+//         }
+//       emailTemplete = data;
+//       console.log("data~~~~~~~~~~~~~~~",data)
+//       console.log("emailTemplete~~~~~~~~~~~~~~~",emailTemplete)
+//     });
 
     const smtpTransport = nodemailer.createTransport({
     service: "Gmail",
@@ -40,8 +44,8 @@ const nodemailer = require('nodemailer');
       from: "Orignals",
       to: "sukhyunil19@gmail.com",
       subject: "Originals 회원가입 코드",
-      html : emailTemplete
-    //   text: "Originals 회원가입 코드내용"
+    //   html : emailTemplete
+      text: "Originals 회원가입 코드내용"
     };
     
     await smtpTransport.sendMail(mailOptions, (error, responses) =>{
