@@ -8,6 +8,7 @@
 # db
 dbConfig.js
 mybatisConfig.js
+mailConfig.js
 
 # testing
 /coverage

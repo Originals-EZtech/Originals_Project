@@ -2,9 +2,64 @@ const express = require('express');
 const router = express.Router();
 const oracledb = require('oracledb');
 const dbConfig = require('../config/dbConfig');
+const mailConfig = require('../config/mailConfig');
 const bcrypt = require('bcrypt');
 const saltRounds = 10
+const ejs = require('ejs')
+const path = require('path');
+const appDir = path.dirname(require.main.filename);
 oracledb.autoCommit = true;
+
+const nodemailer = require('nodemailer');
+
+
+    
+
+  router.get('/emailAuth', async(req, res) => {
+
+    let authNum = Math.random().toString().substring(2,6);
+    let emailTemplete;
+    ejs.renderFile('./routes/emailAuth.ejs', {authCode : authNum}, function (err, data) {
+      if(err){
+          console.log("error~~~~~~~~~~~",err)
+        }
+      emailTemplete = data;
+      console.log("data~~~~~~~~~~~~~~~",data)
+      console.log("emailTemplete~~~~~~~~~~~~~~~",emailTemplete)
+    });
+
+    const smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: mailConfig.user,
+        pass: mailConfig.pass
+    }
+  })
+
+    const mailOptions = {
+      from: "Orignals",
+      to: "sukhyunil19@gmail.com",
+      subject: "Originals 회원가입 코드",
+      html : emailTemplete
+    //   text: "Originals 회원가입 코드내용"
+    };
+    
+    await smtpTransport.sendMail(mailOptions, (error, responses) =>{
+        if(error){
+            res.json({msg:'err'});
+        }else{
+            res.json({msg:'sucess'});
+        }
+        smtpTransport.close();
+    });
+  });
+
+
+// let emailTemplete;
+// ejs.renderFile('../../server/emailAuth.ejs', {authCode : authNum}, function (err, data) {
+//   if(err){console.log('ejs.renderFile err')}
+//   emailTemplete = data;
+// });
 
 //oracledb connection
 var conn;
