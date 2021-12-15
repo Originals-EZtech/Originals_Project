@@ -1,60 +1,57 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../../_actions/user_action';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import styles from '../LoginPage/login.module.css';
+import classnames from 'classnames';
+import { Link } from 'react-router-dom';
+import SubNavBar from '../NavBar/SubNavBar';
 
-function LoginPage() {
-    const dispatch = useDispatch();
-    let navigate = useNavigate();
+function Login() {
 
-    const [Email, setEmail] = useState("")
-    const [Password, setPassword] = useState("")
+    return (
+        <div>
+            {/* <section class="preloader">
+                <div class="spinner">
+                    <span class="spinner-rotate"></span>
+                </div>
+            </section> */}
 
-    // Email, Passowrd 창에 입력 가능하게 하는 함수
-    const onEmailHandler = (event) => {
-        setEmail(event.currentTarget.value)
-    }
-    const onPasswordHandler = (event) => {
-        setPassword(event.currentTarget.value)
-    }
+            <SubNavBar />
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
-
-        let body = {
-            email: Email,
-            password: Password
-        }
-
-        dispatch(loginUser(body))
-            .then(response => {
-                if(response.payload.loginSuccess) {
-                    navigate('/')
-                } else {
-                    alert('Error')
-                }
-            })
-    }
-
-	return (
-		<div style={{
-			display: 'flex', justifyContent: 'center', alignItems: 'center',
-			width: '100%', height: '100vh'
-		}}>
-			<form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}
-            >
-				<label>Email</label>
-				<input type="email" value={Email} onChange={onEmailHandler} />
-				<label>Password</label>
-				<input type="password" value={Password} onChange={onPasswordHandler} />
-				<br />
-				<button>
-					Login
-				</button>
-			</form>
-		</div>
-	)
+            <img className={styles.wave} src="assets/images/wave.png" />
+            <div className={styles.container}>
+                <div className={styles.img}>
+                <img src="assets/images/login_pic.svg" />
+                </div>
+                <div className={styles.login_content}>
+                <form className={styles.userForm}>
+                    <h2 className={styles.title}>LOGIN</h2>
+                    <div className={classnames(styles.input_div, styles.one)}>
+                    <div className={styles.i}>
+                        <i class="fas fa-user" />
+                    </div>
+                    <div className={styles.div}>
+                        <input type="text" name="id" placeholder="USERNAME" />
+                    </div>
+                    </div>
+                    <div className={classnames(styles.input_div, styles.pass)}>
+                    <div className={styles.i}> 
+                        <i class="fas fa-lock" />
+                    </div>
+                    <div className={styles.div}>
+                        <input type="password" name="password" placeholder="PASSWORD" />
+                    </div>
+                    </div>
+                    <Link to="" className={styles.userA}>Forgot Password?</Link>
+                    <br />
+                    <br />
+                    <input type="submit" className={styles.btn} value="Login" />
+                    
+                    <br />
+                    <Link to="/register" className={styles.btn_signup}><span>New Here?</span></Link>
+                </form>
+                </div>
+            </div>
+        </div>
+    );
 }
 
-export default LoginPage
+export default Login;

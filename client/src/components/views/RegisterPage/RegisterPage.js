@@ -1,79 +1,64 @@
-import React, {useState} from "react"
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../../_actions/user_action'
+import React from 'react';
+import styles from '../RegisterPage/register.module.css';
+import classnames from 'classnames';
+import { Link } from 'react-router-dom';
+import SubNavBar from '../NavBar/SubNavBar';
 
-function RegisterPage(props) {
-    const dispatch = useDispatch();
-    let navigate = useNavigate();
-
-    const [Email, setEmail] = useState("")
-    const [Password, setPassword] = useState("")
-    const [Name, setName] = useState("")
-    const [ConfirmPassword, setConfirmPassword] = useState("")
+function Register() {
    
-    const onEmailHandler = (event) =>{
-        setEmail(event.currentTarget.value)
-    }
-    const onPasswordHandler = (event) =>{
-        setPassword(event.currentTarget.value)
-    }
-    const onNameHandler = (event) =>{
-        setName(event.currentTarget.value)
-    }
-    const onConfirmPasswordHandler = (event) =>{
-        setConfirmPassword(event.currentTarget.value)
-    }
-
-    const onSubmitHandler = (event) =>{
-        event.preventDefault();//page 새로고침 막음
-
-        if(Password !== ConfirmPassword) {
-            return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
-        }
-
-       let body = {
-           email: Email,
-           password: Password,
-           name: Name
-       }
-       dispatch(registerUser(body))
-            .then(response => {
-                if(response.payload.success) {
-                    navigate('/login')
-                } else {
-                    alert('Failed to sign up')
-                }
-            })
-
-    }
-
     return (
-        <div style = {{
-            display:'flex', justifyContent:'center', alignItems:'center', width:'100%', height:'100vh'
-        }}>
-            <form style ={{display:'flex', flexDirection:'column'}}
-            onSubmit={onSubmitHandler}
-            >
-                <label>Email</label>
-                <input type="email" value ={Email} onChange ={onEmailHandler} />
+        <div>
+            {/* <section class="preloader">
+                <div class="spinner">
+                    <span class="spinner-rotate"></span>
+                </div>
+            </section> */}
 
-                <label>Name</label>
-                <input type="text" value ={Name} onChange ={onNameHandler} />
+            <SubNavBar />
 
-                <label>Password</label>
-                <input type="password" value ={Password} onChange ={onPasswordHandler} />
+            <img className={styles.wave} src="assets/images/wave2.png" />
+            <div className={styles.container}>
+                <div className={styles.login_content}>
+                    <form className={styles.userForm}>
+                        <h2 className={styles.title}>SIGN UP</h2>
+                        <div className={classnames(styles.input_div, styles.one)}>
+                        <div className={styles.i}>
+                            <i class="fas fa-user" />
+                        </div>
+                        <div className={styles.div}>
+                            <input type="text" name="id" placeholder="USERNAME" />
+                        </div>
+                        </div>
+                        <div className={classnames(styles.input_div, styles.pass)}>
+                        <div className={styles.i}> 
+                            <i class="fas fa-lock" />
+                        </div>
+                        <div className={styles.div}>
+                            <input type="password" name="password" placeholder="PASSWORD" />
+                        </div>
+                        </div>
+                        <div className={classnames(styles.input_div, styles.pass)}>
+                        <div className={styles.i}> 
+                            <i class="fas fa-check" />
+                        </div>
+                        <div className={styles.div}>
+                            <input type="password" name="password" placeholder="VERIFY PASSWORD" />
+                        </div>
+                        </div>
+                        <br />
+                        <input type="submit" className={styles.btn} value="SIGN UP" />
+                        
+                        <br />
+                        <Link to="/login" className={styles.btn_signup}><span>One of Us?</span></Link>
+                    </form>
+                </div>
 
-                <label>Confirm Password</label>
-                <input type="password" value ={ConfirmPassword} onChange ={onConfirmPasswordHandler} />
-
-                <br/>
-                <button type='submit'>
-                    회원가입
-                </button>
-            </form>
+                <div className={styles.img}>
+                    <img src="assets/images/register_pic.svg" />
+                </div>
+            </div>
         </div>
-    )
+    );
 }
 
-export default RegisterPage;
+export default Register;
