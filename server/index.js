@@ -10,6 +10,23 @@ app.use('/api/data2', require('./routes/rooms'));
 
 /* 12/15 작업중-------------------------------------
 
+// const session =require('express-session')
+// const cookieParser = require('cookie-parser')
+
+// app.use(cookieParser());
+// app.use(
+//     session({
+//         key:"loginData",
+//         secret: "testSecret",
+//         resave: false,
+//         saveUninitialized :false,
+//         cookie:{
+//             expires: 60 * 60 
+//         }
+//     })
+// )
+
+
 DB 설정
 const oracledb = require('oracledb');
 const dbConfig = require('./config/dbConfig');
