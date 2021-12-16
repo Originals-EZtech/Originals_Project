@@ -9,8 +9,8 @@ export default function (state = {}, action) {
             return { ...state, loginSuccess: action.payload }
         case REGISTER_USER:
             return { ...state, register: action.payload }
-        // case AUTH_EMAIL:
-        //     return { ...state, sendCodeSuccess: action.payload }
+        case AUTH_EMAIL:
+            return { ...state, sendCodeSuccess: action.payload }
         default:
             return state;
     }

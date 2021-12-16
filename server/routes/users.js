@@ -28,7 +28,7 @@ router.post('/emailauth', (req, res) => {
         if (result.rows != 0) {
             console.log("이메일 인증 select query 실패");
             return res.status(200).json({
-                sendCodeSuccess: true, msg: "아이디이미존재"
+                sendCodeSuccess: false, msg: "아이디이미존재"
             })
         }
 
