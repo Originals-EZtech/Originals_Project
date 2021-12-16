@@ -27,6 +27,10 @@ function Register(props) {
         setConfirmPassword(event.currentTarget.value)
     }
 
+    const test = () => {
+        alert("yes");
+    }
+
     const onSubmitHandler = (event) => {
         event.preventDefault();
 

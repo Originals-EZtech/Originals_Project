@@ -12,7 +12,7 @@ input::placeholder {
 .wave{
 	position: fixed;
 	bottom: 0;
-	left: 65.4em;
+	left: 67.3em;
 	height: 100%;
 	z-index: -1;
 }
@@ -49,6 +49,7 @@ input::placeholder {
 
 .userForm{
 	width: 360px;
+	padding-top: 6rem;
 }
 
 .login_content img{
