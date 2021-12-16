@@ -13,8 +13,8 @@ function Register(props) {
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
     const [ConfirmPassword, setConfirmPassword] = useState("")
-    // const [authCode, setAuthCode] = useState("");
-    // const [securityCode, setSecurityCode] = useState("");
+    const [authCode, setAuthCode] = useState("");
+    const [securityCode, setSecurityCode] = useState("");
 
 
     const onEmailHandler = (event) => {
@@ -29,14 +29,14 @@ function Register(props) {
         setConfirmPassword(event.currentTarget.value)
     }
 
-    // const getAuthCode = (event) => {
-    //     setAuthCode(event.currentTarget.value)
-    // }
+    const getAuthCode = (event) => {
+        setAuthCode(event.currentTarget.value)
+    }
 
 
 
     const authEmail1 = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         console.log('client에서 받아온  Email', Email)
 
         let body = {
@@ -47,15 +47,13 @@ function Register(props) {
 
         // action으로 변경중
         axios.post('/api/users/emailauth', body)
-        .then((res) => console.log(res))
-          
+            .then((res) => console.log(res))
+
 
         dispatch(authEmail(body))
-        // console.log('client에서 받아온  body2', body)
+            // console.log('client에서 받아온  body2', body)
             .then(response => {
-                console.log(111111111111111111,response.payload.sendCodeSuccess)
                 if (response.payload.sendCodeSuccess) {
-
                     // props.navigate('/login');
                 } else {
                     console.log(2, "authEmaili")
@@ -87,8 +85,6 @@ function Register(props) {
         // axios.post('/api/users/login', body)
         // .then(response =>{
         // })
-
-
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
@@ -125,6 +121,12 @@ function Register(props) {
 
                         </div>
 
+                        <div className={classnames(styles.input_div, styles.one)}>
+                            <div className={styles.div}>
+                                <button onClick={authEmail1}>이메일 인증</button>
+                            </div>
+                        </div>
+
 
 
                         <div className={classnames(styles.input_div, styles.pass)}>
@@ -132,7 +134,7 @@ function Register(props) {
                                 <i class="fas fa-check" />
                             </div>
                             <div className={styles.div}>
-                                <input type="text"  name="authCode" placeholder="CODE" />
+                                <input type="text" name="authCode" placeholder="CODE" value={authCode} onChange={getAuthCode} />
                             </div>
 
                         </div>
@@ -159,11 +161,7 @@ function Register(props) {
                         <Link to="/login" className={styles.btn_signup}><span>One of Us?</span></Link>
                     </form>
                 </div>
-                {/* <div className={classnames(styles.input_div, styles.one)}>
-                    <div className={styles.div}>
-                        <button onClick={authEmail1}>이메일 인증</button>
-                    </div>
-                </div> */}
+
 
                 <div className={styles.img}>
                     <img src="assets/images/register_pic.svg" alt="" />
