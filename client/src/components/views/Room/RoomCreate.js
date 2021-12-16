@@ -6,7 +6,7 @@ function RoomCreate() {
 
     return (
         <div>
-            <h3>방 만들기</h3>
+            <h3>방 만들기</h3><br></br>
             <RoomCreateComp />
         </div>
     );

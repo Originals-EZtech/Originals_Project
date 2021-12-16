@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import MainNavBar from '../NavBar/MainNavBar';
 import Footer from '../Footer/Footer';
 import {Link} from 'react-router-dom';
@@ -22,7 +21,7 @@ function MainPage() {
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                        <img src="assets/images/main_pic.svg" />
+                        <img src="assets/images/main_pic.svg" alt=""/>
                     </div>
                 </div>
             </div>
@@ -61,7 +60,7 @@ function MainPage() {
                                 </div>
                                 <div class="team-info">
                                     
-                                    <h3><li><a href="/room" >방 참여하기</a></li></h3>
+                                    <h3><li><Link to="/room" >방 참여하기</Link></li></h3>
                                     <span>Education is the key!</span>
                                 </div>
                                 <ul class="social-icon">

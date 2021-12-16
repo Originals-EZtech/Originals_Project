@@ -1,56 +1,57 @@
 import React from "react";
-
+import { Link } from 'react-router-dom';
 export default class RoomJoinComp extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    room_id: "",
+    room_password: "",
+  };
 
-    this.state = {
-      data: "",
-    };
-  }
-
-  
-  onclick = () => {
-    fetch("/api/data2/roomjoin", { 
-      method: "post", //통신방법
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(),
-    })
+  handlChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+    searchclick=()=>{
+      const textbox = {
+        room_id: this.state.room_id,
+        room_password: this.state.room_password,
+      };
+      fetch("/api/data2/roomjoinsearch", { //text 주소에서 받을 예정
+        method: "post", //통신방법
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(textbox), //textbox라는 객체를 보냄
+      })
+      // 추가된 부분
+      // .then()은 메서드는 fetch가 서버에서 응답을 한후에 코드를 동작하게 만듬 
+      // res는 서버에서 받은 객체 형태는 log로 출력해보길
       .then((res) => res.json())
       .then((json) => {
-        console.log("json="+json);
         console.log(json);
-        
-        
-        this.setState({
-          data: json,
-        });
-        console.log(this.state);
+        console.log("json: "+json);
+        alert(json.rows[0]+'에 입장했습니다');
       });
-  };
+      
+    }
   // setInnerHTML() {
   //   const element = document.getElementsByClassName('team-info');
   //   element.innerHTML 
   //     = '<div style="color:blue">InnerHTML<div>';
   // } 
   
-  render() {
-    const element = document.getElementsByClassName('team-info');
-    const rendering = () => {
-      const result = [];
-      for (let i = 0; i < this.state.data.length; i++) {
-        element.innerHTML= result.push(<span key={i}>{i+"번째 방:"+this.state.data[i] + "  "}</span>);
-      }
-      return result;
-    };
+  render() {    
+
     return (
       <div>
-        <h2>방 이름 가져오기</h2>
-        <h3><div>{rendering()}</div></h3>
-
-        <button onClick={this.onclick}>가져오기</button>
+        <input type='number' name="room_id" onChange={this.handlChange} placeholder="방 고유번호"/>
+        <input type='number' name="room_password" onChange={this.handlChange}placeholder="방 비밀번호"/><br></br>
+        <button onClick= { this.searchclick }>
+          <Link to="/roomparticipant">
+            <h3>입장하기</h3>
+          </Link>
+        </button>
+        <h3>방: {this.state.room_id} <br></br>비번: {this.state.room_password} </h3>
       </div>
     );
   }

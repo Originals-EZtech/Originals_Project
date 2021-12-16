@@ -1,12 +1,13 @@
 import axios from 'axios';
 import {
-    LOGIN_USER, REGISTER_USER
+    LOGIN_USER, REGISTER_USER, AUTH_EMAIL
 } from './types';
 
 export function loginUser(dataTosubmit) {
 
     const request = axios.post('/api/users/login', dataTosubmit)
         .then(response =>  response.data)
+        
 
     return {
         type: LOGIN_USER,
@@ -21,6 +22,18 @@ export function registerUser(dataTosubmit) {
 
     return {
         type: REGISTER_USER,
+        payload: request
+    }
+}
+
+export function authEmail(dataTosubmit) {
+
+    console.log('yes');
+    const request = axios.post('/api/users/emailauth', dataTosubmit)
+        .then(response => response.data)
+
+    return {
+        type: AUTH_EMAIL,
         payload: request
     }
 }
