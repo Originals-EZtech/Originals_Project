@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export default class RoomCreateComp extends React.Component {
     state = {
@@ -33,15 +34,17 @@ export default class RoomCreateComp extends React.Component {
           console.log(json);
           console.log("json: "+json);
         });
+        alert('방이 생성되었습니다');
       };
 
+  
   render() {
     return (
       <div>
-        <input name="room_name" onChange={this.handlChange}/>
-        <input name="room_password" onChange={this.handlChange}/>
-        <button onClick={this.onclick}>전송</button>
-        <h3>{this.state.room_name}과 {this.state.room_password} 텍스트 데이터를 </h3>
+        <input name="room_name" onChange={this.handlChange} placeholder="방 제목"/>
+        <input name="room_password" onChange={this.handlChange}placeholder="방 비밀번호"/>
+        <button onClick= { this.onclick }><Link to="/roomadmin"><h3>만들기</h3></Link></button>
+        <h3>방: {this.state.room_name} <br></br>비번: {this.state.room_password} </h3>
       </div>
     );
   }

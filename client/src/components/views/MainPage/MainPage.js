@@ -60,7 +60,7 @@ function MainPage() {
                                 </div>
                                 <div class="team-info">
                                     
-                                    <h3><li><a href="/room" >방 참여하기</a></li></h3>
+                                    <h3><li><Link to="/room" >방 참여하기</Link></li></h3>
                                     <span>Education is the key!</span>
                                 </div>
                                 <ul class="social-icon">

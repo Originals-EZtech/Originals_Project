@@ -6,6 +6,8 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import Room from './components/views/Room/Room';
 import RoomCreate from './components/views/Room/RoomCreate';
 import RoomJoin from './components/views/Room/RoomJoin';
+import RoomAdmin from './components/views/Room/RoomAdmin';
+import RoomParticipant from './components/views/Room/RoomParticipant';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route exact path="/room" element={<Room/>} />
           <Route exact path="/roomcreate" element={<RoomCreate/>} />
           <Route exact path="/roomjoin" element={<RoomJoin/>} />
+          <Route exact path="/roomadmin" element={<RoomAdmin/>} />
+          <Route exact path="/roomparticipant" element={<RoomParticipant/>} />
         </Routes>
       </div>
   );
