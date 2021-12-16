@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../../_actions/user_action';
+import { registerUser, authEmail } from '../../../_actions/user_action';
 import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,8 @@ function Register(props) {
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
     const [ConfirmPassword, setConfirmPassword] = useState("")
+    // const [authCode, setAuthCode] = useState("");
+    // const [securityCode, setSecurityCode] = useState("");
 
 
     const onEmailHandler = (event) => {
@@ -27,33 +29,38 @@ function Register(props) {
         setConfirmPassword(event.currentTarget.value)
     }
 
+    // const getAuthCode = (event) => {
+    //     setAuthCode(event.currentTarget.value)
+    // }
 
 
-    const authEmail = (e) => {
+
+    const authEmail1 = (e) => {
         // e.preventDefault();
         console.log('client에서 받아온  Email', Email)
 
         let body = {
             email: Email
-            
         }
-        console.log('client에서 받아온  body', body)
+        console.log('client에서 받아온  body1', body)
 
 
-                        // action으로 변경중
-        // axios.post('/api/users/emailauth', body)
-        // .then((res) => console.log(res))
+        // action으로 변경중
+        axios.post('/api/users/emailauth', body)
+        .then((res) => console.log(res))
           
 
         dispatch(authEmail(body))
+        // console.log('client에서 받아온  body2', body)
             .then(response => {
+                console.log(111111111111111111,response.payload.sendCodeSuccess)
                 if (response.payload.sendCodeSuccess) {
+
                     // props.navigate('/login');
                 } else {
                     console.log(2, "authEmaili")
                 }
                 console.log(2, "authEmaili")
-
             })
 
         // console.log("인증 완료   ")
@@ -76,8 +83,8 @@ function Register(props) {
             password: Password
         }
 
-                // action으로 변경중
-        // Axios.post('/api/users/login', body)
+        //         // action으로 변경중
+        // axios.post('/api/users/login', body)
         // .then(response =>{
         // })
 
@@ -125,7 +132,7 @@ function Register(props) {
                                 <i class="fas fa-check" />
                             </div>
                             <div className={styles.div}>
-                                <input type="text" name="password" placeholder="CODE" />
+                                <input type="text"  name="authCode" placeholder="CODE" />
                             </div>
 
                         </div>
@@ -154,7 +161,7 @@ function Register(props) {
                 </div>
                 {/* <div className={classnames(styles.input_div, styles.one)}>
                     <div className={styles.div}>
-                        <button onClick={authEmail}>이메일 인증</button>
+                        <button onClick={authEmail1}>이메일 인증</button>
                     </div>
                 </div> */}
 

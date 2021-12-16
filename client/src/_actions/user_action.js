@@ -29,11 +29,11 @@ export function registerUser(dataTosubmit) {
 export function authEmail(dataTosubmit) {
 
     console.log('yes');
-    // const request = axios.post('/api/users/emailauth', dataTosubmit)
-    //     .then(response =>  console.log(response.data))
+    const request = axios.post('/api/users/emailauth', dataTosubmit)
+        .then(response => response.data)
 
-    // return {
-    //     type: AUTH_EMAIL,
-    //     payload: request
-    // }
+    return {
+        type: AUTH_EMAIL,
+        payload: request
+    }
 }
