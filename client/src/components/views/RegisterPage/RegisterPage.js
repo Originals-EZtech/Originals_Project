@@ -152,11 +152,11 @@ function Register(props) {
                         <Link to="/login" className={styles.btn_signup}><span>One of Us?</span></Link>
                     </form>
                 </div>
-                <div className={classnames(styles.input_div, styles.one)}>
+                {/* <div className={classnames(styles.input_div, styles.one)}>
                     <div className={styles.div}>
                         <button onClick={authEmail}>이메일 인증</button>
                     </div>
-                </div>
+                </div> */}
 
                 <div className={styles.img}>
                     <img src="assets/images/register_pic.svg" alt="" />
