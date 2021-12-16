@@ -5,7 +5,7 @@ import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
-
+import axios from 'axios';
 function Register(props) {
 
     const dispatch = useDispatch();
@@ -27,6 +27,41 @@ function Register(props) {
         setConfirmPassword(event.currentTarget.value)
     }
 
+
+
+    const authEmail = (e) => {
+        // e.preventDefault();
+        console.log('client에서 받아온  Email', Email)
+
+        let body = {
+            email: Email
+            
+        }
+        console.log('client에서 받아온  body', body)
+
+
+                        // action으로 변경중
+        // axios.post('/api/users/emailauth', body)
+        // .then((res) => console.log(res))
+          
+
+        dispatch(authEmail(body))
+            .then(response => {
+                if (response.payload.sendCodeSuccess) {
+                    // props.navigate('/login');
+                } else {
+                    console.log(2, "authEmaili")
+                }
+                console.log(2, "authEmaili")
+
+            })
+
+        // console.log("인증 완료   ")
+        // // alert("인증 완료오")
+    }
+
+
+
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
@@ -40,6 +75,11 @@ function Register(props) {
             email: Email,
             password: Password
         }
+
+                // action으로 변경중
+        // Axios.post('/api/users/login', body)
+        // .then(response =>{
+        // })
 
 
         dispatch(registerUser(body))
@@ -74,6 +114,20 @@ function Register(props) {
                             <div className={styles.div}>
                                 <input type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USERNAME" />
                             </div>
+
+
+                        </div>
+
+
+
+                        <div className={classnames(styles.input_div, styles.pass)}>
+                            <div className={styles.i}>
+                                <i class="fas fa-check" />
+                            </div>
+                            <div className={styles.div}>
+                                <input type="text" name="password" placeholder="CODE" />
+                            </div>
+
                         </div>
                         <div className={classnames(styles.input_div, styles.pass)}>
                             <div className={styles.i}>
@@ -98,9 +152,14 @@ function Register(props) {
                         <Link to="/login" className={styles.btn_signup}><span>One of Us?</span></Link>
                     </form>
                 </div>
+                <div className={classnames(styles.input_div, styles.one)}>
+                    <div className={styles.div}>
+                        <button onClick={authEmail}>이메일 인증</button>
+                    </div>
+                </div>
 
                 <div className={styles.img}>
-                    <img src="assets/images/register_pic.svg" alt=""/>
+                    <img src="assets/images/register_pic.svg" alt="" />
                 </div>
             </div>
         </div>
