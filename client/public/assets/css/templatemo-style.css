@@ -339,39 +339,6 @@ https://templatemo.com/tm-516-known
   }
 
 
-  /*---------------------------------------
-      TEAM              
-  -----------------------------------------*/
-
-  .team-thumb {
-    background: #ffffff;
-    position: relative;
-    overflow: hidden;
-    text-align: left;
-  }
-
-  .team-info {
-    padding: 20px 30px;
-  }
-
-  .team-image img {
-    width: 100%;
-  }
-
-  .team-thumb .social-icon {
-    border-top: 1px solid #f0f0f0;
-    padding: 4px 20px 0 20px;
-  }
-
-  .team-thumb .social-icon li a {
-    background: #ffffff;
-    color: #252020;
-  }
-
-  .team-info h3 {
-    margin: 0;
-  }
-
 
   /*---------------------------------------
       COURSES             
@@ -379,7 +346,7 @@ https://templatemo.com/tm-516-known
 
   #courses .section-title {
     text-align: center;
-    padding-bottom: 10;
+    padding-bottom: 80px;
   }
 
   #courses .owl-theme .owl-nav {
@@ -411,18 +378,18 @@ https://templatemo.com/tm-516-known
   }
 
   .courses-image {
-    background: linear-gradient(to right, #202020, #101010);
+    background: white;
   }
 
   .courses-image img {
     width: 10px;
     height: 100%;
     background-color: white;
-
   }
 
   .courses-detail {
     padding: 25px 25px 15px 25px;
+    text-align: center;
   }
 
   .courses-detail h3 {
@@ -446,12 +413,9 @@ https://templatemo.com/tm-516-known
     background: #ffffff;
   }
 
-  #contact h2 {
-    color: #29ca8e;
-  }
-
   #contact .section-title {
-    padding-bottom: 20px;
+    text-align: center;
+    padding-bottom: 30px;
   }
 
   #contact h2 > small,

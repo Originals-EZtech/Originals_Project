@@ -121,10 +121,8 @@ function Register(props) {
                             <div className={styles.div}>
                                 <input type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USERNAME" />
                             </div>
-
-
                         </div>
-
+                        <button onClick={authEmail1}>이메일 인증</button>
 
 
                         <div className={classnames(styles.input_div, styles.pass)}>
