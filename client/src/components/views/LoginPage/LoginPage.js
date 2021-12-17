@@ -6,9 +6,11 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { Link } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
-// import { withRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+    let navigate = useNavigate();
+
     const dispatch = useDispatch();
 
     const [Email, setEmail] = useState("")

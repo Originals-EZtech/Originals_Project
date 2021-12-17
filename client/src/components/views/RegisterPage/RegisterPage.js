@@ -5,8 +5,10 @@ import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
+import { useNavigate } from 'react-router-dom';
 
 function Register(props) {
+    let navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -28,18 +30,14 @@ function Register(props) {
     const [AuthCodeMessage, setAuthCodeMessage] = useState("")
 
     
-    useEffect(() => {
-        onPasswordHandler(Password)
-    }, [Password])
-
-
     const onEmailHandler = (event) => {
         const emailRegex =
             /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
         setEmail(event.target.value)
-        if(event.target.value.length<1){
+
+        if (event.target.value.length<1) {
             setEmailMessage('')
-        }else if (!emailRegex.test(event.target.value)) {
+        } else if (!emailRegex.test(event.target.value)) {
             setEmailMessage('이메일 형식이 틀렸습니다.')
             setIsEmail(false)
         } else {
@@ -48,35 +46,28 @@ function Register(props) {
         }
     }
 
-    const onPasswordHandler = (password) => {
+    const onPasswordHandler = (event) => {
         const passwordRegex = 
-        /^.*((?=.*[0-9])(?=.*[a-zA-Z]){8,16}).*$/
-        //setPassword(event.currentTarget.value)
+            /^.*((?=.*[0-9])(?=.*[a-zA-Z]){8,16}).*$/
+        setPassword(event.target.value)
 
-//        console.log(event.target.value)
-
-        if(password === "") {
+        if (event.target.value.length<1) {
             setPasswordMessage('')
+        } else if(event.target.value.length > 16 || !passwordRegex.test(event.target.value) || event.target.value.length < 8){
+            setPasswordMessage('8~16자 영문, 숫자를 사용하세요.')
+            setIsPassword(false)
         } else {
-            if(password.length > 16 || !passwordRegex.test(password) || password.length < 8){
-                setPasswordMessage('8~16자 영문, 숫자를 사용하세요.')
-                setIsPassword(false)
-            } else {
-                setPasswordMessage('올바른 비밀번호 형식이에요 ')
-                setIsPassword(true)
-            }
+            setPasswordMessage('올바른 비밀번호 형식이에요 ')
+            setIsPassword(true)
         }
     }
-    
-    const onChangePassword = (event) =>{
-        setPassword(event.target.value)
-    }
-
+   
     const onConfrimPasswordHandler = (event) => {
         setConfirmPassword(event.target.value)
+
         if (event.target.value.length < 1) {
-            setConfirmPasswordMessage("패스워드 입력")
-        }else if (Password === event.target.value) {
+            setConfirmPasswordMessage("")
+        } else if (Password === event.target.value) {
             setConfirmPasswordMessage("비밀번호가 일치합니다.")
         } else {
             setConfirmPasswordMessage("비밀번호가 틀립니다. 다시 확인해주세요")
@@ -85,53 +76,48 @@ function Register(props) {
 
     const getAuthCode = (event) => {
         setAuthCode(event.target.value)
-        if(SecurityCode === event.target.value){
+
+        if (event.target.value.length < 1) {
+            setAuthCodeMessage("")
+        } else if(SecurityCode === event.target.value) {
             setAuthCodeMessage("보안코드 일치해요")
-        }else 
-        setAuthCodeMessage("보안코드가 일치하지않습니다.")
+        } else {
+            setAuthCodeMessage("보안코드가 일치하지않습니다.")
+        }
     }
-
-
 
     const authEmailHandler = (e) => {
         e.preventDefault();
-        console.log('client에서 받아온  Email', Email)
+        // console.log('client에서 받아온  Email', Email)
 
         let body = {
             email: Email
         }
-        console.log('client에서 받아온  body1', body)
-
-
-        // action으로 변경중
-        // axios.post('/api/users/emailauth', body)
-        //     .then((res) => console.log(res))
-
+        // console.log('client에서 받아온  body1', body)
 
         dispatch(authEmail(body))
             // console.log('client에서 받아온  body2', body)
             .then(response => {
                 if (response.payload.sendCodeSuccess) {
                     setSecurityCode(response.payload.authNum)
-                    console.log("securityCode : ", SecurityCode)
+                    // console.log("securityCode : ", SecurityCode)
+                    alert('인증 메일 발송 완료');
                 } else if (!response.payload.sendCodeSuccess) {
-                    console.log(1, response.payload.msg);
+                    // console.log(1, response.payload.msg);
                     alert(response.payload.msg)
                 }
-                console.log(2, "authEmaili")
+                // console.log(2, "authEmaili")
             })
 
-        console.log("인증 코드 끝   ")
+        // console.log("인증 코드 끝   ")
         // // alert("인증 완료오")
     }
-
-
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
         
-        console.log('Email', Email)
-        console.log('Password', Password)
+        // console.log('Email', Email)
+        // console.log('Password', Password)
 
         if (Password !== ConfirmPassword) {
             return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
@@ -144,7 +130,7 @@ function Register(props) {
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    // props.navigate('/login');
+                    navigate('/login');
                     alert("success to sign up")
                 } else {
                     alert("Failed to sign up")
@@ -175,15 +161,7 @@ function Register(props) {
                                 <input type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USERNAME" />
                             </div>
                         </div>
-
-
                         <span >{EmailMessage}</span>
-                        <div className={classnames(styles.input_div, styles.one)}>
-                            <div className={styles.div}>
-                                <button onClick={authEmailHandler}>이메일 인증</button>
-                            </div>
-                        </div>
-
 
                         <div className={classnames(styles.input_div, styles.pass)}>
                             <div className={styles.i}>
@@ -201,7 +179,7 @@ function Register(props) {
                                 <i class="fas fa-lock" />
                             </div>
                             <div className={styles.div}>
-                                <input type="password" value={Password} onChange={onChangePassword} name="password" placeholder="PASSWORD" />
+                                <input type="password" value={Password} onChange={onPasswordHandler} name="password" placeholder="PASSWORD" />
                             </div>
                         </div>
                         <span >{PasswordMessage}</span>
@@ -221,6 +199,13 @@ function Register(props) {
                         <br />
                         <Link to="/login" className={styles.btn_signup} ><span>One of Us?</span></Link>
                     </form>
+
+                    <div className={styles.authDiv}>
+                        <div>
+                            <button onClick={authEmailHandler} className={styles.authBtn}>Authentication</button>
+                        </div>
+                    </div>
+                
                 </div>
 
 
