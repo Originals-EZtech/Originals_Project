@@ -330,12 +330,48 @@ https://templatemo.com/tm-516-known
 
   .home-slider .item {
     background-size: cover;
-    height: 700px;
+    height: 665px;
   }
   
   .home-slider .item-first {
     background-image: url(../images/main_pic.jpg);
 	  background-position: center;
+  }
+
+
+
+  
+  /*---------------------------------------
+      TEAM              
+  -----------------------------------------*/
+
+  .team-thumb {
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+  }
+
+  .team-info {
+    padding: 20px 30px;
+  }
+
+  .team-image img {
+    width: 100%;
+  }
+
+  .team-thumb .social-icon {
+    border-top: 1px solid #f0f0f0;
+    padding: 4px 20px 0 20px;
+  }
+
+  .team-thumb .social-icon li a {
+    background: #ffffff;
+    color: #252020;
+  }
+
+  .team-info h3 {
+    margin: 0;
   }
 
 
@@ -418,12 +454,6 @@ https://templatemo.com/tm-516-known
     padding-bottom: 30px;
   }
 
-  #contact h2 > small,
-  #contact p,
-  #contact a {
-    color: #29ca8e;
-  }
-
   #contact-form {
     padding: 1em 0;
   }
@@ -455,8 +485,7 @@ https://templatemo.com/tm-516-known
     color: #29ca8e;
   }
   
-
-
+  
 
   /*---------------------------------------
      FOOTER              

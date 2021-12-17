@@ -130,7 +130,7 @@ function MainPage() {
         <section id="contact">
             <div class="container">
                 <div class="row">
-                        <div class="col-md-12 col-sm-12">
+                        <div class="col-md-18 col-sm-12">
                             <div class="section-title">
                                 <h2>Contact</h2>
                             </div>
@@ -141,12 +141,11 @@ function MainPage() {
                                     <img src="assets/images/author-image1.jpg" class="img-responsive" alt="" />
                                 </div>
                                 <div class="team-info">
-                                    <h3>Mark Wilson</h3>
-                                    <span>I love Teaching</span>
+                                    <h3>Dong Soo</h3>
+                                    <span>...</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><Link to="" class="fa fa-facebook-square" attr="facebook icon"></Link></li>
-                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fab fa-github"></Link></li>
                                     <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                             </div>
@@ -157,11 +156,11 @@ function MainPage() {
                                     <img src="assets/images/author-image2.jpg" class="img-responsive" alt="" />
                                 </div>
                                 <div class="team-info">
-                                    <h3>Catherine</h3>
-                                    <span>Education is the key!</span>
+                                    <h3>Chan Hyuk</h3>
+                                    <span>...</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><Link to="" class="fa fa-google"></Link></li>
+                                    <li><Link to="" class="fab fa-github"></Link></li>
                                     <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                             </div>
@@ -172,13 +171,12 @@ function MainPage() {
                                     <img src="assets/images/author-image3.jpg" class="img-responsive" alt="" />
                                 </div>
                                 <div class="team-info">
-                                    <h3>Jessie Ca</h3>
-                                    <span>I like Online Courses</span>
+                                    <h3>Min Gi</h3>
+                                    <span>...</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><Link to="" class="fa fa-twitter"></Link></li>
-                                    <li><Link to="" class="fa fa-envelope-o"></Link></li>
-                                    <li><Link to="" class="fa fa-linkedin"></Link></li>
+                                    <li><Link to="" class="fab fa-github"></Link></li>
+                                    <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -188,13 +186,12 @@ function MainPage() {
                                     <img src="assets/images/author-image4.jpg" class="img-responsive" alt="" />
                                 </div>
                                 <div class="team-info">
-                                    <h3>Andrew Berti</h3>
-                                    <span>Learning is fun</span>
+                                    <h3>Hyun Il</h3>
+                                    <span>...</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><Link to="" class="fa fa-twitter"></Link></li>
-                                    <li><Link to="" class="fa fa-google"></Link></li>
-                                    <li><Link to="" class="fa fa-behance"></Link></li>
+                                    <li><Link to="" class="fab fa-github"></Link></li>
+                                    <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -204,12 +201,11 @@ function MainPage() {
                                     <img src="assets/images/author-image1.jpg" class="img-responsive" alt="" />
                                 </div>
                                 <div class="team-info">
-                                    <h3>Mark Wilson</h3>
-                                    <span>I love Teaching</span>
+                                    <h3>Na Gyeong</h3>
+                                    <span>...</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><Link to="" class="fa fa-facebook-square" attr="facebook icon"></Link></li>
-                                    <li><Link to="" class="fa fa-twitter"></Link></li>
+                                    <li><Link to="" class="fab fa-github"></Link></li>
                                     <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                             </div>
@@ -220,13 +216,12 @@ function MainPage() {
                                     <img src="assets/images/author-image3.jpg" class="img-responsive" alt="" />
                                 </div>
                                 <div class="team-info">
-                                    <h3>Jessie Ca</h3>
-                                    <span>I like Online Courses</span>
+                                    <h3>Yoon Seon</h3>
+                                    <span>...</span>
                                 </div>
                                 <ul class="social-icon">
-                                    <li><Link to="" class="fa fa-twitter"></Link></li>
-                                    <li><Link to="" class="fa fa-envelope-o"></Link></li>
-                                    <li><Link to="" class="fa fa-linkedin"></Link></li>
+                                    <li><Link to="" class="fab fa-github"></Link></li>
+                                    <li><Link to="" class="fa fa-instagram"></Link></li>
                                 </ul>
                             </div>
                         </div>
