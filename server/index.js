@@ -6,7 +6,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api/users', require('./routes/users'));
-
+ 
 /* 12/15 작업중-------------------------------------
 
 DB 설정
