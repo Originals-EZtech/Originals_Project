@@ -63,6 +63,7 @@ router.post('/emailauth', (req, res) => {
                 res.status(200).json({
                     sendCodeSuccess: true, authNum: authNum
                 })
+                console.log(authNum);
             }
             console.log("nodemailer종료");
             smtpTransport.close();
