@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 
 export default class RoomCreateComp extends React.Component {
-    state = {
+      state = {
         room_name: "",
         room_password: "",
       };
@@ -35,6 +35,7 @@ export default class RoomCreateComp extends React.Component {
           console.log("json: "+json);
         });
         alert('방이 생성되었습니다');
+        
       };
 
   
@@ -43,7 +44,9 @@ export default class RoomCreateComp extends React.Component {
       <div>
         <input name="room_name" onChange={this.handlChange} placeholder="방 제목"/>
         <input name="room_password" onChange={this.handlChange}placeholder="방 비밀번호"/>
-        <button onClick= { this.onclick }><Link to="/roomadmin"><h3>만들기</h3></Link></button>
+        <button onClick= { this.onclick }>
+          <Link to="/roomadmin"><h3>만들기</h3></Link>
+        </button>
         <h3>방: {this.state.room_name} <br></br>비번: {this.state.room_password} </h3>
       </div>
     );
