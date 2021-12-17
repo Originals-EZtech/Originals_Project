@@ -69,7 +69,7 @@ router.post("/roomjoinname", (req, res) => {
                 console.log("데이터 가져오기 실패");
                 return;
             }
-            connection.execute("select room_name from room_table", [], function (err, result) {
+            connection.execute("select room_name from room_table ORDER BY room_id", [], function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);

@@ -30,6 +30,10 @@ export default class RoomJoinComp extends React.Component {
       .then((json) => {
         console.log(json);
         console.log("json: "+json);
+        console.log("json.rows[0]: "+json.rows[0]);
+        this.setState({
+          room_id_check: json.rows[0],
+        });
         alert(json.rows[0]+'에 입장했습니다');
       });
       
@@ -40,18 +44,20 @@ export default class RoomJoinComp extends React.Component {
   //     = '<div style="color:blue">InnerHTML<div>';
   // } 
   
-  render() {    
+  render() {   
 
     return (
       <div>
         <input type='number' name="room_id" onChange={this.handlChange} placeholder="방 고유번호"/>
         <input type='number' name="room_password" onChange={this.handlChange}placeholder="방 비밀번호"/><br></br>
         <button onClick= { this.searchclick }>
-          <Link to="/roomparticipant">
+          {/* <Link to="/roomparticipant"> */}
             <h3>입장하기</h3>
-          </Link>
+          {/* </Link> */}
         </button>
         <h3>방: {this.state.room_id} <br></br>비번: {this.state.room_password} </h3>
+        <h3>{this.state.room_id_check}</h3>
+        {/* <h3>{rendering()}</h3> */}
       </div>
     );
   }
