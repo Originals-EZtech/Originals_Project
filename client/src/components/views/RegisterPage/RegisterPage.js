@@ -154,11 +154,11 @@ function Register(props) {
                             </div>
                         </div>
                         <span >{EmailMessage}</span>
-                        <div className={classnames(styles.input_div, styles.one)}>
+                        {/* <div className={classnames(styles.input_div, styles.one)}>
                             <div className={styles.div}>
                                 <button onClick={authEmailHandler}>이메일 인증</button>
                             </div>
-                        </div>
+                        </div> */}
 
 
 
