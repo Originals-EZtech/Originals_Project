@@ -49,10 +49,7 @@ function NavBar() {
                     <div class="collapse navbar-collapse" style={navbarStyle}>
                         <ul class="nav navbar-nav ml-auto" style={firstNav}>
                             <li><a href="#home" class="smoothScroll">Home</a></li>
-                            {/* <li><a href="#about" class="smoothScroll">About</a></li> */}
-                            <li><a href="#team" class="smoothScroll">Components</a></li>
                             <li><a href="#courses" class="smoothScroll">Services</a></li>
-                            {/* <li><a href="#testimonial" class="smoothScroll">Reviews</a></li> */}
                             <li><a href="#contact" class="smoothScroll">Contact</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" style={secondNav}>
