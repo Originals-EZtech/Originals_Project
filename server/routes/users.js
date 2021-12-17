@@ -14,9 +14,7 @@ const nodemailer = require('nodemailer');
 
 router.post('/emailauth', (req, res) => {
     const userEmail = [req.body.email];
-    console.log('req',req);
-    console.log('req.body', req.body);
-    console.log("userEmail!!!!!!!!!!!!!!!!!!!!!!!", userEmail)
+    console.log("서버에 건내받은 이메일: ", userEmail)
 
     conn.execute('select EMAIL from users where EMAIL = :email ', userEmail, function (err, result) {
         if (err) {
@@ -28,7 +26,7 @@ router.post('/emailauth', (req, res) => {
         if (result.rows != 0) {
             console.log("이메일 인증 select query 실패");
             return res.status(200).json({
-                sendCodeSuccess: false, msg: "아이디이미존재"
+                sendCodeSuccess: false, msg: userEmail+"은 이미 회원가입 되어있습니다."
             })
         }
 
@@ -61,16 +59,12 @@ router.post('/emailauth', (req, res) => {
 
             if (error) {
                 res.json({ msg: 'err' });
-                console.log(authNum);
             } else {
-                // res.json({msg:'sucess'});
                 res.status(200).json({
                     sendCodeSuccess: true, authNum: authNum
                 })
-                // res.send(authNum);
-                console.log("else~~~~~~~~~~~~~~~~~~~~~~");
             }
-            console.log(2, "nodemailer종료");
+            console.log("nodemailer종료");
             smtpTransport.close();
         });
     });
