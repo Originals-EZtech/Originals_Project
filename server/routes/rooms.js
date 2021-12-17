@@ -13,16 +13,9 @@ oracledb.autoCommit = true;
 router.post("/roomcreate", (req, res) => {
     const room_name = req.body.room_name;
     const room_password = req.body.room_password;
-    console.log("typeofroom_name ="+ typeof(room_name));
-    console.log("req.body ="+req.body);
-    console.log("room_name ="+room_name);
-    console.log("room_password ="+room_password);
-    const insertarray = [req.body.room_name, req.body.room_password]
+    const insertarray = [req.body.room_id, req.body.room_name, req.body.room_password]
     console.log("insertarray ="+insertarray);
     console.log("insertarray[0] ="+insertarray[0]);
-    console.log("typeofinsertarray[0] ="+typeof(insertarray[0]));
-    console.log("insertarray ="+insertarray);
-    console.log("insertarray ="+insertarray);
 
     //테이블에 방 이름 방 비밀번호 입력 
     oracledb.getConnection(dbConfig, (err, conn) => {
@@ -34,7 +27,7 @@ router.post("/roomcreate", (req, res) => {
                 console.log("데이터 가져오기 실패");
                 return;
             }
-            connection.execute("insert into room_table (ROOM_ID,USER_ID,ROOM_NAME,ROOM_PASSWORD,ROOM_DATE) values(ROOM_SEQ.NEXTVAL,9,:room_name,:room_password,SYSDATE)", insertarray, function (err, result) {
+            connection.execute("insert into room_table (ROOM_SEQ,ROOM_ID,USER_ID,ROOM_NAME,ROOM_PASSWORD,ROOM_DATE) values(ROOM_SEQ.NEXTVAL,:room_id,9,:room_name,:room_password,SYSDATE)", insertarray, function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);
@@ -69,7 +62,7 @@ router.post("/roomjoinname", (req, res) => {
                 console.log("데이터 가져오기 실패");
                 return;
             }
-            connection.execute("select room_name from room_table ORDER BY room_id", [], function (err, result) {
+            connection.execute("select room_name from room_table ORDER BY room_seq", [], function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);
@@ -94,7 +87,7 @@ router.post("/roomjoinname", (req, res) => {
 
 //테이블 ID,PASSWORD로 방 존재확인
 router.post("/roomjoinsearch", (req, res) => {
-    const room_id = parseInt(req.body.room_id);
+    const room_id = req.body.room_id
     const room_password = parseInt(req.body.room_password);
     console.log("typeofreq.body.room_id ="+ typeof(req.body.room_id));
     console.log("req.body.room_id ="+req.body.room_id);
@@ -106,7 +99,7 @@ router.post("/roomjoinsearch", (req, res) => {
     console.log("room_password ="+room_password);
     const testarray = [req.body.room_id, req.body.room_password]
     console.log("testarray ="+testarray);
-    const selectarray = [parseInt(req.body.room_id), parseInt(req.body.room_password)]
+    const selectarray = [req.body.room_id, parseInt(req.body.room_password)]
     console.log("typeof(selectarray[0])"+typeof(selectarray[0]));
     //테이블에 방 이름 방 비밀번호 입력 
     oracledb.getConnection(dbConfig, (err, conn) => {

@@ -55,7 +55,7 @@ export default class RoomJoinComp extends React.Component {
   render() {   
     return (
       <div>
-        <input type='number' name="room_id" onChange={this.handlChange} placeholder="방 고유번호"/>
+        <input name="room_id" onChange={this.handlChange} placeholder="방 고유번호"/>
         <input type='number' name="room_password" onChange={this.handlChange}placeholder="방 비밀번호"/><br></br>
         <button onClick= { this.searchclick }><h3>방찾기</h3></button>
         <h3><Link to="/roomparticipant">{this.state.room_id_check}</Link></h3>
