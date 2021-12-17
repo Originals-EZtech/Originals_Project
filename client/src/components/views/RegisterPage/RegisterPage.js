@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser, authEmail } from '../../../_actions/user_action';
 import styles from '../RegisterPage/register.module.css';
@@ -24,6 +24,11 @@ function Register(props) {
     const [PasswordMessage, setPasswordMessage] = useState("")
     const [ConfirmPasswordMessage, setConfirmPasswordMessage] = useState("")
 
+    
+    useEffect(() => {
+        onPasswordHandler(Password)
+    }, [Password])
+
 
     const onEmailHandler = (event) => {
         const emailRegex =
@@ -38,16 +43,26 @@ function Register(props) {
         }
     }
 
-    const onPasswordHandler = (event) => {
+    const onPasswordHandler = (password) => {
         const passwordRegex = 
         /^.*((?=.*[0-9])(?=.*[a-zA-Z]){8,16}).*$/
-        setPassword(event.currentTarget.value)
-        if(!passwordRegex.test(Password)){
-            setPasswordMessage('8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.')
-        } else {
-            setPasswordMessage('올바른 비밀번호 형식이에요 ')
-        }
+        //setPassword(event.currentTarget.value)
 
+//        console.log(event.target.value)
+
+        if(password === "") {
+            setPasswordMessage('')
+        } else {
+            if(!passwordRegex.test(password)){
+                setPasswordMessage('8~16자 영문, 숫자를 사용하세요.')
+            } else {
+                setPasswordMessage('올바른 비밀번호 형식이에요 ')
+            }
+        }
+    }
+    
+    const onChangePassword = (event) =>{
+        setPassword(event.target.value)
     }
 
     const onConfrimPasswordHandler = (event) => {
@@ -116,10 +131,6 @@ function Register(props) {
             password: Password
         }
 
-        //         // action으로 변경중
-        // axios.post('/api/users/login', body)
-        // .then(response =>{
-        // })
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
@@ -179,7 +190,7 @@ function Register(props) {
                                 <i class="fas fa-lock" />
                             </div>
                             <div className={styles.div}>
-                                <input type="password" value={Password} onChange={onPasswordHandler} name="password" placeholder="PASSWORD" />
+                                <input type="password" value={Password} onChange={onChangePassword} name="password" placeholder="PASSWORD" />
                             </div>
                         </div>
                         <span >{PasswordMessage}</span>
