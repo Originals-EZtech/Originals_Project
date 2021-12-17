@@ -30,7 +30,19 @@ export default class RoomJoinComp extends React.Component {
       .then((json) => {
         console.log(json);
         console.log("json: "+json);
-        alert(json.rows[0]+'에 입장했습니다');
+        console.log("json.rows[0]: "+json.rows[0]);
+        this.setState({
+          room_id_check: json.rows[0],
+        });
+        console.log("state.room_id"+this.state.room_id);
+        console.log("state.room_password"+this.state.room_password)
+        console.log("state.room_id_check"+this.state.room_id_check)
+        if ( this.state.room_id_check==undefined ) {
+          return alert('방이 없습니다');
+        } else {
+          return alert(this.state.room_id_check+' 을 찾았습니다');;
+        }
+      
       });
       
     }
@@ -40,18 +52,17 @@ export default class RoomJoinComp extends React.Component {
   //     = '<div style="color:blue">InnerHTML<div>';
   // } 
   
-  render() {    
-
+  render() {   
     return (
       <div>
         <input type='number' name="room_id" onChange={this.handlChange} placeholder="방 고유번호"/>
         <input type='number' name="room_password" onChange={this.handlChange}placeholder="방 비밀번호"/><br></br>
-        <button onClick= { this.searchclick }>
-          <Link to="/roomparticipant">
-            <h3>입장하기</h3>
-          </Link>
-        </button>
+        <button onClick= { this.searchclick }><h3>방찾기</h3></button>
+        <h3><Link to="/roomparticipant">{this.state.room_id_check}</Link></h3>
         <h3>방: {this.state.room_id} <br></br>비번: {this.state.room_password} </h3>
+        {/* <Link to="/roomparticipant"><h3>입장하기</h3></Link> */}
+        {/* <h3>{this.state.room_id_check===undefined? (<Link to="../roomjoin"><h3>입장하기</h3></Link>):(<Link to="/roomparticipant"><h3>입장하기</h3></Link>)}</h3> */}
+        {/* <h3>{rendering()}</h3> */}
       </div>
     );
   }

@@ -330,7 +330,7 @@ https://templatemo.com/tm-516-known
 
   .home-slider .item {
     background-size: cover;
-    height: 700px;
+    height: 665px;
   }
   
   .home-slider .item-first {
@@ -339,6 +339,8 @@ https://templatemo.com/tm-516-known
   }
 
 
+
+  
   /*---------------------------------------
       TEAM              
   -----------------------------------------*/
@@ -373,13 +375,14 @@ https://templatemo.com/tm-516-known
   }
 
 
+
   /*---------------------------------------
       COURSES             
   -----------------------------------------*/
 
   #courses .section-title {
     text-align: center;
-    padding-bottom: 10;
+    padding-bottom: 80px;
   }
 
   #courses .owl-theme .owl-nav {
@@ -411,18 +414,18 @@ https://templatemo.com/tm-516-known
   }
 
   .courses-image {
-    background: linear-gradient(to right, #202020, #101010);
+    background: white;
   }
 
   .courses-image img {
     width: 10px;
     height: 100%;
     background-color: white;
-
   }
 
   .courses-detail {
     padding: 25px 25px 15px 25px;
+    text-align: center;
   }
 
   .courses-detail h3 {
@@ -446,18 +449,9 @@ https://templatemo.com/tm-516-known
     background: #ffffff;
   }
 
-  #contact h2 {
-    color: #29ca8e;
-  }
-
   #contact .section-title {
-    padding-bottom: 20px;
-  }
-
-  #contact h2 > small,
-  #contact p,
-  #contact a {
-    color: #29ca8e;
+    text-align: center;
+    padding-bottom: 30px;
   }
 
   #contact-form {
@@ -491,8 +485,7 @@ https://templatemo.com/tm-516-known
     color: #29ca8e;
   }
   
-
-
+  
 
   /*---------------------------------------
      FOOTER              
