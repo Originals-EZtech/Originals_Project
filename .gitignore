@@ -7,8 +7,8 @@
 
 # db
 dbConfig.js
-mailCongig.js
-mybatusConfig.js
+mailConfig.js
+mybatisConfig.js
 # testing
 /coverage
 
