@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MainNavBar from '../NavBar/MainNavBar';
 import Footer from '../Footer/Footer';
 import {Link} from 'react-router-dom';
 
 function MainPage() {
+
+    useEffect(() => {
+    }, [])
 
     const mainStyle={
         paddingTop: 70
