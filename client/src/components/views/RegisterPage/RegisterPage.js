@@ -13,23 +13,28 @@ function Register(props) {
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
     const [ConfirmPassword, setConfirmPassword] = useState("")
-    const [authCode, setAuthCode] = useState("");
-    const [securityCode, setSecurityCode] = useState("");
+    const [AuthCode, setAuthCode] = useState("");
+    const [SecurityCode, setSecurityCode] = useState("");
 
     // 유효성 통과 상태
-    const [isEmail, setIsEmail] = useState(false)
+    const [IsEmail, setIsEmail] = useState(false)
+    const [IsPassword, setIsPassword] = useState(false)
+
 
     // 정규식 메세지 상태
     const [EmailMessage, setEmailMessage] = useState("")
     const [PasswordMessage, setPasswordMessage] = useState("")
     const [ConfirmPasswordMessage, setConfirmPasswordMessage] = useState("")
+    const [AuthCodeMessage, setAuthCodeMessage] = useState("")
 
 
     const onEmailHandler = (event) => {
         const emailRegex =
             /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-        setEmail(event.currentTarget.value)
-        if (!emailRegex.test(Email)) {
+        setEmail(event.target.value)
+        if(event.target.value.length<1){
+            setEmailMessage('')
+        }else if (!emailRegex.test(event.target.value)) {
             setEmailMessage('이메일 형식이 틀렸습니다.')
             setIsEmail(false)
         } else {
@@ -40,22 +45,24 @@ function Register(props) {
 
     const onPasswordHandler = (event) => {
         const passwordRegex = 
-        /^.*((?=.*[0-9])(?=.*[a-zA-Z]){8,16}).*$/
-        setPassword(event.currentTarget.value)
-        if(!passwordRegex.test(Password)){
-            setPasswordMessage('8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.')
+        /^.*(?=.*[0-9])(?=.*[a-zA-Z]).*$/
+        setPassword(event.target.value)
+        if(event.target.value.length<1){
+            setPasswordMessage('')
+        } else if(event.target.value.length > 16 || !passwordRegex.test(event.target.value) || event.target.value.length < 8){
+            setPasswordMessage('8~16자 영문, 숫자를 사용하세요.')
+            setIsPassword(false)
         } else {
             setPasswordMessage('올바른 비밀번호 형식이에요 ')
+            setIsPassword(true)
         }
-
     }
 
     const onConfrimPasswordHandler = (event) => {
-        setConfirmPassword(event.currentTarget.value)
-        if (Password.length < 1) {
+        setConfirmPassword(event.target.value)
+        if (event.target.value.length < 1) {
             setConfirmPasswordMessage("패스워드 입력")
-        }
-        if (Password === event.target.value) {
+        }else if (Password === event.target.value) {
             setConfirmPasswordMessage("비밀번호가 일치합니다.")
         } else {
             setConfirmPasswordMessage("비밀번호가 틀립니다. 다시 확인해주세요")
@@ -63,7 +70,11 @@ function Register(props) {
     }
 
     const getAuthCode = (event) => {
-        setAuthCode(event.currentTarget.value)
+        setAuthCode(event.target.value)
+        if(SecurityCode === event.target.value){
+            setAuthCodeMessage("보안코드 일치해요")
+        }else 
+        setAuthCodeMessage("보안코드가 일치하지않습니다.")
     }
 
 
@@ -88,7 +99,7 @@ function Register(props) {
             .then(response => {
                 if (response.payload.sendCodeSuccess) {
                     setSecurityCode(response.payload.authNum)
-                    console.log("securityCode : ", securityCode)
+                    console.log("securityCode : ", SecurityCode)
                 } else if (!response.payload.sendCodeSuccess) {
                     console.log(1, response.payload.msg);
                     alert(response.payload.msg)
@@ -154,6 +165,8 @@ function Register(props) {
                                 <input type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USERNAME" />
                             </div>
                         </div>
+
+
                         <span >{EmailMessage}</span>
                         <div className={classnames(styles.input_div, styles.one)}>
                             <div className={styles.div}>
@@ -162,18 +175,17 @@ function Register(props) {
                         </div>
 
 
-
-
-
                         <div className={classnames(styles.input_div, styles.pass)}>
                             <div className={styles.i}>
                                 <i class="fas fa-check" />
                             </div>
                             <div className={styles.div}>
-                                <input type="text" name="authCode" placeholder="CODE" value={authCode} onChange={getAuthCode} />
+                                <input type="text" name="AuthCode" placeholder="CODE" value={AuthCode} onChange={getAuthCode} />
                             </div>
-
                         </div>
+
+                        <span >{AuthCodeMessage}</span>
+
                         <div className={classnames(styles.input_div, styles.pass)}>
                             <div className={styles.i}>
                                 <i class="fas fa-lock" />
