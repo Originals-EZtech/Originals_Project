@@ -36,12 +36,9 @@ function Login() {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
-                    // console.log(response)
-                    console.log(response.payload.loginSuccess)
-                    alert('success')
+                    alert(response.payload.msg)
                 } else {
-                    console.log("111111111",response.payload) ;                   console.log(body)
-                    alert('Error')
+                    alert(response.payload.msg);
                 }
             })
         // action으로 변경중
