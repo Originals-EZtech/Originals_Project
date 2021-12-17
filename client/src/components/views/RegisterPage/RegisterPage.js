@@ -40,7 +40,7 @@ function Register(props) {
 
     const onPasswordHandler = (event) => {
         const passwordRegex = 
-        /^.*((?=.*[0-9])(?=.*[a-zA-Z]){6,15}).*$/
+        /^.*((?=.*[0-9])(?=.*[a-zA-Z]){8,16}).*$/
         setPassword(event.currentTarget.value)
         if(!passwordRegex.test(Password)){
             setPasswordMessage('8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.')
@@ -124,6 +124,7 @@ function Register(props) {
             .then(response => {
                 if (response.payload.success) {
                     // props.navigate('/login');
+                    alert("success to sign up")
                 } else {
                     alert("Failed to sign up")
                 }
@@ -154,11 +155,11 @@ function Register(props) {
                             </div>
                         </div>
                         <span >{EmailMessage}</span>
-                        {/* <div className={classnames(styles.input_div, styles.one)}>
+                        <div className={classnames(styles.input_div, styles.one)}>
                             <div className={styles.div}>
                                 <button onClick={authEmailHandler}>이메일 인증</button>
                             </div>
-                        </div> */}
+                        </div>
 
 
 

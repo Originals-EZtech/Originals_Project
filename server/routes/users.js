@@ -107,8 +107,11 @@ router.post("/register", function (req, res) {
         conn.execute('insert into users (EMAIL, PASSWORD) values(:email,:password)', param, function (err, result, fields) {
             if (err) {
                 console.log("insert 실패");
-            }
-            res.send(param);
+            } else{
+            res.status(200).json({
+                success: true
+            })
+        }
             // console.log(result.rowsAffected);
             console.log("insert 성공");
         })
