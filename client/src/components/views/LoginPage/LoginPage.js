@@ -38,9 +38,12 @@ function Login() {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
+                    // console.log(response)
+                    // console.log(response.payload.loginSuccess)
+                    alert('success')
+                    // 뒤로가기 방지 페이지 이동
+                    window.location.href="/";
                     // navigate('/')
-                    alert(response.payload.msg)
-                    console.log('login')
                 } else {
                     alert('err');
                     alert(response.payload.msg);
@@ -54,11 +57,6 @@ function Login() {
     }
     return (
         <div>
-            {/* <section class="preloader">
-                <div class="spinner">
-                    <span class="spinner-rotate"></span>
-                </div>
-            </section> */}
 
             <SubNavBar />
 

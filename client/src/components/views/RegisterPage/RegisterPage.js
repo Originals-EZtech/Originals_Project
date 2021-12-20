@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { registerUser, authEmail } from '../../../_actions/user_action';
 import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function Register(props) {
-    // let navigate = useNavigate();
+function Register() {
+    let navigate = useNavigate();
 
     const dispatch = useDispatch();
 
-    const [Email, setEmail] = useState("")
-    const [Password, setPassword] = useState("")
-    const [ConfirmPassword, setConfirmPassword] = useState("")
+    const [Email, setEmail] = useState("");
+    const [Password, setPassword] = useState("");
+    const [ConfirmPassword, setConfirmPassword] = useState("");
     const [AuthCode, setAuthCode] = useState("");
     const [SecurityCode, setSecurityCode] = useState("");
 
@@ -96,7 +96,6 @@ function Register(props) {
         // console.log('client에서 받아온  body1', body)
 
         dispatch(authEmail(body))
-            // console.log('client에서 받아온  body2', body)
             .then(response => {
                 if (response.payload.sendCodeSuccess) {
                     setSecurityCode(response.payload.authNum)
@@ -115,13 +114,34 @@ function Register(props) {
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
-        
-        // console.log('Email', Email)
-        // console.log('Password', Password)
 
+        // 예외처리
+
+        // 입력하지 않은 값이 존재할 경우
+        if (Email === "" || Password === "" || ConfirmPassword === "" || AuthCode === "") {
+            return alert('모든 값을 입력하세요');
+        }
+
+        // 이메일 인증 안했을 경우
+
+        // 보안코드가 일치하지 않을 경우
+        if (AuthCode !== SecurityCode) {
+            return alert('보안코드가 일치하지 않습니다.');
+        }
+
+        // 올바른 비밀번호 형식 아닐 경우
+        const passwordRegex = 
+            /^.*((?=.*[0-9])(?=.*[a-zA-Z]){8,16}).*$/
+        if (!passwordRegex.test(Password)) {
+            return alert('올바른 비밀번호 형식이 아닙니다.');
+        }
+
+        // 입력한 비밀번호와 비밀번호 확인이 같지 않을 경우
         if (Password !== ConfirmPassword) {
             return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
+
+        
         let body = {
             email: Email,
             password: Password
@@ -140,11 +160,6 @@ function Register(props) {
 
     return (
         <div>
-            {/* <section class="preloader">
-                <div class="spinner">
-                    <span class="spinner-rotate"></span>
-                </div>
-            </section> */}
 
             <SubNavBar />
 
@@ -165,13 +180,12 @@ function Register(props) {
 
                         <div className={classnames(styles.input_div, styles.pass)}>
                             <div className={styles.i}>
-                                <i class="fas fa-check" />
+                                <i class="fas fa-at" />
                             </div>
                             <div className={styles.div}>
                                 <input type="text" name="AuthCode" placeholder="CODE" value={AuthCode} onChange={getAuthCode} />
                             </div>
                         </div>
-
                         <span >{AuthCodeMessage}</span>
 
                         <div className={classnames(styles.input_div, styles.pass)}>
@@ -193,7 +207,7 @@ function Register(props) {
                             </div>
                         </div>
                         <span >{ConfirmPasswordMessage}</span>
-                        <br />
+                        {/* <br /> */}
                         <input type="submit" className={styles.btn} value="SIGN UP" />
 
                         <br />
@@ -217,4 +231,10 @@ function Register(props) {
     );
 }
 
-export default Register;
+const mapStoreStateToProps = (state) => {
+    return {
+        showLoading: state.showLoading,
+    };
+};
+
+export default connect(mapStoreStateToProps)(Register);
