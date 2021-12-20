@@ -42,8 +42,8 @@ function Login() {
                     // console.log(response.payload.loginSuccess)
                     alert('success')
                     // 뒤로가기 방지 페이지 이동
-                    // window.location.replace="/";
-                    navigate('/')
+                    window.location.href="/";
+                    // navigate('/')
                 } else {
                     // console.log("111111111",response.payload) ;
                     alert('Error')
