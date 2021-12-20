@@ -7,8 +7,11 @@ const ejs = require('ejs');
 const saltRounds = 10
 const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
+const cookieParser = require('cookie-parser');
+var jwt = require('jsonwebtoken');
 oracledb.autoCommit = true;
 
+router.use(cookieParser());
 
 //oracledb connection
 var conn;
@@ -131,7 +134,6 @@ router.post("/login", function (req, res) {
         res.status(200).json({
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
         })
-        return;
     }
     conn.execute('select EMAIL, PASSWORD from users where EMAIL = :email ', userEmail, function (err, result) {
         if (err) console.log("select err", err)
@@ -149,9 +151,25 @@ router.post("/login", function (req, res) {
                 }
                 // 비번 일치한다면
                 if (resultt) {
-                    res.status(200).json({
-                        loginSuccess: true, msg: req.body.email + " 로그인 성공"
+                    console.log("token 생성시작")
+                    var token = jwt.sign(req.body.email, 'secretKey');
+                    const completedToken = [token,req.body.email]
+                    conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
+                        if (err2) {
+                            console.log("토큰 insert 실패");
+                        } else {
+                            console.log("토큰 insert 성공");
+                        }
+                        console.log("sign-up with token insert 성공");
                     })
+                    // res.status(200).json({
+                    //     loginSuccess: true, msg: req.body.email + " 로그인 성공", token: completedToken
+                    // })
+
+                    res.cookie("x_auth", completedToken[0])
+                    .status(200)
+                    .json({ loginSucess: true, userId: completedToken[1] })
+
                     // 비번일치안한다면
                 } else {
                     res.status(200).json({
@@ -161,13 +179,29 @@ router.post("/login", function (req, res) {
             })
         }
     })
-
-    
-
-
-
-
 });
+
+// 쿠키 확인
+app.get('/api/users/auth', auth, (req,res) =>{
+
+
+    conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
+        if (err2) {
+            console.log(" 검증 실패");
+        } else {
+            console.log(" 검증 성공");
+        }
+        console.log("검증 마무리 성공");
+    })
+
+    //여기 까지 미들웨어를 통과해 왔다는 얘기는 Authentication이 True 라는 말.
+    res.status(200).json({
+        _id: req.id,
+        isAuth: true,
+        email: req.user.email,
+        name: req.user.name
+    })
+})
 
 
 
