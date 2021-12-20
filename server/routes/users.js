@@ -131,7 +131,6 @@ router.post("/login", function (req, res) {
         res.status(200).json({
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
         })
-        console.log("여긴가???")
         return;
     }
     conn.execute('select EMAIL, PASSWORD from users where EMAIL = :email ', userEmail, function (err, result) {
@@ -162,6 +161,12 @@ router.post("/login", function (req, res) {
             })
         }
     })
+
+    
+
+
+
+
 });
 
 
