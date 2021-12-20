@@ -5,10 +5,10 @@ import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 function Register(props) {
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -130,7 +130,7 @@ function Register(props) {
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    navigate('/login');
+                    // navigate('/login');
                     alert("success to sign up")
                 } else {
                     alert("Failed to sign up")

@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { Link } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -38,8 +38,11 @@ function Login() {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
+                    // navigate('/')
                     alert(response.payload.msg)
+                    console.log('login')
                 } else {
+                    alert('err');
                     alert(response.payload.msg);
                 }
             })
@@ -47,6 +50,7 @@ function Login() {
         // Axios.post('/api/users/login', body)
         // .then(response =>{
         // })
+
     }
     return (
         <div>

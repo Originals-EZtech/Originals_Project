@@ -1,5 +1,5 @@
 import {
-    LOGIN_USER, REGISTER_USER, AUTH_EMAIL
+    LOGIN_USER, REGISTER_USER, AUTH_EMAIL, AUTH_USER
 } from '../_actions/types'
 // sendCodeSuccess
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -11,6 +11,8 @@ export default function (state = {}, action) {
             return { ...state, register: action.payload }
         case AUTH_EMAIL:
             return { ...state, sendCodeSuccess: action.payload }
+        case AUTH_USER:
+            return { ...state, userData: action.payload }
         default:
             return state;
     }

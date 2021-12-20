@@ -7,11 +7,11 @@ const ejs = require('ejs');
 const saltRounds = 10
 const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
-const cookieParser = require('cookie-parser');
 var jwt = require('jsonwebtoken');
 oracledb.autoCommit = true;
+// const cookieParser = require('cookie-parser');
 
-router.use(cookieParser());
+// router.use(cookieParser());
 
 //oracledb connection
 var conn;
@@ -137,7 +137,6 @@ router.post("/login", function (req, res) {
     }
     conn.execute('select EMAIL, PASSWORD from users where EMAIL = :email ', userEmail, function (err, result) {
         if (err) console.log("select err", err)
-
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
             res.status(200).json({
@@ -149,26 +148,22 @@ router.post("/login", function (req, res) {
                 if (error) {
                     console.log("bcrypt.compare", error)
                 }
-                // 비번 일치한다면
+                // 비번 일치한다면 토큰 배급 시작
                 if (resultt) {
                     console.log("token 생성시작")
                     var token = jwt.sign(req.body.email, 'secretKey');
-                    const completedToken = [token,req.body.email]
+                    const completedToken = [token, req.body.email]
                     conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
                         if (err2) {
                             console.log("토큰 insert 실패");
                         } else {
                             console.log("토큰 insert 성공");
+                            console.log("sign-in with token insert 성공");
+                            res.cookie("x_auth", completedToken[0])
+                                .status(200)
+                                .json({ loginSuccess: true, userId: completedToken[1], msg: req.body.email + " 로그인 성공" })
                         }
-                        console.log("sign-up with token insert 성공");
                     })
-                    // res.status(200).json({
-                    //     loginSuccess: true, msg: req.body.email + " 로그인 성공", token: completedToken
-                    // })
-
-                    res.cookie("x_auth", completedToken[0])
-                    .status(200)
-                    .json({ loginSucess: true, userId: completedToken[1] })
 
                     // 비번일치안한다면
                 } else {
@@ -181,30 +176,29 @@ router.post("/login", function (req, res) {
     })
 });
 
-// 쿠키 확인
-app.get('/api/users/auth', auth, (req,res) =>{
+router.get('/auth', function (req, res) {
+    // 쿠키에 있는 token 정보
+    let token = req.cookies.x_auth;
 
-
-    conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
-        if (err2) {
-            console.log(" 검증 실패");
-        } else {
-            console.log(" 검증 성공");
-        }
-        console.log("검증 마무리 성공");
-    })
-
-    //여기 까지 미들웨어를 통과해 왔다는 얘기는 Authentication이 True 라는 말.
-    res.status(200).json({
-        _id: req.id,
-        isAuth: true,
-        email: req.user.email,
-        name: req.user.name
+    jwt.verify(token, 'secretKey', function (err, decoded) {
+        conn.execute('select TOKEN, EMAIL from users where TOKEN = :token', [token], function (err, result) {
+            // console.log("watis decoded? ", decoded)
+            // console.log("aB", token);
+            // console.log("11111111111111111",result.rows[0][0]);
+            // const test = req.rawHeaders.indexOf('x_auth=eyJhbGciOiJIUzI1NiJ9.c3VraHl1bmlsMTlAZ21haWwuY29t.61kL8n2n3gEqPAHINy1p2ODZAztA-AIaWRo3TsIaLyY');
+            // console.log(test)
+            // console.log("머임? ",req.rawHeaders.indexOf("x_auth="))
+            // res.send(req)
+            if(err)console.log(err)
+            console.log("서버까지옴?")
+            req.token = token
+            req.user = decoded
+            res.status(200).json({
+                isAuth: true,
+                email: req.user
+            })
+        })
     })
 })
-
-
-
-
 
 module.exports = router;

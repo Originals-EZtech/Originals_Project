@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-    LOGIN_USER, REGISTER_USER, AUTH_EMAIL
+    LOGIN_USER, REGISTER_USER, AUTH_EMAIL, AUTH_USER
 } from './types';
 
 export function loginUser(dataTosubmit) {
@@ -26,14 +26,27 @@ export function registerUser(dataTosubmit) {
     }
 }
 
+
+// auth email 
 export function authEmail(dataTosubmit) {
 
-    console.log('yes');
     const request = axios.post('/api/users/emailauth', dataTosubmit)
         .then(response => response.data)
 
     return {
         type: AUTH_EMAIL,
+        payload: request
+    }
+}
+
+// auth token 
+export function auth() {
+    console.log("여긴가?")
+    const request = axios.get('/api/users/auth')
+        .then(response => response.data)
+
+    return {
+        type: AUTH_USER,
         payload: request
     }
 }
