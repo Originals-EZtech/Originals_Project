@@ -66,7 +66,7 @@ router.post('/emailauth', (req, res) => {
             subject: "Originals 회원가입 코드",
             html: emailTemplete
         };
-        smtpTransport.sendMail(mailOptions, (error, res) => {
+        smtpTransport.sendMail(mailOptions, (error, res23) => {
             console.log("nodemailer 시작");
 
             if (error) {
