@@ -28,7 +28,6 @@ export function registerUser(dataTosubmit) {
 
 export function authEmail(dataTosubmit) {
 
-    console.log('yes');
     const request = axios.post('/api/users/emailauth', dataTosubmit)
         .then(response => response.data)
 

@@ -41,6 +41,8 @@ function Login() {
                     // console.log(response)
                     // console.log(response.payload.loginSuccess)
                     alert('success')
+                    // 뒤로가기 방지 페이지 이동
+                    // window.location.replace="/";
                     navigate('/')
                 } else {
                     // console.log("111111111",response.payload) ;
@@ -54,11 +56,6 @@ function Login() {
     }
     return (
         <div>
-            {/* <section class="preloader">
-                <div class="spinner">
-                    <span class="spinner-rotate"></span>
-                </div>
-            </section> */}
 
             <SubNavBar />
 

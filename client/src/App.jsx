@@ -1,5 +1,8 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import './App.css';
+
 import MainPage from './components/views/MainPage/MainPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
@@ -9,20 +12,34 @@ import RoomJoin from './components/views/Room/RoomJoin';
 import RoomAdmin from './components/views/Room/RoomAdmin';
 import RoomParticipant from './components/views/Room/RoomParticipant';
 
+const AnimatedSwitch = () => {
+  const location = useLocation();
+
+  return (
+    <TransitionGroup component={null}>
+      <CSSTransition key={location.key} classNames="fade" timeout={500}>
+        <Routes location={location}>
+        <Route path="/" element={<MainPage/>} />
+            <Route path="/login" element={<LoginPage/>} />
+            <Route path="/register" element={<RegisterPage/>} />
+            <Route path="/room" element={<Room/>} />
+            <Route path="/roomcreate" element={<RoomCreate/>} />
+            <Route path="/roomjoin" element={<RoomJoin/>} />
+            <Route path="/roomadmin" element={<RoomAdmin/>} />
+            <Route path="/roomparticipant" element={<RoomParticipant/>} />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
+  );
+};
+
 function App() {
   return (
-    <div>
-        <Routes>
-          <Route exact path="/" element={<MainPage/>} />
-          <Route exact path="/login" element={<LoginPage/>} />
-          <Route exact path="/register" element={<RegisterPage/>} />
-          <Route exact path="/room" element={<Room/>} />
-          <Route exact path="/roomcreate" element={<RoomCreate/>} />
-          <Route exact path="/roomjoin" element={<RoomJoin/>} />
-          <Route exact path="/roomadmin" element={<RoomAdmin/>} />
-          <Route exact path="/roomparticipant" element={<RoomParticipant/>} />
-        </Routes>
-      </div>
+    <div className="App">
+      <BrowserRouter>
+        <AnimatedSwitch />
+      </BrowserRouter>
+    </div>
   );
 }
 
