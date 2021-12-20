@@ -6,8 +6,53 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api/users', require('./routes/users'));
+<<<<<<< HEAD
 app.use('/api/data2', require('./routes/rooms'));
 app.use('/api/test', require('./routes/mailtest'));
+=======
+ 
+/* 12/15 작업중-------------------------------------
+
+DB 설정
+const oracledb = require('oracledb');
+const dbConfig = require('./config/dbConfig');
+const mybatisConfig = require('./config/mybatisConfig')
+oracledb.autoCommit = true;
+
+mybatis-mapper 추가
+const mybatisMapper = require('mybatis-mapper');
+
+Mapper Load
+mybatisMapper.createMapper([mybatisConfig.mybatisURL]);
+console.log([mybatisConfig.mybatisURL]);
+var conn;
+oracledb.getConnection(dbConfig, function (err, con) {
+    if(err){
+        console.log('접속 실패', err);
+        return;
+    }
+    conn = con;
+    console.log('접속 성공');
+});
+
+
+app.get("/api/list",function(req,res){
+    
+    conn.execute("select * from test", function(err,result, fields){
+        //field는 칼럼
+        if(err){
+            console.log("조회 실패");
+        }
+        console.log(result.rows);
+        console.log("조회 성공");
+        
+    }
+    )});
+    
+    */
+
+// app.get('/', (req, res) => res.send('Hello World ~~~~~ HIHI'));
+>>>>>>> c376b3e021b9f9361daae2cf35509b8846c0132a
 
 app.get('/api/hello', (req, res) => {
     oracledb.getConnection(dbConfig, (err, conn) => {
