@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, useLocation, Switch } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './App.css';
 
@@ -19,16 +19,23 @@ const AnimatedSwitch = () => {
   return (
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
-        <Routes location={location}>
-        <Route path="/" element={<MainPage/>} />
-            <Route path="/login" element={<LoginPage/>} />
+        <Switch location={location}>
+        <Route exact path="/" component={Auth(MainPage, null )  } />
+        <Route exact path="/login" component={Auth(LoginPage, null )  } />
+        <Route exact path="/register" component={Auth(RegisterPage, null )  } />
+        <Route exact path="/room" component={Auth(Room, null )  } />
+        <Route exact path="/roomcreate" component={Auth(RoomCreate, null )  } />
+        <Route exact path="/RoomJoin" component={Auth(RoomJoin, null )  } />
+        <Route exact path="/RoomAdmin" component={Auth(RoomAdmin, null )  } />
+        <Route exact path="/RoomParticipant" component={Auth(RoomParticipant, null )  } />
+            {/* <Route path="/login" element={<LoginPage/>} />
             <Route path="/register" element={<RegisterPage/>} />
             <Route path="/room" element={<Room/>} />
             <Route path="/roomcreate" element={<RoomCreate/>} />
             <Route path="/roomjoin" element={<RoomJoin/>} />
             <Route path="/roomadmin" element={<RoomAdmin/>} />
-            <Route path="/roomparticipant" element={<RoomParticipant/>} />
-        </Routes>
+            <Route path="/roomparticipant" element={<RoomParticipant/>} /> */}
+        </Switch>
       </CSSTransition>
     </TransitionGroup>
   );

@@ -66,16 +66,18 @@ router.post('/emailauth', (req, res) => {
             subject: "Originals 회원가입 코드",
             html: emailTemplete
         };
-
         smtpTransport.sendMail(mailOptions, (error, res) => {
+            console.log("nodemailer 시작");
 
             if (error) {
-                res.json({ msg: 'err' });
+                res.json({ msg: '보안코드 발급 실패' });
+                console.log("nodemailer 에러임?");
             } else {
+                console.log("발급한 보안코드 ",authNum);
                 res.status(200).json({
                     sendCodeSuccess: true, authNum: authNum
                 })
-                console.log(authNum);
+                
             }
             console.log("nodemailer종료");
             smtpTransport.close();
@@ -150,15 +152,13 @@ router.post("/login", function (req, res) {
                 }
                 // 비번 일치한다면 토큰 배급 시작
                 if (resultt) {
-                    console.log("token 생성시작")
                     var token = jwt.sign(req.body.email, 'secretKey');
                     const completedToken = [token, req.body.email]
                     conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
                         if (err2) {
                             console.log("토큰 insert 실패");
                         } else {
-                            console.log("토큰 insert 성공");
-                            console.log("sign-in with token insert 성공");
+                            console.log("토큰 발급", token);
                             res.cookie("x_auth", completedToken[0])
                                 .status(200)
                                 .json({ loginSuccess: true, userId: completedToken[1], msg: req.body.email + " 로그인 성공" })
@@ -190,7 +190,7 @@ router.get('/auth', function (req, res) {
             // console.log("머임? ",req.rawHeaders.indexOf("x_auth="))
             // res.send(req)
             if(err)console.log(err)
-            console.log("서버까지옴?")
+            console.log(decoded,"토큰인증확인")
             req.token = token
             req.user = decoded
             res.status(200).json({

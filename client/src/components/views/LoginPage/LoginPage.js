@@ -6,11 +6,8 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { Link } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
-// import { useNavigate } from 'react-router-dom';
 
-function Login() {
-    // let navigate = useNavigate();
-
+function Login(props) {
     const dispatch = useDispatch();
 
     const [Email, setEmail] = useState("")
@@ -38,23 +35,20 @@ function Login() {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
-                    // console.log(response)
-                    // console.log(response.payload.loginSuccess)
-                    alert('success')
+                    alert(response.payload.msg);
+
+                    // alert('success')
                     // 뒤로가기 방지 페이지 이동
                     window.location.href="/";
                     // navigate('/')
+                    // props.history.push('/login')
                 } else {
                     alert('err');
                     alert(response.payload.msg);
                 }
             })
-        // action으로 변경중
-        // Axios.post('/api/users/login', body)
-        // .then(response =>{
-        // })
-
     }
+
     return (
         <div>
 
