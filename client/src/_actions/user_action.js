@@ -42,10 +42,10 @@ export function authEmail(dataTosubmit) {
 // auth token 
 export function auth() {
     console.log("여긴가?")
-    const request = axios.get('/api/users/auth')
+    const request = axios.get('/api/users/auth') //endpoint로 get request, get이니까 login과 다르게 param x
         .then(response => response.data)
 
-    return {
+    return { //Action 끝내고 이제 Reducer로 보냄
         type: AUTH_USER,
         payload: request
     }
