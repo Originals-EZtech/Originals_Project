@@ -40,7 +40,6 @@ function Login(props) {
                     // window.location.href="/";
                     props.history.push('/');
                 } else {
-                    alert('err');
                     alert(response.payload.msg);
                 }
             })

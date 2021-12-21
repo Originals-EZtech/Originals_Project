@@ -9,6 +9,7 @@
 dbConfig.js
 mybatisConfig.js
 mailConfig.js
+tokenConfig.js
 # testing
 /coverage
 
