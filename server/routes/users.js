@@ -68,16 +68,15 @@ router.post('/emailauth', (req, res) => {
         };
         smtpTransport.sendMail(mailOptions, (error, res23) => {
             console.log("nodemailer 시작");
-
+            
             if (error) {
-                res.json({ msg: '보안코드 발급 실패' });
+                res.json({ msg: '이메일 주소를 확인해주세요' });
                 console.log("nodemailer 에러임?");
             } else {
                 console.log("발급한 보안코드 ",authNum);
                 res.status(200).json({
-                    sendCodeSuccess: true, authNum: authNum
+                    sendCodeSuccess: true, authNum: authNum, msg: '인증 메일 발송 완료'
                 })
-                
             }
             console.log("nodemailer종료");
             smtpTransport.close();
@@ -182,13 +181,6 @@ router.get('/auth', function (req, res) {
 
     jwt.verify(token, 'secretKey', function (err, decoded) {
         conn.execute('select TOKEN, EMAIL from users where TOKEN = :token', [token], function (err, result) {
-            // console.log("watis decoded? ", decoded)
-            // console.log("aB", token);
-            // console.log("11111111111111111",result.rows[0][0]);
-            // const test = req.rawHeaders.indexOf('x_auth=eyJhbGciOiJIUzI1NiJ9.c3VraHl1bmlsMTlAZ21haWwuY29t.61kL8n2n3gEqPAHINy1p2ODZAztA-AIaWRo3TsIaLyY');
-            // console.log(test)
-            // console.log("머임? ",req.rawHeaders.indexOf("x_auth="))
-            // res.send(req)
             if(err)console.log(err)
             console.log(decoded,"토큰인증확인")
             req.token = token

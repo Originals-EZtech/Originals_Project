@@ -95,13 +95,11 @@ function Register() {
             if (response.payload.sendCodeSuccess) {
                 setSecurityCode(response.payload.authNum)
                 console.log(response.payload.authNum)
-                alert('인증 메일 발송 완료');
+                alert(response.payload.msg);
             } else if (!response.payload.sendCodeSuccess) {
                 alert(response.payload.msg)
             }
             })
-            console.log(22222222222)
-
     }
 
     const onSubmitHandler = (event) => {
