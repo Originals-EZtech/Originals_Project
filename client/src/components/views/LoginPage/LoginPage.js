@@ -4,11 +4,10 @@ import styles from '../LoginPage/login.module.css';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
-// import { withRouter } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
     const dispatch = useDispatch();
 
     const [Email, setEmail] = useState("")
@@ -36,26 +35,18 @@ function Login() {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
-                    // console.log(response)
-                    console.log(response.payload.loginSuccess)
-                    alert('success')
+                    alert(response.payload.msg);
+                    // 뒤로가기 방지 페이지 이동
+                    // window.location.href="/";
+                    props.history.push('/room');
                 } else {
-                    console.log("111111111",response.payload) ;                   console.log(body)
-                    alert('Error')
+                    alert(response.payload.msg);
                 }
             })
-        // action으로 변경중
-        // Axios.post('/api/users/login', body)
-        // .then(response =>{
-        // })
     }
+
     return (
         <div>
-            {/* <section class="preloader">
-                <div class="spinner">
-                    <span class="spinner-rotate"></span>
-                </div>
-            </section> */}
 
             <SubNavBar />
 
@@ -97,4 +88,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default withRouter(Login);

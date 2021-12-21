@@ -2,6 +2,30 @@ const express = require('express');
 const router = express.Router();
 const mailConfig = require('../config/mailConfig');
 const nodemailer = require('nodemailer');
+var jwt = require('jsonwebtoken');
+
+
+
+
+router.get('/jwt', function (req,res){
+  var token = jwt.sign({ test:"test"},"secretKey",{
+    subject: "token' sub",
+    expiresIn: '60m',
+    issuer:"hyun"
+  });
+  console.log("토큰생성 : ", token);
+  res.send(token)
+  try {
+    var check = jwt.verify(token,"secretKey");
+    if(check){
+      console.log("검증",check.test);
+    }
+
+  } catch (e) {
+    console.log(e);
+  }
+
+})
 
 router.get('/send', async(req, res) => {
     const userEmail = req.body.email;

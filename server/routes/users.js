@@ -1,15 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const oracledb = require('oracledb');
 const dbConfig = require('../config/dbConfig');
 const mailConfig = require('../config/mailConfig');
+const tokenConfig = require('../config/tokenConfig');
 const bcrypt = require('bcrypt');
 const ejs = require('ejs');
 const saltRounds = 10
-oracledb.autoCommit = true;
+const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
+var jwt = require('jsonwebtoken');
+oracledb.autoCommit = true;
+// const cookieParser = require('cookie-parser');
 
+// router.use(cookieParser());
 
+//oracledb connection
+var conn;
+oracledb.getConnection(dbConfig, function (err, con) {
+    if (err) {
+        console.log('접속 실패', err);
+        return;
+    }
+    conn = con;
+    console.log('DB connection');
+});
 
 
 router.post('/emailauth', (req, res) => {
@@ -18,24 +32,23 @@ router.post('/emailauth', (req, res) => {
 
     conn.execute('select EMAIL from users where EMAIL = :email ', userEmail, function (err, result) {
         if (err) {
-            console.log("select err", err)
+            console.log("select error from emailauth", err)
         }
-        const a = result.rows == 0 ? true : false;
 
-        // 아이디가 이미 존재한다면
+        // 아이디가 이미 존재한다면        
         if (result.rows != 0) {
             console.log("이메일 인증 select query 실패");
             return res.status(200).json({
-                sendCodeSuccess: false, msg: userEmail+"은 이미 회원가입 되어있습니다."
+                sendCodeSuccess: false, msg: userEmail + "은 이미 회원가입 되어있습니다."
             })
         }
 
         // 아이디가 없다면 진행 
         let authNum = Math.random().toString().substring(2, 6);
         let emailTemplete;
-        ejs.renderFile('./server/emailAuth.ejs', { authCode: authNum }, function (err, data) {
-            if (err) {
-                console.log(err)
+        ejs.renderFile('./server/emailAuth.ejs', { authCode: authNum }, function (err2, data) {
+            if (err2) {
+                console.log(err2)
             }
             emailTemplete = data;
         });
@@ -46,7 +59,7 @@ router.post('/emailauth', (req, res) => {
                 user: mailConfig.user,
                 pass: mailConfig.pass
             }
-        })
+        });
 
         var mailOptions = {
             from: "testeryuja@gmail.com",
@@ -54,14 +67,16 @@ router.post('/emailauth', (req, res) => {
             subject: "Originals 회원가입 코드",
             html: emailTemplete
         };
-
-        smtpTransport.sendMail(mailOptions, (error, result) => {
-
+        smtpTransport.sendMail(mailOptions, (error, res23) => {
+            console.log("nodemailer 시작");
+            
             if (error) {
-                res.json({ msg: 'err' });
+                res.json({ msg: '이메일 주소를 확인해주세요' });
+                console.log("nodemailer 에러임?");
             } else {
+                console.log("발급한 보안코드 ",authNum);
                 res.status(200).json({
-                    sendCodeSuccess: true, authNum: authNum
+                    sendCodeSuccess: true, authNum: authNum, msg: '인증 메일 발송 완료'
                 })
             }
             console.log("nodemailer종료");
@@ -71,20 +86,8 @@ router.post('/emailauth', (req, res) => {
 });
 
 
-//oracledb connection
-var conn;
-oracledb.getConnection(dbConfig, function (err, con) {
-    if (err) {
-        console.log('접속 실패', err);
-        return;
-    }
-    conn = con;
-    console.log('접속 성공');
-});
-
-// SELECT query users
+// SELECT query all users
 router.get("/list", function (req, res) {
-
     conn.execute("select * from users", function (err, result, fields) {
         if (err) {
             console.log("조회 실패");
@@ -93,70 +96,116 @@ router.get("/list", function (req, res) {
         console.log(result.rows);
         console.log("조회 성공");
         res.send(result.rows)
-    }
-    )
+    })
 });
+
 
 // signup
 router.post("/register", function (req, res) {
     const param = [req.body.email, req.body.password]
     console.log("req: ", req.body)
-    bcrypt.hash(param[1], saltRounds, (err, hash) => {
-        param[1] = hash
-
-        conn.execute('insert into users (EMAIL, PASSWORD) values(:email,:password)', param, function (err, result, fields) {
-            if (err) {
-                console.log("insert 실패");
-            }
-            res.send(param);
-            // console.log(result.rowsAffected);
-            console.log("insert 성공");
+    if (param.email === '' || param.password === '') {
+        res.status(200).json({
+            success: false
         })
-    })
+    } else {
+        bcrypt.hash(param[1], saltRounds, (err, hash) => {
+            param[1] = hash
+
+            conn.execute('insert into users (EMAIL, PASSWORD) values(:email,:password)', param, function (err, result, fields) {
+                if (err) {
+                    res.status(200).json({
+                        success: false, msg: "회원가입 실패하셨습니다."
+                    })
+                    console.log("insert 실패");
+                } else {
+                    res.status(200).json({
+                        success: true, msg: "회원가입 되셨습니다."
+                    })
+                }
+                console.log("sign-up insert 성공");
+            })
+        })
+    }
 });
+
 
 //siginin
 router.post("/login", function (req, res) {
     const userEmail = [req.body.email]
     const userPassword = req.body.password
-    console.log("req: ", req.body)
-    console.log("reqemail: ", req.body.email)
-    console.log("reqpassword: ", req.body.password)
-
+    console.log(req.body.email, req.body.password)
+    if (req.body.email === '' || req.body.password === '') {
+        res.status(200).json({
+            loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
+        })
+    }
     conn.execute('select EMAIL, PASSWORD from users where EMAIL = :email ', userEmail, function (err, result) {
         if (err) console.log("select err", err)
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
-            console.log("select id 실패");
-            res.send("아이디 없음");
-            return;
+            res.status(200).json({
+                loginSuccess: false, msg: req.body.email + "는 등록되지않은 이메일입니다."
+            })
+        } else {
+            // 아이디가 존재한다면
+            bcrypt.compare(userPassword, result.rows[0][1], (error, resultt) => {
+                if (error) {
+                    console.log("bcrypt.compare", error)
+                }
+                // 비번 일치한다면 토큰 배급 시작
+                if (resultt) {
+                    console.log("토큰 배급직전")
+
+                    var token = jwt.sign({email: req.body.email}, tokenConfig.secretKey,{ expiresIn: "2h",issuer:"Originals-Team"});
+                    const completedToken = [token, req.body.email]
+                    console.log("배열에 넣은 토큰정보:", completedToken)
+                    conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
+                        if (err2) {
+                            console.log(err2)
+                            console.log("토큰 insert 실패");
+                        } else {
+                            console.log("토큰 발급", token);
+                            res.cookie("x_auth", completedToken[0])
+                                .status(200)
+                                .json({ loginSuccess: true, userId: completedToken[1], msg: req.body.email + " 로그인 성공" })
+                        }
+                    })
+
+                    // 비번일치안한다면
+                } else {
+                    res.status(200).json({
+                        loginSuccess: false, msg: req.body.email + " 비밀번호가 틀렸습니다."
+                    })
+                }
+            })
         }
-        // 아이디가 존재한다면
-        console.log("result.rows[0][1]", result.rows[0][1]);
-        console.log(userPassword);
-        bcrypt.compare(userPassword, result.rows[0][1], (err, resultt) => {
-            // console.log("req.body.pw: ",req.body.pw);
-            // console.log("result.rows[0][1]: ",result.rows[0][1]);
-            // console.log(typeof(resultt))
-            if (resultt) {
-                console.log(resultt)
-                // res.send("비번 일치o")
-                // res.send(result.rows[0]);
-                res.status(200).json({
-                    loginSuccess: true
-                })
-                console.log("비밀번호 일치");
-            } else {
-                console.log(resultt)
-                console.log("비밀번호가 틀렸습니다.")
-                res.send("비밀번호가 틀렸습니다.")
-            }
-        })
     })
 });
 
+router.get('/auth', function (req, res) {
+    // 쿠키에 있는 token 정보
+    let token = req.cookies.x_auth;
 
-
-
+    jwt.verify(token, tokenConfig.secretKey, function (err, decoded) {
+        conn.execute('select TOKEN, EMAIL from users where TOKEN = :token', [token], function (err, result) {
+            if(err)console.log(err)
+            if(!decoded) return res.json({isAuth: false, err : true})
+            console.log(decoded,"토큰인증확인")
+            req.token = token
+            req.user = decoded.email
+            req.iat = decoded.iat
+            req.exp = (decoded.exp-decoded.iat)/60 +"분"
+            req.issuer= decoded.iss
+            res.status(200).json({
+                isAuth: true,
+                email: req.user,
+                iat: req.iat,
+                exp:req.exp,
+                issuer: req.issuer
+            })
+        })
+    })
+})
 
 module.exports = router;

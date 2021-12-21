@@ -43,7 +43,10 @@ const searchclick=()=>{
           ...state,
           room_id_check: json.rows,
         });
-        if ( json.rows=="" ) {
+        console.log("state.room_id"+this.state.room_id);
+        console.log("state.room_password"+this.state.room_password)
+        console.log("state.room_id_check"+this.state.room_id_check)
+        if ( this.state.room_id_check===undefined ) {
           return alert('방이 없습니다');
         } else {
           return alert(json.rows+' 을 찾았습니다');;

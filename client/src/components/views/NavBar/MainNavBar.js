@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from '../NavBar/navbar.module.css';
+import { Link } from 'react-router-dom';
 
-function NavBar() {
+function MainNavBar() {
 
     const navbarStyle={
         float: "right"
@@ -27,13 +28,6 @@ function NavBar() {
 
     return (
         <div>
-            {/* <section class="preloader">
-                <div class="spinner">
-                    <span class="spinner-rotate"></span>
-                    
-                </div>
-            </section> */}
-          
             <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
@@ -53,8 +47,8 @@ function NavBar() {
                             <li><a href="#contact" class="smoothScroll">Contact</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" style={secondNav}>
-                            <li><a href="/login" class="smoothScroll" className={styles.loginStyle}>LogIn</a></li>
-                            <li><a href="/register" class="smoothScroll" className={styles.loginStyle}>SignUp</a></li>
+                            <li><Link to="/login" class="smoothScroll" className={styles.loginStyle}>LogIn</Link></li>
+                            <li><Link to="/register" class="smoothScroll" className={styles.loginStyle}>SignUp</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -63,4 +57,4 @@ function NavBar() {
     );
 }
 
-export default NavBar;
+export default MainNavBar;
