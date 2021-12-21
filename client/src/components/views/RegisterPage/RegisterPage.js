@@ -140,7 +140,7 @@ function Register(props) {
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    alert("success to sign up")
+                    alert(response.payload.msg)
                     props.history.push('/login');
                 } else {
                     alert("Failed to sign up")

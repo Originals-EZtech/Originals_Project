@@ -15,19 +15,20 @@ export default function (SpecificComponent, option, adminRoute = null) {
 
             dispatch(auth()).then(response => {
                 console.log(response)
+                // 로그인 안했을 경우
                 if (!response.payload.isAuth) {
+                    console.log("isAuth: ", response.payload.isAuth)
                     if (option) {
                         props.history.push('/login')
                     }
                 } else {
-                    //로그인 한 상태 
-                    if (adminRoute && !response.payload.isAdmin) {
+                    // 로그인 상태일때 못가는경우 
+                    if (option === false) {
                         props.history.push('/')
-                    } else {
-                        if (option === false)
-                            props.history.push('/')
                     }
                 }
+                // 나머진 null
+
             })
         }, [dispatch, props.history])
 
