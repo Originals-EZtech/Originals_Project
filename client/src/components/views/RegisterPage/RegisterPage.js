@@ -3,10 +3,10 @@ import { connect, useDispatch } from 'react-redux';
 import { registerUser, authEmail } from '../../../_actions/user_action';
 import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
 
-function Register() {
+function Register(props) {
     const dispatch = useDispatch();
 
     const [Email, setEmail] = useState("");
@@ -142,8 +142,8 @@ function Register() {
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    // navigate('/login');
                     alert("success to sign up")
+                    props.history.push('/login');
                 } else {
                     alert("Failed to sign up")
                 }
@@ -220,10 +220,4 @@ function Register() {
     );
 }
 
-const mapStoreStateToProps = (state) => {
-    return {
-        showLoading: state.showLoading,
-    };
-};
-
-export default connect(mapStoreStateToProps)(Register);
+export default withRouter(Register);

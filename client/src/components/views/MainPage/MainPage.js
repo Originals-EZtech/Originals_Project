@@ -11,25 +11,27 @@ function MainPage() {
     const [Loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 2000)
+        renderPage();
+        setLoading(false)
     }, []);
-    
-    return (
-        <div>
+
+    const renderPage = () => {
+        return (
+            <>
             <MainNavBar />
-            
             <div style={{paddingTop: 70}}></div>
-    
             <MainHome />
-            
             <MainService />
-            
             <MainContact />
-        
             <Footer />
-        </div>
+            </>
+        );
+    }
+
+    return Loading ? <Spinner /> : (
+        <>
+            {renderPage()}
+        </>
     )
 }
 
