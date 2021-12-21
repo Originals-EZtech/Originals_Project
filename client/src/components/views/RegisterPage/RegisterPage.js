@@ -95,13 +95,11 @@ function Register(props) {
             if (response.payload.sendCodeSuccess) {
                 setSecurityCode(response.payload.authNum)
                 console.log(response.payload.authNum)
-                alert('인증 메일 발송 완료');
+                alert(response.payload.msg);
             } else if (!response.payload.sendCodeSuccess) {
                 alert(response.payload.msg)
             }
             })
-            console.log(22222222222)
-
     }
 
     const onSubmitHandler = (event) => {
@@ -142,7 +140,7 @@ function Register(props) {
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    alert("success to sign up")
+                    alert(response.payload.msg)
                     props.history.push('/login');
                 } else {
                     alert("Failed to sign up")
