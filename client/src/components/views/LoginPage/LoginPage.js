@@ -38,7 +38,7 @@ function Login(props) {
                     alert(response.payload.msg);
                     // 뒤로가기 방지 페이지 이동
                     // window.location.href="/";
-                    props.history.push('/');
+                    props.history.push('/room');
                 } else {
                     alert(response.payload.msg);
                 }

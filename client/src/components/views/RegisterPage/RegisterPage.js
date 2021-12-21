@@ -5,6 +5,7 @@ import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
+import Timer from '../../../hoc/authTimer';
 
 function Register(props) {
     const dispatch = useDispatch();
@@ -14,6 +15,8 @@ function Register(props) {
     const [ConfirmPassword, setConfirmPassword] = useState("");
     const [AuthCode, setAuthCode] = useState("");
     const [SecurityCode, setSecurityCode] = useState("");
+
+    const [Time, setTime] = useState(false);
 
     // 유효성 통과 상태
     // const [IsEmail, setIsEmail] = useState(false)
@@ -25,7 +28,6 @@ function Register(props) {
     const [PasswordMessage, setPasswordMessage] = useState("")
     const [ConfirmPasswordMessage, setConfirmPasswordMessage] = useState("")
     const [AuthCodeMessage, setAuthCodeMessage] = useState("")
-
 
     const onEmailHandler = (event) => {
         const emailRegex =
@@ -78,6 +80,7 @@ function Register(props) {
             setAuthCodeMessage("")
         } else if (SecurityCode === event.target.value) {
             setAuthCodeMessage("보안코드 일치해요")
+            setTime(false);
         } else {
             setAuthCodeMessage("보안코드가 일치하지않습니다.")
         }
@@ -96,6 +99,9 @@ function Register(props) {
                 setSecurityCode(response.payload.authNum)
                 console.log(response.payload.authNum)
                 alert(response.payload.msg);
+                // 인증 타이머 시작
+                setTime(false);
+                setTime(true);
             } else if (!response.payload.sendCodeSuccess) {
                 alert(response.payload.msg)
             }
@@ -130,7 +136,6 @@ function Register(props) {
         if (Password !== ConfirmPassword) {
             return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
-
 
         let body = {
             email: Email,
@@ -208,7 +213,9 @@ function Register(props) {
                         <div>
                             <button onClick={authEmailHandler} className={styles.authBtn}>Authentication</button>
                         </div>
+                        {Time ? <Timer mm={1} ss={0} /> : null}
                     </div>
+                    
                 </div>
                 <div className={styles.img}>
                     <img src="assets/images/register_pic.svg" alt="" />

@@ -312,34 +312,33 @@ https://templatemo.com/tm-516-known
     color:black;
   }
 
-  @media (min-width: 768px) {
-    .home-slider .col-md-12 {
-      padding-left: 0;
-    }
+  .box-wrap {
+    position: relative;
   }
 
-  
-  .home-slider .caption {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  .text-box {
+    padding: 10px 20px;
     text-align: center;
-    height: 100%;
-    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  .home-slider .item {
-    background-size: cover;
-    height: 665px;
+  .image-box {
+    width:100%;
+    height:720px;
+    overflow:hidden; 
+    margin:0 auto;
   }
+
+  .image {
+    width:100%;
+    height:100%;
+    object-fit:cover; 
+  }
+
   
-  .home-slider .item-first {
-    background-image: url(../images/main_pic.jpg);
-	  background-position: center;
-  }
-
-
-
   
   /*---------------------------------------
       TEAM              
