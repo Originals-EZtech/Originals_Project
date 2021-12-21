@@ -4,7 +4,7 @@ import styles from '../LoginPage/login.module.css';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
 
 function Login(props) {
@@ -36,12 +36,9 @@ function Login(props) {
             .then(response => {
                 if (response.payload.loginSuccess) {
                     alert(response.payload.msg);
-
-                    // alert('success')
                     // 뒤로가기 방지 페이지 이동
-                    window.location.href="/";
-                    // navigate('/')
-                    // props.history.push('/login')
+                    // window.location.href="/";
+                    props.history.push('/');
                 } else {
                     alert('err');
                     alert(response.payload.msg);
@@ -92,4 +89,4 @@ function Login(props) {
     );
 }
 
-export default Login;
+export default withRouter(Login);
