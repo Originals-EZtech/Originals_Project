@@ -37,7 +37,7 @@ export default class RoomJoinComp extends React.Component {
         console.log("state.room_id"+this.state.room_id);
         console.log("state.room_password"+this.state.room_password)
         console.log("state.room_id_check"+this.state.room_id_check)
-        if ( this.state.room_id_check==undefined ) {
+        if ( this.state.room_id_check===undefined ) {
           return alert('방이 없습니다');
         } else {
           return alert(this.state.room_id_check+' 을 찾았습니다');;

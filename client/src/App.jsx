@@ -1,5 +1,8 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, useLocation, Switch } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import './App.css';
+
 import MainPage from './components/views/MainPage/MainPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
@@ -8,21 +11,36 @@ import RoomCreate from './components/views/Room/RoomCreate';
 import RoomJoin from './components/views/Room/RoomJoin';
 import RoomAdmin from './components/views/Room/RoomAdmin';
 import RoomParticipant from './components/views/Room/RoomParticipant';
+import Auth from './hoc/auth'
+
+const AnimatedSwitch = () => {
+  const location = useLocation();
+
+  return (
+    <TransitionGroup component={null}>
+      <CSSTransition key={location.key} classNames="fade" timeout={500}>
+        <Switch location={location}>
+        <Route exact path="/" component={Auth(MainPage, null )  } />
+        <Route exact path="/login" component={Auth(LoginPage, false )  } />
+        <Route exact path="/register" component={Auth(RegisterPage, false )  } />
+        <Route exact path="/room" component={Auth(Room, null )  } />
+        <Route exact path="/roomcreate" component={Auth(RoomCreate, null )  } />
+        <Route exact path="/RoomJoin" component={Auth(RoomJoin, null )  } />
+        <Route exact path="/RoomAdmin" component={Auth(RoomAdmin, null )  } />
+        <Route exact path="/RoomParticipant" component={Auth(RoomParticipant, null )  } />
+        </Switch>
+      </CSSTransition>
+    </TransitionGroup>
+  );
+};
 
 function App() {
   return (
-    <div>
-        <Routes>
-          <Route exact path="/" element={<MainPage/>} />
-          <Route exact path="/login" element={<LoginPage/>} />
-          <Route exact path="/register" element={<RegisterPage/>} />
-          <Route exact path="/room" element={<Room/>} />
-          <Route exact path="/roomcreate" element={<RoomCreate/>} />
-          <Route exact path="/roomjoin" element={<RoomJoin/>} />
-          <Route exact path="/roomadmin" element={<RoomAdmin/>} />
-          <Route exact path="/roomparticipant" element={<RoomParticipant/>} />
-        </Routes>
-      </div>
+    <div className="App">
+      <BrowserRouter>
+        <AnimatedSwitch />
+      </BrowserRouter>
+    </div>
   );
 }
 

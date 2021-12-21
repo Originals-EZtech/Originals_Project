@@ -2,16 +2,14 @@ const express = require('express');
 const router = express.Router();
 const dbConfig = require('../config/dbConfig');
 const mailConfig = require('../config/mailConfig');
+const tokenConfig = require('../config/tokenConfig');
 const bcrypt = require('bcrypt');
 const ejs = require('ejs');
 const saltRounds = 10
 const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
-const cookieParser = require('cookie-parser');
 var jwt = require('jsonwebtoken');
 oracledb.autoCommit = true;
-
-router.use(cookieParser());
 
 //oracledb connection
 var conn;
@@ -66,16 +64,17 @@ router.post('/emailauth', (req, res) => {
             subject: "Originals 회원가입 코드",
             html: emailTemplete
         };
-
-        smtpTransport.sendMail(mailOptions, (error, res) => {
-
+        smtpTransport.sendMail(mailOptions, (error, res23) => {
+            console.log("nodemailer 시작");
+            
             if (error) {
-                res.json({ msg: 'err' });
+                res.json({ msg: '이메일 주소를 확인해주세요' });
+                console.log("nodemailer 에러임?");
             } else {
+                console.log("발급한 보안코드 ",authNum);
                 res.status(200).json({
-                    sendCodeSuccess: true, authNum: authNum
+                    sendCodeSuccess: true, authNum: authNum, msg: '인증 메일 발송 완료'
                 })
-                console.log(authNum);
             }
             console.log("nodemailer종료");
             smtpTransport.close();
@@ -112,10 +111,13 @@ router.post("/register", function (req, res) {
 
             conn.execute('insert into users (EMAIL, PASSWORD) values(:email,:password)', param, function (err, result, fields) {
                 if (err) {
+                    res.status(200).json({
+                        success: false, msg: "회원가입 실패하셨습니다."
+                    })
                     console.log("insert 실패");
                 } else {
                     res.status(200).json({
-                        success: true
+                        success: true, msg: "회원가입 되셨습니다."
                     })
                 }
                 console.log("sign-up insert 성공");
@@ -137,7 +139,6 @@ router.post("/login", function (req, res) {
     }
     conn.execute('select EMAIL, PASSWORD from users where EMAIL = :email ', userEmail, function (err, result) {
         if (err) console.log("select err", err)
-
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
             res.status(200).json({
@@ -149,26 +150,24 @@ router.post("/login", function (req, res) {
                 if (error) {
                     console.log("bcrypt.compare", error)
                 }
-                // 비번 일치한다면
+                // 비번 일치한다면 토큰 배급 시작
                 if (resultt) {
-                    console.log("token 생성시작")
-                    var token = jwt.sign(req.body.email, 'secretKey');
-                    const completedToken = [token,req.body.email]
+                    console.log("토큰 배급직전")
+
+                    var token = jwt.sign({email: req.body.email}, tokenConfig.secretKey,{ expiresIn: "2h",issuer:"Originals-Team"});
+                    const completedToken = [token, req.body.email]
+                    console.log("배열에 넣은 토큰정보:", completedToken)
                     conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
                         if (err2) {
+                            console.log(err2)
                             console.log("토큰 insert 실패");
                         } else {
-                            console.log("토큰 insert 성공");
+                            console.log("토큰 발급", token);
+                            res.cookie("x_auth", completedToken[0])
+                                .status(200)
+                                .json({ loginSuccess: true, userId: completedToken[1], msg: req.body.email + " 로그인 성공" })
                         }
-                        console.log("sign-up with token insert 성공");
                     })
-                    // res.status(200).json({
-                    //     loginSuccess: true, msg: req.body.email + " 로그인 성공", token: completedToken
-                    // })
-
-                    res.cookie("x_auth", completedToken[0])
-                    .status(200)
-                    .json({ loginSucess: true, userId: completedToken[1] })
 
                     // 비번일치안한다면
                 } else {
@@ -181,30 +180,29 @@ router.post("/login", function (req, res) {
     })
 });
 
-// 쿠키 확인
-app.get('/api/users/auth', auth, (req,res) =>{
+router.get('/auth', function (req, res) {
+    // 쿠키에 있는 token 정보
+    let token = req.cookies.x_auth;
 
-
-    conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
-        if (err2) {
-            console.log(" 검증 실패");
-        } else {
-            console.log(" 검증 성공");
-        }
-        console.log("검증 마무리 성공");
-    })
-
-    //여기 까지 미들웨어를 통과해 왔다는 얘기는 Authentication이 True 라는 말.
-    res.status(200).json({
-        _id: req.id,
-        isAuth: true,
-        email: req.user.email,
-        name: req.user.name
+    jwt.verify(token, tokenConfig.secretKey, function (err, decoded) {
+        conn.execute('select TOKEN, EMAIL from users where TOKEN = :token', [token], function (err, result) {
+            if(err)console.log(err)
+            if(!decoded) return res.json({isAuth: false, err : true})
+            console.log(decoded,"토큰인증확인")
+            req.token = token
+            req.user = decoded.email
+            req.iat = decoded.iat
+            req.exp = (decoded.exp-decoded.iat)/60 +"분"
+            req.issuer= decoded.iss
+            res.status(200).json({
+                isAuth: true,
+                email: req.user,
+                iat: req.iat,
+                exp:req.exp,
+                issuer: req.issuer
+            })
+        })
     })
 })
-
-
-
-
 
 module.exports = router;
