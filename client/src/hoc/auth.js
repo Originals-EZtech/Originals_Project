@@ -17,7 +17,6 @@ export default function (SpecificComponent, option, adminRoute = null) {
                 console.log(response)
                 // 로그인 안했을 경우
                 if (!response.payload.isAuth) {
-                    console.log("isAuth: ", response.payload.isAuth)
                     if (option) {
                         props.history.push('/login')
                     }

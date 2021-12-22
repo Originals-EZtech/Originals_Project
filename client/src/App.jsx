@@ -21,8 +21,8 @@ const AnimatedSwitch = () => {
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
         <Switch location={location}>
         <Route exact path="/" component={Auth(MainPage, null )  } />
-        <Route exact path="/login" component={Auth(LoginPage, false )  } />
-        <Route exact path="/register" component={Auth(RegisterPage, false )  } />
+        <Route exact path="/login" component={Auth(LoginPage, null )  } />
+        <Route exact path="/register" component={Auth(RegisterPage, null )  } />
         <Route exact path="/room" component={Auth(Room, null )  } />
         <Route exact path="/roomcreate" component={Auth(RoomCreate, null )  } />
         <Route exact path="/RoomJoin" component={Auth(RoomJoin, null )  } />

@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { registerUser, authEmail } from '../../../_actions/user_action';
 import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
+import {ToastContainer, toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
 
 function Register(props) {
     const dispatch = useDispatch();
 
     const [Email, setEmail] = useState("");
+    const [Name, setName] = useState("");
     const [Password, setPassword] = useState("");
     const [ConfirmPassword, setConfirmPassword] = useState("");
     const [AuthCode, setAuthCode] = useState("");
@@ -43,6 +46,10 @@ function Register(props) {
             setEmailMessage('올바른 이메일 형식이에요 ')
             // setIsEmail(true)
         }
+    }
+
+    const onNameHandler = (event) => {
+        setName(event.target.value)
     }
 
     const onPasswordHandler = (event) => {
@@ -98,12 +105,12 @@ function Register(props) {
             if (response.payload.sendCodeSuccess) {
                 setSecurityCode(response.payload.authNum)
                 console.log(response.payload.authNum)
-                alert(response.payload.msg);
+                toast.success(response.payload.msg)
                 // 인증 타이머 시작
                 setTime(false);
                 setTime(true);
             } else if (!response.payload.sendCodeSuccess) {
-                alert(response.payload.msg)
+                toast.error(response.payload.msg)
             }
             })
     }
@@ -114,41 +121,42 @@ function Register(props) {
         // 예외처리
 
         // 입력하지 않은 값이 존재할 경우
-        if (Email === "" || Password === "" || ConfirmPassword === "" || AuthCode === "") {
-            return alert('모든 값을 입력하세요');
+        if (Email === "" || Password === "" || ConfirmPassword === "" || AuthCode === "" || Name === "") {
+            return toast.error("모든 값을 입력하세요");
         }
-
-        // 이메일 인증 안했을 경우
 
         // 보안코드가 일치하지 않을 경우
         if (AuthCode !== SecurityCode) {
-            return alert('보안코드가 일치하지 않습니다.');
+            return toast.error('보안코드가 일치하지 않습니다.');
         }
 
         // 올바른 비밀번호 형식 아닐 경우
         const passwordRegex =
             /^.*((?=.*[0-9])(?=.*[a-zA-Z]){8,16}).*$/
         if (!passwordRegex.test(Password)) {
-            return alert('올바른 비밀번호 형식이 아닙니다.');
+            return toast.error('올바른 비밀번호 형식이 아닙니다.');
         }
 
         // 입력한 비밀번호와 비밀번호 확인이 같지 않을 경우
         if (Password !== ConfirmPassword) {
-            return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
+            return toast.error('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
 
         let body = {
             email: Email,
-            password: Password
+            password: Password,
+            name : Name
         }
 
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    alert(response.payload.msg)
-                    props.history.push('/login');
+                    toast.success(response.payload.msg);
+                    setTimeout(() => {
+                        props.history.push('/login');
+                    }, 1500)
                 } else {
-                    alert("Failed to sign up")
+                    toast.error("Failed to sign up")
                 }
             })
     }
@@ -168,7 +176,7 @@ function Register(props) {
                                 <i className="fas fa-user" />
                             </div>
                             <div className={styles.div}>
-                                <input type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USERNAME" />
+                                <input type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USEREMAIL" />
                             </div>
                         </div>
                         <span >{EmailMessage}</span>
@@ -182,6 +190,15 @@ function Register(props) {
                             </div>
                         </div>
                         <span >{AuthCodeMessage}</span>
+
+                        <div className={classnames(styles.input_div, styles.one)}>
+                            <div className={styles.i}>
+                                <i className="fas fa-user" />
+                            </div>
+                            <div className={styles.div}>
+                                <input type="name" value={Name} onChange={onNameHandler} name="name" placeholder="NAME" />
+                            </div>
+                        </div>
 
                         <div className={classnames(styles.input_div, styles.pass)}>
                             <div className={styles.i}>
@@ -221,6 +238,7 @@ function Register(props) {
                     <img src="assets/images/register_pic.svg" alt="" />
                 </div>
             </div>
+            <ToastContainer hideProgressBar={true}/>
         </div>
     );
 }

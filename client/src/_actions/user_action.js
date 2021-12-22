@@ -3,6 +3,9 @@ import {
     LOGIN_USER, REGISTER_USER, AUTH_EMAIL, AUTH_USER
 } from './types';
 
+//상태에 변화가 필요할 때 발생시킴 (객체하나로 표현)
+//type을 필수로 그외의 값들은 개발자 마음대로 생성
+
 export function loginUser(dataTosubmit) {
 
     const request = axios.post('/api/users/login', dataTosubmit)

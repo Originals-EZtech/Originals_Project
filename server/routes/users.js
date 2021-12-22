@@ -65,11 +65,10 @@ router.post('/emailauth', (req, res) => {
             html: emailTemplete
         };
         smtpTransport.sendMail(mailOptions, (error, res23) => {
-            console.log("nodemailer 시작");
+            console.log("nodemailer 발송");
             
             if (error) {
                 res.json({ msg: '이메일 주소를 확인해주세요' });
-                console.log("nodemailer 에러임?");
             } else {
                 console.log("발급한 보안코드 ",authNum);
                 res.status(200).json({
@@ -89,8 +88,6 @@ router.get("/list", function (req, res) {
         if (err) {
             console.log("조회 실패");
         }
-        console.log(result);
-        console.log(result.rows);
         console.log("조회 성공");
         res.send(result.rows)
     })
@@ -99,9 +96,9 @@ router.get("/list", function (req, res) {
 
 // signup
 router.post("/register", function (req, res) {
-    const param = [req.body.email, req.body.password]
+    const param = [req.body.email, req.body.password, req.body.name]
     console.log("req: ", req.body)
-    if (param.email === '' || param.password === '') {
+    if (param.email === '' || param.password === '' || param.name) {
         res.status(200).json({
             success: false
         })
@@ -109,7 +106,7 @@ router.post("/register", function (req, res) {
         bcrypt.hash(param[1], saltRounds, (err, hash) => {
             param[1] = hash
 
-            conn.execute('insert into users (EMAIL, PASSWORD) values(:email,:password)', param, function (err, result, fields) {
+            conn.execute('insert into users (EMAIL, PASSWORD, NAME) values(:email,:password,:name)', param, function (err, result, fields) {
                 if (err) {
                     res.status(200).json({
                         success: false, msg: "회원가입 실패하셨습니다."
@@ -137,7 +134,7 @@ router.post("/login", function (req, res) {
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
         })
     }
-    conn.execute('select EMAIL, PASSWORD from users where EMAIL = :email ', userEmail, function (err, result) {
+    conn.execute('select EMAIL, PASSWORD, NAME from users where EMAIL = :email ', userEmail, function (err, result) {
         if (err) console.log("select err", err)
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
@@ -154,7 +151,7 @@ router.post("/login", function (req, res) {
                 if (resultt) {
                     console.log("토큰 배급직전")
 
-                    var token = jwt.sign({email: req.body.email}, tokenConfig.secretKey,{ expiresIn: "2h",issuer:"Originals-Team"});
+                    var token = jwt.sign({email: req.body.email,name:result.rows[0][2] }, tokenConfig.secretKey,{ expiresIn: "2h",issuer:"Originals-Team"});
                     const completedToken = [token, req.body.email]
                     console.log("배열에 넣은 토큰정보:", completedToken)
                     conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
@@ -165,7 +162,7 @@ router.post("/login", function (req, res) {
                             console.log("토큰 발급", token);
                             res.cookie("x_auth", completedToken[0])
                                 .status(200)
-                                .json({ loginSuccess: true, userId: completedToken[1], msg: req.body.email + " 로그인 성공" })
+                                .json({ loginSuccess: true, email: completedToken[1], name: result.rows[0][2], msg: req.body.email + " 로그인 성공" })
                         }
                     })
 
@@ -185,20 +182,24 @@ router.get('/auth', function (req, res) {
     let token = req.cookies.x_auth;
 
     jwt.verify(token, tokenConfig.secretKey, function (err, decoded) {
-        conn.execute('select TOKEN, EMAIL from users where TOKEN = :token', [token], function (err, result) {
+        conn.execute('select TOKEN, EMAIL, NAME from users where TOKEN = :token', [token], function (err, result) {
             if(err)console.log(err)
             if(!decoded) return res.json({isAuth: false, err : true})
             console.log(decoded,"토큰인증확인")
+            // console.log("result                  :" , result)
             req.token = token
-            req.user = decoded.email
+            req.email = decoded.email
+            req.name = decoded.name
             req.iat = decoded.iat
             req.exp = (decoded.exp-decoded.iat)/60 +"분"
             req.issuer= decoded.iss
             res.status(200).json({
                 isAuth: true,
                 email: req.user,
+                name: req.name,
                 iat: req.iat,
                 exp:req.exp,
+                token:req.token,
                 issuer: req.issuer
             })
         })
