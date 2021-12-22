@@ -10,9 +10,6 @@ const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
 oracledb.autoCommit = true;
-// const cookieParser = require('cookie-parser');
-
-// router.use(cookieParser());
 
 //oracledb connection
 var conn;
