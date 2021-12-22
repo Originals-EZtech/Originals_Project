@@ -1,4 +1,4 @@
-import React, { createContext,useState } from 'react';
+import React from 'react';
 
 const randomContext = React.createContext({
     name:'1'

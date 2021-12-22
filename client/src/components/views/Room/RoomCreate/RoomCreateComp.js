@@ -1,7 +1,7 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import RoomContext from "./RoomContext";
-import styles from '../Room/room.module.css';
+import styles from '../room.module.css';
 
 function RoomCreateComp() {
 
@@ -46,16 +46,14 @@ function RoomCreateComp() {
       // res는 서버에서 받은 객체 형태는 log로 출력해보길
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
-        console.log("json: "+json);
       });
-    alert('방이 생성되었습니다');
+    alert('방고유번호     '+room_id+'                                                       방이 생성되었습니다');
     }
   };
 // 값이 없을 때 버튼 색깔 변하기 버튼 활성화는 button disable 참고
 
 const checkvalid2 = ()=>{
-  room_name=="" || room_password==""
+  room_name==="" || room_password===""
   ? setState({
     ...state,
     isActive:false,
@@ -72,20 +70,19 @@ const checkvalid2 = ()=>{
       {(value2) => (
         <div>
           <br/>
-          <input name="room_id" onChange={handlChange} disabled value={value2.name} ref={id} />
-          <input name="room_name" onChange={handlChange} placeholder="방 제목" onKeyUp={checkvalid2}/>
-          <input name="room_password" onChange={handlChange}placeholder="방 비밀번호" onKeyUp={checkvalid2}/>
+          <input name="room_id" onChange={handlChange} disabled value={value2.name} ref={id}/>
+          <input name="room_name" onChange={handlChange} placeholder="방 제목" onKeyUp={checkvalid2} maxlength='12'/>
+          <input name="room_password" type='number' onChange={handlChange}placeholder="방 비밀번호" onKeyUp={checkvalid2} maxlength='10'/>
           
-          <button disabled={!room_id,!room_password} className={isActive ? styles.activebtn : styles.unactivebtn} onClick= { onclick }>
-          {/* { {isActive} === true
-          ?  <Link to="/roomadmin"><h3>만들기</h3></Link> 
-          : null
-        } */}
-        {
-          isActive === true && <Link to="/roomadmin"><h3>만들기</h3></Link> 
-        } 
-        </button>
+          <button disabled={!room_id || !room_password} className={isActive ? styles.activebtn : styles.unactivebtn} onClick= { onclick }>
+            {
+              isActive === true ? <Link to="/roomadmin"><h3>만들기</h3></Link>
+              : null
+            } 
+          </button>
           <h3>방: {room_name} <br></br>비번: {room_password} </h3>
+          <br></br>
+          <h3><Link to='../room'>나가기</Link></h3>
         </div>
     )}
     </RoomContext.Consumer>

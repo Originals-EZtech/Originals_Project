@@ -56,9 +56,6 @@ router.post("/roomjoinname", (req, res) => {
                     doRelease(connection);
                     return;
                 }
-                console.log("rows=" + result.rows);
-                console.log("typeof(rows) =" + typeof(result.rows));
-                console.log("rows[0]=" + result.rows[0]);
                 res.send(result.rows);
                 doRelease(connection);
             });
@@ -90,9 +87,6 @@ router.post("/roomjoinsearch", (req, res) => {
                     doRelease2(connection);
                     return;
                 }
-                console.log("result.room_name"+result.room_name);
-                console.log("result"+result);
-                console.log("result.rows[0]"+result.rows[0]);
                 res.send(result);
                 doRelease2(connection);
             });
