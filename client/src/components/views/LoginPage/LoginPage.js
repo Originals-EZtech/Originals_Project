@@ -38,10 +38,13 @@ function Login(props) {
             .then(response => {
                 if (response.payload.loginSuccess) {
                     // alert(response.payload.msg);
+                    console.log(response.payload.name)
                     toast.success(response.payload.msg);
                     // 뒤로가기 방지 페이지 이동
                     // window.location.href="/";
-                    props.history.push('/room');
+                    setTimeout(() => {
+                        props.history.push('/room');
+                    }, 1500)
                 } else {
                     toast.error(response.payload.msg);
                 }

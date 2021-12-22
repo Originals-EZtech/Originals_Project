@@ -5,12 +5,9 @@ import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
-<<<<<<< HEAD
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-=======
 import Timer from '../../../hoc/authTimer';
->>>>>>> 1cc6173455bd981a36c145a78240b79dc396bcbf
 
 function Register(props) {
     const dispatch = useDispatch();
@@ -22,8 +19,6 @@ function Register(props) {
     const [AuthCode, setAuthCode] = useState("");
     const [SecurityCode, setSecurityCode] = useState("");
 
-<<<<<<< HEAD
-=======
     const [Time, setTime] = useState(false);
 
     // 유효성 통과 상태
@@ -31,7 +26,6 @@ function Register(props) {
     // const [IsPassword, setIsPassword] = useState(false)
 
 
->>>>>>> 1cc6173455bd981a36c145a78240b79dc396bcbf
     // 정규식 메세지 상태
     const [EmailMessage, setEmailMessage] = useState("")
     const [PasswordMessage, setPasswordMessage] = useState("")
@@ -157,9 +151,10 @@ function Register(props) {
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    alert(response.payload.msg)
-                    props.history.push('/login');
-                    // toast.success(response.payload.msg);
+                    toast.success(response.payload.msg);
+                    setTimeout(() => {
+                        props.history.push('/login');
+                    }, 1500)
                 } else {
                     toast.error("Failed to sign up")
                 }
