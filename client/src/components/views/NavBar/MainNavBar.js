@@ -37,7 +37,7 @@ function MainNavBar() {
                               <span class="icon icon-bar"></span>
                           </button>
                         
-                          <Link to="/" class="navbar-brand" style={upsideLogo}>ORIGINALS</Link>
+                          <a href="/" class="navbar-brand" style={upsideLogo}>ORIGINALS</a>
                     </div>
                     
                     <div class="collapse navbar-collapse" style={navbarStyle}>

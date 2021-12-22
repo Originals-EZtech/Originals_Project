@@ -24,7 +24,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                 } else {
                     // 로그인 상태일때 못가는경우 
                     if (option === false) {
-                        props.history.push('/')
+                        window.location.replace("/");
                     }
                 }
                 // 나머진 null

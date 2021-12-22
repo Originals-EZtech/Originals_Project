@@ -5,8 +5,12 @@ import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
+<<<<<<< HEAD
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+=======
+import Timer from '../../../hoc/authTimer';
+>>>>>>> 1cc6173455bd981a36c145a78240b79dc396bcbf
 
 function Register(props) {
     const dispatch = useDispatch();
@@ -18,12 +22,21 @@ function Register(props) {
     const [AuthCode, setAuthCode] = useState("");
     const [SecurityCode, setSecurityCode] = useState("");
 
+<<<<<<< HEAD
+=======
+    const [Time, setTime] = useState(false);
+
+    // 유효성 통과 상태
+    // const [IsEmail, setIsEmail] = useState(false)
+    // const [IsPassword, setIsPassword] = useState(false)
+
+
+>>>>>>> 1cc6173455bd981a36c145a78240b79dc396bcbf
     // 정규식 메세지 상태
     const [EmailMessage, setEmailMessage] = useState("")
     const [PasswordMessage, setPasswordMessage] = useState("")
     const [ConfirmPasswordMessage, setConfirmPasswordMessage] = useState("")
     const [AuthCodeMessage, setAuthCodeMessage] = useState("")
-
 
     const onEmailHandler = (event) => {
         const emailRegex =
@@ -80,6 +93,7 @@ function Register(props) {
             setAuthCodeMessage("")
         } else if (SecurityCode === event.target.value) {
             setAuthCodeMessage("보안코드 일치해요")
+            setTime(false);
         } else {
             setAuthCodeMessage("보안코드가 일치하지않습니다.")
         }
@@ -98,6 +112,9 @@ function Register(props) {
                 setSecurityCode(response.payload.authNum)
                 console.log(response.payload.authNum)
                 toast.success(response.payload.msg)
+                // 인증 타이머 시작
+                setTime(false);
+                setTime(true);
             } else if (!response.payload.sendCodeSuccess) {
                 toast.error(response.payload.msg)
             }
@@ -130,7 +147,6 @@ function Register(props) {
         if (Password !== ConfirmPassword) {
             return toast.error('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
-
 
         let body = {
             email: Email,
@@ -219,7 +235,9 @@ function Register(props) {
                         <div>
                             <button onClick={authEmailHandler} className={styles.authBtn}>Authentication</button>
                         </div>
+                        {Time ? <Timer mm={1} ss={0} /> : null}
                     </div>
+                    
                 </div>
                 <div className={styles.img}>
                     <img src="assets/images/register_pic.svg" alt="" />

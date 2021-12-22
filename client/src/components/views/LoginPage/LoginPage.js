@@ -41,7 +41,7 @@ function Login(props) {
                     toast.success(response.payload.msg);
                     // 뒤로가기 방지 페이지 이동
                     // window.location.href="/";
-                    props.history.push('/');
+                    props.history.push('/room');
                 } else {
                     toast.error(response.payload.msg);
                 }

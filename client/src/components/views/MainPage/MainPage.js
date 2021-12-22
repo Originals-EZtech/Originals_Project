@@ -4,34 +4,32 @@ import Footer from '../Footer/Footer';
 import MainHome from './MainHome';
 import MainService from './MainService';
 import MainContact from './MainContact';
-import Spinner from '../Loading/Spinner';
+// import Spinner from '../Loading/Spinner';
 
 function MainPage() {
 
-    const [Loading, setLoading] = useState(true);
+    // const [Loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        renderPage();
-        setLoading(false)
-    }, []);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 1500)
+    // }, [])
 
-    const renderPage = () => {
-        return (
-            <>
+    return (
+        <div>
             <MainNavBar />
+            
             <div style={{paddingTop: 70}}></div>
+    
             <MainHome />
-            <MainService />
-            <MainContact />
-            <Footer />
-            </>
-        );
-    }
 
-    return Loading ? <Spinner /> : (
-        <>
-            {renderPage()}
-        </>
+            <MainService />
+            
+            <MainContact />
+        
+            <Footer />
+        </div>
     )
 }
 
