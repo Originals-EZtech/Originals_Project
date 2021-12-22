@@ -1,12 +1,9 @@
 import React from 'react';
-// import { Route, Link } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import RoomNavBar from '../NavBar/RoomNavBar';
 import styles from '../Room/room.module.css';
 
-
 function Room() {
-
     return (
         <div>
             <RoomNavBar />
