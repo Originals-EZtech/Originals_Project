@@ -12,7 +12,6 @@ https://templatemo.com/tm-516-known
     background: #ffffff;
     font-family: 'Nunito', sans-serif;
     overflow-x: hidden;
-    /* padding-top: 70px; */
   }
 
 
@@ -441,145 +440,6 @@ https://templatemo.com/tm-516-known
 
 
   /*---------------------------------------
-      CONTACT             
-  -----------------------------------------*/
-
-  #contact {
-    background: #ffffff;
-  }
-
-  #contact .section-title {
-    text-align: center;
-    padding-bottom: 30px;
-  }
-
-  #contact-form {
-    padding: 1em 0;
-  }
-
-  #contact-form .col-md-12,
-  #contact-form .col-md-4 {
-    padding-left: 0;
-  }
-
-  #contact-form .form-control {
-    border: 0;
-    border-radius: 5px;
-    box-shadow: none;
-    margin: 10px 0;
-  }
-
-  #contact-form input {
-    height: 50px;
-  }
-
-  #contact-form input[type='submit'] {
-    border-radius: 50px;
-    border: 1px solid transparent;
-  }
-
-  #contact-form input[type='submit']:hover {
-    background: transparent;
-    border-color: #29ca8e;
-    color: #29ca8e;
-  }
-  
-  
-
-  /*---------------------------------------
-     FOOTER              
-  -----------------------------------------*/
-
-  footer {
-    background: #252020;
-    padding: 120px 0;
-  }
-
-  footer .section-title {
-    padding-bottom: 10px;
-  }
-
-  footer h2 {
-    font-size: 20px;
-  }
-
-  footer a,
-  footer p {
-    color: #909090;
-  }
-
-  footer strong {
-    color: #d9d9d9;
-  }
-
-  footer address p {
-    margin-bottom: 0;
-  }
-
-  footer .social-icon {
-    margin-top: 25px;
-  }
-
-  .footer-info {
-    margin-right: 2em;
-  }
-
-  .footer-info h2 {
-    color: #ffffff;
-    padding: 0;
-  }
-
-  .footer_menu h2 {
-    margin-top: 2em;
-  }
-
-  .footer_menu ul {
-    margin: 0;
-    padding: 0;
-  }
-
-  .footer_menu li {
-    display: inline-block;
-    list-style: none;
-    margin: 5px 10px 5px 0;
-  }
-
-  .newsletter-form .form-control {
-    background: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    border: 0;
-    border-bottom: 1px solid #303030;
-    height: 50px;
-    margin: 5px 0;
-  }
-
-  .newsletter-form input[type="submit"] {
-    background: transparent;
-    border: 1px solid #f9f9f9;
-    border-radius: 50px;
-    color: #ffffff;
-    display: block;
-    margin-top: 20px;
-    outline: none;
-    width: 50%;
-  }
-
-  .newsletter-form input[type="submit"]:hover {
-    background: #29ca8e;
-    border-color: transparent;
-  }
-
-  .newsletter-form .form-group span {
-    color: #909090;
-    display: block;
-    font-size: 12px;
-    margin-top: 20px;
-  }
-
-
-
-  /*---------------------------------------
      SOCIAL ICON              
   -----------------------------------------*/
 
@@ -627,8 +487,7 @@ https://templatemo.com/tm-516-known
   }
 
   @media only screen and (max-width: 992px) {
-    section,
-    footer {
+    section {
       padding: 60px 0;
     }
 
@@ -638,8 +497,7 @@ https://templatemo.com/tm-516-known
 
     .feature-thumb,
     .about-info,
-    .team-thumb,
-    .footer-info {
+    .team-thumb {
       margin-bottom: 50px;
     }
 
@@ -696,14 +554,6 @@ https://templatemo.com/tm-516-known
 
     .custom-navbar .navbar-nav.navbar-right li {
       display: inline-block;
-    }
-
-    .footer-info {
-      margin-right: 0;
-    }
-
-    .footer-info.newsletter-form {
-      margin-bottom: 0;
     }
 
     .entry-form {

@@ -7,10 +7,10 @@ import MainPage from './components/views/MainPage/MainPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import Room from './components/views/Room/Room';
-import RoomCreate from './components/views/Room/RoomCreate';
-import RoomJoin from './components/views/Room/RoomJoin';
-import RoomAdmin from './components/views/Room/RoomAdmin';
-import RoomParticipant from './components/views/Room/RoomParticipant';
+import RoomCreate from './components/views/Room/RoomCreate/RoomCreate';
+import RoomJoin from './components/views/Room/RoomJoin/RoomJoin';
+import RoomAdmin from './components/views/Room/RoomCreate/RoomAdmin';
+import RoomParticipant from './components/views/Room/RoomJoin/RoomParticipant';
 import Auth from './hoc/auth'
 
 const AnimatedSwitch = () => {
