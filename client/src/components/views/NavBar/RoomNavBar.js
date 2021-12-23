@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styles from '../NavBar/navbar.module.css';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { logout } from '../../../_actions/user_action';
@@ -41,9 +41,9 @@ function RoomNavBar(props) {
         .then(response => {
             if (response.payload.logoutSuccess) {
                 toast.success(response.payload.msg)
-                // setTimeout(() => {
-                //     props.history.push('/login');
-                // }, 1500)
+                setTimeout(() => {
+                    props.history.push('/login');
+                }, 1500)
             } else if (!response.payload.logoutSuccess) {
                 toast.error(response.payload.msg) //nvm
             }
@@ -70,7 +70,7 @@ function RoomNavBar(props) {
                             <li style={{marginTop: 15}}><h5>환영합니다 {cookies.user_info}님</h5></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" style={secondNav}>
-                            <li><Link to="/login" class="smoothScroll" className={styles.loginStyle} onClick={logoutHandler}>LogOut</Link></li>
+                            <li><Link to="" class="smoothScroll" className={styles.loginStyle} onClick={logoutHandler}>LogOut</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -80,4 +80,4 @@ function RoomNavBar(props) {
     );
 }
 
-export default RoomNavBar;
+export default withRouter(RoomNavBar);
