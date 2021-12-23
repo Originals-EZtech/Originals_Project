@@ -149,8 +149,6 @@ router.post("/login", function (req, res) {
                 }
                 // 비번 일치한다면 토큰 배급 시작
                 if (resultt) {
-                    console.log("토큰 배급직전")
-
                     var token = jwt.sign({email: req.body.email,name:result.rows[0][2] }, tokenConfig.secretKey,{ expiresIn: "2h",issuer:"Originals-Team"});
                     const completedToken = [token, req.body.email]
                     console.log("배열에 넣은 토큰정보:", completedToken)
@@ -159,13 +157,13 @@ router.post("/login", function (req, res) {
                             console.log(err2)
                             console.log("토큰 insert 실패");
                         } else {
-                            console.log("토큰 발급", token);
+                            console.log("쿠키 및 토큰 발급", token);
                             res.cookie("x_auth", completedToken[0])
+                                .cookie("user_info", result.rows[0][2])
                                 .status(200)
                                 .json({ loginSuccess: true, email: completedToken[1], name: result.rows[0][2], msg: req.body.email + " 로그인 성공" })
                         }
                     })
-
                     // 비번일치안한다면
                 } else {
                     res.status(200).json({
@@ -186,7 +184,6 @@ router.get('/auth', function (req, res) {
             if(err)console.log(err)
             if(!decoded) return res.json({isAuth: false, err : true})
             console.log(decoded,"토큰인증확인")
-            // console.log("result                  :" , result)
             req.token = token
             req.email = decoded.email
             req.name = decoded.name
@@ -205,5 +202,18 @@ router.get('/auth', function (req, res) {
         })
     })
 })
+
+router.get('/logout', function(req,res) {
+
+    res.clearCookie("x_auth")
+    res.clearCookie("user_info")
+    .status(200).json({
+        logoutSuccess: true,
+        msg: "로그아웃 되셨습니다."
+    })
+    console.log("Cookie cleared");
+}
+)
+
 
 module.exports = router;

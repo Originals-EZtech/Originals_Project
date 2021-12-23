@@ -154,7 +154,7 @@ function Register(props) {
                     toast.success(response.payload.msg);
                     setTimeout(() => {
                         props.history.push('/login');
-                    }, 1500)
+                    }, 1200)
                 } else {
                     toast.error("Failed to sign up")
                 }
@@ -173,7 +173,7 @@ function Register(props) {
                         <h2 className={styles.title}>SIGN UP</h2>
                         <div className={classnames(styles.input_div, styles.one)}>
                             <div className={styles.i}>
-                                <i className="fas fa-user" />
+                                <i className="fas fa-at" />
                             </div>
                             <div className={styles.div}>
                                 <input type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USEREMAIL" />
@@ -183,7 +183,7 @@ function Register(props) {
 
                         <div className={classnames(styles.input_div, styles.pass)}>
                             <div className={styles.i}>
-                                <i class="fas fa-at" />
+                                <i class="fas fa-check" />
                             </div>
                             <div className={styles.div}>
                                 <input type="text" name="AuthCode" placeholder="CODE" value={AuthCode} onChange={getAuthCode} />
