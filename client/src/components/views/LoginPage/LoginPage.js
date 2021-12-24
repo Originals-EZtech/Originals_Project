@@ -68,7 +68,7 @@ function Login(props) {
                                 <i class="fas fa-user" />
                             </div>
                             <div className={styles.div}>
-                                <input type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="USERNAME" />
+                                <input style={{fontSize: 15}} type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="USERNAME" />
                             </div>
                         </div>
                         <div className={classnames(styles.input_div, styles.pass)}>
@@ -76,7 +76,7 @@ function Login(props) {
                                 <i class="fas fa-lock" />
                             </div>
                             <div className={styles.div}>
-                                <input type="password" value={Password} onChange={onPasswordHandler} name="password" placeholder="PASSWORD" />
+                                <input style={{fontSize: 15}} type="password" value={Password} onChange={onPasswordHandler} name="password" placeholder="PASSWORD" />
                             </div>
                         </div>
                         <Link to="" className={styles.userA}>Forgot Password?</Link>

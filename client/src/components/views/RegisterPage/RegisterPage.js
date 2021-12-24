@@ -8,6 +8,7 @@ import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
+import Spinner from '../Loading/Spinner';
 
 function Register(props) {
     const dispatch = useDispatch();
@@ -96,6 +97,9 @@ function Register(props) {
     const authEmailHandler = (e) => {
         e.preventDefault();
 
+        if (Email !== "")
+        toast.info('인증 메일을 발송했습니다');
+        
         let body = {
             email: Email
         }
@@ -112,7 +116,7 @@ function Register(props) {
             } else if (!response.payload.sendCodeSuccess) {
                 toast.error(response.payload.msg)
             }
-            })
+        })
     }
 
     const onSubmitHandler = (event) => {
@@ -170,13 +174,13 @@ function Register(props) {
             <div className={styles.container}>
                 <div className={styles.login_content}>
                     <form className={styles.userForm} onSubmit={onSubmitHandler}>
-                        <h2 className={styles.title}>SIGN UP</h2>
+                        <h2 className={styles.title} style={{paddingBottom: 0}}>SIGN UP</h2>
                         <div className={classnames(styles.input_div, styles.one)}>
                             <div className={styles.i}>
                                 <i className="fas fa-at" />
                             </div>
                             <div className={styles.div}>
-                                <input type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USEREMAIL" />
+                                <input style={{fontSize: 15}} type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USEREMAIL" />
                             </div>
                         </div>
                         <span >{EmailMessage}</span>
@@ -186,7 +190,7 @@ function Register(props) {
                                 <i class="fas fa-check" />
                             </div>
                             <div className={styles.div}>
-                                <input type="text" name="AuthCode" placeholder="CODE" value={AuthCode} onChange={getAuthCode} />
+                                <input style={{fontSize: 15}} type="text" name="AuthCode" placeholder="CODE" value={AuthCode} onChange={getAuthCode} />
                             </div>
                         </div>
                         <span >{AuthCodeMessage}</span>
@@ -196,7 +200,7 @@ function Register(props) {
                                 <i className="fas fa-user" />
                             </div>
                             <div className={styles.div}>
-                                <input type="name" value={Name} onChange={onNameHandler} name="name" placeholder="NAME" />
+                                <input style={{fontSize: 15}} type="name" value={Name} onChange={onNameHandler} name="name" placeholder="NAME" />
                             </div>
                         </div>
 
@@ -205,7 +209,7 @@ function Register(props) {
                                 <i className="fas fa-lock" />
                             </div>
                             <div className={styles.div}>
-                                <input type="password" value={Password} onChange={onPasswordHandler} name="password" placeholder="PASSWORD" />
+                                <input style={{fontSize: 15}} type="password" value={Password} onChange={onPasswordHandler} name="password" placeholder="PASSWORD" />
                             </div>
                         </div>
                         <span >{PasswordMessage}</span>
@@ -215,7 +219,7 @@ function Register(props) {
                                 <i className="fas fa-check" />
                             </div>
                             <div className={styles.div}>
-                                <input type="password" value={ConfirmPassword} onChange={onConfrimPasswordHandler} name="password" placeholder="VERIFY PASSWORD" />
+                                <input style={{fontSize: 15}} type="password" value={ConfirmPassword} onChange={onConfrimPasswordHandler} name="password" placeholder="VERIFY PASSWORD" />
                             </div>
                         </div>
                         <span >{ConfirmPasswordMessage}</span>
