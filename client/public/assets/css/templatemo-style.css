@@ -341,8 +341,13 @@ https://templatemo.com/tm-516-known
   
   
   /*---------------------------------------
-      TEAM              
+      TEAM (MainContact.js에서 사용)
   -----------------------------------------*/
+
+  #contact .section-title {
+    text-align: center;
+    padding-bottom: 80px;
+  }
 
   .team-thumb {
     background: #ffffff;

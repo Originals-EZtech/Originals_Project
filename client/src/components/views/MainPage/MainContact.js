@@ -1,14 +1,22 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Footer from '../Footer/Footer';
 
 function MainContact() {
+
+    const footerStyle={
+        position: "absolute",
+        bottom: 0,
+        width: "100%"
+    }
+
     return (
         <>
         {/* 팀원 소개 */}
         <section id="contact">
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-18 col-sm-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
                         <div class="section-title">
                             <h2>Contact</h2>
                         </div>
@@ -103,8 +111,11 @@ function MainContact() {
                             </ul>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
+            <div style={footerStyle}>
+                <Footer />
+            </div>
         </section>
         </>
     );
