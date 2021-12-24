@@ -4,11 +4,6 @@
 	box-sizing: border-box;
 }
 
-input::placeholder {
-	font-size: large;
-	font-weight: bold;
-}
-
 .wave{
 	position: fixed;
 	bottom: 0;
@@ -96,16 +91,6 @@ input::placeholder {
 	height: 45px;
 }
 
-.input_div > div > h5{
-	position: absolute;
-	left: 10px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #999;
-	font-size: 18px;
-	transition: .3s;
-}
-
 .input_div:before, .input_div:after{
 	content: '';
 	position: absolute;
@@ -126,11 +111,6 @@ input::placeholder {
 
 .input_div.focus:before, .input_div.focus:after{
 	width: 50%;
-}
-
-.input_div.focus > div > h5{
-	top: -5px;
-	font-size: 15px;
 }
 
 .input_div.focus > .i > i{

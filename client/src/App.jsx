@@ -36,11 +36,9 @@ const AnimatedSwitch = () => {
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <AnimatedSwitch />
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <AnimatedSwitch />
+    </BrowserRouter>
   );
 }
 
