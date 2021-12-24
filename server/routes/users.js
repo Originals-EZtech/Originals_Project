@@ -222,17 +222,17 @@ router.get('/auth', function (req, res) {
 
 // logout
 router.get('/logout', function (req, res) {
-    const refresh = req.cookies.refreshToken
+    const access = req.cookies.accessToken
 
-    jwt.verify(refresh, tokenConfig.secretKey, function (err, decoded) {
+    jwt.verify(access, tokenConfig.secretKey, function (err, decoded) {
         conn.execute('update tokens set TOKEN = null where USER_EMAIL = :user_email ', [decoded.email], function (err2, result2) {
             if (err) { console.log(err) }
             res.clearCookie("accessToken")
             res.clearCookie("user_info")
-                .status(200).json({
-                    logoutSuccess: true,
-                    msg: "로그아웃 되셨습니다."
-                })
+            .status(200).json({
+                logoutSuccess: true,
+                msg: "로그아웃 되셨습니다."
+            })
         })
         console.log("Cookie cleared");
     })
