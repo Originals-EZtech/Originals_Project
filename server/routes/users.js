@@ -152,7 +152,7 @@ router.post("/login", function (req, res) {
                 }
                 // 비번 일치한다면 토큰 배급 시작
                 if (resultt) {
-                    var refreshToken = jwt.sign({ email: userEmail }, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
+                    var refreshToken = jwt.sign({}, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
                     var accessToken = jwt.sign({ email: userEmail }, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
                     const completedToken = [refreshToken, userEmail]
                     console.log("배열에 넣은 토큰정보:", completedToken)
@@ -184,44 +184,41 @@ router.get('/auth', function (req, res) {
     // 쿠키에 있는 token 정보
     let refresh = req.cookies.refreshToken;
     let access = req.cookies.accessToken;
-    jwt.verify(refresh, tokenConfig.secretKey, function (err, decoded) {
-        conn.execute('select user_email from TOKENS where TOKEN = :token', [refresh], function (err, result) {
-            if (err) { console.log(err) }
-            if (!decoded) {
-                return res.json({ isAuth: false, err: true })
-            } else {
-                // access 만료됬다면
-                if (access === null) {
-                    // refresh 까지 만료됬다면 
-                    if (refresh === undefined) {
-                        throw Error('API 사용 권한이 없습니다.');
-                    } else {
-                        const newAccessToken = jwt.sign({ email: userEmail }, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
-                        res.cookie("accessToken", newAccessToken);
-                    }
-                } else {
-                    // access는 유효하지만
-                    if (refresh === undefined) {
-                        const newRefreshToken = jwt.sign({ email: userEmail }, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
-                        res.cookie("refreshToken", newRefreshToken);
-                    }
-                }
-                console.log( "토큰인증확인")
-                req.email = decoded.email
-                req.iat = decoded.iat
-                req.exp = (decoded.exp - decoded.iat) / 60 + "분"
-                req.issuer = decoded.iss
-                res.status(200).json({
-                    isAuth: true,
-                    email: req.email,
-                    iat: req.iat,
-                    exp: req.exp,
-                    issuer: req.issuer
-                })
-            }
-        })
-    })
+
+
+    console.log(" refresh 값은? ", refresh)
+    console.log(" access 값은?  ", access)
+    // access 만료됬다면
+    if (access === undefined) {
+        // refresh 까지 만료됬다면 
+        if (refresh === undefined) {
+            return res.json({ isAuth: false, err: true });
+        } else {
+            conn.execute('select user_email from TOKENS where TOKEN = :token', [refresh], function (err4, result) {
+                if (err4) { console.log(err4) }
+                let newAccessToken = jwt.sign({ email: result.rows[0][0] }, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
+                console.log(newAccessToken)
+                res.cookie("accessToken", newAccessToken)
+                    .json({ isAuth: true })
+            })
+        }
+    } else {
+        // access === 존재
+        if (refresh === undefined) {
+            console.log("도착?")
+            let verifyAccess = jwt.verify(access, tokenConfig.secretKey);
+            const test = verifyAccess.email
+            let newRefreshToken = jwt.sign({}, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
+            conn.execute('update tokens set TOKEN = :token where USER_EMAIL = :user_email ', [newRefreshToken, test], function (err2, result2) {
+                if (err2) { console.log(err2) }
+                res.cookie("refreshToken", newRefreshToken)
+                    .json({ isAuth: true })
+            })
+        }
+    }
+    console.log("토큰인증끝")
 })
+
 
 // logout
 router.get('/logout', function (req, res) {
