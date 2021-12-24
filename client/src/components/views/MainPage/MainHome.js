@@ -4,7 +4,7 @@ function MainHome() {
     return (
         <>
         {/* 메인 화면 */}
-        <secion id="home">
+        <section id="home">
             <div class="row">
                 <div class="box-wrap">
                     <div class="text-box">
@@ -17,7 +17,7 @@ function MainHome() {
                     </div>
                 </div>
             </div>
-        </secion>
+        </section>
     </>
     );
 }
