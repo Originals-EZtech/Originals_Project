@@ -18,8 +18,11 @@ import Auth from './hoc/auth'
 
 import { connectWithSocketIOServer} from './components/views/Room/utils/wss';
 
-const AnimatedSwitch = () => {
-  const location = useLocation();
+
+function App() {
+  useEffect(()=>{
+    connectWithSocketIOServer();
+  }, []);
 
   return (
     // <TransitionGroup component={null}>
@@ -40,11 +43,9 @@ const AnimatedSwitch = () => {
     //     <Route exact path="/RoomParticipant" component={Auth(RoomParticipant, null )  } /> */}
     //     </Switch>
     //   </CSSTransition>
-    // </TransitionGroup>
-
-    <TransitionGroup component={null}>
-      <CSSTransition key={location.key} classNames="fade" timeout={500}>
-        <Switch location={location}>
+    // </TransitionGroup>      
+    <BrowserRouter>
+        <Switch >
         <Route exact path="/" component={MainPage} />
         {/* <Route exact path="/login" component={LoginPage, null )  } />
         <Route exact path="/register" component={(RegisterPage, null )  } /> */}
@@ -59,21 +60,21 @@ const AnimatedSwitch = () => {
         <Route exact path="/RoomAdmin" component={Auth(RoomAdmin, null )  } />
         <Route exact path="/RoomParticipant" component={Auth(RoomParticipant, null )  } /> */}
         </Switch>
-      </CSSTransition>
-    </TransitionGroup>
+        </BrowserRouter>
+
   );
 };
 
-function App() {
-  useEffect(()=>{
-    connectWithSocketIOServer();
-  }, []);
+// function App() {
+//   useEffect(()=>{
+//     connectWithSocketIOServer();
+//   }, []);
 
-  return (
-    <BrowserRouter>
-      <AnimatedSwitch />
-    </BrowserRouter>
-  );
-}
+  // return (
+  //   <BrowserRouter>
+  //     <AnimatedSwitch />
+  //   </BrowserRouter>
+  // );
+// }
 
 export default App;
