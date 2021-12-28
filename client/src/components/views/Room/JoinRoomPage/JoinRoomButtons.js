@@ -15,7 +15,7 @@ const JoinRoomButtons = (props, {handleJoinRoom, isRoomHost}) => {
     const successButtonText = isRoomHost ? 'Host' : 'Join';
 
     const pushToIntroductionPage = () => {
-        props.history.push('/');
+        props.history.push('/intro');
     };
 
     return (

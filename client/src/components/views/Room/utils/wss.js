@@ -4,7 +4,7 @@ import store from '../store/store.js';
 import * as webRTCHandler from './webRTCHandler';
 import { appendNewMessageToChatHistory } from './directMessages';
 
-const SERVER = 'http://localhost:5002';
+const SERVER = 'http://localhost:5000';
 
 let socket = null;
 
