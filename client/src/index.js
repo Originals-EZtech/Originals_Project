@@ -18,8 +18,8 @@ ReactDOM.render(
     window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.__REDUX_DEVTOOLS_EXTENSION__()
   )}>
-      <CookiesProvider>
-    <App />
+    <CookiesProvider>
+      <App />
     </CookiesProvider>,
   </Provider>,
   document.getElementById('root')
