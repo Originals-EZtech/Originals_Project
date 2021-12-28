@@ -1,3 +1,4 @@
+import axios from 'axios';
 const Actions ={
     SET_IS_ROOM_HOST: 'SET_IS_ROOM_HOST',
     SET_CONNECT_ONLY_WITH_AUDIO: "SET_CONENCT_ONLY_WITH_AUDIO",
@@ -8,7 +9,8 @@ const Actions ={
     SET_MESSAGES: "SET_MESSAGES",
     SET_ACTIVE_CONVERSATION: "SET_ACTIVE_CONVERSATION",
     SET_DIRECT_CHAT_HISTORY: "SET_DIRECT_CHAT_HISTORY",
-    SET_SOCKET_ID: "SET_SOCKET_ID"
+    SET_SOCKET_ID: "SET_SOCKET_ID",
+    SET_LOGIN_USER: "SET_LOGIN_USER"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -79,5 +81,25 @@ export const setMessages = (messages) => {
       socketId,
     };
   };
+
+  export function loginUser(dataTosubmit) {
+    const request = axios.post('/api/users/login', dataTosubmit)
+        .then((response) => 
+        { 
+          console.log("console.log(response)",response)
+          // response.data
+        })
+        .catch((error)=>{
+          console.log("console.log(error);",error);
+        })
+        
+        console.log("axios로 서버에 보내는 값: ",dataTosubmit)
+        console.log("request 값 ??? ",request)
+
+    return {
+        type: Actions.SET_LOGIN_USER,
+        dataTosubmit
+    }
+}
   
 export default Actions;

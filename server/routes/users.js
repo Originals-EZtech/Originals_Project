@@ -128,7 +128,7 @@ router.post("/register", function (req, res) {
 router.post("/login", function (req, res) {
     const userEmail = [req.body.email]
     const userPassword = req.body.password
-    console.log(req.body.email, req.body.password)
+    console.log("클라에서 받은 아이디 비번: ",req.body.email, req.body.password)
     if (req.body.email === '' || req.body.password === '') {
         res.status(200).json({
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
@@ -138,6 +138,8 @@ router.post("/login", function (req, res) {
         if (err) console.log("select err", err)
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
+            console.log("아이디 틀림")
+
             res.status(200).json({
                 loginSuccess: false, msg: req.body.email + "는 등록되지않은 이메일입니다."
             })
@@ -166,6 +168,7 @@ router.post("/login", function (req, res) {
                     })
                     // 비번일치안한다면
                 } else {
+                    console.log("비밀번호 틀림")
                     res.status(200).json({
                         loginSuccess: false, msg: req.body.email + " 비밀번호가 틀렸습니다."
                     })

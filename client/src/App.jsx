@@ -46,8 +46,8 @@ const AnimatedSwitch = () => {
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
         <Switch location={location}>
         <Route exact path="/" component={MainPage} />
-        {/* <Route exact path="/login" component={LoginPage, null )  } />
-        <Route exact path="/register" component={(RegisterPage, null )  } /> */}
+        <Route exact path="/login" component={LoginPage} />
+        {/* <Route exact path="/register" component={(RegisterPage, null )  } /> */}
 
         <Route exact path = "/join-room" component = {JoinRoomPage} />
         <Route exact path ="/room" component ={RoomPage} />
