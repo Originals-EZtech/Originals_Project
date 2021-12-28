@@ -22,7 +22,7 @@ oracledb.getConnection(dbConfig, function (err, con) {
     console.log('DB connection');
 });
 
-//email auth
+
 router.post('/emailauth', (req, res) => {
     const userEmail = [req.body.email];
     console.log("서버에 건내받은 이메일: ", userEmail)
@@ -66,11 +66,11 @@ router.post('/emailauth', (req, res) => {
         };
         smtpTransport.sendMail(mailOptions, (error, res23) => {
             console.log("nodemailer 발송");
-
+            
             if (error) {
                 res.json({ msg: '이메일 주소를 확인해주세요' });
             } else {
-                console.log("발급한 보안코드 ", authNum);
+                console.log("발급한 보안코드 ",authNum);
                 res.status(200).json({
                     sendCodeSuccess: true, authNum: authNum, msg: '인증 메일 발송 완료'
                 })
@@ -106,16 +106,13 @@ router.post("/register", function (req, res) {
         bcrypt.hash(param[1], saltRounds, (err, hash) => {
             param[1] = hash
 
-            conn.execute('insert into users (EMAIL, PASSWORD, NAME) values(:email,:password,:name)', param, function (err, result) {
+            conn.execute('insert into users (EMAIL, PASSWORD, NAME) values(:email,:password,:name)', param, function (err, result, fields) {
                 if (err) {
                     res.status(200).json({
                         success: false, msg: "회원가입 실패하셨습니다."
                     })
-                    // 토큰 칼럼생성
+                    console.log("insert 실패");
                 } else {
-                    conn.execute('insert into tokens (ID, USER_EMAIL) values(tmp_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
-                        if (err2) console.log(err2)
-                    })
                     res.status(200).json({
                         success: true, msg: "회원가입 되셨습니다."
                     })
@@ -129,15 +126,15 @@ router.post("/register", function (req, res) {
 
 //siginin
 router.post("/login", function (req, res) {
-    const userEmail = req.body.email
+    const userEmail = [req.body.email]
     const userPassword = req.body.password
     console.log(req.body.email, req.body.password)
-    if (userEmail === '' || userPassword === '') {
+    if (req.body.email === '' || req.body.password === '') {
         res.status(200).json({
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
         })
     }
-    conn.execute('select EMAIL, PASSWORD, NAME from users where EMAIL = :email ', [userEmail], function (err, result) {
+    conn.execute('select EMAIL, PASSWORD, NAME from users where EMAIL = :email ', userEmail, function (err, result) {
         if (err) console.log("select err", err)
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
@@ -152,26 +149,25 @@ router.post("/login", function (req, res) {
                 }
                 // 비번 일치한다면 토큰 배급 시작
                 if (resultt) {
-                    var refreshToken = jwt.sign({}, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
-                    var accessToken = jwt.sign({ email: userEmail }, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
-                    const completedToken = [refreshToken, userEmail]
+                    var token = jwt.sign({email: req.body.email,name:result.rows[0][2] }, tokenConfig.secretKey,{ expiresIn: "2h",issuer:"Originals-Team"});
+                    const completedToken = [token, req.body.email]
                     console.log("배열에 넣은 토큰정보:", completedToken)
-                    conn.execute('update tokens set TOKEN = :token where USER_EMAIL = :user_email ', completedToken, function (err2, result2) {
+                    conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
                         if (err2) {
                             console.log(err2)
-                            console.log("refresh토큰 insert 실패");
+                            console.log("토큰 insert 실패");
                         } else {
-                            res.cookie("refreshToken", refreshToken)
-                                .cookie("accessToken", accessToken)
+                            console.log("쿠키 및 토큰 발급", token);
+                            res.cookie("x_auth", completedToken[0])
                                 .cookie("user_info", result.rows[0][2])
                                 .status(200)
-                                .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], msg: userEmail + " 로그인 성공" })
+                                .json({ loginSuccess: true, email: completedToken[1], name: result.rows[0][2], msg: req.body.email + " 로그인 성공" })
                         }
                     })
                     // 비번일치안한다면
                 } else {
                     res.status(200).json({
-                        loginSuccess: false, msg: userEmail + " 비밀번호가 틀렸습니다."
+                        loginSuccess: false, msg: req.body.email + " 비밀번호가 틀렸습니다."
                     })
                 }
             })
@@ -179,65 +175,45 @@ router.post("/login", function (req, res) {
     })
 });
 
-// auth
 router.get('/auth', function (req, res) {
     // 쿠키에 있는 token 정보
-    let refresh = req.cookies.refreshToken;
-    let access = req.cookies.accessToken;
+    let token = req.cookies.x_auth;
 
-
-    console.log(" refresh 값은? ", refresh)
-    console.log(" access 값은?  ", access)
-    // access 만료됬다면
-    if (access === undefined) {
-        // refresh 까지 만료됬다면 
-        if (refresh === undefined) {
-            return res.json({ isAuth: false, err: true });
-        } else {
-            conn.execute('select user_email from TOKENS where TOKEN = :token', [refresh], function (err4, result) {
-                if (err4) { console.log(err4) }
-                let newAccessToken = jwt.sign({ email: result.rows[0][0] }, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
-                console.log(newAccessToken)
-                res.cookie("accessToken", newAccessToken)
-                    .json({ isAuth: true })
-            })
-        }
-    } else {
-        // access === 존재
-        if (refresh === undefined) {
-            console.log("도착?")
-            let verifyAccess = jwt.verify(access, tokenConfig.secretKey);
-            const test = verifyAccess.email
-            let newRefreshToken = jwt.sign({}, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
-            conn.execute('update tokens set TOKEN = :token where USER_EMAIL = :user_email ', [newRefreshToken, test], function (err2, result2) {
-                if (err2) { console.log(err2) }
-                res.cookie("refreshToken", newRefreshToken)
-                    .json({ isAuth: true })
-            })
-        }
-    }
-    console.log("토큰인증끝")
-})
-
-
-// logout
-router.get('/logout', function (req, res) {
-    const access = req.cookies.accessToken
-
-    jwt.verify(access, tokenConfig.secretKey, function (err, decoded) {
-        conn.execute('update tokens set TOKEN = null where USER_EMAIL = :user_email ', [decoded.email], function (err2, result2) {
-            if (err) { console.log(err) }
-            res.clearCookie("accessToken")
-            res.clearCookie("user_info")
-            .status(200).json({
-                logoutSuccess: true,
-                msg: "로그아웃 되셨습니다."
+    jwt.verify(token, tokenConfig.secretKey, function (err, decoded) {
+        conn.execute('select TOKEN, EMAIL, NAME from users where TOKEN = :token', [token], function (err, result) {
+            if(err)console.log(err)
+            if(!decoded) return res.json({isAuth: false, err : true})
+            console.log(decoded,"토큰인증확인")
+            req.token = token
+            req.email = decoded.email
+            req.name = decoded.name
+            req.iat = decoded.iat
+            req.exp = (decoded.exp-decoded.iat)/60 +"분"
+            req.issuer= decoded.iss
+            res.status(200).json({
+                isAuth: true,
+                email: req.user,
+                name: req.name,
+                iat: req.iat,
+                exp:req.exp,
+                token:req.token,
+                issuer: req.issuer
             })
         })
-        console.log("Cookie cleared");
     })
-
 })
+
+router.get('/logout', function(req,res) {
+
+    res.clearCookie("x_auth")
+    res.clearCookie("user_info")
+    .status(200).json({
+        logoutSuccess: true,
+        msg: "로그아웃 되셨습니다."
+    })
+    console.log("Cookie cleared");
+}
+)
 
 
 module.exports = router;

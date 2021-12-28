@@ -11,7 +11,6 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/data2', require('./routes/rooms'));
 // app.use('/api/webrtc', require('./routes/webrtc'));
 
-app.listen(port, () => console.log(`listening on port ${port}!`));
 
 const http = require('http');
 const { v4: uuidv4} = require('uuid');
@@ -239,3 +238,5 @@ const directMessageHandler = (data, socket) =>{
         socket.emit('direct-message', authorData);
     }
 };
+
+server.listen(port, () => console.log(`listening on port ${port}!`));
