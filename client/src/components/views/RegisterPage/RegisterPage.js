@@ -104,19 +104,19 @@ function Register(props) {
             email: Email
         }
         
-        dispatch(authEmail(body))
-        .then(response => {
-            if (response.payload.sendCodeSuccess) {
-                setSecurityCode(response.payload.authNum)
-                console.log(response.payload.authNum)
-                toast.success(response.payload.msg)
-                // 인증 타이머 시작
-                setTime(false);
-                setTime(true);
-            } else if (!response.payload.sendCodeSuccess) {
-                toast.error(response.payload.msg)
-            }
-        })
+        // dispatch(authEmail(body))
+        // .then(response => {
+        //     if (response.payload.sendCodeSuccess) {
+        //         setSecurityCode(response.payload.authNum)
+        //         console.log(response.payload.authNum)
+        //         toast.success(response.payload.msg)
+        //         // 인증 타이머 시작
+        //         setTime(false);
+        //         setTime(true);
+        //     } else if (!response.payload.sendCodeSuccess) {
+        //         toast.error(response.payload.msg)
+        //     }
+        // })
     }
 
     const onSubmitHandler = (event) => {
@@ -152,17 +152,17 @@ function Register(props) {
             name : Name
         }
 
-        dispatch(registerUser(body))
-            .then(response => {
-                if (response.payload.success) {
-                    toast.success(response.payload.msg);
-                    setTimeout(() => {
-                        props.history.push('/login');
-                    }, 1200)
-                } else {
-                    toast.error("Failed to sign up")
-                }
-            })
+        // dispatch(registerUser(body))
+        //     .then(response => {
+        //         if (response.payload.success) {
+        //             toast.success(response.payload.msg);
+        //             setTimeout(() => {
+        //                 props.history.push('/login');
+        //             }, 1200)
+        //         } else {
+        //             toast.error("Failed to sign up")
+        //         }
+        //     })
     }
 
     return (
