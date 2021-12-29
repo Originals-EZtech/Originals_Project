@@ -2,16 +2,16 @@
 import React, { useState } from 'react';
 import styles from '../LoginPage/login.module.css';
 import classnames from 'classnames';
-import { useDispatch } from 'react-redux';
-// import { loginUser } from '../../../_actions/user_action';
+import { connect, useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import {loginUser} from '../Room/store/actions'
+import { loginUser } from '../Room/store/actions'
 
 function Login(props) {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    const { loginUserAction } = props;
 
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
@@ -36,22 +36,22 @@ function Login(props) {
         }
         console.log("body: ",body)
 
-
-        dispatch(loginUser(body))
-        .then(response => {
+        loginUserAction(body);
+        // dispatch(loginUser(body))
+        // .then(response => {
                 
-                if (response.payload.loginSuccess) {
-                    // alert(response.payload.msg);
-                    toast.success(response.payload.msg);
-                    // 뒤로가기 방지 페이지 이동
-                    // window.location.href="/";
-                    setTimeout(() => {
-                        props.history.push('/room');
-                    }, 1200)
-                } else {
-                    toast.error(response.payload.msg);
-                }
-            })
+        //         if (response.payload.loginSuccess) {
+        //             // alert(response.payload.msg);
+        //             toast.success(response.payload.msg);
+        //             // 뒤로가기 방지 페이지 이동
+        //             // window.location.href="/";
+        //             setTimeout(() => {
+        //                 props.history.push('/room');
+        //             }, 1200)
+        //         } else {
+        //             toast.error(response.payload.msg);
+        //         }
+        //     })
             
     }
 
@@ -99,4 +99,10 @@ function Login(props) {
     );
 }
 
-export default withRouter(Login);
+const mapActionsToProps = (dispatch) => {
+    return {
+        loginUserAction: (body) => dispatch(loginUser(body))
+    }
+}
+
+export default withRouter(connect(null, mapActionsToProps)(Login));

@@ -83,18 +83,26 @@ export const setMessages = (messages) => {
   };
 
   export function loginUser(dataTosubmit) {
-    const request = axios.post('/api/users/login', dataTosubmit)
-        .then((response) => 
-        { 
-          console.log("console.log(response)",response)
-          // response.data
-        })
-        .catch((error)=>{
-          console.log("console.log(error);",error);
-        })
+    Promise.all([axios.post('/api/users/login', dataTosubmit),])
+    .then(res => {
+      console.log('res',res);
+      // const request = res.data;
+      // console.log("request 값 ??? ", request)
+    })
+    .catch(error => console.log(error))
+
+    // const request = axios.post('/api/users/login', dataTosubmit)
+    //     .then((response) => 
+    //     { 
+    //       console.log("console.log(response)",response)
+    //       // response.data
+    //     })
+    //     .catch((error)=>{
+    //       console.log("console.log(error);",error);
+    //     })
         
-        console.log("axios로 서버에 보내는 값: ",dataTosubmit)
-        console.log("request 값 ??? ",request)
+    console.log("axios로 서버에 보내는 값: ",dataTosubmit)
+    // console.log("request 값 ??? ", request)
 
     return {
         type: Actions.SET_LOGIN_USER,

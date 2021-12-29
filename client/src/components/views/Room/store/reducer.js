@@ -73,7 +73,7 @@ const reducer = (state = initState, action) => {
             console.log("payload on reducer?", action.payload)
             return {
                 ...state, 
-                loginSuccess: action.payload
+                loginSuccess: action.dataTosubmit
             }
         default:
             return state;
