@@ -157,10 +157,10 @@ router.post("/login", function (req, res) {
                     conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
                         if (err2) {
                             console.log(err2)
-                            console.log("토큰 insert 실패");
+                            console.log("토큰 insert 실패"); 
                         } else {
                             console.log("쿠키 및 토큰 발급", token);
-                            res.cookie("x_auth", completedToken[0])
+                            res.cookie("x_auth", completedToken[0]) 
                                 .cookie("user_info", result.rows[0][2])
                                 .status(200)
                                 .json({ loginSuccess: true, email: completedToken[1], name: result.rows[0][2], msg: req.body.email + " 로그인 성공" })
