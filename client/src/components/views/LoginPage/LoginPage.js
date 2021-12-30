@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
+import {ToastContainer, toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 function Login(props) {
     const dispatch = useDispatch();
@@ -35,12 +37,15 @@ function Login(props) {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
-                    alert(response.payload.msg);
+                    // alert(response.payload.msg);
+                    toast.success(response.payload.msg);
                     // 뒤로가기 방지 페이지 이동
                     // window.location.href="/";
-                    props.history.push('/room');
+                    setTimeout(() => {
+                        props.history.push('/room');
+                    }, 1200)
                 } else {
-                    alert(response.payload.msg);
+                    toast.error(response.payload.msg);
                 }
             })
     }
@@ -63,7 +68,7 @@ function Login(props) {
                                 <i class="fas fa-user" />
                             </div>
                             <div className={styles.div}>
-                                <input type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="USERNAME" />
+                                <input style={{fontSize: 15}} type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="USERNAME" />
                             </div>
                         </div>
                         <div className={classnames(styles.input_div, styles.pass)}>
@@ -71,7 +76,7 @@ function Login(props) {
                                 <i class="fas fa-lock" />
                             </div>
                             <div className={styles.div}>
-                                <input type="password" value={Password} onChange={onPasswordHandler} name="password" placeholder="PASSWORD" />
+                                <input style={{fontSize: 15}} type="password" value={Password} onChange={onPasswordHandler} name="password" placeholder="PASSWORD" />
                             </div>
                         </div>
                         <Link to="" className={styles.userA}>Forgot Password?</Link>
@@ -84,6 +89,7 @@ function Login(props) {
                     </form>
                 </div>
             </div>
+            <ToastContainer hideProgressBar={true}/>
         </div>
     );
 }

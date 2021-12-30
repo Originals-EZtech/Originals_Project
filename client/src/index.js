@@ -9,6 +9,7 @@ import { applyMiddleware, createStore } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
 import Reducer from './_reducers';
+import { CookiesProvider } from 'react-cookie';
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore)
 
@@ -17,7 +18,9 @@ ReactDOM.render(
     window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.__REDUX_DEVTOOLS_EXTENSION__()
   )}>
+      <CookiesProvider>
     <App />
+    </CookiesProvider>,
   </Provider>,
   document.getElementById('root')
 );

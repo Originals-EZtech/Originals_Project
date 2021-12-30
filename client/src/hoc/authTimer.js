@@ -9,7 +9,12 @@ const Timer = ({ mm, ss }) => {
         width: 210,
         fontSize: 11,
     }
-    const styleTime = {
+    const time_underTen = {
+        fontSize: 15,
+        marginLeft: 30,
+        color: "red"
+    }
+    const time_upTen = {
         fontSize: 15,
         marginLeft: 30
     }
@@ -35,13 +40,21 @@ const Timer = ({ mm, ss }) => {
     }, [minutes, seconds]);
 
     return (
+        // 인증시간 만료됐을 경우
         (minutes === 0) && (seconds == 0) ?        
         <div>
             <h5 style={styleText1}>인증코드 만료</h5>
             <h5 style={styleText2}>인증번호를 다시 발급 받으세요</h5>
         </div>
         :
-        <div style={styleTime}>
+        // 타이머 작동중
+        (minutes === 0) && (seconds <= 10) ?
+        // 10초 남았을 때
+        <div style={time_underTen}>
+            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        </div>
+        :
+        <div style={time_upTen}>
             {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </div>
     );

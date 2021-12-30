@@ -1,18 +1,26 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styles from '../NavBar/navbar.module.css';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import {ToastContainer, toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import { logout } from '../../../_actions/user_action';
+import { useCookies } from "react-cookie";
 
-function MainNavBar() {
+
+function RoomNavBar(props) {
+    const [cookies] = useCookies();
+    const dispatch = useDispatch();
 
     const navbarStyle={
-        float: "right"
+        float: "right",
     }
     
     const firstNav={
         marginRight: 50,
         fontSize: 18,
         marginTop: 7,
-        marginBottom: 7
+        marginBottom: 7,
     }
 
     const secondNav={
@@ -26,6 +34,23 @@ function MainNavBar() {
         fontSize: 45
     }
 
+    const logoutHandler = (e) => {
+        e.preventDefault();
+        
+        dispatch(logout())
+        .then(response => {
+            if (response.payload.logoutSuccess) {
+                toast.success(response.payload.msg)
+                setTimeout(() => {
+                    props.history.push('/login');
+                }, 1500)
+            } else if (!response.payload.logoutSuccess) {
+                toast.error(response.payload.msg) //nvm
+            }
+            })
+    }
+
+
     return (
         <div>
             <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
@@ -37,24 +62,22 @@ function MainNavBar() {
                               <span class="icon icon-bar"></span>
                           </button>
                         
-                          <a href="#home" class="navbar-brand" style={upsideLogo}>ORIGINALS</a>
+                          <a href="/room" class="navbar-brand" style={upsideLogo}>ORIGINALS</a>
                     </div>
-                    
+
                     <div class="collapse navbar-collapse" style={navbarStyle}>
                         <ul class="nav navbar-nav ml-auto" style={firstNav}>
-                            <li><a href="#home" class="smoothScroll">Home</a></li>
-                            <li><a href="#courses" class="smoothScroll">Services</a></li>
-                            <li><a href="#contact" class="smoothScroll">Contact</a></li>
+                            <li style={{marginTop: 15}}><h5>환영합니다 {cookies.user_info}님</h5></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" style={secondNav}>
-                            <li><Link to="/login" class="smoothScroll" className={styles.loginStyle}>LogIn</Link></li>
-                            <li><Link to="/register" class="smoothScroll" className={styles.loginStyle}>SignUp</Link></li>
+                            <li><Link to="" class="smoothScroll" className={styles.loginStyle} onClick={logoutHandler}>LogOut</Link></li>
                         </ul>
                     </div>
                 </div>
             </section>
+            <ToastContainer hideProgressBar={true}/>
     </div>
     );
 }
 
-export default MainNavBar;
+export default withRouter(RoomNavBar);

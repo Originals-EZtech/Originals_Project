@@ -12,7 +12,7 @@ input::placeholder {
 .wave{
 	position: fixed;
 	bottom: 0;
-	left: 67.3em;
+	right: 0;
 	height: 100%;
 	z-index: -1;
 }
@@ -52,8 +52,8 @@ input::placeholder {
 }
 
 .authDiv{
-	width: 40px;
-	margin-bottom: 22rem;
+	width: 0;
+	margin-bottom: 30rem;
 }
 
 .authBtn{
