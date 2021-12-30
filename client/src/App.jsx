@@ -9,12 +9,12 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import JoinRoomPage from './components/views/Room/JoinRoomPage/JoinRoomPage';
 import RoomPage from './components/views/Room/RoomPage/RoomPage';
 import IntroductionPage from './components/views/Room/IntroductionPage/IntroductionPage';
-// import Room from './components/views/Room_By_Dong/Room';
-// import RoomCreate from './components/views/Room/RoomCreate/RoomCreate';
-// import RoomJoin from './components/views/Room/RoomJoin/RoomJoin';
-// import RoomAdmin from './components/views/Room/RoomCreate/RoomAdmin';
-// import RoomParticipant from './components/views/Room/RoomJoin/RoomParticipant';
-import Auth from './hoc/auth';
+// import Room_2 from './components/views/Room_By_Dong/Room';
+// import RoomCreate_2 from './components/views/Room_By_Dong/RoomCreate/RoomCreate';
+// import RoomJoin_2 from './components/views/Room_By_Dong/RoomJoin/RoomJoin';
+// import RoomAdmin_2 from './components/views/Room_By_Dong/RoomCreate/RoomAdmin';
+// import RoomParticipant_2 from './components/views/Room_By_Dong/RoomJoin/RoomParticipant';
+import Auth from './hoc/auth' 
 
 import { connectWithSocketIOServer} from './components/views/Room/utils/wss';
 
@@ -53,11 +53,11 @@ const AnimatedSwitch = () => {
         <Route exact path ="/room" component ={RoomPage} />
         <Route exact path ="/intro" component = {IntroductionPage} />
 
-        {/* <Route exact path="/room_test" component={Room} /> */}
-        {/* <Route exact path="/roomcreate" component={Auth(RoomCreate, null )  } />
-        <Route exact path="/RoomJoin" component={Auth(RoomJoin, null )  } />
-        <Route exact path="/RoomAdmin" component={Auth(RoomAdmin, null )  } />
-        <Route exact path="/RoomParticipant" component={Auth(RoomParticipant, null )  } /> */}
+        {/* <Route exact path="/room_2" component={Room_2} />
+        <Route exact path="/roomcreate_2" component={RoomCreate_2} />
+        <Route exact path="/RoomJoin_2" component={RoomJoin_2} />
+        <Route exact path="/RoomAdmin_2" component={RoomAdmin_2 } />
+        <Route exact path="/RoomParticipant_2" component={RoomParticipant_2 } /> */}
         </Switch>
       </CSSTransition>
     </TransitionGroup>

@@ -7,7 +7,7 @@ const saltRounds = 10
 oracledb.autoCommit = true;
 
 //방만들기
-router.post("/roomcreate", (req, res) => {
+router.post("/roomcreate_2", (req, res) => {
     const insertarray = [req.body.room_id, req.body.room_name, req.body.room_password]
     //테이블에 방 이름 방 비밀번호 입력 
     oracledb.getConnection(dbConfig, (err, conn) => {
@@ -40,7 +40,7 @@ router.post("/roomcreate", (req, res) => {
 
 //express에서 react로 데이터 보내기
 // index.js 에서 use.app에 경로를 (api/data2)찍어준 것이 api는 setupProxy.js에서 localhost:5000으로 할당 -> localgost:5000/data2
-router.post("/roomjoinname", (req, res) => {
+router.post("/roomjoinname_2", (req, res) => {
     oracledb.getConnection(dbConfig, (err, conn) => {
         todoWork(err, conn);
     });
@@ -57,6 +57,7 @@ router.post("/roomjoinname", (req, res) => {
                     return;
                 }
                 res.send(result.rows);
+                console.log("result.rows"+result.rows);
                 doRelease(connection);
             });
         function doRelease(connection) {
@@ -70,7 +71,7 @@ router.post("/roomjoinname", (req, res) => {
 });
 
 //테이블 ID,PASSWORD로 방 존재확인
-router.post("/roomjoinsearch", (req, res) => {
+router.post("/roomjoinsearch_2", (req, res) => {
     const selectarray = [req.body.room_id, parseInt(req.body.room_password)]
     oracledb.getConnection(dbConfig, (err, conn) => {
         roomNamesearch(err, conn);

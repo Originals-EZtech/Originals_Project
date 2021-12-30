@@ -76,7 +76,16 @@ const checkvalid2 = ()=>{
           
           <button disabled={!room_id || !room_password} className={isActive ? styles.activebtn : styles.unactivebtn} onClick= { onclick }>
             {
-              isActive === true ? <Link to="/roomadmin"><h3>만들기</h3></Link>
+              isActive === true ? 
+              <Link to={{
+                pathname: "/roomadmin",
+                  state: { // 오.. 새 기술이다
+                      title: "title",
+                      name: value2.name,
+                      body: "body"
+                  }
+              }}>
+              <h3>만들기</h3></Link>
               : null
             } 
           </button>
