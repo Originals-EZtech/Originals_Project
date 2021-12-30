@@ -13,6 +13,7 @@
 
 // const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore)
 
+<<<<<<< HEAD
 // ReactDOM.render(
 //   <Provider store={createStoreWithMiddleware(Reducer,
 //     window.__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -24,6 +25,16 @@
 //   </Provider>,
 //   document.getElementById('root')
 // );
+=======
+ReactDOM.render(
+  <Provider store={createStoreWithMiddleware(Reducer)}>
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>,
+  </Provider>,
+  document.getElementById('root')
+);
+>>>>>>> 06673480a689c2e055c34fa9e15aede52d6820fe
 
 // // If you want to start measuring performance in your app, pass a function
 // // to log results (for example: reportWebVitals(console.log))

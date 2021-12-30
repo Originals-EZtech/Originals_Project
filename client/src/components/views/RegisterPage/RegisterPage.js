@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { registerUser, authEmail } from '../../../_actions/user_action';
+import { connect, useDispatch } from 'react-redux';
+import { registerUser, authEmail } from '../Room/store/actions';
 import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
@@ -8,10 +8,9 @@ import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
-import Spinner from '../Loading/Spinner';
 
 function Register(props) {
-    const dispatch = useDispatch();
+    const { registerUserAction, authEmailAction } = props;
 
     const [Email, setEmail] = useState("");
     const [Name, setName] = useState("");
@@ -104,6 +103,19 @@ function Register(props) {
             email: Email
         }
         
+        authEmailAction(body)
+        .then(response => {
+            if (response.response.sendCodeSuccess) {
+                setSecurityCode(response.response.authNum)
+                console.log(response.response.authNum)
+                toast.success(response.response.msg)
+                // 인증 타이머 시작
+                setTime(false);
+                setTime(true);
+            } else if (!response.response.sendCodeSuccess) {
+                toast.error(response.response.msg)
+            }
+        })
         // dispatch(authEmail(body))
         // .then(response => {
         //     if (response.payload.sendCodeSuccess) {
@@ -152,6 +164,17 @@ function Register(props) {
             name : Name
         }
 
+        registerUserAction(body)
+        .then(response => {
+            if (response.response.success) {
+                toast.success(response.response.msg);
+                setTimeout(() => {
+                    props.history.push('/login');
+                }, 1200)
+            } else {
+                toast.error("Failed to sign up")
+            }
+        })
         // dispatch(registerUser(body))
         //     .then(response => {
         //         if (response.payload.success) {
@@ -247,4 +270,11 @@ function Register(props) {
     );
 }
 
-export default withRouter(Register);
+const mapActionsToProps = (dispatch) => {
+    return {
+        registerUserAction: (body) => dispatch(registerUser(body)),
+        authEmailAction: (body) => dispatch(authEmail(body))
+    }
+}
+
+export default withRouter(connect(null, mapActionsToProps)(Register));
