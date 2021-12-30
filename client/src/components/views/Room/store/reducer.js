@@ -78,6 +78,18 @@ const reducer = (state = initState, action) => {
                 ...state,
                 success:action.response.success
             }
+        case Actions.SET_AUTH_EMAIL:
+            return {
+                ...state,
+            }
+        case Actions.SET_AUTH_USER:
+            return {
+                ...state,
+            }
+        case Actions.SET_LOGOUT_USER:
+            return {
+                ...state,
+            }
         default:
             return state;
     }
