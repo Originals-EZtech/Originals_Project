@@ -10,7 +10,11 @@ const Actions ={
     SET_ACTIVE_CONVERSATION: "SET_ACTIVE_CONVERSATION",
     SET_DIRECT_CHAT_HISTORY: "SET_DIRECT_CHAT_HISTORY",
     SET_SOCKET_ID: "SET_SOCKET_ID",
-    SET_LOGIN_USER: "SET_LOGIN_USER"
+    SET_LOGIN_USER: "SET_LOGIN_USER",
+    SET_REGISTER_USER: "SET_REGISTER_USER",
+    SET_AUTH_EMAIL: "SET_AUTH_EMAIL",
+    SET_AUTH_USER: "SET_AUTH_USER",
+    SET_LOGOUT_USER: "SET_LOGOUT_USER"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -45,69 +49,108 @@ export const setShowOverlay = (showOverlay) =>{
     return {
         type: Actions.SET_SHOW_OVERLAY,
         showOverlay,
-    };
-};
+    }
+}
+
 export const setParticipants = (participants) => {
     return {
         type: Actions.SET_PARTICIPANTS,
         participants,
-    };
-};
+    }
+}
 
 export const setMessages = (messages) => {
     return {
       type: Actions.SET_MESSAGES,
       messages,
-    };
-  };
+    }
+}
   
-  export const setActiveConversation = (activeConversation)=>{
+export const setActiveConversation = (activeConversation)=>{
     return{
       type: Actions.SET_ACTIVE_CONVERSATION,
       activeConversation,
-    };
-  };
+    }
+}
   
-  export const setDirectChatHistory = (directChatHistory)=>{
+export const setDirectChatHistory = (directChatHistory)=>{
     return{
       type: Actions.SET_DIRECT_CHAT_HISTORY,
       directChatHistory,
-    };
-  };
+    }
+}
   
-  export const setSocketId = (socketId) =>{
+export const setSocketId = (socketId) =>{
     return{
       type: Actions.SET_SOCKET_ID,
       socketId,
-    };
-  };
-
-  export function loginUser(dataTosubmit) {
-    Promise.all([axios.post('/api/users/login', dataTosubmit),])
-    .then(res => {
-      console.log('res',res);
-      // const request = res.data;
-      // console.log("request 값 ??? ", request)
-    })
-    .catch(error => console.log(error))
-
-    // const request = axios.post('/api/users/login', dataTosubmit)
-    //     .then((response) => 
-    //     { 
-    //       console.log("console.log(response)",response)
-    //       // response.data
-    //     })
-    //     .catch((error)=>{
-    //       console.log("console.log(error);",error);
-    //     })
-        
-    console.log("axios로 서버에 보내는 값: ",dataTosubmit)
-    // console.log("request 값 ??? ", request)
-
-    return {
-        type: Actions.SET_LOGIN_USER,
-        dataTosubmit
     }
 }
+
+// 로그인
+export const loginUser = async (loginData) => {
+    const request = await axios.post('/api/users/login', loginData)
+    const response = request.data;
+    // console.log("axios로 서버에 보내는 값: ", loginData)
+    // console.log('request', request);
+    // console.log('response', response);
+    return {
+        type: Actions.SET_LOGIN_USER,
+        response
+    }
+}
+
+  // 회원가입
+export const registerUser = async (registerData) => {
+    const request = await axios.post('/api/users/register', registerData)
+    const response = request.data;
+    console.log(response);
+
+    return {
+        type: Actions.SET_REGISTER_USER,
+        response
+    }
+}
+
+// auth email (이메일 인증)
+export const authEmail = async (dataTosubmit) => {
+    const request = await axios.post('/api/users/emailauth', dataTosubmit)
+    const response = request.data;
+    console.log('dataTosubmit', dataTosubmit);
+    console.log(request);
+    console.log(response);
+
+    return {
+        type: Actions.SET_AUTH_EMAIL,
+        response
+    }
+}
+
+// auth token (토큰 인증)
+export const auth = async () => {
+    const request = await axios.get('/api/users/auth') //endpoint로 get request, get이니까 login과 다르게 param x
+    const response = request.data;
+    console.log(request);
+    console.log(response);
+
+    return { //Action 끝내고 이제 Reducer로 보냄
+        type: Actions.SET_AUTH_USER,
+        response
+    }
+}
+
+// 로그아웃
+export const logout = async () => {
+    const request = await axios.get('/api/users/logout')
+    const response = request.data;
+    console.log(request);
+    console.log(response);
+
+    return {
+        type: Actions.SET_LOGOUT_USER,
+        response
+    }
+}
+
   
 export default Actions;

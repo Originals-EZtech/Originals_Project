@@ -68,12 +68,27 @@ const reducer = (state = initState, action) => {
                 socketId: action.socketId
             };
         case Actions.SET_LOGIN_USER:
-            console.log("dataTosubmit", action.dataTosubmit)
-
-            console.log("payload on reducer?", action.payload)
+            // console.log("payload", action.response)
             return {
                 ...state, 
-                loginSuccess: action.dataTosubmit
+                loginSuccess: action.response.loginSuccess
+            };
+        case Actions.SET_REGISTER_USER:
+            return {
+                ...state,
+                success:action.response.success
+            }
+        case Actions.SET_AUTH_EMAIL:
+            return {
+                ...state,
+            }
+        case Actions.SET_AUTH_USER:
+            return {
+                ...state,
+            }
+        case Actions.SET_LOGOUT_USER:
+            return {
+                ...state,
             }
         default:
             return state;
