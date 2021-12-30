@@ -17,7 +17,7 @@ export default class RoomJoinComp extends React.Component {
 
   onclick = () => {
     //데이터 가져오기(방이름들)
-    fetch("/api/data2/roomjoinname", { 
+    fetch("/api/data2/roomjoinname_2", { 
       method: "post", //통신방법
       headers: {
         "content-type": "application/json",
