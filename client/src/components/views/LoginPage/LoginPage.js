@@ -36,7 +36,21 @@ function Login(props) {
         }
         console.log("body: ",body)
 
-        loginUserAction(body);
+        loginUserAction(body)
+        .then(response => {
+            // console.log(response.response);
+            if (response.response.loginSuccess) {
+                // alert(response.payload.msg);
+                toast.success(response.response.msg);
+                // 뒤로가기 방지 페이지 이동
+                // window.location.href="/";
+                setTimeout(() => {
+                    props.history.push('/room');
+                }, 1200)
+            } else {
+                toast.error(response.response.msg);
+            }
+        })
         // dispatch(loginUser(body))
         // .then(response => {
                 

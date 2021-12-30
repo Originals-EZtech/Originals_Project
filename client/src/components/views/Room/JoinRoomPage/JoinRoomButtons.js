@@ -11,8 +11,8 @@ const Button = ({ buttonText, cancelButton = false, onClickHandler }) =>{
         </button>
 );
 };
-const JoinRoomButtons = (props, {handleJoinRoom, isRoomHost}) => {
-    const successButtonText = isRoomHost ? 'Host' : 'Join';
+const JoinRoomButtons = (props) => {
+    const successButtonText = props.isRoomHost ? 'Host' : 'Join';
 
     const pushToIntroductionPage = () => {
         props.history.push('/intro');
