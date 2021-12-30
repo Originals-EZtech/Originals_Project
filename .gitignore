@@ -7,16 +7,9 @@
 
 # db
 dbConfig.js
-mailConfig.js
-<<<<<<< HEAD
 mybatisConfig.js
-<<<<<<< HEAD
 mailConfig.js
-=======
->>>>>>> c376b3e021b9f9361daae2cf35509b8846c0132a
-=======
 tokenConfig.js
->>>>>>> 0af16a42bd1645e95428b7f887f6deb74de51510
 # testing
 /coverage
 

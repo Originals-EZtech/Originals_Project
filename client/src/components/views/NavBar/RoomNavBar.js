@@ -37,17 +37,17 @@ function RoomNavBar(props) {
     const logoutHandler = (e) => {
         e.preventDefault();
         
-        dispatch(logout())
-        .then(response => {
-            if (response.payload.logoutSuccess) {
-                toast.success(response.payload.msg)
-                setTimeout(() => {
-                    props.history.push('/login');
-                }, 1500)
-            } else if (!response.payload.logoutSuccess) {
-                toast.error(response.payload.msg) //nvm
-            }
-            })
+        // dispatch(logout())
+        // .then(response => {
+        //     if (response.payload.logoutSuccess) {
+        //         toast.success(response.payload.msg)
+        //         setTimeout(() => {
+        //             props.history.push('/login');
+        //         }, 1500)
+        //     } else if (!response.payload.logoutSuccess) {
+        //         toast.error(response.payload.msg) //nvm
+        //     }
+        //     })
     }
 
 
