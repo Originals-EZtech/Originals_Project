@@ -68,6 +68,7 @@ router.post('/emailauth', (req, res) => {
             console.log("nodemailer 발송");
             
             if (error) {
+                console.log(error);
                 res.json({ msg: '이메일 주소를 확인해주세요' });
             } else {
                 console.log("발급한 보안코드 ",authNum);

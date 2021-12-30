@@ -10,7 +10,9 @@ const Actions ={
     SET_ACTIVE_CONVERSATION: "SET_ACTIVE_CONVERSATION",
     SET_DIRECT_CHAT_HISTORY: "SET_DIRECT_CHAT_HISTORY",
     SET_SOCKET_ID: "SET_SOCKET_ID",
-    SET_LOGIN_USER: "SET_LOGIN_USER"
+    SET_LOGIN_USER: "SET_LOGIN_USER",
+    SET_REGISTER_USER: "SET_REGISTER_USER",
+    SET_AUTH_EMAIL: "SET_AUTH_EMAIL",
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -82,32 +84,63 @@ export const setMessages = (messages) => {
     };
   };
 
-  export function loginUser(dataTosubmit) {
-    Promise.all([axios.post('/api/users/login', dataTosubmit),])
-    .then(res => {
-      console.log('res',res);
-      // const request = res.data;
-      // console.log("request 값 ??? ", request)
-    })
-    .catch(error => console.log(error))
-
-    // const request = axios.post('/api/users/login', dataTosubmit)
-    //     .then((response) => 
-    //     { 
-    //       console.log("console.log(response)",response)
-    //       // response.data
-    //     })
-    //     .catch((error)=>{
-    //       console.log("console.log(error);",error);
-    //     })
-        
-    console.log("axios로 서버에 보내는 값: ",dataTosubmit)
-    // console.log("request 값 ??? ", request)
-
+  export const loginUser = async (loginData) => {
+    const request = await axios.post('/api/users/login', loginData)
+    const response = request.data;
+    // console.log("axios로 서버에 보내는 값: ", loginData)
+    // console.log('request', request);
+    // console.log('response', response);
     return {
         type: Actions.SET_LOGIN_USER,
-        dataTosubmit
-    }
-}
+        response
+    };
+  };
+
+  export const registerUser = async (registerData) => {
+    const request = await axios.post('/api/users/register', registerData)
+    const response = request.data;
+    console.log(response);
+
+    return {
+        type: Actions.SET_REGISTER_USER,
+        response
+    };
+  };
+
+  // auth email 
+  export const authEmail = async (dataTosubmit) => {
+    const request = await axios.post('/api/users/emailauth', dataTosubmit)
+    const response = request.data;
+    console.log('dataTosubmit', dataTosubmit);
+    console.log(request);
+    console.log(response);
+
+    return {
+        type: Actions.SET_AUTH_EMAIL,
+        response
+    };
+  };
+
+// // auth token 
+// export function auth() {
+//   const request = axios.get('/api/users/auth') //endpoint로 get request, get이니까 login과 다르게 param x
+//       .then(response => response.data)
+
+//   return { //Action 끝내고 이제 Reducer로 보냄
+//       type: AUTH_USER,
+//       payload: request
+//   };
+// };
+
+// export function logout() {
+//   const request = axios.get('/api/users/logout')
+//       .then(response => response.data)
+
+//   return {
+//       type: LOGOUT_USER,
+//       payload: request
+//   };
+// };
+
   
 export default Actions;
