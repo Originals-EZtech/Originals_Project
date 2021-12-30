@@ -109,9 +109,9 @@ router.post("/register", function (req, res) {
             conn.execute('insert into users (EMAIL, PASSWORD, NAME) values(:email,:password,:name)', param, function (err, result, fields) {
                 if (err) {
                     res.status(200).json({
-                        success: false, msg: "회원가입 실패하셨습니다."
+                        success: false, msg: "회원가입 실패하셨습니다." 
                     })
-                    console.log("insert 실패");
+                    // 토큰 칼럼생성  
                 } else {
                     res.status(200).json({
                         success: true, msg: "회원가입 되셨습니다."
