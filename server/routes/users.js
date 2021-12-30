@@ -115,11 +115,7 @@ router.post("/register", function (req, res) {
                 } else {
                     conn.execute('insert into tokens (ID, USER_EMAIL) values(tmp_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
                         if (err2) console.log(err2)
-<<<<<<< HEAD
-                    })  
-=======
                     })
->>>>>>> 06673480a689c2e055c34fa9e15aede52d6820fe
                     res.status(200).json({
                         success: true, msg: "회원가입 되셨습니다."
                     })
