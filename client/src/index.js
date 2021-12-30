@@ -5,13 +5,14 @@ import App from './App';
 import { store } from './components/views/Room/store/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+      <CookiesProvider>
+        <App />
+      </CookiesProvider>
+    </Provider>,
   document.getElementById('root')
 );
 
