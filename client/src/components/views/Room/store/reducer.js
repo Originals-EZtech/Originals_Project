@@ -10,13 +10,15 @@ const initState = {
     messages: [],
     activeConversation: null,
     directChatHistory: [],
-    socketId: null
+    socketId: null,
+    payload: {loginSuccess:"", msg: ""},
+    dataTosubmit:{}
 };
 
 const reducer = (state = initState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case Actions.SET_IS_ROOM_HOST:
-            return{
+            return {
                 ...state,
                 isRoomHost: action.isRoomHost,
             };
@@ -31,7 +33,7 @@ const reducer = (state = initState, action) => {
                 roomId: action.roomId
             };
         case Actions.SET_IDENTITY:
-            return{
+            return {
                 ...state,
                 identity: action.identity
             };
@@ -43,7 +45,7 @@ const reducer = (state = initState, action) => {
         case Actions.SET_PARTICIPANTS:
             return {
                 ...state,
-                participants: action.participants 
+                participants: action.participants
             };
         case Actions.SET_MESSAGES:
             return {
@@ -51,19 +53,30 @@ const reducer = (state = initState, action) => {
                 messages: action.messages,
             };
         case Actions.SET_ACTIVE_CONVERSATION:
-            return{
+            return {
                 ...state,
                 activeConversation: action.activeConversation
             };
         case Actions.SET_DIRECT_CHAT_HISTORY:
-            return{
+            return {
                 ...state,
                 directChatHistory: action.directChatHistory
             };
         case Actions.SET_SOCKET_ID:
-            return{
+            return {
                 ...state,
                 socketId: action.socketId
+            };
+        case Actions.SET_LOGIN_USER:
+            // console.log("payload", action.response)
+            return {
+                ...state, 
+                loginSuccess: action.response.loginSuccess
+            };
+        case Actions.SET_REGISTER_USER:
+            return {
+                ...state,
+                success:action.response.success
             }
         default:
             return state;
