@@ -110,10 +110,13 @@ router.post("/register", function (req, res) {
             conn.execute('insert into users (EMAIL, PASSWORD, NAME) values(:email,:password,:name)', param, function (err, result, fields) {
                 if (err) {
                     res.status(200).json({
-                        success: false, msg: "회원가입 실패하셨습니다."
+                        success: false, msg: "회원가입 실패하셨습니다." 
                     })
-                    console.log("insert 실패");
+                    // 토큰 칼럼생성  
                 } else {
+                    conn.execute('insert into tokens (ID, USER_EMAIL) values(tmp_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
+                        if (err2) console.log(err2)
+                    })  
                     res.status(200).json({
                         success: true, msg: "회원가입 되셨습니다."
                     })
