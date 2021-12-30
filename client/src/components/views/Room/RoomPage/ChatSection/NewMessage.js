@@ -20,7 +20,7 @@ const NewMessage = () => {
 
   const sendMessage = () => {
     if (message.length > 0) {
-      //webRTCHandler.sendMessageUsingDataChannel(message);
+      webRTCHandler.sendMessageUsingDataChannel(message);
       setMessage("");
     }
   };

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 
 const SingleMessage = ({messageContent, isAuthor}) =>{
-    console.log(isAuthor);
-    console.log(messageContent);
+    //console.log(isAuthor);
+    //console.log(messageContent);
     const messageStyling = isAuthor
     ? 'author_direct_message'
     :'receiver_direct_message'; 
@@ -19,9 +19,17 @@ const SingleMessage = ({messageContent, isAuthor}) =>{
 };
 
 const MessagesContainer = ({messages}) =>{
-    console.log(messages);
-    // messages 값 전달된다!! 
-    // return을 못하는 듯.. 왜 why?
+    const scrollRef = useRef();
+
+    useEffect(()=>{
+        if(scrollRef){
+            scrollRef.current.scrollIntoView({ behaviour: 'smooth'});
+        }
+    }, [
+        messages
+    ]);
+    //console.log(messages);
+
         return (
             <div className='direct_messages_container'>
                 {messages.map((message) => {
@@ -31,8 +39,8 @@ const MessagesContainer = ({messages}) =>{
                         isAuthor ={message.isAuthor}
                         key = {`${message.messageContent} - ${message.identity}`}
                     />);
-
                 })}
+                <div ref={scrollRef}></div>
             </div>
         );
 
