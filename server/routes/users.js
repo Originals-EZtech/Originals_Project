@@ -155,7 +155,7 @@ router.post("/login", function (req, res) {
                 // 비번 일치한다면 토큰 배급 시작
                 if (resultt) {
                     var token = jwt.sign({email: req.body.email,name:result.rows[0][2] }, tokenConfig.secretKey,{ expiresIn: "2h",issuer:"Originals-Team"});
-                    const completedToken = [token, req.body.email]
+                    const completedToken = [token, req.body.email] 
                     console.log("배열에 넣은 토큰정보:", completedToken)
                     conn.execute('update users set TOKEN = :token where EMAIL = :email ', completedToken, function (err2, result2) {
                         if (err2) {
