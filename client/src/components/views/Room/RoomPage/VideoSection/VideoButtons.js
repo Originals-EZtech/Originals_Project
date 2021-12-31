@@ -14,7 +14,7 @@ const VideoButtons = (props) =>{
             {!connectOnlyWithAudio && <CameraButton />}
             <LeaveRoomButton />
             {!connectOnlyWithAudio && <SwitchToScreenSharingButton /> }
-             
+            
         </div>
   );
 };
