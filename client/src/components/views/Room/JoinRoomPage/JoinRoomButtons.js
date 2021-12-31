@@ -23,6 +23,7 @@ const JoinRoomButtons = (props) => {
     //console.log(handleJoinRoom);
     return (
         <div className='join_room_buttons_container'>
+            <h2><Link to="../MyRoom" >My room</Link></h2>
             <Button
             buttonText = {successButtonText}
             onClickHandler={props.handleJoinRoom} 

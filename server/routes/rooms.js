@@ -6,6 +6,43 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10
 oracledb.autoCommit = true;
 
+//방목록 불러오기
+router.post("/roomlist_2", (req, res) => {
+    const selectarray = [req.body.user_id,];
+    oracledb.getConnection(dbConfig, (err, conn) => {
+        todoWork(err, conn);
+    });
+        function todoWork(err, connection) {
+            if (err) {
+                console.error(err.message);
+                console.log("데이터 가져오기 실패");
+                return;
+            }
+            connection.execute("SELECT ROOM_SEQ,ROOM_ID,USER_ID,ROOM_NAME,ROOM_PASSWORD,ROOM_DATE FROM ROOM_TABLE WHERE USER_ID=:user_id", selectarray, function (err, result) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+                res.send(result);
+                console.log("result"+result);
+                console.log("result.rows"+result.rows);
+                console.log("result.rows.key"+result.rows.key);
+                console.log("result.rows[0]"+result.rows[0]);
+                console.log("result.rows.room_seq"+result.rows.room_seq);
+                doRelease(connection);
+            });
+        function doRelease(connection) {
+            connection.release(function (err) {
+                if (err) {
+                    console.error(err.message);
+                }
+            });
+        }
+    }
+});
+
+
 //방만들기
 router.post("/roomcreate_2", (req, res) => {
     const insertarray = [req.body.room_id, req.body.room_name, req.body.room_password]
