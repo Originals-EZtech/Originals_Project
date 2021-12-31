@@ -67,7 +67,7 @@ const AnimatedSwitch = () => {
         <Route exact path="/roomcreate_2" component={RoomCreate_2} />
         <Route exact path="/RoomJoin_2" component={RoomJoin_2} />
         <Route exact path="/RoomAdmin_2" component={RoomAdmin_2 } />
-        <Route exact path="/RoomParticipant_2" component={RoomParticipant_2 } />
+        <Route exact path="/RoomParticipant_2" component={RoomParticipant_2 } /> */}
         </Switch>
       </CSSTransition>
     </TransitionGroup>
