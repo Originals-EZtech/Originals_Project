@@ -3,9 +3,7 @@ import store from "../store/store";
 
 export const appendNewMessageToChatHistory = (data) =>{
     const {isAuthor, receiverSocketId, authorSocketId} = data;
-    //console.log(isAuthor);
-    //console.log(receiverSocketId);
-    //console.log(authorSocketId);
+    //console.log(data);
     if (isAuthor){
         appendMessageToChatHistory(receiverSocketId, data);
     }else{
@@ -15,9 +13,9 @@ export const appendNewMessageToChatHistory = (data) =>{
 
 const appendMessageToChatHistory = (userSocketId, data) =>{
     const chatHistory = [...store.getState().directChatHistory];
-
+    //console.log(chatHistory);
     const userChatHistory = chatHistory.find(h => h.socketId === userSocketId);
-    console.log(userChatHistory);
+    //console.log(userChatHistory);
     if(userChatHistory) {
         const newDirectMessage = {
             isAuthor: data.isAuthor,
@@ -27,7 +25,7 @@ const appendMessageToChatHistory = (userSocketId, data) =>{
 
         const newUserChatHistory = {
             ...userChatHistory,
-            chatHistory: [...userChatHistory.ChatHistory, newDirectMessage]
+            ChatHistory: [...userChatHistory.ChatHistory, newDirectMessage]
         }
 
         const newChatHistory = [
@@ -36,10 +34,12 @@ const appendMessageToChatHistory = (userSocketId, data) =>{
         ];
 
         store.dispatch(setDirectChatHistory(newChatHistory));
+        //console.log(newChatHistory);
     }else{
         const newUserChatHistory = {
             socketId: userSocketId,
-            ChatHistory: [{
+            ChatHistory: [
+            {
                 isAuthor: data.isAuthor,
                 messageContent: data.messageContent,
                 identity: data.identity
@@ -50,4 +50,4 @@ const appendMessageToChatHistory = (userSocketId, data) =>{
 
         store.dispatch(setDirectChatHistory(newChatHistory));
     }
-}
+};

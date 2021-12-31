@@ -28,7 +28,7 @@ const DirectChat = ({activeConversation, directChatHistory})=>{
         );
 
     }, [activeConversation, directChatHistory]);
-    //console.log(messages);
+    //console.log(activeConversation);
     // 넘어간다!!!  
     return(
         <div className='direct_chat_container'>

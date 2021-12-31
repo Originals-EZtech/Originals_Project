@@ -19,7 +19,8 @@ const JoinRoomButtons = (props) => {
     const pushToIntroductionPage = () => {
         props.history.push('/intro');
     };
-
+   // console.log(props);
+    //console.log(handleJoinRoom);
     return (
         <div className='join_room_buttons_container'>
             <Button
