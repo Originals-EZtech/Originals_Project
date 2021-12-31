@@ -5,6 +5,7 @@ const Input = ({placeholder, value, changeHandler})=> {
         <input 
         value = {value}
         onChange={changeHandler}
+        //style={{fontWeight:"bold"}}
         className = 'join_room_input'
         placeholder= {placeholder} 
         />
