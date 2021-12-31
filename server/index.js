@@ -137,7 +137,7 @@ const createNewRoomHandler = (data, socket) =>{
     // emit to that client which created that room roomId
     socket.emit('room-id', {roomId});
 
-    //디비에 룸아이디 insert 테스트
+    // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
     const insertarray = [roomId, "roomname", "roompassword"];
 
     oracledb.getConnection(dbConfig, (err, conn) => {

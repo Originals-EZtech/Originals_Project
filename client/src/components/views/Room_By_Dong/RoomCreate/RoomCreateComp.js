@@ -34,7 +34,7 @@ function RoomCreateComp() {
       room_name: room_name,
       room_password: room_password,
     };
-      fetch("/api/data2/roomcreate", { //text 주소에서 받을 예정
+      fetch("/api/data2/roomcreate_2", { //text 주소에서 받을 예정
         method: "post", //통신방법
         headers: {
           "content-type": "application/json",
@@ -81,7 +81,7 @@ const checkvalid2 = ()=>{
             {
               isActive === true ? 
               <Link to={{
-                pathname: "/roomadmin",
+                pathname: "/roomadmin_2",
                   state: {
                       title: "title",
                       name: value2.name,
