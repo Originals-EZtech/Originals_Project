@@ -12,9 +12,9 @@ const ConnectingButtons = (props) => {
     }
     return(
         <div className = 'connecting_buttons_container'>
-            <ConnectingButton buttonText = 'Join a meeting' 
+            <ConnectingButton buttonText = '방 참여하기' 
             onClickHandler ={pushToJoinRoomPage}/>
-            <ConnectingButton createRoomButton buttonText = 'Host a meeting' 
+            <ConnectingButton createRoomButton buttonText = '방 만들기' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
         </div>
     );

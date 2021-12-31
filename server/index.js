@@ -5,6 +5,9 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const cookieParser = require('cookie-parser');
+const oracledb = require('oracledb');
+const dbConfig = require('./config/dbConfig');
+oracledb.autoCommit = true;
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -12,7 +15,7 @@ app.use(express.json());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/data2', require('./routes/rooms'));
-// app.use('/api/webrtc', require('./routes/webrtc'));
+app.use('/api/visitor', require('./routes/chartinfo'));
 
 
 const http = require('http');
@@ -136,6 +139,39 @@ const createNewRoomHandler = (data, socket) =>{
 
     // emit to that client which created that room roomId
     socket.emit('room-id', {roomId});
+
+    // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
+    const insertarray = [roomId, "roomname", "roompassword"];
+
+    oracledb.getConnection(dbConfig, (err, conn) => {
+        roomNameInsert(err, conn);
+    });
+        function roomNameInsert(err, connection) {
+            if (err) {
+                console.error(err.message);
+                console.log("데이터 가져오기 실패");
+                return;
+            }
+            connection.execute("insert into room_table (ROOM_SEQ,ROOM_ID,USER_ID,ROOM_NAME,ROOM_PASSWORD,ROOM_DATE) values(ROOM_SEQ.NEXTVAL,:roomId,9,:roomname,:roompassword,SYSDATE)", insertarray, function (err, result) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+                console.log(result);
+                doRelease(connection);
+            });
+        function doRelease(connection) {
+            connection.release(function (err) {
+                if (err) {
+                    console.error(err.message);
+                }
+            });
+        }
+    }
+    // room-id 테이블에 저장
+
+
 
     // emit an event to all users connected 
     // to that room about new users which are right in this room

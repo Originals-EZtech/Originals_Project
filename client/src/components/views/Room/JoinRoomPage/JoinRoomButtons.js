@@ -27,7 +27,6 @@ const JoinRoomButtons = ({handleJoinRoom, isRoomHost, history}) => {
             buttonText = {successButtonText}
             onClickHandler={handleJoinRoom} 
             />
-
             <Button
             buttonText = 'Cancel'
             cancelButton
