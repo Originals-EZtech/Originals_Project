@@ -82,7 +82,7 @@
 }
 
 .message_right_styles {
-  background: linear-gradient(168.68deg, #0052c9 1.12%, #0a91db 100%);
+  background: linear-gradient(168.68deg, #29ca8e 1.12%, #21a374 100%);
   color: white;
 }
 
@@ -124,7 +124,7 @@
 .overlay_container {
   width: 100%;
   height: 100vh;
-  background: rgba(0, 82, 201, 0.7);
+  background: rgba(37,184,131,0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,7 +134,7 @@
 
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #0052c9; /* Blue */
+  border-top: 16px solid #17815a; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -210,7 +210,7 @@
   height: 90%;
   background-color: black;
   border-radius: 8px;
-  border: 2px solid blue;
+  border: 2px solid #21a374;
   left: 1%;
   bottom: 1%;
   display: flex;
@@ -227,7 +227,7 @@
   position: absolute;
   left: 20%;
   bottom: 0;
-  background: linear-gradient(168.68deg, #0052c9 1.12%, #0a91db 100%);
+  background: linear-gradient(168.68deg, #21a374 1.12%, #29ca8e 100%);
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
 }
@@ -246,7 +246,7 @@
 }
 
 .video_button_image:hover {
-  background: blue;
+  background: #187553;
   padding: 10px;
   border-radius: 25px;
 }
@@ -259,13 +259,13 @@
   border-radius: 65px;
   border: none;
   color: white;
-  background: #fc5d5b;
+  background: #056441;
   box-shadow: 0px 3px 30px rgba(252, 93, 91, 0.1);
   transition: 0.2s;
 }
 
 .video_button_end:hover {
-  background: red;
+  background: rgb(68, 211, 142);
 }
 
 .videos_container {
@@ -340,7 +340,7 @@ video {
   color: white;
   margin-top: 0;
   padding: 18px 38px;
-  background: linear-gradient(168.68deg, #0052c9 1.12%, #0a91db 100%);
+  background: linear-gradient(168.68deg, #21a374 1.12%, #29ca8e 100%);
   border-radius: 0px 0px 15px 15px;
 }
 
@@ -446,7 +446,7 @@ video {
 
 .direct_chat_header {
   height: 50px;
-  background: linear-gradient(168.68deg, #0052c9 1.12%, #0a91db 100%);
+  background: linear-gradient(168.68deg, #21a374 1.12%, #29ca8e 100%);
   width: 95%;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
@@ -508,7 +508,7 @@ video {
 }
 
 .author_direct_message {
-  background: linear-gradient(168.68deg, #0052c9 1.12%, #0a91db 100%);
+  background: linear-gradient(168.68deg, #29ca8e 1.12%, #21a374 100%);
   float: right;
   border-radius: 8px 8px 0px 8px;
   padding: 13px;
@@ -533,4 +533,30 @@ video {
   margin-bottom: 5px;
   font-size: 14px;
   margin-right: 5px;
+}
+
+.sttbutton {
+  height: 80%;
+  margin-left: 17px;
+  margin-top: 4px;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.sttbutton:hover{
+  background: blue;
+  padding: 10px;
+  border-radius: 25px;
+}
+
+.Sttcontanor{
+  background-color:yellow;
+  width:60%;
+  height:10%;
+  position: absolute;
+  bottom: 10%;
+  left: 20%;
+  border-radius: 20px;
+  z-index: 2;
+  
 }

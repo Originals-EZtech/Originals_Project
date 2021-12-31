@@ -17,8 +17,10 @@ const JoinRoomContent = (props) =>{
     const [nameValue, setNameValue] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
 
+    console.log(props); 
 
-    const handleJoinRoom = async () =>{
+    const handleJoinRoom = async () =>{ // 여기 안넘어감.. 
+        console.log("check");
         setIdentityAction(nameValue);
         if (isRoomHost){
             createRoom();

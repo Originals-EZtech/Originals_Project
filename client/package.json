@@ -42,8 +42,8 @@
     "simplebar": "^5.3.5",
     "simplebar-react": "^2.3.5",
     "simple-peer": "^9.11.0",
-    "styled-components": "^5.3.3",
     "socket.io-client": "^4.4.0",
+    "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
