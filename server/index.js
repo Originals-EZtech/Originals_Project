@@ -1,3 +1,6 @@
+// import { accountsid, authtoken } from './config/twilio';
+//const twilio = require('../config/twilio');
+
 const express = require('express');
 const app = express();
 const port = 5000;
@@ -44,8 +47,8 @@ app.get('/api/room-exists/:roomId', (req,res)=> {
 });
 
 app.get('/api/get-turn-credentials', (req, res) =>{
-    const accountSid ='ACc60b132dea6d34c5417e9bf35328e5c0';
-    const authToken = '2a1847860a04f7a74a47396ce68a4225';
+    const accountSid =  'ACa974a254cf03f7fd4ab2a5fa9cf9733f';
+    const authToken = '0ffd680cf76aece44a05f61a3fae5215';
 
     const client= twilio(accountSid, authToken);
 
