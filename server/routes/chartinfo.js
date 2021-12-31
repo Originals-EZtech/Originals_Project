@@ -52,17 +52,50 @@ router.get('/count', (req, res) => {
 })
 
 
-// SELECT permit all users
+// 권한 승인 요청 리스트
 router.get("/permitlist", function (req, res) {
-    conn.execute("select * from users where flag=1", function (err, result) {
+    conn.execute("select email,name,role,flag from users where flag=true", function (err, result) {
+        if (err) {
+            console.log("select 실패");
+        }
+        console.log("select 성공");
+        console.log(result.rows);
+
+        res.status(200).json({
+            permitlist: result.rows
+        })
+    })
+});
+
+// 권한 승인
+router.post("/permit", function (req, res) {
+    // const param = ["admin", "true", req.body.email]
+    const userEmail = req.body.email
+    conn.execute("UPDATE USERS SET ROLE = 'admin', FLAG = 'true' WHERE EMAIL =:useremail",[userEmail], function (err, result) {
+        if (err) {
+            console.log(err)
+            console.log("update 실패");
+        }
+        else{
+        console.log("update 성공");
+        // console.log(result);
+        res.status(200).json({
+            msg:"승인처리되었습니다."
+        })
+    }
+    })
+});
+
+// 가입자 수
+router.get("/list", function (req, res) {
+    conn.execute("select email,name,role,flag from users", function (err, result, fields) {
         if (err) {
             console.log("조회 실패");
         }
         console.log("조회 성공");
         console.log(result.rows);
-
         res.status(200).json({
-            result: result.rows
+            userlist: result.rows
         })
     })
 });
