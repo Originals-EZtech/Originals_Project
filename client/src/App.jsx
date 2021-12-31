@@ -17,6 +17,13 @@ import IntroductionPage from './components/views/Room/IntroductionPage/Introduct
 import Auth from './hoc/auth' 
 
 import { connectWithSocketIOServer} from './components/views/Room/utils/wss';
+import DashboardApp from './components/views/DashboardApp/DashboardApp';
+import User from './components/views/DashboardUser/User';
+import ThemeConfig from './dashboard_theme';
+import GlobalStyles from './dashboard_theme/globalStyles';
+import ScrollToTop from './dashboard_components/ScrollToTop';
+import { BaseOptionChartStyle } from './dashboard_components/charts/BaseOptionChart';
+
 
 const AnimatedSwitch = () => {
   const location = useLocation();
@@ -53,6 +60,9 @@ const AnimatedSwitch = () => {
         <Route exact path ="/room" component ={RoomPage} />
         <Route exact path ="/intro" component = {IntroductionPage} />
 
+        <Route exact path = "/dashboard/app" component = {DashboardApp} />
+        <Route exact path = "/dashboard/user" component = {User} />
+
         {/* <Route exact path="/room_2" component={Room_2} />
         <Route exact path="/roomcreate_2" component={RoomCreate_2} />
         <Route exact path="/RoomJoin_2" component={RoomJoin_2} />
@@ -71,7 +81,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AnimatedSwitch />
+      <ThemeConfig>
+        <ScrollToTop />
+        <GlobalStyles />
+        <BaseOptionChartStyle />
+        <AnimatedSwitch />
+      </ThemeConfig>
     </BrowserRouter>
   );
 }
