@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/data2', require('./routes/rooms'));
-// app.use('/api/webrtc', require('./routes/webrtc'));
+app.use('/api/visitor', require('./routes/chartinfo'));
 
 
 const http = require('http');
@@ -137,7 +137,7 @@ const createNewRoomHandler = (data, socket) =>{
     // emit to that client which created that room roomId
     socket.emit('room-id', {roomId});
 
-    //디비에 룸아이디 insert 테스트
+    // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
     const insertarray = [roomId, "roomname", "roompassword"];
 
     oracledb.getConnection(dbConfig, (err, conn) => {
