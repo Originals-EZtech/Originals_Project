@@ -43,7 +43,7 @@
 }
 
 .error_message_paragraph {
-  color: red;
+  color:#23976d;
 }
 
 .loading_overlay_container {
@@ -158,8 +158,11 @@
   width: 300px;
   height: 40px;
   padding: 0px 15px;
+  /* font-style: italic; */
+  /* font-weight: lighter; */
 }
 
 .join_room_input:focus {
-  border: 1px solid blue;
+  border: 1px solid #29ca8e
+  ;
 }

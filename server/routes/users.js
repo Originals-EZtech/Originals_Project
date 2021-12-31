@@ -96,7 +96,7 @@ router.get("/list", function (req, res) {
 
 // signup
 router.post("/register", function (req, res) {
-    const param = [req.body.email, req.body.password, req.body.name]
+    const param = [req.body.email, req.body.password, req.body.name, req.body.role, req.body.flag]
     console.log("req: ", req.body)
     if (param.email === '' || param.password === '' || param.name) {
         res.status(200).json({
@@ -106,7 +106,7 @@ router.post("/register", function (req, res) {
         bcrypt.hash(param[1], saltRounds, (err, hash) => {
             param[1] = hash
 
-            conn.execute('insert into users (EMAIL, PASSWORD, NAME) values(:email,:password,:name)', param, function (err, result) {
+            conn.execute('insert into users (EMAIL, PASSWORD, NAME) values(:email,:password,:name,:role,:flag)', param, function (err, result) {
                 if (err) {
                     res.status(200).json({
                         success: false, msg: "회원가입 실패하셨습니다." 

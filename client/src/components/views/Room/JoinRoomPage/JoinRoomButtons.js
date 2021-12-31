@@ -13,11 +13,11 @@ const Button = ({ buttonText, cancelButton = false, onClickHandler }) =>{
 );
 };
 //props 부분 지식과 true, false 이외의 값이 전달됐을때 오류메세지 던져주기
-const JoinRoomButtons = (props) => {
-    const successButtonText = props.isRoomHost ? '만들기' : '입장하기';
+const JoinRoomButtons = ({handleJoinRoom, isRoomHost, history}) => {
+    const successButtonText = isRoomHost ? 'Host' : 'Join';
     
     const pushToIntroductionPage = () => {
-        props.history.push('/intro');
+        history.push('/intro');
     };
    // console.log(props);
     //console.log(handleJoinRoom);
@@ -26,7 +26,7 @@ const JoinRoomButtons = (props) => {
             <h2><Link to="../MyRoom" >My room</Link></h2>
             <Button
             buttonText = {successButtonText}
-            onClickHandler={props.handleJoinRoom} 
+            onClickHandler={handleJoinRoom} 
             />
             <Button
             buttonText = 'Cancel'

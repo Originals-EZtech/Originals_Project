@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import RoomNavBar from '../NavBar/RoomNavBar';
+import styles from '../Room_By_Dong/room.module.css';
 
 function Room() {
     return (

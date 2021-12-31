@@ -22,6 +22,13 @@ import RoomParticipant_2 from './components/views/Room_By_Dong/RoomJoin/RoomPart
 import Auth from './hoc/auth' 
 
 import { connectWithSocketIOServer} from './components/views/Room/utils/wss';
+import DashboardApp from './components/views/DashboardApp/DashboardApp';
+import User from './components/views/DashboardUser/User';
+import ThemeConfig from './dashboard_theme';
+import GlobalStyles from './dashboard_theme/globalStyles';
+import ScrollToTop from './dashboard_components/ScrollToTop';
+import { BaseOptionChartStyle } from './dashboard_components/charts/BaseOptionChart';
+
 
 const AnimatedSwitch = () => {
   const location = useLocation();
@@ -50,8 +57,8 @@ const AnimatedSwitch = () => {
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
         <Switch location={location}>
-        <Route exact path="/" component={MainPage} />
-        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/" component={Auth(MainPage, null)} />
+        <Route exact path="/login" component={Auth(LoginPage, false)} />
         <Route exact path="/register" component={RegisterPage} />
 
         <Route exact path = "/join-room" component = {JoinRoomPage} />
@@ -77,7 +84,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AnimatedSwitch />
+      <ThemeConfig>
+        <ScrollToTop />
+        <GlobalStyles />
+        <BaseOptionChartStyle />
+        <AnimatedSwitch />
+      </ThemeConfig>
     </BrowserRouter>
   );
 }

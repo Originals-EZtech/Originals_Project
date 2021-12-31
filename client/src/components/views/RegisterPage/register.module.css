@@ -4,10 +4,10 @@
 	box-sizing: border-box;
 }
 
-input::placeholder {
+/* input::placeholder {
 	font-size: large;
 	font-weight: bold;
-}
+} */
 
 .wave{
 	position: fixed;
