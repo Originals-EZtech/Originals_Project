@@ -49,6 +49,7 @@ function Register(props) {
     }
 
     const onNameHandler = (event) => {
+        console.log(event.target.value)
         setName(event.target.value)
     }
 

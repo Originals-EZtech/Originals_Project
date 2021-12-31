@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/data2', require('./routes/rooms'));
-// app.use('/api/webrtc', require('./routes/webrtc'));
+app.use('/api/visitor', require('./routes/chartinfo'));
 
 
 const http = require('http');
