@@ -34,7 +34,7 @@ function RoomCreateComp() {
       room_name: room_name,
       room_password: room_password,
     };
-      fetch("/api/data2/roomcreate", { //text 주소에서 받을 예정
+      fetch("/api/data2/roomcreate_2", { //text 주소에서 받을 예정
         method: "post", //통신방법
         headers: {
           "content-type": "application/json",
@@ -70,16 +70,19 @@ const checkvalid2 = ()=>{
       {(value2) => (
         <div>
           <br/>
+          <h4>방 고유번호</h4>
           <input name="room_id" onChange={handlChange} disabled value={value2.name} ref={id}/>
+          <h4>    </h4>
           <input name="room_name" onChange={handlChange} placeholder="방 제목" onKeyUp={checkvalid2} maxlength='12'/>
+          <h4>    </h4>
           <input name="room_password" type='number' onChange={handlChange}placeholder="방 비밀번호" onKeyUp={checkvalid2} maxlength='10'/>
           
           <button disabled={!room_id || !room_password} className={isActive ? styles.activebtn : styles.unactivebtn} onClick= { onclick }>
             {
               isActive === true ? 
               <Link to={{
-                pathname: "/roomadmin",
-                  state: { // 오.. 새 기술이다
+                pathname: "/roomadmin_2",
+                  state: {
                       title: "title",
                       name: value2.name,
                       body: "body"

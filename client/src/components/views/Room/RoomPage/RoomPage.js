@@ -6,6 +6,7 @@ import RoomLabel from './RoomLabel';
 import { connect} from 'react-redux';
 import * as webRTCHandler from '../utils/webRTCHandler';
 import Overlay from './Overlay';
+import Sttsection from './Stt/SttSection'
 //import Dictaphone from './Stt/Dictaphone';
 
 import './RoomPage.css';
@@ -32,6 +33,7 @@ const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAu
            <ParticipantsSection />
            <VideoSection />
            <ChatSection />
+           <Sttsection />
            <RoomLabel roomId = {roomId} />
           {showOverlay && <Overlay />}
         </div>

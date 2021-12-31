@@ -27,7 +27,7 @@ const searchclick=()=>{
       room_id: room_id,
       room_password: room_password,
     };
-    fetch("/api/data2/roomjoinsearch", { //text 주소에서 받을 예정
+    fetch("/api/data2/roomjoinsearch_2", { //text 주소에서 받을 예정
       method: "post", //통신방법
       headers: {
         "content-type": "application/json",
