@@ -84,18 +84,19 @@
 /* checkbox 관련 */
 
 /* Customize the label (the container) */
-.container {
+.checkbox_container {
 	display: block;
 	position: relative;
 	padding-left: 35px;
 	margin-bottom: 12px;
+	margin-left: 30px;
 	cursor: pointer;
 	font-size: 18px;
-   
+	top: 12rem;
   }
    
   /* Hide the browser's default checkbox */
-  .container input {
+  .checkbox_container input {
 	position: absolute;
 	opacity: 0;
 	cursor: pointer;
@@ -114,13 +115,13 @@
   }
    
   /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
+  .checkbox_container:hover input ~ .checkmark {
 	background-color: #ccc;
   }
    
   /* When the checkbox is checked, add a "red" background */
-  .container input:checked ~ .checkmark {
-	background-color: #e91b00;
+  .checkbox_container input:checked ~ .checkmark {
+	background-color: #29ca8e;
   }
    
   /* Create the checkmark/indicator (hidden when not checked) */
@@ -131,21 +132,21 @@
   }
    
   /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
+  .checkbox_container input:checked ~ .checkmark:after {
 	display: block;
   }
    
   /* Style the checkmark/indicator */
-  .container .checkmark:after {
+  .checkbox_container .checkmark:after {
 	left: 9px;
 	top: 5px;
 	width: 5px;
 	height: 10px;
 	border: solid white;
 	border-width: 0 3px 3px 0;
-	/* -webkit-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
-	transform: rotate(45deg); */
+	transform: rotate(45deg);
   } 
 
 /* ********* */

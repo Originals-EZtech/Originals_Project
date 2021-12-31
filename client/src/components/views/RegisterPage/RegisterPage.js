@@ -20,6 +20,7 @@ function Register(props) {
     const [SecurityCode, setSecurityCode] = useState("");
 
     const [Time, setTime] = useState(false);
+    const [isTeacher, setTeacher] = useState(false);
 
     // 정규식 메세지 상태
     const [EmailMessage, setEmailMessage] = useState("")
@@ -137,11 +138,28 @@ function Register(props) {
             return toast.error('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
 
-        let body = {
-            email: Email,
-            password: Password,
-            name : Name
+        // 회원가입시 보내줄 body 데이터를 학생 / 선생님 구분해서 서버로 전송
+        let body = {}
+
+        if (isTeacher) {
+            body = {
+                email: Email,
+                password: Password,
+                name : Name,
+                role : "prof",
+                flag : "true"
+            }
+        } else {
+            body = {
+                email: Email,
+                password: Password,
+                name : Name,
+                role : "general",
+                flag : "true"
+            }
         }
+        
+        console.log(body);
 
         registerUserAction(body)
         .then(response => {
@@ -154,6 +172,15 @@ function Register(props) {
                 toast.error("Failed to sign up")
             }
         })
+    }
+
+    const checkboxHandler = (event) => {
+        // console.log(event.target.checked);
+        if (event.target.checked) {
+            setTeacher(true);
+        } else {
+            setTeacher(false);
+        }
     }
 
     return (
@@ -228,11 +255,13 @@ function Register(props) {
 
                         {Time ? <Timer mm={1} ss={0} /> : null}
 
-                        <label className={styles.container}>
-                            <input type="checkbox" checked="checked" />
-                            This is a checkbox!
-                            <span class="checkmark"></span>
-                        </label>
+                        <div>
+                            <label className={styles.checkbox_container}>
+                                <input type="checkbox" onChange={checkboxHandler} />
+                                Teacher?
+                                <span className={styles.checkmark}></span>
+                            </label>
+                        </div>
                     </div>
                     
                 </div>
