@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../NavBar/navbar.module.css';
+import { Link } from 'react-router-dom';
 
 function SubNavBar() {
 
@@ -13,13 +13,6 @@ function SubNavBar() {
 
     return (
         <div>
-            {/* <section class="preloader">
-                <div class="spinner">
-                    <span class="spinner-rotate"></span>
-                    
-                </div>
-            </section> */}
-          
             <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
                 <div class="container" style={upsideMenu}>
                     <div class="navbar-header">
