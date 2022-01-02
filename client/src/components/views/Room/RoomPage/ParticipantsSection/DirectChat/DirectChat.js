@@ -28,7 +28,8 @@ const DirectChat = ({activeConversation, directChatHistory})=>{
         );
 
     }, [activeConversation, directChatHistory]);
-    //console.log(activeConversation);
+    // directChatHistory 는 넘어간다.. host만 안되고있음. ..
+    console.log(activeConversation);
     // 넘어간다!!!  
     return(
         <div className='direct_chat_container'>
@@ -41,6 +42,7 @@ const DirectChat = ({activeConversation, directChatHistory})=>{
 };
 
 const mapStoreStateToProps = (state) =>{
+    console.log(state);
     return {
         ...state
     }

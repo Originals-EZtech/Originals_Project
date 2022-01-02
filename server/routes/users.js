@@ -106,7 +106,7 @@ router.post("/register", function (req, res) {
         bcrypt.hash(param[1], saltRounds, (err, hash) => {
             param[1] = hash
 
-            conn.execute('insert into users (EMAIL, PASSWORD, NAME) values(:email,:password,:name,:role,:flag)', param, function (err, result) {
+            conn.execute('insert into users (EMAIL, PASSWORD, NAME, ROLE, FLAG) values(:email,:password,:name,:role,:flag)', param, function (err, result) {
                 if (err) {
                     res.status(200).json({
                         success: false, msg: "회원가입 실패하셨습니다." 
