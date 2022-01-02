@@ -14,7 +14,8 @@ const Actions ={
     SET_REGISTER_USER: "SET_REGISTER_USER",
     SET_AUTH_EMAIL: "SET_AUTH_EMAIL",
     SET_AUTH_USER: "SET_AUTH_USER",
-    SET_LOGOUT_USER: "SET_LOGOUT_USER"
+    SET_LOGOUT_USER: "SET_LOGOUT_USER",
+    SET_TOTAL_USER:"SET_TOTAL_USER"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -151,6 +152,16 @@ export const logout = async () => {
         response
     }
 }
+
+// export const userTotal = async () => {
+//     const request = await axios.get('/api/chart/users')
+//     const userTotal = request.data;
+//     console.log(userTotal);
+//     return { //Action 끝내고 이제 Reducer로 보냄
+//         type: Actions.SET_TOTAL_USER,
+//         userTotal
+//     }
+// }
 
   
 export default Actions;
