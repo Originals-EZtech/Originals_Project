@@ -1,0 +1,62 @@
+/**************************/
+/* CSS Animations Classes */
+/**************************/
+
+/* 
+The following class-endings: *-enter, *-enter-active, *-exit, *-exit-active,
+have very specific meanings to <CSSTransition />
+(see more: https://reactcommunity.org/react-transition-group/css-transition)
+*/
+
+.fade-enter {
+    opacity: 0;
+    transform: translate(0, 25px);
+    z-index: 1;
+  }
+  .fade-enter.fade-enter-active {
+    opacity: 1;
+    transform: translate(0, 0);
+  
+    transition: opacity 900ms ease-out, transform 950ms ease;
+  }
+  .fade-exit {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  .fade-exit.fade-exit-active {
+    opacity: 0;
+    transform: translate(0, 30px);
+  
+    transition: opacity 250ms ease-out, transform 300ms ease;
+  }
+  
+  /**************************/
+  /* Generic Styles Classes */
+  /**************************/
+ 
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  main * {
+    background: white;
+    color: blue;
+    padding: 50px;
+  
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  main *:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+  main *:active {
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+  }
+  
