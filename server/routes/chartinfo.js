@@ -17,7 +17,6 @@ oracledb.getConnection(dbConfig, function (err, con) {
 // 방문자수 카운트
 router.get('/count', (req, res) => {
 
-
     const countCookie = req.cookies.visirot_count
 
     var now = new Date();
@@ -71,7 +70,7 @@ router.get("/permitlist", function (req, res) {
 router.post("/permit", function (req, res) {
     // const param = ["admin", "true", req.body.email]
     const userEmail = req.body.email
-    conn.execute("UPDATE USERS SET ROLE = 'admin', FLAG = 'true' WHERE EMAIL =:useremail",[userEmail], function (err, result) {
+    conn.execute("UPDATE USERS SET ROLE = 'prof', FLAG = 'false' WHERE EMAIL =:useremail",[userEmail], function (err, result) {
         if (err) {
             console.log(err)
             console.log("update 실패");
@@ -86,16 +85,59 @@ router.post("/permit", function (req, res) {
     })
 });
 
-// 가입자 수
-router.get("/list", function (req, res) {
-    conn.execute("select email,name,role,flag from users", function (err, result, fields) {
+
+
+
+// 방문자 수
+router.get("/visitors", function (req, res) {
+    conn.execute("select sum(visitor_count) from visitor", function (err, result) {
         if (err) {
             console.log("조회 실패");
         }
         console.log("조회 성공");
         console.log(result.rows);
+        res.status(200).json(result.rows[0][0])
+    })
+});
+
+// 가입유저수
+router.get("/users", function (req, res) {
+    conn.execute("select count(*) from users", function (err, result) {
+        if (err) {
+            console.log("조회 실패");
+        }
+        res.status(200).json(result.rows[0][0])
+    })
+});
+
+
+
+// 방 개설수
+router.get("/rooms", function (req, res) {
+    conn.execute("select count(*) from rooms", function (err, result) {
+        if (err) {
+            console.log("조회 실패");
+        }
+        res.status(200).json(result.rows[0][0])
+    })
+});
+
+// SELECT
+// count( DECODE (role, 'general',1) ) AS general,
+// count( DECODE (role, 'prof',1) ) AS prof,
+// count(*) as total
+// from users;
+
+router.get("/usertest", function (req, res) {
+    conn.execute("SELECT count( DECODE (role, 'general',1) ) AS general, count( DECODE (role, 'prof',1) ) AS prof, count(*) as total from users", function (err, result) {
+        if (err) {
+            console.log("조회 실패");
+        }
+        console.log(result.rows)
         res.status(200).json({
-            userlist: result.rows
+           general: result.rows[0][0],
+           prof: result.rows[0][1],
+           total: result.rows[0][2],
         })
     })
 });
