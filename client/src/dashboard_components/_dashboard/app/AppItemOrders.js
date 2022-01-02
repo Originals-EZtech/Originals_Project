@@ -4,7 +4,6 @@ import windowsFilled from '@iconify/icons-ant-design/windows-filled';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 // utils
-import { fShortenNumber } from '../../../dashboard_util/formatNumber';
 
 // ----------------------------------------------------------------------
 
@@ -34,17 +33,16 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 1723315;
 
-export default function AppItemOrders() {
+export default function AppItemOrders(roomCount) {
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={windowsFilled} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      <Typography variant="h3">{roomCount.roomCount }</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Item Orders
+        누적 방 개설 수
       </Typography>
     </RootStyle>
   );

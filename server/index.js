@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/data2', require('./routes/rooms'));
-app.use('/api/visitor', require('./routes/chartinfo'));
+app.use('/api/chart', require('./routes/chartinfo'));
 
 
 const http = require('http');
