@@ -1,6 +1,7 @@
-// import { accountsid, authtoken } from './config/twilio';
-//const twilio = require('../config/twilio');
-require('dotenv').config();
+
+require('dotenv').config({ path : 
+    "./../.env" 
+});
 const express = require('express');
 const app = express();
 const port = 5000;
@@ -22,7 +23,6 @@ const http = require('http');
 const { v4: uuidv4} = require('uuid');
 const cors = require('cors');
 const twilio = require('twilio');
-
 const server = http.createServer(app);
 
 app.use(cors());
@@ -50,9 +50,13 @@ app.get('/api/room-exists/:roomId', (req,res)=> {
 });
 
 app.get('/api/get-turn-credentials', (req, res) =>{
-    const apiKey = process.env.TWILIO_ACCOUNT_SID;
-    const secret = process.env.TWILIO_ACCOUNT_SECRET;
+    const accountSid = 'AC2892c3bbddf8258e5a938a836e2b1ebb';
+    const accountToken = process.env.TWILIO_AUTH_TOKEN;
     
+    console.log(accountSid);
+    console.log(process.env.TWILIO_AUTH_TOKEN);
+
+    const client = new twilio(accountSid, accountToken);
     let responseToken = null;
 
     try{
