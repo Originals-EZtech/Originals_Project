@@ -45,7 +45,7 @@ function Login(props) {
                 // 뒤로가기 방지 페이지 이동
                 // window.location.href="/";
                 setTimeout(() => {
-                    props.history.push('/room');
+                    props.history.push('/intro');
                 }, 1200)
             } else {
                 toast.error(response.response.msg);

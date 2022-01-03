@@ -1,13 +1,14 @@
 
-require('dotenv').config({ path : 
-    "./../.env" 
-});
+// require('dotenv').config({ path : 
+//     "./../.env" 
+// });
 const express = require('express');
 const app = express();
 const port = 5000;
 const cookieParser = require('cookie-parser');
 const oracledb = require('oracledb');
 const dbConfig = require('./config/dbConfig');
+const twilioConfig = require('./config/twilioConfig');
 oracledb.autoCommit = true;
 
 app.use(cookieParser());
@@ -50,9 +51,17 @@ app.get('/api/room-exists/:roomId', (req,res)=> {
 });
 
 app.get('/api/get-turn-credentials', (req, res) =>{
+<<<<<<< HEAD
     const accountSid = 'ACa6fc2c6fc33bca29d483419fe2e764ea';
     const accountToken = 'a179bb0aeb9ce51360c608a6e2a8dfa7';
     
+=======
+    const accountSid = twilioConfig.TWILIO_ACCOUNT_SID;
+    // const accountToken = process.env.TWILIO_AUTH_TOKEN;
+    const accountToken = twilioConfig.TWILIO_AUTH_TOKEN;
+    console.log("accountToken on twilloConfig:  ",accountToken);
+    console.log(accountSid);
+>>>>>>> dc749fcf652e338568777fb2d8a11563be7d9c74
 
     const client = new twilio(accountSid, accountToken);
     let responseToken = null;
@@ -80,6 +89,7 @@ const io = require('socket.io')(server, {
 io.on('connection', (socket) => {
     console.log(`user connected ${socket.id}`);
 
+    //방만들기 부분 소켓으로 데이터 받아옴
     socket.on('create-new-room', (data)=>{
         createNewRoomHandler(data, socket);
     });
