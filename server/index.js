@@ -1,13 +1,14 @@
 
-require('dotenv').config({ path : 
-    "./../.env" 
-});
+// require('dotenv').config({ path : 
+//     "./../.env" 
+// });
 const express = require('express');
 const app = express();
 const port = 5000;
 const cookieParser = require('cookie-parser');
 const oracledb = require('oracledb');
 const dbConfig = require('./config/dbConfig');
+const twilioConfig = require('./config/twilioConfig');
 oracledb.autoCommit = true;
 
 app.use(cookieParser());
@@ -51,10 +52,11 @@ app.get('/api/room-exists/:roomId', (req,res)=> {
 
 app.get('/api/get-turn-credentials', (req, res) =>{
     const accountSid = 'AC2892c3bbddf8258e5a938a836e2b1ebb';
-    const accountToken = process.env.TWILIO_AUTH_TOKEN;
-    
+    // const accountToken = process.env.TWILIO_AUTH_TOKEN;
+    const accountToken = twilioConfig.TWILIO_AUTH_TOKEN;
+    console.log("accountToken on twilloConfig:  ",accountToken);
     console.log(accountSid);
-    console.log(process.env.TWILIO_AUTH_TOKEN);
+    console.log(zz);
 
     const client = new twilio(accountSid, accountToken);
     let responseToken = null;
