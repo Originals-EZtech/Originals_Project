@@ -6,6 +6,43 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10
 oracledb.autoCommit = true;
 
+//방목록 불러오기
+function doRelease(connection) {
+    connection.release(function (err) {
+        if (err) {
+            console.error(err.message);
+        }
+    });
+}
+
+router.post("/roomlist_2", (req, res) => {
+    const selectarray = [req.body.user_id,];
+    oracledb.getConnection(dbConfig, (err, conn) => {
+        todoWork(err, conn);
+    });
+        function todoWork(err, connection) {
+            if (err) {
+                console.error(err.message);
+                console.log("데이터 가져오기 실패");
+                return;
+            }
+            //{outFormat:oracledb.OBJECT} => 칼럼명을 오프잭트마다 제이슨 형식으로 이름 부여해주기
+            // 참고링크 https://gaemi606.tistory.com/entry/Nodejs-Oracle-%EC%97%B0%EB%8F%99-npm-oracledb
+            // 참고링크 오라클 공식문서 http://oracle.github.io/node-oracledb/doc/api.html
+            connection.execute("SELECT ROOM_ID,ROOM_NAME,ROOM_PASSWORD,ROOM_DATE FROM ROOM_TABLE WHERE USER_ID=:user_id", selectarray,{outFormat:oracledb.OBJECT}, function (err, result) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+                res.send(result);
+                //console.log("result.rows.room_id"+result.rows[0].ROOM_NAME)
+                doRelease(connection);
+            });
+    }
+});
+
+
 //방만들기
 router.post("/roomcreate_2", (req, res) => {
     const insertarray = [req.body.room_id, req.body.room_name, req.body.room_password]
@@ -28,13 +65,6 @@ router.post("/roomcreate_2", (req, res) => {
                 res.send(result);
                 doRelease(connection);
             });
-        function doRelease(connection) {
-            connection.release(function (err) {
-                if (err) {
-                    console.error(err.message);
-                }
-            });
-        }
     }
 });
 
@@ -60,13 +90,6 @@ router.post("/roomjoinname_2", (req, res) => {
                 console.log("result.rows"+result.rows);
                 doRelease(connection);
             });
-        function doRelease(connection) {
-            connection.release(function (err) {
-                if (err) {
-                    console.error(err.message);
-                }
-            });
-        }
     }
 });
 
@@ -85,19 +108,12 @@ router.post("/roomjoinsearch_2", (req, res) => {
             connection.execute("select ROOM_NAME from ROOM_TABLE WHERE room_id =:room_id and ROOM_PASSWORD =:room_password", selectarray, function (err, result) {
                 if (err) {
                     console.error(err.message);
-                    doRelease2(connection);
+                    doRelease(connection);
                     return;
                 }
                 res.send(result);
-                doRelease2(connection);
+                doRelease(connection);
             });
-        function doRelease2(connection) {
-            connection.release(function (err) {
-                if (err) {
-                    console.error(err.message);
-                }
-            });
-        }
     }
 });
 

@@ -12,7 +12,8 @@ const initState = {
     directChatHistory: [],
     socketId: null,
     payload: {loginSuccess:"", msg: ""},
-    dataTosubmit:{}
+    dataTosubmit:{},
+    userTotal:1
 };
 
 const reducer = (state = initState, action) => {
@@ -94,6 +95,11 @@ const reducer = (state = initState, action) => {
             return{
                 ...state,
                 uploadSuccess: action.response.uploadSuccess
+            }
+        case Actions.SET_TOTAL_USER:
+            return {
+                ...state,
+                userTotal:action.userTotal
             }
         default:
             return state;

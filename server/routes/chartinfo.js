@@ -17,16 +17,18 @@ oracledb.getConnection(dbConfig, function (err, con) {
 // 방문자수 카운트
 router.get('/count', (req, res) => {
 
-
-    const countCookie = req.cookies.visirot_count
+    const countCookie = req.cookies.visitor_count
 
     var now = new Date();
     var date = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
-    console.log(date);
+    console.log("typeof(date)",typeof(date));
+    console.log("typeof(now)",typeof(now));
+
 
     var currentTime = (now.getHours() * 3600) + (now.getMinutes() * 60);
     console.log(currentTime);
     // res.cookie("visitor_count",date)
+
     if (countCookie === null || countCookie === undefined) {
         conn.execute("select * from VISITOR where VISITOR_DATE =:visitor_date", [date], function (err, res2) {
             if (err) {
@@ -39,11 +41,11 @@ router.get('/count', (req, res) => {
                 })
                 //없다면
             } else {
-                conn.execute("insert into visitor values(:visitor_date,0)", [date], function (err3, res3) {
+                conn.execute("insert into visitor values(:visitor_date,1)", [date], function (err3, res3) {
                     if (err3) { console.log(err3) }
                     console.log("insert visitor성공")
                     //24시간 - 지금시간 까지 유효기간
-                    res.cookie("visirot_count", data, { maxAge: 86400 - currentTime })
+                    res.cookie("visitor_count", data, { maxAge: 86400 - currentTime })
                 })
             }
 
@@ -52,17 +54,88 @@ router.get('/count', (req, res) => {
 })
 
 
-// SELECT permit all users
+// 권한 승인 요청 리스트
 router.get("/permitlist", function (req, res) {
-    conn.execute("select * from users where flag=1", function (err, result) {
+    conn.execute("SELECT EMAIL,NAME,ROLE,FLAG FROM USERS WHERE FLAG='true'", function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("select 성공");
+        console.log(result.rows);
+
+        res.status(200).json({
+            permitlist: result.rows
+        })
+    })
+});
+
+// 권한 승인
+router.post("/permit", function (req, res) {
+    // const param = ["admin", "true", req.body.email]
+    const userEmail = req.body.email
+    conn.execute("UPDATE USERS SET ROLE = 'prof', FLAG = 'false' WHERE EMAIL =:useremail",[userEmail], function (err, result) {
+        if (err) {
+            console.log(err)
+            console.log("update 실패");
+        }
+        else{
+        console.log("update 성공");
+        // console.log(result);
+        res.status(200).json({
+            msg:"승인처리되었습니다."
+        })
+    }
+    })
+});
+
+
+
+
+// 방문자 수
+router.get("/visitors", function (req, res) {
+    conn.execute("select sum(visitor_count) from visitor", function (err, result) {
         if (err) {
             console.log("조회 실패");
         }
         console.log("조회 성공");
         console.log(result.rows);
+        res.status(200).json(result.rows[0][0])
+    })
+});
 
+// 가입유저수
+router.get("/users", function (req, res) {
+    conn.execute("select count(*) from users", function (err, result) {
+        if (err) {
+            console.log("조회 실패");
+        }
+        res.status(200).json(result.rows[0][0])
+    })
+});
+
+
+
+// 방 개설수
+router.get("/rooms", function (req, res) {
+    conn.execute("select count(*) from rooms", function (err, result) {
+        if (err) {
+            console.log("조회 실패");
+        }
+        res.status(200).json(result.rows[0][0])
+    })
+});
+
+
+router.get("/usertest", function (req, res) {
+    conn.execute("SELECT count( DECODE (role, 'general',1) ) AS general, count( DECODE (role, 'prof',1) ) AS prof, count(*) as total from users", function (err, result) {
+        if (err) {
+            console.log("조회 실패");
+        }
+        console.log(result.rows)
         res.status(200).json({
-            result: result.rows
+           general: result.rows[0][0],
+           prof: result.rows[0][1],
+           total: result.rows[0][2],
         })
     })
 });

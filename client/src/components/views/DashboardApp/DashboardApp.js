@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // material
 import { Box, Grid, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -16,6 +16,7 @@ import {
   AppCurrentSubject,
   AppConversionRates
 } from '../../../dashboard_components/_dashboard/app';
+import chartInfoService from './service/chartInfoService';
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +44,23 @@ export default function DashboardApp() {
   }));
 
   const [open, setOpen] = useState(false);
+  const [visitorCount, setVisitorCount] = useState();
+  const [roomCount, setRoomCount] = useState();
+  const [usersCount, setUsersCount] = useState({general: 0, prof: 0, total: 0});
+
+
+  useEffect(() => {
+    chartInfoService.getVisitorTotal().then(res =>{
+      setVisitorCount(res.data);
+    })
+    chartInfoService.getRoomsTotal().then(res =>{
+      setRoomCount(res.data);
+    })
+    chartInfoService.getUsersCount().then(res =>{
+      setUsersCount(res.data)
+    })
+
+  }, [])
 
   return (
     <RootStyle>
@@ -56,13 +74,13 @@ export default function DashboardApp() {
             </Box>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
-                <AppWeeklySales />
+                <AppWeeklySales usersTotal={usersCount} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <AppNewUsers />
+                <AppNewUsers visitorCount={visitorCount} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <AppItemOrders />
+                <AppItemOrders roomCount={roomCount}/>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <AppBugReports />
@@ -73,7 +91,7 @@ export default function DashboardApp() {
               </Grid>
 
               <Grid item xs={12} md={6} lg={4}>
-                <AppCurrentVisits />
+                <AppCurrentVisits usersCount={usersCount} />
               </Grid>
 
               <Grid item xs={12} md={6} lg={8}>

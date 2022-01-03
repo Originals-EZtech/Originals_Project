@@ -10,6 +10,7 @@ import JoinRoomButtons from './JoinRoomButtons';
 import { getRoomExists } from '../utils/api';
 import { withRouter } from 'react-router-dom';
 
+
 const JoinRoomContent = (props) =>{
     const { isRoomHost, setConnectOnlyWithAudio, connectOnlyWithAudio, setIdentityAction, setRoomIdAction } = props;
    
@@ -17,10 +18,10 @@ const JoinRoomContent = (props) =>{
     const [nameValue, setNameValue] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
 
-    console.log(props); 
+    //console.log(props); 
 
-    const handleJoinRoom = async () =>{ // 여기 안넘어감.. 
-        console.log("check");
+    const handleJoinRoom = async () =>{ 
+        //console.log("check");
         setIdentityAction(nameValue);
         if (isRoomHost){
             createRoom();
@@ -52,6 +53,7 @@ const JoinRoomContent = (props) =>{
     const createRoom = () =>{
         props.history.push('/room');
     };
+
 
     return (
     <>

@@ -5,6 +5,7 @@ const Input = ({placeholder, value, changeHandler})=> {
         <input 
         value = {value}
         onChange={changeHandler}
+        //style={{fontWeight:"bold"}}
         className = 'join_room_input'
         placeholder= {placeholder} 
         />
@@ -25,13 +26,13 @@ const JoinRoomInputs = (props) =>{
     }
     return <div className = 'join_room_inputs_container'>
         {!isRoomHost && (<Input 
-        placeholder= '방 비밀번호'
+        placeholder= 'Enter meeting ID'
         value = {roomIdValue}
         changeHandler={handleRoomIdValueChange}
         />
         )}
         <Input 
-         placeholder = '방 ID'
+         placeholder = 'Enter your Name'
          value = {nameValue}
          changeHandler={handleNameValueChange}
         />

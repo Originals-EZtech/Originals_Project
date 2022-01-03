@@ -16,7 +16,7 @@ function RoomAdmin() {
                 <h3>방장 화면페이지</h3><br></br>
                 <h3>방고유번호 : {sum.state.body} </h3><br></br>
                 <h3>방고유번호 : {sum.state.name} </h3><br></br>
-                <h3><Link to='../room'>나가기</Link></h3><br></br>
+                <h3><Link to='../room_2'>나가기</Link></h3><br></br>
                 
             </div>
     );
