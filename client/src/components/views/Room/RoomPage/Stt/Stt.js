@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';//stt라이브러리
-
+import { sendSTT } from '../../utils/wss';
 import onbut from '../../resources/images/stt_on_icon.svg';
 import offbut from '../../resources/images/stt_off_icon.svg';
+import { send,resendStt } from 'process';
+
+
+
+
+
 const Dictaphone = () => {
     const [now,setnow]= useState(false);
+    const [word,setword]= useState("");
     const {
       transcript,
       listening,
@@ -21,14 +28,24 @@ const Dictaphone = () => {
       SpeechRecognition.startListening({ continuous: {now},language: 'ko' });
       console.log("시작");
       
+      sendSTT(transcript);
     }
+    
+    if(transcript.length>0){ 
+
+    }
+    
     
     const stop=()=>{
       setnow(now => !now);
       SpeechRecognition.abortListening();
       resetTranscript();
     }
-     
+    
+    const aa = ()=>{
+      console.log("aa");
+    }
+
     if (transcript.length>100) {
       resetTranscript();
     }
@@ -45,6 +62,7 @@ const Dictaphone = () => {
           src={!now ? null:onbut}>
           </img>
           <p className="sttc">{transcript}</p>
+          
         </div>
      );
     

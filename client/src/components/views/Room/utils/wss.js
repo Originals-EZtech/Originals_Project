@@ -83,10 +83,10 @@ export const sendDirectMessage = (data) =>{
     //console.log(data); 
 };
 
-/*
-export const sendSTT =() =>{
+
+
+export const sendSTT =(data) =>{
     console.log('ddddd');
-   // socket.emit('send_stt', data);
+    socket.emit('send_stt',data);
 };
-*/
 
