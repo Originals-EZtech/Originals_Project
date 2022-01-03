@@ -104,6 +104,9 @@ io.on('connection', (socket) => {
     socket.on('direct-message', (data) =>{
         directMessageHandler(data, socket);
     })
+    socket.on('send-stt', (data)=>{
+        sendSttHandler(data, socket)
+    })
 });
 
 // socket.io handlers
@@ -139,7 +142,7 @@ const createNewRoomHandler = (data, socket) =>{
     // join socket.io room
     socket.join(roomId);
 
-    rooms = [...rooms, newRoom];
+    rooms = [...rooms, newRoom]; //rooms - room - roomId, connectedusers
 
     // emit to that client which created that room roomId
     socket.emit('room-id', {roomId});
@@ -281,5 +284,19 @@ const directMessageHandler = (data, socket) =>{
         socket.emit('direct-message', authorData);
     }
 };
+
+const sendSttHandler = (data, socket)=>{
+    // 자기빼고 나머지한테 transcript 전송
+    // data 값 = { socketId, transcript }    
+    const users = connectedUsers.filter(connUser =>connUser.socketId !== data.socketId);
+    users.forEach(user => {
+            socket.to(user.socketId).emit('conn-stt', data);
+            console.log(user);
+    });
+    console.log(data);
+    //socket.to(users.socketId).emit('conn-stt', data);
+   
+    //console.log("stt is working"); ok
+}
 
 server.listen(port, () => console.log(`listening on port ${port}!`));

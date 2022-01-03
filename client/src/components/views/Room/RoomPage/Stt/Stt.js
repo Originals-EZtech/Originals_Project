@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';//stt라이브러리
+import * as wss from './../../utils/wss';
 
 import onbut from '../../resources/images/stt_on_icon.svg';
 import offbut from '../../resources/images/stt_off_icon.svg';
-const Dictaphone = () => {
+import { Transition } from 'react-transition-group';
+
+
+const Dictaphone = ({socketId}) => {
     const [now,setnow]= useState(false);
     const {
       transcript,
@@ -20,18 +25,29 @@ const Dictaphone = () => {
       setnow(now => !now);
       SpeechRecognition.startListening({ continuous: {now},language: 'ko' });
       console.log("시작");
-      
     }
     
     const stop=()=>{
+      //console.log(transcript);
       setnow(now => !now);
       SpeechRecognition.abortListening();
       resetTranscript();
     }
-     
+    
     if (transcript.length>100) {
       resetTranscript();
     }
+
+    const sendToAll = (transcript)=>{
+      //const users = participants.filter(participant => participant.socketId !== socketId);
+      //console.log(socketId);
+      //console.log(participants);
+      wss.sendSTT({
+        socketId,
+        transcript
+      })
+      }   
+
     return(
         <div>
           <img
@@ -44,10 +60,20 @@ const Dictaphone = () => {
           onClick={stop} 
           src={!now ? null:onbut}>
           </img>
-          <p className="sttc">{transcript}</p>
+          <div className="sttc">
+            {transcript},
+            {sendToAll(transcript)},
+          </div>
         </div>
      );
     
   };
   
- export default Dictaphone;
+  const mapStoreStateToProps = (state) =>{
+    console.log(state);
+    return {
+        ...state
+    }
+}
+
+ export default connect(mapStoreStateToProps)(Dictaphone);

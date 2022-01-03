@@ -91,11 +91,11 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
             }
-            case Actions.SET_TOTAL_USER:
-                return {
-                    ...state,
-                    userTotal:action.userTotal
-                }
+        case Actions.SET_TOTAL_USER:
+            return {
+                ...state,
+                userTotal:action.userTotal
+            }
         default:
             return state;
     }
