@@ -17,12 +17,17 @@ const chartInfoService = () => {
         return result;
     }
 
-    const getTest = async () => {
+    const getUsersCount = async () => {
         const result = await axios.get('/api/chart/usertest')
-        console.log("서버에서",result)
         return result;
     }
 
-    return {getUserTotal, getVisitorTotal, getRoomsTotal, getTest}
+    const getPermitList = async () => {
+        const result = await axios.get('/api/chart/permitlist')
+        console.log("서버에서 permitlist result?? ",result)
+        return result;
+    }
+
+    return {getUserTotal, getVisitorTotal, getRoomsTotal, getUsersCount, getPermitList}
 }
 export default chartInfoService();

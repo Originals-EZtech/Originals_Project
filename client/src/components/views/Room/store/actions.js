@@ -15,7 +15,7 @@ const Actions ={
     SET_AUTH_EMAIL: "SET_AUTH_EMAIL",
     SET_AUTH_USER: "SET_AUTH_USER",
     SET_LOGOUT_USER: "SET_LOGOUT_USER",
-    SET_TOTAL_USER:"SET_TOTAL_USER"
+    SET_TOTAL_USER:"SET_TOTAL_USER",
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -87,6 +87,7 @@ export const setSocketId = (socketId) =>{
       socketId,
     }
 }
+
 
 // 로그인
 export const loginUser = async (loginData) => {

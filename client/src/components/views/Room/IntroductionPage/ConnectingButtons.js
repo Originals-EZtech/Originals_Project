@@ -1,6 +1,6 @@
 import React from 'react';
 import ConnectingButton from './ConnectingButton';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 const ConnectingButtons = (props) => {
     const pushToJoinRoomPage = () => {
@@ -12,10 +12,11 @@ const ConnectingButtons = (props) => {
     }
     return(
         <div className = 'connecting_buttons_container'>
-            <ConnectingButton buttonText = '방 참여하기' 
+            <ConnectingButton buttonText = 'Join a class' 
             onClickHandler ={pushToJoinRoomPage}/>
-            <ConnectingButton createRoomButton buttonText = '방 만들기' 
+            <ConnectingButton createRoomButton buttonText = 'Host a class' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
+            <h2><Link to="../MyRoom" >My class</Link></h2>
         </div>
     );
 };

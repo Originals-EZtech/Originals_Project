@@ -1,12 +1,14 @@
-// import { accountsid, authtoken } from './config/twilio';
-//const twilio = require('../config/twilio');
-require('dotenv').config();
+
+// require('dotenv').config({ path : 
+//     "./../.env" 
+// });
 const express = require('express');
 const app = express();
 const port = 5000;
 const cookieParser = require('cookie-parser');
 const oracledb = require('oracledb');
 const dbConfig = require('./config/dbConfig');
+const twilioConfig = require('./config/twilioConfig');
 oracledb.autoCommit = true;
 
 app.use(cookieParser());
@@ -22,7 +24,6 @@ const http = require('http');
 const { v4: uuidv4} = require('uuid');
 const cors = require('cors');
 const twilio = require('twilio');
-
 const server = http.createServer(app);
 
 app.use(cors());
@@ -50,9 +51,13 @@ app.get('/api/room-exists/:roomId', (req,res)=> {
 });
 
 app.get('/api/get-turn-credentials', (req, res) =>{
-    const apiKey = process.env.TWILIO_ACCOUNT_SID;
-    const secret = process.env.TWILIO_ACCOUNT_SECRET;
-    
+    const accountSid = twilioConfig.TWILIO_ACCOUNT_SID;
+    // const accountToken = process.env.TWILIO_AUTH_TOKEN;
+    const accountToken = twilioConfig.TWILIO_AUTH_TOKEN;
+    console.log("accountToken on twilloConfig:  ",accountToken);
+    console.log(accountSid);
+
+    const client = new twilio(accountSid, accountToken);
     let responseToken = null;
 
     try{
@@ -78,6 +83,7 @@ const io = require('socket.io')(server, {
 io.on('connection', (socket) => {
     console.log(`user connected ${socket.id}`);
 
+    //방만들기 부분 소켓으로 데이터 받아옴
     socket.on('create-new-room', (data)=>{
         createNewRoomHandler(data, socket);
     });
@@ -97,6 +103,9 @@ io.on('connection', (socket) => {
     })
     socket.on('direct-message', (data) =>{
         directMessageHandler(data, socket);
+    })
+    socket.on('send-stt', (data)=>{
+        sendSttHandler(data, socket)
     })
 });
 
@@ -133,7 +142,7 @@ const createNewRoomHandler = (data, socket) =>{
     // join socket.io room
     socket.join(roomId);
 
-    rooms = [...rooms, newRoom];
+    rooms = [...rooms, newRoom]; //rooms - room - roomId, connectedusers
 
     // emit to that client which created that room roomId
     socket.emit('room-id', {roomId});
@@ -275,5 +284,19 @@ const directMessageHandler = (data, socket) =>{
         socket.emit('direct-message', authorData);
     }
 };
+
+const sendSttHandler = (data, socket)=>{
+    // 자기빼고 나머지한테 transcript 전송
+    // data 값 = { socketId, transcript }    
+    const users = connectedUsers.filter(connUser =>connUser.socketId !== data.socketId);
+    users.forEach(user => {
+            socket.to(user.socketId).emit('conn-stt', data);
+            console.log(user);
+    });
+    console.log(data);
+    //socket.to(users.socketId).emit('conn-stt', data);
+   
+    //console.log("stt is working"); ok
+}
 
 server.listen(port, () => console.log(`listening on port ${port}!`));
