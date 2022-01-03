@@ -83,6 +83,7 @@ const io = require('socket.io')(server, {
 io.on('connection', (socket) => {
     console.log(`user connected ${socket.id}`);
 
+    //방만들기 부분 소켓으로 데이터 받아옴
     socket.on('create-new-room', (data)=>{
         createNewRoomHandler(data, socket);
     });
