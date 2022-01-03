@@ -537,15 +537,15 @@ video {
 
 
 
-.sttddd:hover{
-  background: rgb(255, 238, 0);
+.sttb:hover{
+  background: #29ca8f;
   padding: 10px;
   border-radius: 10px;
-  position: relative;
+  position: absolute;
 }
 
 .Sttcontanor{
-  background-color:#29ca8f96;
+  background-color:#29ca8f9c;
   width:60%;
   height:10%;
   position: absolute;
@@ -571,4 +571,5 @@ video {
   margin-left: 60px;
   margin-bottom: 10px;
   margin-right: 10px;
+  font-family: Helvetica, Arial, sans-serif;
 }
