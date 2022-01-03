@@ -2,11 +2,10 @@ import React, { useState, } from 'react';
 
 function RoomListComponent() {
   const [state, setState] = useState({
-      room_id: "",
-      room_name: "",
+      room_list: "",
     });
 
-  const { room_id, room_name } = state;
+  const { room_list, } = state;
   const user_id=9;
 
   const onclick = () => {
@@ -25,26 +24,17 @@ function RoomListComponent() {
         // res는 서버에서 받은 객체 형태는 log로 출력해보길
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
-          console.log(json.rows);
-          console.log("json.rows"+json.rows);
-          console.log("json.rows.room_seq"+json.rows.room_seq);
-          console.log("json.rows[0]"+json.rows[0]);
           setState({
             ...state,
-            room_id: json.rows,
-            room_name: json.rows
+            room_list: json.rows
           });
         });  
     };
     const element = document.getElementsByClassName('team-info');
     const rendering = () => {
       const result = [];
-      console.log("1this.roomnamestate : "+state);
-      console.log("1this.roomnamestate : "+state.room_id);
-      console.log("2this.roomnamestate.data :"+room_id);
-      for (let i = 0; i < room_id.length; i++) {
-        element.innerHTML= result.push(<div key={i}>{i+"번째 방:"+room_id[i] + "  "}</div>);
+      for (let i = 0; i < room_list.length; i++) {
+        element.innerHTML= result.push(<div key={i}>{(i+1)+"번째 방 : "+room_list[i].ROOM_NAME + " /  참여시간, 만든시간 : "+room_list[i].ROOM_DATE + "  "}</div>);
       }
       return result;
     };

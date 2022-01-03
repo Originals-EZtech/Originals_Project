@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 const Button = ({ buttonText, cancelButton = false, onClickHandler }) =>{
     const buttonClass = cancelButton? 'join_room_cancel_button' : 'join_room_success_button';
@@ -23,7 +22,6 @@ const JoinRoomButtons = ({handleJoinRoom, isRoomHost, history}) => {
     //console.log(handleJoinRoom);
     return (
         <div className='join_room_buttons_container'>
-            <h2><Link to="../MyRoom" >My room</Link></h2>
             <Button
             buttonText = {successButtonText}
             onClickHandler={handleJoinRoom} 

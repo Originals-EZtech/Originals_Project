@@ -13,7 +13,7 @@ function RoomJoin() {
             <br></br>
             <br></br>
             <RoomJoinCompRoomName/> 
-            <h3><li><Link to="../room" >나가기</Link></li></h3>
+            <h3><li><Link to="../room_2" >나가기</Link></li></h3>
             <h3></h3>
             
             <JoinRoomComponent/>
