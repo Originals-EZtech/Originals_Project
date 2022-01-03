@@ -1,16 +1,11 @@
 import { filter } from 'lodash';
-import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
 import { useEffect, useState } from 'react';
-import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
   Card,
   Table,
   Stack,
-  Avatar,
-  Button,
   Checkbox,
   TableRow,
   TableBody,
@@ -24,7 +19,6 @@ import { styled } from '@mui/material/styles';
 // components
 import Label from '../../../dashboard_components/Label';
 import Scrollbar from '../../../dashboard_components/Scrollbar';
-import SearchNotFound from '../../../dashboard_components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../../../dashboard_components/_dashboard/user';
 //
 import USERLIST from '../../../_mocks_/user';
@@ -90,7 +84,7 @@ export default function User() {
 
     chartInfoService.getPermitList().then(res => {
       console.log("클라에서 res : " , res)
-      setUsers(res.data)
+      setUsers(res.data.permitlist[0])
     })
 
   }, [])
@@ -119,11 +113,6 @@ export default function User() {
   }));
   /* 스타일 설정 */
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -159,7 +148,10 @@ export default function User() {
 
   const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
 
-  const isUserNotFound = filteredUsers.length === 0;
+
+
+
+  
 
   return (
     <RootStyle>
@@ -171,14 +163,6 @@ export default function User() {
               <Typography variant="h4" gutterBottom>
                 User
               </Typography>
-              <Button
-                variant="contained"
-                component={RouterLink}
-                to="#"
-                startIcon={<Icon icon={plusFill} />}
-              >
-                New User
-              </Button>
             </Stack>
 
             <Card>
@@ -197,13 +181,12 @@ export default function User() {
                       headLabel={TABLE_HEAD}
                       rowCount={USERLIST.length}
                       numSelected={selected.length}
-                      onRequestSort={handleRequestSort}
                       onSelectAllClick={handleSelectAllClick}
                     />
                     <TableBody>
                       {filteredUsers
                         .map((row) => {
-                          const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                          const { id, name, role, status, company, isVerified } = row;
                           const isItemSelected = selected.indexOf(name) !== -1;
 
                           return (
@@ -223,7 +206,6 @@ export default function User() {
                               </TableCell>
                               <TableCell component="th" scope="row" padding="none">
                                 <Stack direction="row" alignItems="center" spacing={2}>
-                                  <Avatar alt={name} src={avatarUrl} />
                                   <Typography variant="subtitle2" noWrap>
                                     {name}
                                   </Typography>
@@ -249,15 +231,7 @@ export default function User() {
                         })}
                      
                     </TableBody>
-                    {isUserNotFound && (
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                            <SearchNotFound searchQuery={filterName} />
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    )}
+                    
                   </Table>
                 </TableContainer>
               </Scrollbar>
