@@ -90,5 +90,5 @@ export const sendDirectMessage = (data) =>{
 export const sendSTT =(data) =>{
     socket.emit('send-stt', data);
     console.log(data);
-};
 
+}
