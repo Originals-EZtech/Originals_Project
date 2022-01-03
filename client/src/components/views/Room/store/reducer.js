@@ -90,6 +90,11 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
             }
+        case Actions.SET_FILE_UPLOAD:
+            return{
+                ...state,
+                uploadSuccess: action.response.uploadSuccess
+            }
         default:
             return state;
     }

@@ -10,6 +10,10 @@ dbConfig.js
 mybatisConfig.js
 mailConfig.js
 tokenConfig.js
+
+# image file
+upload
+
 # testing
 /coverage
 
