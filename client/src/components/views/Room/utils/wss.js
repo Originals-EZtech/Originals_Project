@@ -49,6 +49,10 @@ export const connectWithSocketIOServer = () =>{
         console.log(data);
         appendNewMessageToChatHistory(data);
     });
+    socket.on('conn-stt', (data)=>{
+        console.log("stt message came"); 
+        console.log(data.transcript);
+    });
 };
 
 //identity : our user name
@@ -80,7 +84,7 @@ export const signalPeerData = (data) =>{
 
 export const sendDirectMessage = (data) =>{
     socket.emit('direct-message', data);
-    //console.log(data); 
+    console.log(data); 
 };
 
 
