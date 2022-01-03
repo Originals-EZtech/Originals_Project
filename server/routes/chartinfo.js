@@ -17,11 +17,13 @@ oracledb.getConnection(dbConfig, function (err, con) {
 // 방문자수 카운트
 router.get('/count', (req, res) => {
 
-    const countCookie = req.cookies.visirot_count
+    const countCookie = req.cookies.visitor_count
 
     var now = new Date();
-    var date = now.getFullYear() + now.get+ "/" + (now.getMonth() + 1) + "/" + now.getDate();
-    console.log("123123123",typeof(date));
+    var date = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
+    console.log("typeof(date)",typeof(date));
+    console.log("typeof(now)",typeof(now));
+
 
     var currentTime = (now.getHours() * 3600) + (now.getMinutes() * 60);
     console.log(currentTime);
@@ -39,11 +41,11 @@ router.get('/count', (req, res) => {
                 })
                 //없다면
             } else {
-                conn.execute("insert into visitor values(:visitor_date,0)", [date], function (err3, res3) {
+                conn.execute("insert into visitor values(:visitor_date,1)", [date], function (err3, res3) {
                     if (err3) { console.log(err3) }
                     console.log("insert visitor성공")
                     //24시간 - 지금시간 까지 유효기간
-                    res.cookie("visirot_count", data, { maxAge: 86400 - currentTime })
+                    res.cookie("visitor_count", data, { maxAge: 86400 - currentTime })
                 })
             }
 
@@ -123,11 +125,6 @@ router.get("/rooms", function (req, res) {
     })
 });
 
-// SELECT
-// count( DECODE (role, 'general',1) ) AS general,
-// count( DECODE (role, 'prof',1) ) AS prof,
-// count(*) as total
-// from users;
 
 router.get("/usertest", function (req, res) {
     conn.execute("SELECT count( DECODE (role, 'general',1) ) AS general, count( DECODE (role, 'prof',1) ) AS prof, count(*) as total from users", function (err, result) {
