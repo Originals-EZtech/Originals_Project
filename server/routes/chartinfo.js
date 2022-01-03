@@ -20,12 +20,13 @@ router.get('/count', (req, res) => {
     const countCookie = req.cookies.visirot_count
 
     var now = new Date();
-    var date = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
-    console.log(date);
+    var date = now.getFullYear() + now.get+ "/" + (now.getMonth() + 1) + "/" + now.getDate();
+    console.log("123123123",typeof(date));
 
     var currentTime = (now.getHours() * 3600) + (now.getMinutes() * 60);
     console.log(currentTime);
     // res.cookie("visitor_count",date)
+
     if (countCookie === null || countCookie === undefined) {
         conn.execute("select * from VISITOR where VISITOR_DATE =:visitor_date", [date], function (err, res2) {
             if (err) {
@@ -53,9 +54,9 @@ router.get('/count', (req, res) => {
 
 // 권한 승인 요청 리스트
 router.get("/permitlist", function (req, res) {
-    conn.execute("select email,name,role,flag from users where flag=true", function (err, result) {
+    conn.execute("SELECT EMAIL,NAME,ROLE,FLAG FROM USERS WHERE FLAG='true'", function (err, result) {
         if (err) {
-            console.log("select 실패");
+            console.log(err);
         }
         console.log("select 성공");
         console.log(result.rows);
