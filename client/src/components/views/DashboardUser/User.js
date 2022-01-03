@@ -1,7 +1,7 @@
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
@@ -18,11 +18,10 @@ import {
   Container,
   Typography,
   TableContainer,
-  TablePagination
+  
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // components
-import Page from '../../../dashboard_components/Page';
 import Label from '../../../dashboard_components/Label';
 import Scrollbar from '../../../dashboard_components/Scrollbar';
 import SearchNotFound from '../../../dashboard_components/SearchNotFound';
@@ -32,6 +31,7 @@ import USERLIST from '../../../_mocks_/user';
 
 import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavbar';
 import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
+import chartInfoService from '../DashboardApp/service/chartInfoService';
 
 // ----------------------------------------------------------------------
 
@@ -76,14 +76,25 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function User() {
-  const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
-  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [open, setOpen] = useState(false);
+  const [users, setUsers] = useState();
 
+  console.log("클라에서 users : " , users)
+
+
+  useEffect(() => {
+
+    chartInfoService.getPermitList().then(res => {
+      console.log("클라에서 res : " , res)
+      setUsers(res.data)
+    })
+
+  }, [])
+  
   /* 스타일 설정 */
   const APP_BAR_MOBILE = 64;
   const APP_BAR_DESKTOP = 92;
@@ -141,20 +152,10 @@ export default function User() {
     setSelected(newSelected);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
   const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
 
@@ -165,7 +166,6 @@ export default function User() {
       <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
       <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
-        <Page title="Management">
           <Container>
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
               <Typography variant="h4" gutterBottom>
@@ -202,7 +202,6 @@ export default function User() {
                     />
                     <TableBody>
                       {filteredUsers
-                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row) => {
                           const { id, name, role, status, company, avatarUrl, isVerified } = row;
                           const isItemSelected = selected.indexOf(name) !== -1;
@@ -248,11 +247,7 @@ export default function User() {
                             </TableRow>
                           );
                         })}
-                      {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                          <TableCell colSpan={6} />
-                        </TableRow>
-                      )}
+                     
                     </TableBody>
                     {isUserNotFound && (
                       <TableBody>
@@ -267,18 +262,9 @@ export default function User() {
                 </TableContainer>
               </Scrollbar>
 
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={USERLIST.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
+
             </Card>
           </Container>
-        </Page>
       </MainStyle>
     </RootStyle>
   );
