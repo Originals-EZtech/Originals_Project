@@ -10,7 +10,7 @@ const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
 oracledb.autoCommit = true;
-
+require('dotenv').config();
 //oracledb connection
 var conn;
 oracledb.getConnection(dbConfig, function (err, con) {
@@ -22,9 +22,10 @@ oracledb.getConnection(dbConfig, function (err, con) {
     console.log('DB connection');
 });
 
-// router.get('/dotenv', fuction(req, res){
-//     res.send(process.env.TEST);
-// })
+router.get('/dotenv', function(req, res){
+    res.send(process.env.TEST);
+    console.log(process.env.TEST)
+})
 //email auth
 router.post('/emailauth', (req, res) => {
     const userEmail = [req.body.email];
@@ -87,12 +88,34 @@ router.post('/emailauth', (req, res) => {
 
 // SELECT query all users
 router.get("/list", function (req, res) {
-    conn.execute("select * from users", function (err, result, fields) {
+    conn.execute("select * from users",[],{outFormat:oracledb.OBJECT}, function (err, result, fields) {
         if (err) {
             console.log("조회 실패");
         }
-        console.log("조회 성공");
-        res.send(result.rows)
+        console.log("result:",result);
+        // console.log("result:",result.rows);
+
+        // console.log("metadata:",result.metaData[0].name);
+        // console.log("rows:",JSON.parse(result.rows[0]));
+        // const reeee = JSON.parse(result.rows[0][0]);
+        // console.log("reeee",reeee);
+        // var otherArray = [result.metaData[0].name, result.metaData[1].name];
+        // var otherObject = { email: result.rows[0], item2: "item2val" };
+        // console.log("otherArray:",otherArray);
+        // console.log("otherObject:",otherObject);
+        // var json = JSON.stringify({
+        //   anObject: otherObject,
+        //   anArray: otherArray,
+        //   another: "item"
+        // });
+//         select department "department",
+//   ufh "ufh",
+//   libelle "libelle",
+//   nomhopital "nomhopital",
+//   typeservice "typeservice"
+// from Z_SOUPAP2CARTESITE 
+// where actif=1 
+        res.send(result)
     })
 });
 
