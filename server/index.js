@@ -56,7 +56,6 @@ app.get('/api/get-turn-credentials', (req, res) =>{
     const accountToken = twilioConfig.TWILIO_AUTH_TOKEN;
     console.log("accountToken on twilloConfig:  ",accountToken);
     console.log(accountSid);
-    console.log(zz);
 
     const client = new twilio(accountSid, accountToken);
     let responseToken = null;
