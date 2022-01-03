@@ -48,6 +48,7 @@ export default function DashboardApp() {
   const [roomCount, setRoomCount] = useState();
   const [usersCount, setUsersCount] = useState({general: 0, prof: 0, total: 0});
 
+
   useEffect(() => {
     chartInfoService.getVisitorTotal().then(res =>{
       setVisitorCount(res.data);
@@ -55,10 +56,9 @@ export default function DashboardApp() {
     chartInfoService.getRoomsTotal().then(res =>{
       setRoomCount(res.data);
     })
-    chartInfoService.getTest().then(res =>{
+    chartInfoService.getUsersCount().then(res =>{
       setUsersCount(res.data)
     })
-    
 
   }, [])
 

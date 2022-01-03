@@ -13,6 +13,7 @@ dbConfig.js
 mybatisConfig.js
 mailConfig.js
 tokenConfig.js
+twilioConfig.js
 # testing
 /coverage
 

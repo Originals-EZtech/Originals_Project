@@ -22,6 +22,9 @@ oracledb.getConnection(dbConfig, function (err, con) {
     console.log('DB connection');
 });
 
+// router.get('/dotenv', fuction(req, res){
+//     res.send(process.env.TEST);
+// })
 //email auth
 router.post('/emailauth', (req, res) => {
     const userEmail = [req.body.email];
