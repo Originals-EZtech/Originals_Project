@@ -27,6 +27,7 @@
     "oracledb": "^5.3.0",
     "react-transition-group": "^4.4.2",
     "socket.io": "^4.4.0",
+    "socketio-file-upload": "^0.7.3",
     "twilio": "^3.71.3",
     "uuid": "^8.3.2"
   },
