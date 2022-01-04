@@ -50,7 +50,13 @@
 
 .new_message_button {
   position: absolute;
-  right: 10%;
+  right: 21%;
+}
+
+.file_sending_button {
+  position: absolute;
+  right: 13%;
+  bottom: 40%;
 }
 
 .messages_container {
@@ -583,6 +589,7 @@ video {
   margin-bottom: 30px;
   margin-right: 10px;
   
+  
 }
 .te{
   position: relative;
@@ -590,4 +597,6 @@ video {
 
 .st{
   position: absolute;
+  
 }
+

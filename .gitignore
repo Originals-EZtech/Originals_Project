@@ -19,6 +19,9 @@ upload
 
 twilioConfig.js
 
+# file upload
+upload
+
 # testing
 /coverage
 

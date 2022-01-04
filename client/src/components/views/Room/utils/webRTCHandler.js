@@ -1,4 +1,4 @@
-import { setMessages, setShowOverlay } from '../store/actions.js';
+import { setMessages, setShowOverlay, setFileDatas } from '../store/actions.js';
 import store from '../store/store.js'
 import * as wss from './wss.js'
 import Peer from 'simple-peer'
@@ -125,7 +125,6 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
          streams = [...streams, stream];
      });
     
-     // 이게 문제.. 이거만 생기면 전부다 오작동 함.. 왜?
      peers[connUserSocketId].on('data', async(data) => {
         console.log('got a message from peer1: ' + data);
         const messageData = await JSON.parse(data);
@@ -285,35 +284,66 @@ const switchVideoTracks = (stream) => {
 
  const appendNewMessage = (messageData) => {
     const messages = store.getState().messages;
-    console.log(messageData);
+    //console.log(messageData);
     //console.log(messages);
     store.dispatch(setMessages([...messages, messageData]));
     //console.log(messages); ok
   };
+
+  const appendNewFileData = (fileData) =>{
+      const fileDatas = store.getState().fileDatas;
+      store.dispatch(setFileDatas([...fileDatas, fileData]));
+      //console.log(fileDatas); //ok
+  }
   
-  export const sendMessageUsingDataChannel = (messageContent) => {
+export const sendMessageUsingDataChannel = (messageContent) => {
     // console.log(messageContent); ok 
     // append this message locally
     const identity = store.getState().identity;
     //console.log(identity); message 전달자 ok 
     const localMessageData = {
-      content: messageContent,
-      identity,
-      messageCreatedByMe: true,
+        content: messageContent,
+        identity,
+        messageCreatedByMe: true,
     };
-    
+
     // console.log(localMessageData); ok
     appendNewMessage(localMessageData);
-  
+
     const messageData = {
-      content: messageContent,
-      identity,
+        content: messageContent,
+        identity,
     };
     // console.log(typeof(messageData)); // object
     const stringifiedMessageData = JSON.stringify(messageData); 
-    //console.log(stringifiedMessageData); //{"content":"tttt","identity":"dfdfdf"} Json 문자열
+    console.log(stringifiedMessageData); //{"content":"tttt","identity":"dfdfdf"} Json 문자열
     //console.log(peers); // peers가 비었다. 
     for (let socketId in peers) {
-      peers[socketId].send(stringifiedMessageData);
+        peers[socketId].send(stringifiedMessageData);
     }
-  };
+};
+
+export const sendFileUsingDataChannel = (fileContent) =>{
+    const identity = store.getState().identity;
+
+    const localMessageFileData = {
+        content: fileContent, //blob 값
+        identity,
+        messageCreatedByMe: true,
+        };
+
+    appendNewFileData(localMessageFileData);
+
+    const fileData = {
+        file: fileContent,
+        identity
+    }
+    // 여기 blob 데이터를 품고있는데 어떻게 할지 고민해 보기! 
+    
+    //console.log(peers); ok
+    for (let socketId in peers) {
+        peers[socketId].send(fileData);
+        console.log("파일 데이터 전송")
+    } 
+
+}

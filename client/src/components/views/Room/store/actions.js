@@ -7,6 +7,7 @@ const Actions ={
     SET_SHOW_OVERLAY: 'SET_SHOW_OVERLAY',
     SET_PARTICIPANTS: 'SET_PARTICIPANTS',
     SET_MESSAGES: "SET_MESSAGES",
+    SET_FILEDATAS: "SET_FILEDATAS",
     SET_ACTIVE_CONVERSATION: "SET_ACTIVE_CONVERSATION",
     SET_DIRECT_CHAT_HISTORY: "SET_DIRECT_CHAT_HISTORY",
     SET_SOCKET_ID: "SET_SOCKET_ID",
@@ -68,7 +69,14 @@ export const setMessages = (messages) => {
       messages,
     }
 }
-  
+
+export const setFileDatas = (fileDatas) =>{
+    return {
+        type: Actions.SET_FILEDATAS,
+        fileDatas
+    }
+}
+
 export const setActiveConversation = (activeConversation)=>{
     return{
       type: Actions.SET_ACTIVE_CONVERSATION,
