@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import { sentenceCase } from 'change-case';
+import { withRouter } from 'react-router-dom';
 import Label from '../../../dashboard_components/Label';
 import chartInfoService from '../../../components/views/DashboardApp/service/chartInfoService';
 import { toast } from 'react-toastify';
@@ -11,8 +11,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
 
-export default function UserChangeRole ({user}) {
-    console.log('user', user);
+function UserChangeRole (props) {
+    console.log('user', props.user);
     const ref = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -28,7 +28,7 @@ export default function UserChangeRole ({user}) {
         toast.success(" 승인처리 되었습니다.");
 
         setTimeout(() => {
-            handleClose();
+            props.history.push('/dashboard/user')
         }, 1200)
 
         // setTimeout(() => {
@@ -42,10 +42,10 @@ export default function UserChangeRole ({user}) {
             <Label
             // variant="ghost"
             color={
-                (user.FLAG === 'banned' && 'error') || 'success'
+                (props.user.FLAG === 'banned' && 'error') || 'success'
             }
             >
-            {user.FLAG}
+            {props.user.FLAG}
             </Label> 
         </IconButton>
 
@@ -57,7 +57,7 @@ export default function UserChangeRole ({user}) {
         </DialogContent>
 
         <DialogActions>
-            <Button variant="contained" color="primary" onClick={() => changeRole(user)}>
+            <Button variant="contained" color="primary" onClick={() => changeRole(props.user)}>
               승인
             </Button>
             <Button variant="outlined" color="primary" onClick={handleClose}>
@@ -69,3 +69,4 @@ export default function UserChangeRole ({user}) {
     );
 }
 
+export default withRouter(UserChangeRole);

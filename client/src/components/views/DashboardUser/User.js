@@ -206,17 +206,17 @@ export default function User() {
       </TableCell>
 
       <TableCell align="left" 
-      onClick={() => changeRole(user)}
+      // onClick={() => changeRole(user)}
       >
-        <Label
+        {/* <Label
           variant="ghost"
           color={
             (user.FLAG === 'banned' && 'error') || 'success'
           }
         >
           {sentenceCase(user.FLAG)}
-        </Label>
-        {/* <UserChangeRole user={user} /> */}
+        </Label> */}
+        <UserChangeRole user={user} />
       </TableCell>
 
       <TableCell align="left">

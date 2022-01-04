@@ -98,7 +98,7 @@ console.log("now는???",now)
 // 권한 승인 요청 리스트
 router.get("/permitlist", function (req, res) {
     const query = "SELECT USERS.EMAIL, USERS.NAME, USERS.ROLE, USERS.FLAG, ATTACHMENT.DIRECTORY \
-                    FROM USERS NATURAL JOIN ATTACHMENT WHERE USERS.EMAIL = ATTACHMENT.USER_EMAIL";
+                    FROM USERS NATURAL JOIN ATTACHMENT WHERE USERS.EMAIL = ATTACHMENT.USER_EMAIL AND USERS.FLAG='true'";
     
     // console.log('query result', query);
     conn.execute(query ,[], {outFormat:oracledb.OBJECT}, function (err, result) {
