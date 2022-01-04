@@ -93,28 +93,7 @@ router.get("/list", function (req, res) {
             console.log("조회 실패");
         }
         console.log("result:",result);
-        // console.log("result:",result.rows);
 
-        // console.log("metadata:",result.metaData[0].name);
-        // console.log("rows:",JSON.parse(result.rows[0]));
-        // const reeee = JSON.parse(result.rows[0][0]);
-        // console.log("reeee",reeee);
-        // var otherArray = [result.metaData[0].name, result.metaData[1].name];
-        // var otherObject = { email: result.rows[0], item2: "item2val" };
-        // console.log("otherArray:",otherArray);
-        // console.log("otherObject:",otherObject);
-        // var json = JSON.stringify({
-        //   anObject: otherObject,
-        //   anArray: otherArray,
-        //   another: "item"
-        // });
-//         select department "department",
-//   ufh "ufh",
-//   libelle "libelle",
-//   nomhopital "nomhopital",
-//   typeservice "typeservice"
-// from Z_SOUPAP2CARTESITE 
-// where actif=1 
         res.send(result)
     })
 });
@@ -189,7 +168,8 @@ router.post("/login", function (req, res) {
                         } else {
                             res.cookie("refreshToken", refreshToken)
                                 .cookie("accessToken", accessToken)
-                                .cookie("user_info", result.rows[0][2])
+                                .cookie("user_name", result.rows[0][2])
+                                .cookie("user_email", result.rows[0][0])
                                 .status(200)
                                 .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], msg: userEmail + " 로그인 성공" })
                         }
