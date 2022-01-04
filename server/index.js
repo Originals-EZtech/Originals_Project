@@ -36,6 +36,19 @@ let rooms = []; //active room
 app.get('/api/room-exists/:roomId', (req,res)=> {
     const { roomId } = req.params;
     const room = rooms.find(room => room.id === roomId);
+    // console.log("req.params"+req.params);
+    // console.log("req.params.roomId"+req.params.roomId);
+    // console.log("rooms ::::"+rooms);
+    // console.log("rooms[0] ::::"+rooms[0]);
+    // console.log("rooms[0][0] ::::"+rooms[0][0]);
+    // console.log("rooms.id ::::"+rooms.id);
+    // console.log("rooms.rooms ::::"+rooms.rooms);
+
+    // const { roomId } = req.params;
+    // console.log("roomId"+roomId)
+
+    // const room = rooms.find(room => room.id === roomId);
+    // console.log("room ::: "+room);
 
     if(room){
         // send response that room exists
