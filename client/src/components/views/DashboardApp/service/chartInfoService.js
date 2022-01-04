@@ -24,10 +24,21 @@ const chartInfoService = () => {
 
     const getPermitList = async () => {
         const result = await axios.get('/api/chart/permitlist')
-        console.log("서버에서 permitlist result?? ",result)
         return result;
     }
 
-    return {getUserTotal, getVisitorTotal, getRoomsTotal, getUsersCount, getPermitList}
+    const changeRole = async (email) => {
+        const result = await axios.post('/api/chart/permit',email)
+        console.log("서버에서 permit email?? ",email)
+        return result;
+    }
+    
+    const getVisitorCount = async () => {
+        const result = await axios.get('/api/chart/count')
+        console.log("result",result)
+        return result;
+    }
+
+    return {getUserTotal, getVisitorTotal, getRoomsTotal, getUsersCount, getPermitList, changeRole, getVisitorCount}
 }
 export default chartInfoService();

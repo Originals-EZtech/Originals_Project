@@ -43,6 +43,19 @@ app.get('/api/room-exists/:roomId', (req,res)=> {
     // req.params에 저장 
     const { roomId } = req.params; 
     const room = rooms.find(room => room.id === roomId);
+    // console.log("req.params"+req.params);
+    // console.log("req.params.roomId"+req.params.roomId);
+    // console.log("rooms ::::"+rooms);
+    // console.log("rooms[0] ::::"+rooms[0]);
+    // console.log("rooms[0][0] ::::"+rooms[0][0]);
+    // console.log("rooms.id ::::"+rooms.id);
+    // console.log("rooms.rooms ::::"+rooms.rooms);
+
+    // const { roomId } = req.params;
+    // console.log("roomId"+roomId)
+
+    // const room = rooms.find(room => room.id === roomId);
+    // console.log("room ::: "+room);
 
     if(room){
         // send response that room exists
@@ -157,6 +170,7 @@ const createNewRoomHandler = (data, socket) =>{
     // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
     const insertarray = [roomId, "roomname", "roompassword"];
 
+    // room-id 테이블에 저장
     oracledb.getConnection(dbConfig, (err, conn) => {
         roomNameInsert(err, conn);
     });
@@ -183,7 +197,7 @@ const createNewRoomHandler = (data, socket) =>{
             });
         }
     }
-    // room-id 테이블에 저장
+    
 
 
 

@@ -544,14 +544,14 @@ video {
 
 
 .sttb:hover{
-  background: rgb(255, 238, 0);
+  background: #29ca8f;
   padding: 10px;
   border-radius: 10px;
-  position: relative;
+  position: absolute;
 }
 
 .Sttcontanor{
-  background-color:#29ca8f96;
+  background-color:#29ca8f9c;
   width:60%;
   height:10%;
   position: absolute;
@@ -566,15 +566,34 @@ video {
   top: 15px;
   position: absolute;
   left: 1.5%;
-  padding:10px
+  padding:10px;
+  z-index: 3;
 }
 
 
 .sttc{
   vertical-align: bottom;
   color: black;
-  margin-top: 10px;
-  margin-left: 60px;
+  margin-top: 13px;
+  margin-left: 50px;
   margin-bottom: 10px;
   margin-right: 10px;
+  font-family: Helvetica, Arial, sans-serif;
+  
+}
+
+.otherstt{
+  color: black;
+  margin-top:-20px;
+  margin-left: 60px;
+  margin-bottom: 30px;
+  margin-right: 10px;
+  
+}
+.te{
+  position: relative;
+}
+
+.st{
+  position: absolute;
 }

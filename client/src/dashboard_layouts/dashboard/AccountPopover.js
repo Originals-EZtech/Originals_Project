@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
-import settings2Fill from '@iconify/icons-eva/settings-2-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { alpha } from '@mui/material/styles';
@@ -11,6 +10,7 @@ import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '
 import MenuPopover from '../../dashboard_components/MenuPopover';
 //
 import account from '../../_mocks_/account';
+import { useCookies } from 'react-cookie';
 
 // ----------------------------------------------------------------------
 
@@ -24,11 +24,6 @@ const MENU_OPTIONS = [
     label: 'Profile',
     icon: personFill,
     linkTo: '#'
-  },
-  {
-    label: 'Settings',
-    icon: settings2Fill,
-    linkTo: '#'
   }
 ];
 
@@ -37,6 +32,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
+  const [cookies] = useCookies();
 
   const handleOpen = () => {
     setOpen(true);
@@ -67,7 +63,7 @@ export default function AccountPopover() {
           })
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src="/static/illustrations/illustration_avatar.png" alt="photoURL" />
       </IconButton>
 
       <MenuPopover
@@ -78,10 +74,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            {account.displayName}
+            {cookies.user_name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {cookies.user_email}
           </Typography>
         </Box>
 
