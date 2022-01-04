@@ -2,8 +2,8 @@ import React from 'react';
 import RoomJoinComp from './RoomJoinComp';
 import RoomJoinCompRoomName from './RoomJoinCompRoomName';
 import { Link } from 'react-router-dom';
-import CreateRoomComponent from '../../Myroom/CreateRoomComponent';
-import JoinRoomComponent from '../../Myroom/JoinRoomComponent';
+import CreateRoomComponent from '../../Myclass/CreateRoomComponent';
+import JoinRoomComponent from '../../Myclass/JoinRoomComponent';
 
 function RoomJoin() {
 
