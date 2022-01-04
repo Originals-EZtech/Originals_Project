@@ -69,8 +69,9 @@ router.get("/permitlist", function (req, res) {
 
 // 권한 승인
 router.post("/permit", function (req, res) {
-    // const param = ["admin", "true", req.body.email]
     const userEmail = req.body.email
+    console.log("서버에서 받은 이메일?",userEmail)
+
     conn.execute("UPDATE USERS SET ROLE = 'prof', FLAG = 'false' WHERE EMAIL =:useremail",[userEmail], function (err, result) {
         if (err) {
             console.log(err)

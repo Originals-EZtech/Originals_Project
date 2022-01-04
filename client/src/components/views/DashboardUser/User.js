@@ -22,17 +22,17 @@ import Label from '../../../dashboard_components/Label';
 import Scrollbar from '../../../dashboard_components/Scrollbar';
 import { UserListHead, UserMoreMenu } from '../../../dashboard_components/_dashboard/user';
 //
-import USERLIST from '../../../_mocks_/user';
 
 import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavbar';
 import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
+import { toast, ToastContainer } from 'react-toastify';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
+  { id: 'Email', label: 'Email', alignRight: false },
   { id: 'role', label: 'Role', alignRight: false },
   { id: 'isVerified', label: 'Verified', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
@@ -73,10 +73,10 @@ function applySortFilter(array, comparator, query) {
 const initState = {
   permitlist: [
     {
-      email: "",
-      name: "",
-      role: "",
-      flag: ""
+      EMAIL: "",
+      NAME: "",
+      ROLE: "",
+      FLAG: ""
     }
   ]
 }
@@ -87,9 +87,9 @@ export default function User() {
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState('name');
-  const [filterName, setFilterName] = useState('');
   const [open, setOpen] = useState(false);
   const [users, setUsers] = useState(initState);
+  const [flag, serFlag] = useState(false);
 
   console.log("클라에서 users : ", users)
 
@@ -101,7 +101,7 @@ export default function User() {
       setUsers(res.data)
     })
 
-  }, [])
+  }, [flag])
 
   /* 스타일 설정 */
   const APP_BAR_MOBILE = 64;
@@ -133,14 +133,14 @@ export default function User() {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
+  // const handleSelectAllClick = (event) => {
+  //   if (event.target.checked) {
+  //     const newSelecteds = USERLIST.map((n) => n.name);
+  //     setSelected(newSelecteds);
+  //     return;
+  //   }
+  //   setSelected([]);
+  // };
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -160,10 +160,18 @@ export default function User() {
     setSelected(newSelected);
   };
 
+  const changeRole = (user) => {
+    let body = { email: user.EMAIL }
+    console.log("on chagerole click", body)
+    chartInfoService.changeRole(body)
+      .then();
+    toast.success(" 승인처리 되었습니다.");
+    setTimeout(() => {
+      serFlag(!flag);
+    }, 800)
+  }
 
-
-  // const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
-  const list = users.permitlist.map(user=> {
+  const list = users.permitlist.map(user => {
     return <TableRow
       hover
       key={user.EMAIL}
@@ -188,31 +196,30 @@ export default function User() {
       </TableCell>
 
       <TableCell align="left">
-        {user.EMAIL} 
+        {user.EMAIL}
       </TableCell>
 
       <TableCell align="left">
-        {user.ROLE} 
+        {user.ROLE}
       </TableCell>
 
       <TableCell align="left">
         {user.FLAG ? 'Yes' : 'No'}
       </TableCell>
 
-      <TableCell align="left">
+      <TableCell align="left" onClick={() => changeRole(user)}>
         <Label
           variant="ghost"
-        // color={
-        //   (status === 'banned' && 'error') || 'success'
-        // }
+          color={
+            (user.FLAG === 'banned' && 'error') || 'success'
+          }
         >
-          hi
-          {/* {sentenceCase(status)} */}
+          {sentenceCase(user.FLAG)}
         </Label>
       </TableCell>
 
       <TableCell align="right">
-        <UserMoreMenu /> 
+        <UserMoreMenu />
       </TableCell>
     </TableRow>
   })
@@ -225,13 +232,10 @@ export default function User() {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
-              User
+              Request for Approval 
             </Typography>
           </Stack>
-
           <Card>
-
-
             <Scrollbar>
               <TableContainer sx={{ minWidth: 800 }}>
                 <Table>
@@ -239,22 +243,21 @@ export default function User() {
                     order={order}
                     orderBy={orderBy}
                     headLabel={TABLE_HEAD}
-                    rowCount={USERLIST.length}
-                    numSelected={selected.length}
-                    onRequestSort={handleRequestSort}
-                    onSelectAllClick={handleSelectAllClick}
+                    // rowCount={USERLIST.length}
+                    // numSelected={selected.length}
+                    // onRequestSort={handleRequestSort}
+                    // onSelectAllClick={handleSelectAllClick}
                   />
                   <TableBody>
-                    {list}           
+                    {list}
                   </TableBody>
                 </Table>
               </TableContainer>
             </Scrollbar>
-
-
           </Card>
         </Container>
       </MainStyle>
+      <ToastContainer hideProgressBar={true} />
     </RootStyle>
   );
 }

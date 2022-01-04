@@ -33,10 +33,9 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 
 export default function AppCurrentVisits(usersCount) {
-  const general = usersCount.usersCount.general;
+  const general = usersCount.usersCount.general+ (usersCount.usersCount.total-usersCount.usersCount.prof-usersCount.usersCount.general);
   const prof = usersCount.usersCount.prof;
-  const etc = usersCount.usersCount.total-usersCount.usersCount.prof-usersCount.usersCount.general;
-  const CHART_DATA = [general, prof,etc];
+  const CHART_DATA = [general, prof];
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
@@ -46,7 +45,7 @@ export default function AppCurrentVisits(usersCount) {
       theme.palette.warning.main,
       theme.palette.error.main
     ],
-    labels: ['일반회원', '강사', '그외'],
+    labels: ['일반회원', '강사'],
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
