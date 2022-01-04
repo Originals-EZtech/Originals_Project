@@ -98,6 +98,18 @@ router.get("/list", function (req, res) {
     })
 });
 
+// SELECT query all attachment
+router.get("/userList", function (req, res) {
+    conn.execute("select * from attachment", [], {outFormat: oracledb.OBJECT}, function(err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            // console.log('query result', result);
+            res.send(result.rows);
+        }
+    })
+})
+
 
 // signup
 router.post("/register", function (req, res) {
@@ -131,6 +143,33 @@ router.post("/register", function (req, res) {
     }
 });
 
+// register시 Teacher인 경우 파일 업로드
+
+// multer 라이브러리로 인해 업로드되는 파일의 이름이 중복되지 않게 랜덤으로 생성되어 저장
+const multer = require('multer');
+const upload = multer({dest: './upload'});
+
+router.post('/imgUpload', upload.single('image'), (req, res) => {
+    console.log(req.file);
+    let email = req.body.email;
+    let image = '/api/image/' + req.file.filename;
+    const param = [email, image];
+    // console.log('image', image);
+    // console.log('email', email);
+
+    conn.execute('insert into attachment (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
+        if (err) {
+            console.log(err);
+            res.status(200).json({
+                uploadSuccess: false, msg: "파일 업로드가 실패했습니다."
+            })
+        } else {
+            res.status(200).json({
+                uploadSuccess: true, msg: "파일 업로드 성공"
+            })
+        }
+    })
+})
 
 //siginin
 router.post("/login", function (req, res) {

@@ -98,7 +98,12 @@ const reducer = (state = initState, action) => {
         case Actions.SET_LOGOUT_USER:
             return {
                 ...state,
-            };
+            }
+        case Actions.SET_FILE_UPLOAD:
+            return{
+                ...state,
+                uploadSuccess: action.response.uploadSuccess
+            }
         case Actions.SET_TOTAL_USER:
             return {
                 ...state,

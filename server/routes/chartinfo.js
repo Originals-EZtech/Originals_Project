@@ -97,18 +97,23 @@ console.log("now는???",now)
 
 // 권한 승인 요청 리스트
 router.get("/permitlist", function (req, res) {
-    conn.execute("SELECT EMAIL,NAME,ROLE,FLAG FROM USERS WHERE FLAG='true'", [], { outFormat: oracledb.OBJECT }, function (err, result) {
+    const query = "SELECT USERS.EMAIL, USERS.NAME, USERS.ROLE, USERS.FLAG, ATTACHMENT.DIRECTORY \
+                    FROM USERS NATURAL JOIN ATTACHMENT WHERE USERS.EMAIL = ATTACHMENT.USER_EMAIL AND USERS.FLAG='true'";
+    
+    // console.log('query result', query);
+    conn.execute(query ,[], {outFormat:oracledb.OBJECT}, function (err, result) {
         if (err) {
             console.log(err);
         }
         // console.log("select 성공");
-        // console.log(result.rows);
+        console.log(result.rows);
 
         res.json({
             permitlist: result.rows
         })
     })
 });
+
 
 // 권한 승인
 router.post("/permit", function (req, res) {

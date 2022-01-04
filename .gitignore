@@ -13,6 +13,10 @@ dbConfig.js
 mybatisConfig.js
 mailConfig.js
 tokenConfig.js
+
+# image file
+upload
+
 twilioConfig.js
 
 # file upload
