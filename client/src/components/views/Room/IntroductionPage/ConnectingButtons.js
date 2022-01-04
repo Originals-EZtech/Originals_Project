@@ -14,9 +14,9 @@ const ConnectingButtons = (props) => {
         <div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join a class' 
             onClickHandler ={pushToJoinRoomPage}/>
-            <ConnectingButton createRoomButton buttonText = 'Host a class' 
+            <ConnectingButton createRoomButton buttonText = 'Create a class' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
-            <h2><Link to="../MyRoom" >My class</Link></h2>
+            <h2><Link to="../Myclass" >My class</Link></h2>
         </div>
     );
 };

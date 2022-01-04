@@ -9,7 +9,7 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import JoinRoomPage from './components/views/Room/JoinRoomPage/JoinRoomPage';
 import RoomPage from './components/views/Room/RoomPage/RoomPage';
 import IntroductionPage from './components/views/Room/IntroductionPage/IntroductionPage';
-import MyRoomPage from './components/views/Myroom/MyRoomPage';
+import MyRoomPage from './components/views/Myclass/MyRoomPage';
 
 // _2붙어있는건 테스트 room
 import Room_2 from './components/views/Room_By_Dong/Room';
@@ -70,7 +70,7 @@ const AnimatedSwitch = () => {
         <Route exact path="/roomcreate_2" component={RoomCreate_2} />
         <Route exact path="/roomjoin_2" component={RoomJoin_2} />
         <Route exact path="/roomadmin_2" component={RoomAdmin_2 } />
-        <Route exact path="/myroom" component={MyRoomPage } />
+        <Route exact path="/myclass" component={MyRoomPage } />
         <Route exact path="/dashboard/app" component={DashboardApp } />
         <Route exact path="/dashboard/user" component={User } />
         </Switch>
