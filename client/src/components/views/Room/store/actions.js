@@ -7,6 +7,7 @@ const Actions ={
     SET_SHOW_OVERLAY: 'SET_SHOW_OVERLAY',
     SET_PARTICIPANTS: 'SET_PARTICIPANTS',
     SET_MESSAGES: "SET_MESSAGES",
+    SET_FILEDATAS: "SET_FILEDATAS",
     SET_ACTIVE_CONVERSATION: "SET_ACTIVE_CONVERSATION",
     SET_DIRECT_CHAT_HISTORY: "SET_DIRECT_CHAT_HISTORY",
     SET_SOCKET_ID: "SET_SOCKET_ID",
@@ -15,6 +16,7 @@ const Actions ={
     SET_AUTH_EMAIL: "SET_AUTH_EMAIL",
     SET_AUTH_USER: "SET_AUTH_USER",
     SET_LOGOUT_USER: "SET_LOGOUT_USER",
+    SET_FILE_UPLOAD: "SET_FILE_UPLOAD",
     SET_TOTAL_USER:"SET_TOTAL_USER",
     SET_WORD:"SET_WORD"
 };
@@ -67,7 +69,14 @@ export const setMessages = (messages) => {
       messages,
     }
 }
-  
+
+export const setFileDatas = (fileDatas) =>{
+    return {
+        type: Actions.SET_FILEDATAS,
+        fileDatas
+    }
+}
+
 export const setActiveConversation = (activeConversation)=>{
     return{
       type: Actions.SET_ACTIVE_CONVERSATION,
@@ -102,7 +111,7 @@ export const sttword = (word) =>{
 export const loginUser = async (loginData) => {
     const request = await axios.post('/api/users/login', loginData)
     const response = request.data;
-    // console.log("axios로 서버에 보내는 값: ", loginData)
+    console.log("axios로 서버에 보내는 값: ", loginData)
     // console.log('request', request);
     // console.log('response', response);
     return {
@@ -162,5 +171,43 @@ export const logout = async () => {
         response
     }
 }
+
+// 파일첨부
+export const fileUpload = async (fileData) => {
+    // console.log('action');
+    // console.log(fileData);
+    const url = "/api/users/imgUpload";
+    const formData = new FormData();
+    // console.log('fileData.email', fileData.email);
+    // console.log('fileData.image', fileData.image);
+    formData.append('email', fileData.email);
+    formData.append('image', fileData.image);
+
+    const config = {
+        headers: {
+            'content-type' : 'multipart/form-data'
+        }
+    }
+    const request = await axios.post(url, formData, config);
+    const response = request.data;
+    // console.log(request);
+    // console.log(response);
+
+    return {
+        type: Actions.SET_FILE_UPLOAD,
+        response
+    }
+}
+
+// export const userTotal = async () => {
+//     const request = await axios.get('/api/chart/users')
+//     const userTotal = request.data;
+//     console.log(userTotal);
+//     return { //Action 끝내고 이제 Reducer로 보냄
+//         type: Actions.SET_TOTAL_USER,
+//         userTotal
+//     }
+// }
+
   
 export default Actions;

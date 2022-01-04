@@ -2,7 +2,10 @@
 // require('dotenv').config({ path : 
 //     "./../.env" 
 // });
+
 const express = require('express');
+
+// 파일 업로드
 const app = express();
 const port = 5000;
 const cookieParser = require('cookie-parser');
@@ -10,6 +13,8 @@ const oracledb = require('oracledb');
 const dbConfig = require('./config/dbConfig');
 const twilioConfig = require('./config/twilioConfig');
 oracledb.autoCommit = true;
+
+
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -19,6 +24,8 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/data2', require('./routes/rooms'));
 app.use('/api/chart', require('./routes/chartinfo'));
 
+// for 이미지 파일 업로드
+app.use('/api/image', express.static('./upload'));
 
 const http = require('http');
 const { v4: uuidv4} = require('uuid');
@@ -34,7 +41,9 @@ let rooms = []; //active room
 // create route to check if room exists
 
 app.get('/api/room-exists/:roomId', (req,res)=> {
-    const { roomId } = req.params;
+    //express가 room-exists 이후에 오는 값 {roomId} 받아오면 캡쳐해서
+    // req.params에 저장 
+    const { roomId } = req.params; 
     const room = rooms.find(room => room.id === roomId);
     // console.log("req.params"+req.params);
     // console.log("req.params.roomId"+req.params.roomId);
@@ -95,7 +104,7 @@ const io = require('socket.io')(server, {
 
 io.on('connection', (socket) => {
     console.log(`user connected ${socket.id}`);
-
+    
     //방만들기 부분 소켓으로 데이터 받아옴
     socket.on('create-new-room', (data)=>{
         createNewRoomHandler(data, socket);
@@ -163,6 +172,7 @@ const createNewRoomHandler = (data, socket) =>{
     // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
     const insertarray = [roomId, "roomname", "roompassword"];
 
+    // room-id 테이블에 저장
     oracledb.getConnection(dbConfig, (err, conn) => {
         roomNameInsert(err, conn);
     });
@@ -189,7 +199,7 @@ const createNewRoomHandler = (data, socket) =>{
             });
         }
     }
-    // room-id 테이블에 저장
+    
 
 
 

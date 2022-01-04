@@ -57,22 +57,23 @@ const AnimatedSwitch = () => {
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
         <Switch location={location}>
-        <Route exact path="/" component={MainPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/register" component={RegisterPage} />
 
-        <Route exact path = "/join-room" component = {JoinRoomPage} />
-        <Route exact path ="/room" component ={RoomPage} />
-        <Route exact path ="/intro" component = {IntroductionPage} />
+          <Route exact path = "/join-room" component = {JoinRoomPage} />
+          <Route exact path ="/room" component ={RoomPage} />
+          <Route exact path ="/intro" component = {IntroductionPage} />
+          <Route exact path="/myclass" component={MyRoomPage } />
 
-        <Route exact path="/roomparticipant_2" component={RoomParticipant_2 } />
-        <Route exact path="/room_2" component={Room_2} />
-        <Route exact path="/roomcreate_2" component={RoomCreate_2} />
-        <Route exact path="/roomjoin_2" component={RoomJoin_2} />
-        <Route exact path="/roomadmin_2" component={RoomAdmin_2 } />
-        <Route exact path="/myclass" component={MyRoomPage } />
-        <Route exact path="/dashboard/app" component={DashboardApp } />
-        <Route exact path="/dashboard/user" component={User } />
+          <Route exact path="/dashboard/app" component={DashboardApp } />
+          <Route exact path="/dashboard/user" component={User } />
+
+          <Route exact path="/roomparticipant_2" component={RoomParticipant_2 } />
+          <Route exact path="/room_2" component={Room_2} />
+          <Route exact path="/roomcreate_2" component={RoomCreate_2} />
+          <Route exact path="/roomjoin_2" component={RoomJoin_2} />
+          <Route exact path="/roomadmin_2" component={RoomAdmin_2 } />
         </Switch>
       </CSSTransition>
     </TransitionGroup>
