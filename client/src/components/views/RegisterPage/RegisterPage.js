@@ -8,8 +8,8 @@ import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
-import axios from 'axios';
-import Customer from './Customer';
+// import axios from 'axios';
+// import Customer from './Customer';
 
 function Register(props) {
     const { registerUserAction, authEmailAction, fileUploadAction } = props;
@@ -149,20 +149,22 @@ function Register(props) {
         let body = {}
 
         if (isTeacher) {
-            body = {
-                email: Email,
-                password: Password,
-                name : Name,
-                role : "prof",
-                flag : "true"
-            }
-        } else {
+            // 선생님일 경우
             body = {
                 email: Email,
                 password: Password,
                 name : Name,
                 role : "general",
                 flag : "true"
+            }
+        } else {
+            // 학생일 경우
+            body = {
+                email: Email,
+                password: Password,
+                name : Name,
+                role : "general",
+                flag : "false"
             }
         }
         
@@ -222,18 +224,18 @@ function Register(props) {
         })
     }
 
-    const [testVar, setTestVar] = useState(null);
-    useEffect(() => {
-        callApi()
-        .then(res => setTestVar(res));
-    }, [])
+    // const [testVar, setTestVar] = useState(null);
+    // useEffect(() => {
+    //     callApi()
+    //     .then(res => setTestVar(res));
+    // }, [])
     
-    const callApi = async () => {
-        const response = await fetch('/api/users/userList');       // 해당 주소에 접속
-        const body = await response.json();                   // 서버에서 수행된 결과값을 json 형태로 받아옴
-        console.log(body);
-        return body;        
-    }
+    // const callApi = async () => {
+    //     const response = await fetch('/api/users/userList');       // 해당 주소에 접속
+    //     const body = await response.json();                   // 서버에서 수행된 결과값을 json 형태로 받아옴
+    //     console.log(body);
+    //     return body;        
+    // }
 
 
     return (

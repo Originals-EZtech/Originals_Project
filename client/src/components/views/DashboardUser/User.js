@@ -1,7 +1,6 @@
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
   Card,
@@ -20,13 +19,14 @@ import { styled } from '@mui/material/styles';
 // components
 import Label from '../../../dashboard_components/Label';
 import Scrollbar from '../../../dashboard_components/Scrollbar';
-import { UserListHead, UserMoreMenu } from '../../../dashboard_components/_dashboard/user';
+import { UserListHead, UserCheckFile } from '../../../dashboard_components/_dashboard/user';
 //
 
 import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavbar';
 import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
 import { toast, ToastContainer } from 'react-toastify';
+import UserChangeRole from '../../../dashboard_components/_dashboard/user/UserChangeRole';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ const TABLE_HEAD = [
   { id: 'role', label: 'Role', alignRight: false },
   { id: 'isVerified', label: 'Verified', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
-  { id: '' }
+  { id: 'attached', label: 'Attached', alignRight: false }
 ];
 
 // ----------------------------------------------------------------------
@@ -80,8 +80,6 @@ const initState = {
     }
   ]
 }
-
-
 
 export default function User() {
   const [order, setOrder] = useState('asc');
@@ -207,7 +205,9 @@ export default function User() {
         {user.FLAG ? 'Yes' : 'No'}
       </TableCell>
 
-      <TableCell align="left" onClick={() => changeRole(user)}>
+      <TableCell align="left" 
+      onClick={() => changeRole(user)}
+      >
         <Label
           variant="ghost"
           color={
@@ -216,10 +216,11 @@ export default function User() {
         >
           {sentenceCase(user.FLAG)}
         </Label>
+        {/* <UserChangeRole user={user} /> */}
       </TableCell>
 
-      <TableCell align="right">
-        <UserMoreMenu />
+      <TableCell align="left">
+        <UserCheckFile image={user.DIRECTORY} />
       </TableCell>
     </TableRow>
   })
