@@ -14,6 +14,10 @@ mybatisConfig.js
 mailConfig.js
 tokenConfig.js
 twilioConfig.js
+
+# file upload
+upload
+
 # testing
 /coverage
 
