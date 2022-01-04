@@ -26,7 +26,7 @@ const Dictaphone = ({socketId}) => {
       SpeechRecognition.startListening({ continuous: {now},language: 'ko' });
       console.log("시작");
     }
-    
+    console.log("추출");
     const stop=()=>{
       //console.log(transcript);
       setnow(now => !now);
@@ -42,10 +42,13 @@ const Dictaphone = ({socketId}) => {
       //const users = participants.filter(participant => participant.socketId !== socketId);
       //console.log(socketId);
       //console.log(participants);
-      wss.sendSTT({
-        socketId,
-        transcript
-      })
+      if(now === true){
+        wss.sendSTT({
+          socketId,
+          transcript
+        })
+      }
+     
       }   
 
     return(

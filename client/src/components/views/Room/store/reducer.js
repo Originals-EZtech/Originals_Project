@@ -8,6 +8,7 @@ const initState = {
     showOverlay: true,
     participants: [],
     messages: [],
+    fileDatas: [],
     activeConversation: null,
     directChatHistory: [],
     socketId: null,
@@ -52,6 +53,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 messages: action.messages,
             };
+        case Actions.SET_FILEDATAS:
+            return{
+                ...state,
+                fileDatas: action.fileDatas
+            }
         case Actions.SET_ACTIVE_CONVERSATION:
             return {
                 ...state,
@@ -88,7 +94,12 @@ const reducer = (state = initState, action) => {
         case Actions.SET_LOGOUT_USER:
             return {
                 ...state,
-            };
+            }
+        case Actions.SET_FILE_UPLOAD:
+            return{
+                ...state,
+                uploadSuccess: action.response.uploadSuccess
+            }
         case Actions.SET_WORD:
             return{
                 ...state,
