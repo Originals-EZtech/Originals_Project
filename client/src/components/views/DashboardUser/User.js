@@ -1,16 +1,12 @@
 import { filter } from 'lodash';
-import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
 import { useEffect, useState } from 'react';
-import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
   Card,
   Table,
   Stack,
-  Avatar,
-  Button,
   Checkbox,
   TableRow,
   TableBody,
@@ -18,26 +14,25 @@ import {
   Container,
   Typography,
   TableContainer,
-  
+
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // components
 import Label from '../../../dashboard_components/Label';
 import Scrollbar from '../../../dashboard_components/Scrollbar';
-import SearchNotFound from '../../../dashboard_components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../../../dashboard_components/_dashboard/user';
+import { UserListHead, UserMoreMenu } from '../../../dashboard_components/_dashboard/user';
 //
-import USERLIST from '../../../_mocks_/user';
 
 import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavbar';
 import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
+import { toast, ToastContainer } from 'react-toastify';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
+  { id: 'Email', label: 'Email', alignRight: false },
   { id: 'role', label: 'Role', alignRight: false },
   { id: 'isVerified', label: 'Verified', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
@@ -75,26 +70,39 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
+const initState = {
+  permitlist: [
+    {
+      EMAIL: "",
+      NAME: "",
+      ROLE: "",
+      FLAG: ""
+    }
+  ]
+}
+
+
+
 export default function User() {
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState('name');
-  const [filterName, setFilterName] = useState('');
   const [open, setOpen] = useState(false);
-  const [users, setUsers] = useState();
+  const [users, setUsers] = useState(initState);
+  const [flag, serFlag] = useState(false);
 
-  console.log("클라에서 users : " , users)
+  console.log("클라에서 users : ", users)
 
 
   useEffect(() => {
 
     chartInfoService.getPermitList().then(res => {
-      console.log("클라에서 res : " , res)
+      console.log("클라에서 res : ", res)
       setUsers(res.data)
     })
 
-  }, [])
-  
+  }, [flag])
+
   /* 스타일 설정 */
   const APP_BAR_MOBILE = 64;
   const APP_BAR_DESKTOP = 92;
@@ -125,14 +133,14 @@ export default function User() {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
+  // const handleSelectAllClick = (event) => {
+  //   if (event.target.checked) {
+  //     const newSelecteds = USERLIST.map((n) => n.name);
+  //     setSelected(newSelecteds);
+  //     return;
+  //   }
+  //   setSelected([]);
+  // };
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -152,110 +160,104 @@ export default function User() {
     setSelected(newSelected);
   };
 
-  const handleFilterByName = (event) => {
-    setFilterName(event.target.value);
-  };
+  const changeRole = (user) => {
+    let body = { email: user.EMAIL }
+    console.log("on chagerole click", body)
+    chartInfoService.changeRole(body)
+      .then();
+    toast.success(" 승인처리 되었습니다.");
+    setTimeout(() => {
+      serFlag(!flag);
+    }, 800)
+  }
 
+  const list = users.permitlist.map(user => {
+    return <TableRow
+      hover
+      key={user.EMAIL}
+      tabIndex={-1}
+      role="checkbox"
+    // selected={isItemSelected}
+    // aria-checked={isItemSelected}
+    >
+      <TableCell padding="checkbox">
+        <Checkbox
+        // checked={isItemSelected}
+        // onChange={(event) => handleClick(event, name)}
+        />
+      </TableCell>
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+      <TableCell component="th" scope="row" padding="none">
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Typography variant="subtitle2" noWrap>
+            {user.NAME}
+          </Typography>
+        </Stack>
+      </TableCell>
 
+      <TableCell align="left">
+        {user.EMAIL}
+      </TableCell>
+
+      <TableCell align="left">
+        {user.ROLE}
+      </TableCell>
+
+      <TableCell align="left">
+        {user.FLAG ? 'Yes' : 'No'}
+      </TableCell>
+
+      <TableCell align="left" onClick={() => changeRole(user)}>
+        <Label
+          variant="ghost"
+          color={
+            (user.FLAG === 'banned' && 'error') || 'success'
+          }
+        >
+          {sentenceCase(user.FLAG)}
+        </Label>
+      </TableCell>
+
+      <TableCell align="right">
+        <UserMoreMenu />
+      </TableCell>
+    </TableRow>
+  })
 
   return (
     <RootStyle>
       <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
       <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
-          <Container>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-              <Typography variant="h4" gutterBottom>
-                User
-              </Typography>
-            </Stack>
-
-            <Card>
-              <UserListToolbar
-                numSelected={selected.length}
-                filterName={filterName}
-                onFilterName={handleFilterByName}
-              />
-
-              <Scrollbar>
-                <TableContainer sx={{ minWidth: 800 }}>
-                  <Table>
-                    <UserListHead
-                      order={order}
-                      orderBy={orderBy}
-                      headLabel={TABLE_HEAD}
-                      rowCount={USERLIST.length}
-                      numSelected={selected.length}
-                      onRequestSort={handleRequestSort}
-                      onSelectAllClick={handleSelectAllClick}
-                    />
-                    <TableBody>
-                      {filteredUsers
-                        .map((row) => {
-                          const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                          const isItemSelected = selected.indexOf(name) !== -1;
-
-                          return (
-                            <TableRow
-                              hover
-                              key={id}
-                              tabIndex={-1}
-                              role="checkbox"
-                              selected={isItemSelected}
-                              aria-checked={isItemSelected}
-                            >
-                              <TableCell padding="checkbox">
-                                <Checkbox
-                                  checked={isItemSelected}
-                                  onChange={(event) => handleClick(event, name)}
-                                />
-                              </TableCell>
-                              <TableCell component="th" scope="row" padding="none">
-                                <Stack direction="row" alignItems="center" spacing={2}>
-                                  <Avatar alt={name} src={avatarUrl} />
-                                  <Typography variant="subtitle2" noWrap>
-                                    {name}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-                              <TableCell align="left">{company}</TableCell>
-                              <TableCell align="left">{role}</TableCell>
-                              <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-                              <TableCell align="left">
-                                <Label
-                                  variant="ghost"
-                                  color={(status === 'banned' && 'error') || 'success'}
-                                >
-                                  {sentenceCase(status)}
-                                </Label>
-                              </TableCell>
-
-                              <TableCell align="right">
-                                <UserMoreMenu />
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                     
-                    </TableBody>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                            <SearchNotFound searchQuery={filterName} />
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    
-                  </Table>
-                </TableContainer>
-              </Scrollbar>
-
-
-            </Card>
-          </Container>
+        <Container>
+          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+            <Typography variant="h4" gutterBottom>
+              Request for Approval 
+            </Typography>
+          </Stack>
+          <Card>
+            <Scrollbar>
+              <TableContainer sx={{ minWidth: 800 }}>
+                <Table>
+                  <UserListHead
+                    order={order}
+                    orderBy={orderBy}
+                    headLabel={TABLE_HEAD}
+                    // rowCount={USERLIST.length}
+                    // numSelected={selected.length}
+                    // onRequestSort={handleRequestSort}
+                    // onSelectAllClick={handleSelectAllClick}
+                  />
+                  <TableBody>
+                    {list}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Scrollbar>
+          </Card>
+        </Container>
       </MainStyle>
+      <ToastContainer hideProgressBar={true} />
     </RootStyle>
   );
 }
