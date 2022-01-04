@@ -56,7 +56,7 @@ export const connectWithSocketIOServer = () =>{
         
         //console.log(data.transcript);
         store.dispatch(sttword(data.transcript));
-        console.log(store.getState());
+        //console.log(store.getState());
     });
 };
 
