@@ -19,7 +19,7 @@ import RoomAdmin_2 from './components/views/Room_By_Dong/RoomCreate/RoomAdmin';
 import RoomParticipant_2 from './components/views/Room_By_Dong/RoomJoin/RoomParticipant';
 
 
-import Auth from './hoc/auth' 
+// import Auth from './hoc/auth' 
 
 import { connectWithSocketIOServer} from './components/views/Room/utils/wss';
 import DashboardApp from './components/views/DashboardApp/DashboardApp';
@@ -57,8 +57,8 @@ const AnimatedSwitch = () => {
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
         <Switch location={location}>
-        <Route exact path="/" component={Auth(MainPage, null)} />
-        <Route exact path="/login" component={Auth(LoginPage, false)} />
+        <Route exact path="/" component={MainPage} />
+        <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
 
         <Route exact path = "/join-room" component = {JoinRoomPage} />

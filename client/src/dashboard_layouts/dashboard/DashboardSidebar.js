@@ -12,6 +12,7 @@ import { MHidden } from '../../dashboard_components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
 import account from '../../_mocks_/account';
+import { useCookies } from 'react-cookie';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +42,7 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
+  const [cookies] = useCookies();
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -65,10 +67,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
-            <Avatar src={account.photoURL} alt="photoURL" />
+            <Avatar src="/static/illustrations/illustration_avatar.png" alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {cookies.user_name}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {account.role}
@@ -82,7 +84,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
       <Box sx={{ flexGrow: 1 }} />
 
-      <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
+      {/* <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
         <Stack
           alignItems="center"
           spacing={3}
@@ -105,11 +107,11 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
               wat?
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {/* From only $69 */}
+              From only $69
             </Typography>
           </Box>
         </Stack>
-      </Box>
+      </Box> */}
     </Scrollbar>
   );
 
