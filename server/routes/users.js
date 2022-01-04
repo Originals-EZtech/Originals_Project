@@ -125,7 +125,7 @@ router.get("/userList", function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log('query result', result);
+            // console.log('query result', result);
             res.send(result.rows);
         }
     })

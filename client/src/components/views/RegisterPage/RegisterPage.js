@@ -143,6 +143,8 @@ function Register(props) {
             return toast.error('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
 
+        handleFileUpload();
+
         // 회원가입시 보내줄 body 데이터를 학생 / 선생님 구분해서 서버로 전송
         let body = {}
 
@@ -201,7 +203,7 @@ function Register(props) {
     }
 
     const handleFileUpload = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
 
         const body = {
             email: Email,
@@ -213,7 +215,7 @@ function Register(props) {
             // console.log(response.response.uploadSuccess)
             if (response.response.uploadSuccess) {
                 toast.success(response.response.msg);
-                alert('관리자 승인 후 정상 이용 가능합니다. (최대 1일 소요)')
+                alert('선생님은 관리자 승인 후 정상 이용 가능합니다. (최대 1일 소요)')
             } else {
                 toast.error(response.response.msg);
             }
@@ -308,17 +310,19 @@ function Register(props) {
                         <div className={styles.checkRole}>
                             <label className={styles.checkbox_container}>
                                 <input type="checkbox" value={isTeacher} onChange={checkboxHandler} />
-                                Teacher?
+                                <span>Teacher?</span>
                                 <span className={styles.checkmark}></span>
                             </label>
 
                             {
                                 isTeacher
                                 ?
-                                <form onSubmit={handleFileUpload}>
-                                    <input type="file" name="image" accept="image/*" onChange={handleFileChange}/>
-                                    <button type="submit">업로드</button>
-                                </form>
+                                <div style={{display:"block"}}>
+                                    <form onSubmit={handleFileUpload}>
+                                        <input type="file" name="image" accept="image/*" onChange={handleFileChange}/>
+                                        {/* <button type="submit">업로드</button> */}
+                                    </form>
+                                </div>
                                 : null
                             }
                         </div>

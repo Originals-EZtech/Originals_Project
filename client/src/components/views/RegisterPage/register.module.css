@@ -32,6 +32,7 @@
 
 .login_content{
 	display: flex;
+	position: relative;
 	justify-content: flex-end;
 	align-items: center;
 	text-align: center;
@@ -47,15 +48,16 @@
 }
 
 .authDiv{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+	height: 320px;
+	margin-left: 10px;
 }
 
-/* .authentication{
-	display: flex;
-	justify-content: center;
-} */
+.authentication{
+	/* position: relative; */
+	/* display: flex; */
+	/* justify-content: center; */
+	/* align-content: center; */
+}
 
 .authBtn{
 	width: 160px;
@@ -81,9 +83,12 @@
 	transform: translateY(-7px);
 }
 
-/* .checkRole {
-	
-} */
+.checkRole {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 10rem;
+}
 
 /******** checkbox 관련 ********/
 
