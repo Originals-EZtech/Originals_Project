@@ -163,6 +163,7 @@ const createNewRoomHandler = (data, socket) =>{
     // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
     const insertarray = [roomId, "roomname", "roompassword"];
 
+    // room-id 테이블에 저장
     oracledb.getConnection(dbConfig, (err, conn) => {
         roomNameInsert(err, conn);
     });
@@ -189,7 +190,7 @@ const createNewRoomHandler = (data, socket) =>{
             });
         }
     }
-    // room-id 테이블에 저장
+    
 
 
 

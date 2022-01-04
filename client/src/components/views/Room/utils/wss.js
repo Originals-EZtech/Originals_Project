@@ -4,7 +4,14 @@ import store from '../store/store.js';
 import * as webRTCHandler from './webRTCHandler';
 import { appendNewMessageToChatHistory } from './directMessages';
 
-const SERVER = 'http://localhost:5000';
+
+const serverip = require('../../../../config/ipConfig');
+console.log("serverip"+serverip);
+console.log("serverip.server"+serverip.server);
+// 로컬 아이피, 공유기 아이피 ipconfig를 자기 공유기 ip로 바꿔준다
+// const SERVER = 'http://localhost:5000';
+const SERVER = serverip.server;
+
 
 let socket = null;
 
