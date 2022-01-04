@@ -98,6 +98,18 @@ router.get("/list", function (req, res) {
     })
 });
 
+// SELECT query all attachment
+router.get("/userList", function (req, res) {
+    conn.execute("select * from attachment", [], {outFormat: oracledb.OBJECT}, function(err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            // console.log('query result', result);
+            res.send(result.rows);
+        }
+    })
+})
+
 
 // signup
 router.post("/register", function (req, res) {
@@ -118,7 +130,7 @@ router.post("/register", function (req, res) {
                     })
                     // 토큰 칼럼생성  
                 } else {
-                    conn.execute('insert into tokens (ID, USER_EMAIL) values(tmp_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
+                    conn.execute('INSERT INTO TOKENS_TABLE (TOKEN_ID, USER_EMAIL) VALUES(tmp_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
                         if (err2) console.log(err2)
                     })
                     res.status(200).json({
@@ -131,6 +143,33 @@ router.post("/register", function (req, res) {
     }
 });
 
+// register시 Teacher인 경우 파일 업로드
+
+// multer 라이브러리로 인해 업로드되는 파일의 이름이 중복되지 않게 랜덤으로 생성되어 저장
+const multer = require('multer');
+const upload = multer({dest: './upload'});
+
+router.post('/imgUpload', upload.single('image'), (req, res) => {
+    console.log(req.file);
+    let email = req.body.email;
+    let image = '/api/image/' + req.file.filename;
+    const param = [email, image];
+    // console.log('image', image);
+    // console.log('email', email);
+
+    conn.execute('insert into attachment (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
+        if (err) {
+            console.log(err);
+            res.status(200).json({
+                uploadSuccess: false, msg: "파일 업로드가 실패했습니다."
+            })
+        } else {
+            res.status(200).json({
+                uploadSuccess: true, msg: "파일 업로드 성공"
+            })
+        }
+    })
+})
 
 //siginin
 router.post("/login", function (req, res) {
@@ -161,7 +200,7 @@ router.post("/login", function (req, res) {
                     var accessToken = jwt.sign({ email: userEmail }, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
                     const completedToken = [refreshToken, userEmail]
                     console.log("배열에 넣은 토큰정보:", completedToken)
-                    conn.execute('update tokens set TOKEN = :token where USER_EMAIL = :user_email ', completedToken, function (err2, result2) {
+                    conn.execute('update TOKENS_TABLE set TOKEN_VALUE = :token_value where USER_EMAIL = :user_email ', completedToken, function (err2, result2) {
                         if (err2) {
                             console.log(err2)
                             console.log("refresh토큰 insert 실패");
@@ -200,7 +239,7 @@ router.get('/auth', function (req, res) {
         if (refresh === undefined) {
             return res.json({ isAuth: false, err: true });
         } else {
-            conn.execute('select user_email from TOKENS where TOKEN = :token', [refresh], function (err4, result) {
+            conn.execute('select user_email from TOKENS_TABLE where TOKEN_VALUE = :token_value', [refresh], function (err4, result) {
                 if (err4) { console.log(err4) }
                 let newAccessToken = jwt.sign({ email: result.rows[0][0] }, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
                 console.log(newAccessToken)
@@ -215,7 +254,7 @@ router.get('/auth', function (req, res) {
             let verifyAccess = jwt.verify(access, tokenConfig.secretKey);
             const test = verifyAccess.email
             let newRefreshToken = jwt.sign({}, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
-            conn.execute('update tokens set TOKEN = :token where USER_EMAIL = :user_email ', [newRefreshToken, test], function (err2, result2) {
+            conn.execute('update TOKENS_TABLE set TOKEN_VALUE = :token_value where USER_EMAIL = :user_email ', [newRefreshToken, test], function (err2, result2) {
                 if (err2) { console.log(err2) }
                 res.cookie("refreshToken", newRefreshToken)
                     .json({ isAuth: true })
@@ -231,7 +270,7 @@ router.get('/logout', function (req, res) {
     const access = req.cookies.accessToken
 
     jwt.verify(access, tokenConfig.secretKey, function (err, decoded) {
-        conn.execute('update tokens set TOKEN = null where USER_EMAIL = :user_email ', [decoded.email], function (err2, result2) {
+        conn.execute('update TOKENS_TABLE set TOKEN_VALUE = null where USER_EMAIL = :user_email ', [decoded.email], function (err2, result2) {
             if (err) { console.log(err) }
             res.clearCookie("accessToken")
             res.clearCookie("user_info")

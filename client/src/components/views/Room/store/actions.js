@@ -16,6 +16,7 @@ const Actions ={
     SET_AUTH_EMAIL: "SET_AUTH_EMAIL",
     SET_AUTH_USER: "SET_AUTH_USER",
     SET_LOGOUT_USER: "SET_LOGOUT_USER",
+    SET_FILE_UPLOAD: "SET_FILE_UPLOAD",
     SET_TOTAL_USER:"SET_TOTAL_USER",
     SET_WORD:"SET_WORD"
 };
@@ -110,7 +111,7 @@ export const sttword = (word) =>{
 export const loginUser = async (loginData) => {
     const request = await axios.post('/api/users/login', loginData)
     const response = request.data;
-    // console.log("axios로 서버에 보내는 값: ", loginData)
+    console.log("axios로 서버에 보내는 값: ", loginData)
     // console.log('request', request);
     // console.log('response', response);
     return {
@@ -167,6 +168,33 @@ export const logout = async () => {
 
     return {
         type: Actions.SET_LOGOUT_USER,
+        response
+    }
+}
+
+// 파일첨부
+export const fileUpload = async (fileData) => {
+    // console.log('action');
+    // console.log(fileData);
+    const url = "/api/users/imgUpload";
+    const formData = new FormData();
+    // console.log('fileData.email', fileData.email);
+    // console.log('fileData.image', fileData.image);
+    formData.append('email', fileData.email);
+    formData.append('image', fileData.image);
+
+    const config = {
+        headers: {
+            'content-type' : 'multipart/form-data'
+        }
+    }
+    const request = await axios.post(url, formData, config);
+    const response = request.data;
+    // console.log(request);
+    // console.log(response);
+
+    return {
+        type: Actions.SET_FILE_UPLOAD,
         response
     }
 }

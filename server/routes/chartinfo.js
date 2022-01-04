@@ -36,27 +36,13 @@ router.get('/wwa', (req, res) => {
 router.get('/count', (req, res) => {
 
     var countCookie = req.cookies.visitor_cookie
-    console.log("젤 윗줄 countCookie: ", countCookie)
-    
     var now = new Date();
     var date = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
-    var currentTime = (now.getHours() * 3600) + (now.getMinutes() * 60);
+    var currentTime = ((now.getHours() * 3600) + (now.getMinutes() * 60)) * 1000;
 
-
-    const utcNow = now.getTime() + (now.getTimezoneOffset() * 60 * 1000); // 현재 시간을 utc로 변환한 밀리세컨드값
-const koreaTimeDiff = 9 * 60 * 60 * 1000; // 한국 시간은 UTC보다 9시간 빠름(9시간의 밀리세컨드 표현)
-const koreaNow = new Date(utcNow + koreaTimeDiff); // utc로 변환된 값을 한국 시간으로 변환시키기 위해 9시간(밀리세컨드)를 더함
-console.log("utcNow?? ",utcNow)
-console.log("koreaTimeDiff?? ",koreaTimeDiff)
-
-console.log("Date?? ",new Date())
-
-console.log("한국시간은?? ",koreaNow)
-
-
-console.log("now는???",now)
+    // console.log("now는???",currentTime);
+    // console.log("now는???",now)
     if (countCookie === undefined) {
-        console.log("여기옴???")
         conn.execute("select * from VISITOR_TABLE where VISITOR_DATE =:visitor_date", [date], function (err2, res2) {
             if (err2) {
                 console.log(err2)
@@ -64,27 +50,27 @@ console.log("now는???",now)
             } if (res2.rows != 0) {
                 conn.execute("update VISITOR_TABLE set VISITOR_COUNT = VISITOR_COUNT+1 where VISITOR_DATE =:visitor_date", [date], function (err4, res4) {
                     if (err4) { console(err4) }
-                    else{
+                    else {
                         console.log("update visitor성공")
-                    }   
-                    res.cookie("visitor_cookie", "date")
+                    }
+                    res.cookie("visitor_cookie", "date", { maxAge: 86400000 - currentTime })
                         .status(200)
                         .json({
-                            msg:"visiotr_cookie",
-                            cookie:countCookie
+                            msg: "visiotr_cookie",
+                            cookie: countCookie
                         })
                 })
                 //없다면
             } else {
                 conn.execute("insert into VISITOR_TABLE(VISITOR_DATE,VISITOR_COUNT) values(:visitor_date,0)", [date], function (err3, res3) {
-                    if (err3) { console.log(err3) }else{
-                    console.log("insert visitor성공")
-                     res.cookie("visitor_count", "date", { maxAge: 86400 - currentTime })
-                        .status(200)
-                        .json({
-                            msg:"visiotr_cookie",
-                            cookie:countCookie
-                        })
+                    if (err3) { console.log(err3) } else {
+                        console.log("insert visitor성공")
+                        res.cookie("visitor_count", "date", { maxAge: 86400000 - currentTime })
+                            .status(200)
+                            .json({
+                                msg: "visiotr_cookie",
+                                cookie: countCookie
+                            })
                     }
                 })
             }
@@ -97,18 +83,23 @@ console.log("now는???",now)
 
 // 권한 승인 요청 리스트
 router.get("/permitlist", function (req, res) {
-    conn.execute("SELECT EMAIL,NAME,ROLE,FLAG FROM USERS WHERE FLAG='true'", [], { outFormat: oracledb.OBJECT }, function (err, result) {
+    const query = "SELECT USERS.EMAIL, USERS.NAME, USERS.ROLE, USERS.FLAG, ATTACHMENT.DIRECTORY \
+                    FROM USERS NATURAL JOIN ATTACHMENT WHERE USERS.EMAIL = ATTACHMENT.USER_EMAIL AND USERS.FLAG='true'";
+    
+    // console.log('query result', query);
+    conn.execute(query ,[], {outFormat:oracledb.OBJECT}, function (err, result) {
         if (err) {
             console.log(err);
         }
         // console.log("select 성공");
-        // console.log(result.rows);
+        console.log(result.rows);
 
         res.json({
             permitlist: result.rows
         })
     })
 });
+
 
 // 권한 승인
 router.post("/permit", function (req, res) {

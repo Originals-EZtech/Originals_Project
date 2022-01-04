@@ -24,6 +24,8 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/data2', require('./routes/rooms'));
 app.use('/api/chart', require('./routes/chartinfo'));
 
+// for 이미지 파일 업로드
+app.use('/api/image', express.static('./upload'));
 
 const http = require('http');
 const { v4: uuidv4} = require('uuid');

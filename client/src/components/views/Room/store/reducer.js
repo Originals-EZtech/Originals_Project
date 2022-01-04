@@ -12,9 +12,6 @@ const initState = {
     activeConversation: null,
     directChatHistory: [],
     socketId: null,
-    payload: {loginSuccess:"", msg: ""},
-    dataTosubmit:{},
-    userTotal:1,
     word: "",
 };
 
@@ -77,7 +74,6 @@ const reducer = (state = initState, action) => {
                 socketId: action.socketId
             };
         case Actions.SET_LOGIN_USER:
-            // console.log("payload", action.response)
             return {
                 ...state, 
                 loginSuccess: action.response.loginSuccess
@@ -98,12 +94,12 @@ const reducer = (state = initState, action) => {
         case Actions.SET_LOGOUT_USER:
             return {
                 ...state,
-            };
-        case Actions.SET_TOTAL_USER:
-            return {
+            }
+        case Actions.SET_FILE_UPLOAD:
+            return{
                 ...state,
-                userTotal:action.userTotal
-            };
+                uploadSuccess: action.response.uploadSuccess
+            }
         case Actions.SET_WORD:
             return{
                 ...state,
