@@ -13,11 +13,13 @@ const initState = {
     socketId: null,
     payload: {loginSuccess:"", msg: ""},
     dataTosubmit:{},
-    userTotal:1
+    userTotal:1,
+    word: "",
 };
 
 const reducer = (state = initState, action) => {
     switch (action.type) {
+        
         case Actions.SET_IS_ROOM_HOST:
             return {
                 ...state,
@@ -78,15 +80,15 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 success:action.response.success
-            }
+            };
         case Actions.SET_AUTH_EMAIL:
             return {
                 ...state,
-            }
+            };
         case Actions.SET_AUTH_USER:
             return {
                 ...state,
-            }
+            };
         case Actions.SET_LOGOUT_USER:
             return {
                 ...state,
@@ -100,7 +102,13 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 userTotal:action.userTotal
-            }
+            };
+        case Actions.SET_WORD:
+            return{
+                ...state,
+                word: action.word
+            };
+
         default:
             return state;
     }

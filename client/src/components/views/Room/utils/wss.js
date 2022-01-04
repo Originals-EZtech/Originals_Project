@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { setRoomId, setParticipants, setSocketId} from '../store/actions';
+import { setRoomId, setParticipants, setSocketId ,sttword} from '../store/actions';
 import store from '../store/store.js';
 import * as webRTCHandler from './webRTCHandler';
 import { appendNewMessageToChatHistory } from './directMessages';
@@ -7,6 +7,8 @@ import { appendNewMessageToChatHistory } from './directMessages';
 const SERVER = 'http://localhost:5000';
 
 let socket = null;
+
+
 
 export const connectWithSocketIOServer = () =>{
     socket = io(SERVER);
@@ -51,9 +53,15 @@ export const connectWithSocketIOServer = () =>{
     });
     socket.on('conn-stt', (data)=>{
         console.log("stt message came"); 
-        console.log(data.transcript);
+        
+        //console.log(data.transcript);
+        store.dispatch(sttword(data.transcript));
+        console.log(store.getState());
     });
 };
+
+
+
 
 //identity : our user name
 export const createNewRoom = (identity, onlyAudio) =>{
@@ -91,5 +99,3 @@ export const sendSTT =(data) =>{
     socket.emit('send-stt', data);
     console.log(data);
 };
-
-

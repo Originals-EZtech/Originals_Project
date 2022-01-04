@@ -17,6 +17,7 @@ const Actions ={
     SET_LOGOUT_USER: "SET_LOGOUT_USER",
     SET_FILE_UPLOAD: "SET_FILE_UPLOAD",
     SET_TOTAL_USER:"SET_TOTAL_USER",
+    SET_WORD:"SET_WORD"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -89,6 +90,14 @@ export const setSocketId = (socketId) =>{
     }
 }
 
+
+export const sttword = (word) =>{
+    // console.log(word);
+    return{
+        type: Actions.SET_WORD,
+        word,
+    }   
+}
 
 // 로그인
 export const loginUser = async (loginData) => {

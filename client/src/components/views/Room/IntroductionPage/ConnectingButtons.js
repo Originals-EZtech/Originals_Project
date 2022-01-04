@@ -12,9 +12,9 @@ const ConnectingButtons = (props) => {
     }
     return(
         <div className = 'connecting_buttons_container'>
-            <ConnectingButton buttonText = 'Join a class' 
+            <ConnectingButton buttonText = 'Join class' 
             onClickHandler ={pushToJoinRoomPage}/>
-            <ConnectingButton createRoomButton buttonText = 'Create a class' 
+            <ConnectingButton createRoomButton buttonText = 'Create class' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
             <h2><Link to="../Myclass" >My class</Link></h2>
         </div>

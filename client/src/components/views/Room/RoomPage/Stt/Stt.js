@@ -60,8 +60,8 @@ const Dictaphone = ({socketId}) => {
           onClick={stop} 
           src={!now ? null:onbut}>
           </img>
-          <div className="sttc">
-            {transcript},
+          <div className="te">
+            <p className="sttc">{transcript}</p>
             {sendToAll(transcript)},
           </div>
         </div>
