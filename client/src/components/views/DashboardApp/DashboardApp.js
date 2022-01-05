@@ -49,7 +49,7 @@ export default function DashboardApp() {
   const [usersCount, setUsersCount] = useState({general: 0, prof: 0, total: 0});
   const [visitorList, setVisitorList] = useState();
 
-  console.log("상태값???",visitorList)
+  console.log("상태값???",visitorList.visitorList)
   
   useEffect(() => {
     chartInfoService.getVisitorTotal().then(res =>{

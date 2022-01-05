@@ -265,6 +265,7 @@ router.get('/auth', function (req, res) {
             })
         }
     }
+    if(!access === null){
     let verify = jwt.verify(access, tokenConfig.secretKey);
     const email_user = verify.email
         conn.execute('SELECT USER_ROLE FROM USER_TABLE WHERE USER_EMAIL = :email', [email_user], function (err5, result5) {
@@ -278,6 +279,7 @@ router.get('/auth', function (req, res) {
                 console.log("토큰인증끝")
             }
         })
+    }
 })
 
 
