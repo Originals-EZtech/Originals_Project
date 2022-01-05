@@ -143,13 +143,15 @@ function Register(props) {
             return toast.error('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
 
-        // Teacher 체크박스에 체크만 하고 첨부파일 올리지 않을 경우
-        if (isTeacher && (selectedFile === null)) {
-            return toast.error('첨부파일을 확인해주세요.')
+        // 선생님이 회원가입하는 경우
+        if (isTeacher) {
+            // Teacher 체크박스에 체크만 하고 첨부파일 올리지 않을 경우
+            if (selectedFile === null) {
+                return toast.error('첨부파일을 확인해주세요.')
+            }
+            // 회원가입 버튼 클릭시 함께 첨부한 파일도 서버에 전송
+            handleFileUpload();
         }
-
-        // 회원가입 버튼 클릭시 함께 첨부한 파일도 서버에 전송
-        handleFileUpload();
 
         // 회원가입시 보내줄 body 데이터를 학생 / 선생님 구분해서 서버로 전송
         let body = {}
