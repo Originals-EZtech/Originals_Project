@@ -4,9 +4,15 @@ import { auth } from '../components/views/Room/store/actions';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (SpecificComponent, option, adminRoute = null) {
-    //null    =>  아무나 출입이 가능한 페이지
-    //true    =>  로그인한 유저만 출입이 가능한 페이지
-    //false   =>  로그인한 유저는 출입 불가능한 페이지        
+    /**
+     *  option
+     *  null    =>  아무나 출입이 가능한 페이지
+     *  true    =>  로그인한 유저만 출입이 가능한 페이지
+     *  false   =>  로그인한 유저는 출입 불가능한 페이지 
+     * 
+     *  adminRoute
+     *  true    =>  어드민만 접근가능
+     */
     function AuthenticationCheck(props) {
         const dispatch = useDispatch();
         useEffect(() => {
@@ -16,27 +22,26 @@ export default function (SpecificComponent, option, adminRoute = null) {
                     if (option) {
                         window.location.replace('/login')
                     }
-                } else {    
+                } else {
                     // isAuth == true
                     // option == false
-                    // 로그인은 했지만 못들어옴
+                    // 로그인유저 못들어옴
                     if (option === false) {
                         props.history.push("/intro");
                     } else {
                         // isAuth == true
                         // option == true
                         // 로그인한사람만 들어올수 있음
+
+                        // adminRoute == true
                         if (adminRoute) {
+                            // isAdmin == false
                             if (!response.response.isAdmin) {
                                 props.history.push("/intro");
-                                console.log("isAuth,option,adminRoute true지만 isAdmin은 false")
                             }
-                            // option == true
                             // adminRoute == true
-                            // isAdmin == true
-                            console.log("isAuth,option,adminRoute,isAdmin 전부 true")
+                            // isAdmin == false
                         }
-                        console.log("isAuth,option 전부 true")
                     }
                 }
                 return
