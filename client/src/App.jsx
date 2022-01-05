@@ -34,26 +34,6 @@ const AnimatedSwitch = () => {
   const location = useLocation();
 
   return (
-    // <TransitionGroup component={null}>
-    //   <CSSTransition key={location.key} classNames="fade" timeout={500}>
-    //     <Switch location={location}>
-    //     <Route exact path="/" component={Auth(MainPage, null )  } />
-    //     <Route exact path="/login" component={Auth(LoginPage, null )  } />
-    //     <Route exact path="/register" component={Auth(RegisterPage, null )  } />
-
-    //     <Route exact path = "/join-room" component = {Auth(JoinRoomPage, null) } />
-    //     <Route exact path ="/room" component ={Auth(RoomPage, null)} />
-    //     <Route exact path ="/intro" component = {Auth(IntroductionPage, null)} />
-
-    //     {/* <Route exact path="/room" component={Auth(Room, null )  } />
-    //     <Route exact path="/roomcreate" component={Auth(RoomCreate, null )  } />
-    //     <Route exact path="/RoomJoin" component={Auth(RoomJoin, null )  } />
-    //     <Route exact path="/RoomAdmin" component={Auth(RoomAdmin, null )  } />
-    //     <Route exact path="/RoomParticipant" component={Auth(RoomParticipant, null )  } /> */}
-    //     </Switch>
-    //   </CSSTransition>
-    // </TransitionGroup>
-
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
         <Switch location={location}>

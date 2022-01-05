@@ -15,6 +15,7 @@ const initState = {
     word: "",
 };
 
+// reducer는 state의 상태를 변화시켜주는 함수
 const reducer = (state = initState, action) => {
     switch (action.type) {
         

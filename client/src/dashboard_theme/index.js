@@ -34,7 +34,7 @@ export default function ThemeConfig({ children }) {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         {children}
       </ThemeProvider>
     </StyledEngineProvider>
