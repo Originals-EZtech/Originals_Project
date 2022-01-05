@@ -3,6 +3,16 @@ import SendMessageButton from "../../resources/images/sendMessageButton.svg";
 import fileSendingButton from "../../resources/images/fileSendingButton.svg";
 import * as webRTCHandler from "../../utils/webRTCHandler";
 
+//export default class NewMessages extends Component{
+//  constructor(){
+//    super(props);
+//    this.state = {
+//     message: '',
+//      file: null
+//    }
+//  }
+//}
+
 const NewMessage = () => {
   const [message, setMessage] = useState("");
 
@@ -30,6 +40,7 @@ const NewMessage = () => {
     const file = document.getElementById('fileItem');
     if(file.files.length > 0){
       console.log(file.files[0]); 
+    
       webRTCHandler.sendFileUsingDataChannel(file.files[0]);
     }
   }

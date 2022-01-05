@@ -287,13 +287,13 @@ const switchVideoTracks = (stream) => {
     //console.log(messageData);
     //console.log(messages);
     store.dispatch(setMessages([...messages, messageData]));
-    //console.log(messages); ok
+    console.log(messages); 
   };
 
   const appendNewFileData = (fileData) =>{
       const fileDatas = store.getState().fileDatas;
       store.dispatch(setFileDatas([...fileDatas, fileData]));
-      //console.log(fileDatas); //ok
+      console.log(fileDatas); //ok
   }
   
 export const sendMessageUsingDataChannel = (messageContent) => {
@@ -321,6 +321,7 @@ export const sendMessageUsingDataChannel = (messageContent) => {
     for (let socketId in peers) {
         peers[socketId].send(stringifiedMessageData);
     }
+    console.log("message 데이터 전송");
 };
 
 export const sendFileUsingDataChannel = (fileContent) =>{

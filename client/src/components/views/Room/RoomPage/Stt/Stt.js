@@ -73,7 +73,7 @@ const Dictaphone = ({socketId}) => {
   };
   
   const mapStoreStateToProps = (state) =>{
-    console.log(state);
+    //console.log(state);
     return {
         ...state
     }
