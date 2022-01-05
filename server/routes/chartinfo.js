@@ -88,7 +88,7 @@ router.get("/permitlist", function (req, res) {
 
 /**
  * 해당 USER의 ROLE 승인 받아야하는 리스트를 받고나서
- * 신청 칼럼을 변경(FALSE) 
+ * 신청 flag컬럼을 변경(=FALSE) 
  * 동시에 ROLE 변경
  */
 router.post("/permit", function (req, res) {
@@ -120,6 +120,20 @@ router.get("/visitors", function (req, res) {
         console.log("조회 성공");
         console.log(result.rows);
         res.status(200).json(result.rows[0][0])
+    })
+});
+
+
+// select * from visitor_table where createdate > (sysdate-7);
+
+router.get("/visitorlist", function (req, res) {
+    conn.execute("SELECT VISITOR_COUNT, CREATEDATE from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-7)",[],{ outFormat: oracledb.OBJECT }, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("조회 성공");
+        console.log(result);
+        res.send(result.rows)
     })
 });
 

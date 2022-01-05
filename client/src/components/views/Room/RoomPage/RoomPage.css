@@ -17,6 +17,8 @@
   border-radius: 30px;
 }
 
+
+
 .chat_label_container {
   display: flex;
   align-items: flex-start;
@@ -91,17 +93,41 @@
 }
 
 .message_left_styles {
-  background: rgba(0, 82, 201, 0.1);
+  background: rgb(66, 130, 226);
+  position: relative;
   color: black;
 }
 
+.message_left_styles:before {
+  border-top:15px solid rgb(66, 130, 226);
+  border-left: 15px solid transparent;
+  border-right: 0px solid transparent;
+  border-bottom: 0px solid transparent;
+  content:"";
+  position:absolute;
+  top:1px;
+  left:0px;
+  transform: rotate(40deg);
+}
 .message_right_styles {
-  background: linear-gradient(168.68deg, #29ca8e 1.12%, #21a374 100%);
+  background: #21a374 ;
   color: white;
+  position: relative;
+}
+.message_right_styles:before {
+border-top:15px solid #21a374;
+ border-left: 15px solid transparent;
+ border-right: 0px solid transparent;
+ border-bottom: 0px solid transparent;
+ content:"";
+ position:absolute;
+ top:-5px;
+ right:10px;
+ transform: rotate(100deg);
 }
 
 .message_title {
-  margin: 0 0 10px 0;
+  margin: 0;
   padding: 0 10px;
   color: black;
   font-size: 16px;
@@ -521,8 +547,9 @@ video {
   flex-direction: column;
   overflow: auto;
   background-color: #D0F2FF;
-  margin-top:3px;
-  margin-bottom: 3px;
+  border-bottom-right-radius: 15px;
+  
+  border-bottom-left-radius: 15px;
 }
 
 .conversation_not_chosen_overlay {
@@ -643,3 +670,16 @@ video {
   
 }
 
+.copybutton{
+  position: relative;
+  right:28px;
+  bottom:4px;
+  border:5px;
+}
+
+
+.copybutton:hover{
+  transition: 1s;
+  top:17px;
+  height: 20px;
+}

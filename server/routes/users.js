@@ -182,7 +182,7 @@ router.post("/login", function (req, res) {
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
         })
     }
-    conn.execute('select USER_EMAIL, USER_PASSWORD, USER_NAME from USER_TABLE where USER_EMAIL = :email ', [userEmail], function (err, result) {
+    conn.execute('select USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE from USER_TABLE where USER_EMAIL = :email ', [userEmail], function (err, result) {
         if (err) console.log("select err", err)
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
@@ -210,6 +210,7 @@ router.post("/login", function (req, res) {
                                 .cookie("accessToken", accessToken)
                                 .cookie("user_name", result.rows[0][2])
                                 .cookie("user_email", result.rows[0][0])
+                                .cookie("user_role", result.rows[0][3])
                                 .status(200)
                                 .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], msg: userEmail + " 로그인 성공" })
                         }
@@ -232,7 +233,6 @@ router.get('/auth', function (req, res) {
     let refresh = req.cookies.refreshToken;
     let access = req.cookies.accessToken;
 
-
     console.log(" refresh 값은? ", refresh)
     console.log(" access 값은?  ", access)
     // access 만료됬다면
@@ -242,11 +242,13 @@ router.get('/auth', function (req, res) {
             return res.json({ isAuth: false, err: true });
         } else {
             conn.execute('select user_email from TOKEN_TABLE where TOKEN_VALUE = :token_value', [refresh], function (err4, result) {
-                if (err4) { console.log(err4) }
-                let newAccessToken = jwt.sign({ email: result.rows[0][0] }, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
-                console.log(newAccessToken)
-                res.cookie("accessToken", newAccessToken)
-                    .json({ isAuth: true })
+                if (err4) {
+                    console.log(err4)
+                } else {
+                    let newAccessToken = jwt.sign({ email: result.rows[0][0] }, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
+                    res.cookie("accessToken", newAccessToken)
+                        .json({ isAuth: true })
+                }
             })
         }
     } else {
@@ -263,7 +265,19 @@ router.get('/auth', function (req, res) {
             })
         }
     }
-    console.log("토큰인증끝")
+    let verify = jwt.verify(access, tokenConfig.secretKey);
+    const email_user = verify.email
+        conn.execute('SELECT USER_ROLE FROM USER_TABLE WHERE USER_EMAIL = :email', [email_user], function (err5, result5) {
+            if (err5) {
+                console.log(err5)
+            } if (result5.rows[0][0] === 'admin') {
+                res.json({ isAuth: true, isAdmin: true })
+                    console.log("토큰인증끝")
+            } else {
+                res.json({ isAuth: true, isAdmin: false })
+                console.log("토큰인증끝")
+            }
+        })
 })
 
 
@@ -277,6 +291,7 @@ router.get('/logout', function (req, res) {
             res.clearCookie("accessToken")
             res.clearCookie("user_name")
             res.clearCookie("user_email")
+            res.clearCookie("user_role")
                 .status(200).json({
                     logoutSuccess: true,
                     msg: "로그아웃 되셨습니다."
