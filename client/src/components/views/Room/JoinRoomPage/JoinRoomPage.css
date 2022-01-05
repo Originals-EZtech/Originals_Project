@@ -166,3 +166,12 @@
   border: 1px solid #29ca8e
   ;
 }
+
+.roomname {
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+  width: 300px;
+  height: 40px;
+  padding: 0px 15px;
+  
+}
