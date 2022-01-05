@@ -3,19 +3,11 @@ import SendMessageButton from "../../resources/images/sendMessageButton.svg";
 import fileSendingButton from "../../resources/images/fileSendingButton.svg";
 import * as webRTCHandler from "../../utils/webRTCHandler";
 
-//export default class NewMessages extends Component{
-//  constructor(){
-//    super(props);
-//    this.state = {
-//     message: '',
-//      file: null
-//    }
-//  }
-//}
 
 const NewMessage = () => {
   const [message, setMessage] = useState("");
-
+  const [file, setFile] = useState(null);
+  const output = document.getElementById('output')
   const handleTextChange = (event) => {
     setMessage(event.target.value);
   };
@@ -30,21 +22,41 @@ const NewMessage = () => {
   };
 
   const sendMessage = () => {
-    if (message.length > 0) {
-      webRTCHandler.sendMessageUsingDataChannel(message);
+    if(!(message.length>0) && (file === null)) return;
+    if (message.length > 0 || file !== null) { // message 가 존재하거나 file 객체가 존재하면 전송
+      console.log(file);
+      webRTCHandler.sendMessageUsingDataChannel(message, file); // webrtc로 message,file 데이터 전송 
       setMessage("");
+      setFile(null); 
+      output.innerHTML = '';
     }
   };
 
   const sendFile = () =>{
     const file = document.getElementById('fileItem');
+
     if(file.files.length > 0){
-      console.log(file.files[0]); 
-    
-      webRTCHandler.sendFileUsingDataChannel(file.files[0]);
+      output.innerHTML = file.files[0].name;
+      console.log(file.files[0].name); 
+      setFile(file.files[0]); // file 값 설정
+      console.log(file);
+      //webRTCHandler.sendFileUsingDataChannel(file.files[0]);
     }
+    
   }
 
+  /*
+  const readTextFile = (file, callback)=>{
+    const reader = new FileReader(); // FileReader 객체 생성
+    reader.onload = ()=>{ // onload 이벤트 처리기 정의
+      callback(reader.result) // 읽어 들인 텍스트를 callback에 전달
+    };
+    reader.onerror = (e) =>{
+      console.log("error", e) //로그로 남기기
+    }
+    reader.readAsText(file); // 파일의 데이터를 읽어들인다. 
+  }
+*/
   return (
     <div className="new_message_container">
       <input
@@ -60,12 +72,13 @@ const NewMessage = () => {
         src={SendMessageButton}
         onClick={sendMessage}
       />
+
       <label className = 'file_container'>
       <input 
       id ='fileItem' 
       type='file' 
-      onClick={sendFile}
-      style={{display: 'none'}}/> 
+      style={{display: 'none'}}
+      onChange={sendFile}/> 
       <img 
       className="file_sending_button"
       src={fileSendingButton}

@@ -8,6 +8,7 @@ const ChatSection = () => {
         <div className ='chat_section_container'>
             <ChatLabel />
             <Messages />
+            <pre id="output"></pre>
             <NewMessage />
         </div>
     );

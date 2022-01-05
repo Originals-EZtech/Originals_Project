@@ -128,6 +128,7 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
      peers[connUserSocketId].on('data', async(data) => {
         console.log('got a message from peer1: ' + data);
         const messageData = await JSON.parse(data);
+        console.log(messageData);
         appendNewMessage(messageData);
       });  
 };
@@ -282,22 +283,28 @@ const switchVideoTracks = (stream) => {
  //////////////////////////////////////Messages/////////////////////////////////////////////
  
 
- const appendNewMessage = (messageData) => {
+ const appendNewMessage = (messageData, fileData) => {
+    console.log(messageData);
+    console.log(fileData);
     const messages = store.getState().messages;
+    const files = store.getState().fileDatas;
     //console.log(messageData);
     //console.log(messages);
     store.dispatch(setMessages([...messages, messageData]));
+    store.dispatch(setFileDatas([...files, fileData]));
     console.log(messages); 
+    console.log(files);
   };
-
+/*
   const appendNewFileData = (fileData) =>{
       const fileDatas = store.getState().fileDatas;
       store.dispatch(setFileDatas([...fileDatas, fileData]));
       console.log(fileDatas); //ok
   }
-  
-export const sendMessageUsingDataChannel = (messageContent) => {
-    // console.log(messageContent); ok 
+  */
+export const sendMessageUsingDataChannel = (messageContent, fileContent) => {
+    //console.log(messageContent); //ok
+    //console.log(fileContent); //ok
     // append this message locally
     const identity = store.getState().identity;
     //console.log(identity); message 전달자 ok 
@@ -306,14 +313,16 @@ export const sendMessageUsingDataChannel = (messageContent) => {
         identity,
         messageCreatedByMe: true,
     };
+    const file = fileContent;
 
-    // console.log(localMessageData); ok
-    appendNewMessage(localMessageData);
+    console.log(localMessageData); //ok
+    appendNewMessage(localMessageData, file);
 
     const messageData = {
         content: messageContent,
         identity,
     };
+
     // console.log(typeof(messageData)); // object
     const stringifiedMessageData = JSON.stringify(messageData); 
     console.log(stringifiedMessageData); //{"content":"tttt","identity":"dfdfdf"} Json 문자열
@@ -324,6 +333,7 @@ export const sendMessageUsingDataChannel = (messageContent) => {
     console.log("message 데이터 전송");
 };
 
+/*
 export const sendFileUsingDataChannel = (fileContent) =>{
     const identity = store.getState().identity;
 
@@ -348,3 +358,4 @@ export const sendFileUsingDataChannel = (fileContent) =>{
     } 
 
 }
+*/
