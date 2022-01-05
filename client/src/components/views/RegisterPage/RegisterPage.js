@@ -144,7 +144,7 @@ function Register(props) {
         }
 
         // Teacher 체크박스에 체크만 하고 첨부파일 올리지 않을 경우
-        if (selectedFile === null) {
+        if (isTeacher && (selectedFile === null)) {
             return toast.error('첨부파일을 확인해주세요.')
         }
 
