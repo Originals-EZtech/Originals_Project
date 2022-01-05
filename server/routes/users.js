@@ -22,7 +22,7 @@ oracledb.getConnection(dbConfig, function (err, con) {
     console.log('DB connection');
 });
 
-router.get('/dotenv', function(req, res){
+router.get('/dotenv', function (req, res) {
     res.send(process.env.TEST);
     console.log(process.env.TEST)
 })
@@ -31,7 +31,7 @@ router.post('/emailauth', (req, res) => {
     const userEmail = [req.body.email];
     console.log("서버에 건내받은 이메일: ", userEmail)
 
-    conn.execute('select EMAIL from users where EMAIL = :email ', userEmail, function (err, result) {
+    conn.execute('select USER_EMAIL from USER_TABLE where USER_EMAIL = :email ', userEmail, function (err, result) {
         if (err) {
             console.log("select error from emailauth", err)
         }
@@ -88,11 +88,11 @@ router.post('/emailauth', (req, res) => {
 
 // SELECT query all users
 router.get("/list", function (req, res) {
-    conn.execute("select * from users",[],{outFormat:oracledb.OBJECT}, function (err, result, fields) {
+    conn.execute("select * from user_table", [], { outFormat: oracledb.OBJECT }, function (err, result, fields) {
         if (err) {
             console.log("조회 실패");
         }
-        console.log("result:",result);
+        console.log("result:", result);
 
         res.send(result)
     })
@@ -100,7 +100,7 @@ router.get("/list", function (req, res) {
 
 // SELECT query all attachment
 router.get("/userList", function (req, res) {
-    conn.execute("select * from attachment", [], {outFormat: oracledb.OBJECT}, function(err, result) {
+    conn.execute("select * from attachment", [], { outFormat: oracledb.OBJECT }, function (err, result) {
         if (err) {
             console.log(err);
         } else {
@@ -123,14 +123,15 @@ router.post("/register", function (req, res) {
         bcrypt.hash(param[1], saltRounds, (err, hash) => {
             param[1] = hash
 
-            conn.execute('insert into users (EMAIL, PASSWORD, NAME, ROLE, FLAG) values(:email,:password,:name,:role,:flag)', param, function (err, result) {
+            conn.execute('INSERT INTO USER_TABLE (USER_ID,USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_FLAG) VALUES(user_seq.NEXTVAL, :email, :password, :name, :role, :flag)', param, function (err, result) {
                 if (err) {
+                    console.log(err)
                     res.status(200).json({
-                        success: false, msg: "회원가입 실패하셨습니다." 
+                        success: false, msg: "회원가입 실패하셨습니다."
                     })
                     // 토큰 칼럼생성  
                 } else {
-                    conn.execute('INSERT INTO TOKENS_TABLE (TOKEN_ID, USER_EMAIL) VALUES(tmp_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
+                    conn.execute('INSERT INTO TOKEN_TABLE (TOKEN_ID, USER_EMAIL) VALUES(token_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
                         if (err2) console.log(err2)
                     })
                     res.status(200).json({
@@ -147,7 +148,7 @@ router.post("/register", function (req, res) {
 
 // multer 라이브러리로 인해 업로드되는 파일의 이름이 중복되지 않게 랜덤으로 생성되어 저장
 const multer = require('multer');
-const upload = multer({dest: './upload'});
+const upload = multer({ dest: './upload' });
 
 router.post('/imgUpload', upload.single('image'), (req, res) => {
     console.log(req.file);
@@ -181,12 +182,12 @@ router.post("/login", function (req, res) {
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
         })
     }
-    conn.execute('select EMAIL, PASSWORD, NAME from users where EMAIL = :email ', [userEmail], function (err, result) {
+    conn.execute('select USER_EMAIL, USER_PASSWORD, USER_NAME from USER_TABLE where USER_EMAIL = :email ', [userEmail], function (err, result) {
         if (err) console.log("select err", err)
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
             res.status(200).json({
-                loginSuccess: false, msg: req.body.email + "는 등록되지않은 이메일입니다."
+                loginSuccess: false, msg: userEmail + "는 등록되지않은 이메일입니다."
             })
         } else {
             // 아이디가 존재한다면
@@ -200,7 +201,7 @@ router.post("/login", function (req, res) {
                     var accessToken = jwt.sign({ email: userEmail }, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
                     const completedToken = [refreshToken, userEmail]
                     console.log("배열에 넣은 토큰정보:", completedToken)
-                    conn.execute('update TOKENS_TABLE set TOKEN_VALUE = :token_value where USER_EMAIL = :user_email ', completedToken, function (err2, result2) {
+                    conn.execute('update TOKEN_TABLE set TOKEN_VALUE = :token_value where USER_EMAIL = :user_email ', completedToken, function (err2, result2) {
                         if (err2) {
                             console.log(err2)
                             console.log("refresh토큰 insert 실패");
@@ -224,7 +225,8 @@ router.post("/login", function (req, res) {
     })
 });
 
-// auth
+
+
 router.get('/auth', function (req, res) {
     // 쿠키에 있는 token 정보
     let refresh = req.cookies.refreshToken;
@@ -239,7 +241,7 @@ router.get('/auth', function (req, res) {
         if (refresh === undefined) {
             return res.json({ isAuth: false, err: true });
         } else {
-            conn.execute('select user_email from TOKENS_TABLE where TOKEN_VALUE = :token_value', [refresh], function (err4, result) {
+            conn.execute('select user_email from TOKEN_TABLE where TOKEN_VALUE = :token_value', [refresh], function (err4, result) {
                 if (err4) { console.log(err4) }
                 let newAccessToken = jwt.sign({ email: result.rows[0][0] }, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
                 console.log(newAccessToken)
@@ -254,7 +256,7 @@ router.get('/auth', function (req, res) {
             let verifyAccess = jwt.verify(access, tokenConfig.secretKey);
             const test = verifyAccess.email
             let newRefreshToken = jwt.sign({}, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
-            conn.execute('update TOKENS_TABLE set TOKEN_VALUE = :token_value where USER_EMAIL = :user_email ', [newRefreshToken, test], function (err2, result2) {
+            conn.execute('update TOKEN_TABLE set TOKEN_VALUE = :token_value where USER_EMAIL = :user_email ', [newRefreshToken, test], function (err2, result2) {
                 if (err2) { console.log(err2) }
                 res.cookie("refreshToken", newRefreshToken)
                     .json({ isAuth: true })
@@ -270,14 +272,15 @@ router.get('/logout', function (req, res) {
     const access = req.cookies.accessToken
 
     jwt.verify(access, tokenConfig.secretKey, function (err, decoded) {
-        conn.execute('update TOKENS_TABLE set TOKEN_VALUE = null where USER_EMAIL = :user_email ', [decoded.email], function (err2, result2) {
+        conn.execute('update TOKEN_TABLE set TOKEN_VALUE = null where USER_EMAIL = :user_email ', [decoded.email], function (err2, result2) {
             if (err) { console.log(err) }
             res.clearCookie("accessToken")
-            res.clearCookie("user_info")
-            .status(200).json({
-                logoutSuccess: true,
-                msg: "로그아웃 되셨습니다."
-            })
+            res.clearCookie("user_name")
+            res.clearCookie("user_email")
+                .status(200).json({
+                    logoutSuccess: true,
+                    msg: "로그아웃 되셨습니다."
+                })
         })
         console.log("Cookie cleared");
     })
