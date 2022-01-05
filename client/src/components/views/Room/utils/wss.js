@@ -21,7 +21,8 @@ export const connectWithSocketIOServer = () =>{
     socket = io(SERVER);
     socket.on('connect', ()=>{
         console.log('successfully connected with socket.io server');
-        console.log(socket.id);   
+        console.log(socket.id);
+        console.log("socket.id"+socket.id);
         store.dispatch(setSocketId(socket.id));    
     });
     socket.on('room-id', (data)=>{

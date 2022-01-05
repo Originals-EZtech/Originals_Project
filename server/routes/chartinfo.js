@@ -66,8 +66,10 @@ router.get('/count', (req, res) => {
 
 // 권한 승인 요청 리스트
 router.get("/permitlist", function (req, res) {
-    const query = "SELECT USERS.EMAIL, USERS.NAME, USERS.ROLE, USERS.FLAG, ATTACHMENT.DIRECTORY \
-                    FROM USERS NATURAL JOIN ATTACHMENT WHERE USERS.EMAIL = ATTACHMENT.USER_EMAIL AND USERS.FLAG='true'";
+    const query = "SELECT U.USER_EMAIL, U.USER_NAME, U.USER_ROLE, U.USER_FLAG, A.DIRECTORY \
+                    FROM USER_TABLE U INNER JOIN ATTACHMENT A \
+                    ON U.USER_EMAIL = A.USER_EMAIL \
+                    WHERE U.USER_FLAG='true'";
 
     // console.log('query result', query);
     conn.execute(query, [], { outFormat: oracledb.OBJECT }, function (err, result) {

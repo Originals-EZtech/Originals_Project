@@ -13,6 +13,16 @@ const Input = ({placeholder, value, changeHandler})=> {
     )
 }
 
+const Name =({}) =>{
+    return(
+        <input className="roomname" 
+        type="text" 
+        placeholder="Room Name" 
+         maxlength='10'>
+        </input>
+    );
+}
+
 const JoinRoomInputs = (props) =>{
     const { roomIdValue, setRoomIdValue, nameValue, setNameValue, isRoomHost } =
     props;
@@ -36,6 +46,7 @@ const JoinRoomInputs = (props) =>{
          value = {nameValue}
          changeHandler={handleNameValueChange}
         />
+        
     </div>
 };
 
