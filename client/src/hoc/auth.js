@@ -16,7 +16,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                     if (option) {
                         window.location.replace('/login')
                     }
-                } else {
+                } else {    
                     // isAuth == true
                     // option == false
                     // 로그인은 했지만 못들어옴
@@ -26,7 +26,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                         // isAuth == true
                         // option == true
                         // 로그인한사람만 들어올수 있음
-                        if (!adminRoute) {
+                        if (adminRoute) {
                             if (!response.response.isAdmin) {
                                 props.history.push("/intro");
                                 console.log("isAuth,option,adminRoute true지만 isAdmin은 false")
@@ -39,7 +39,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                         console.log("isAuth,option 전부 true")
                     }
                 }
-
+                return
                 // null은 pass
             })
         }, [dispatch, props.history])
