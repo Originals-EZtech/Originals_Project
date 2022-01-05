@@ -5,8 +5,7 @@
 /.pnp
 .pnp.js
 
-#ip
-ipConfig.js
+config
 
 # testing
 /coverage
