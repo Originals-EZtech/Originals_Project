@@ -132,7 +132,7 @@ router.get("/visitorlist", function (req, res) {
             console.log(err);
         }
         console.log("조회 성공");
-        console.log(result);
+        console.log(result.rows);
         res.send(result.rows)
     })
 });
