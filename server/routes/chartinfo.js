@@ -124,6 +124,20 @@ router.get("/visitors", function (req, res) {
 });
 
 
+// select * from visitor_table where createdate > (sysdate-7);
+
+router.get("/visitorlist", function (req, res) {
+    conn.execute("SELECT VISITOR_COUNT, CREATEDATE from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-7)",[],{ outFormat: oracledb.OBJECT }, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("조회 성공");
+        console.log(result);
+        res.send(result.rows)
+    })
+});
+
+
 // 가입유저수
 router.get("/users", function (req, res) {
     conn.execute("select count(*) from USER_TABLE", function (err, result) {

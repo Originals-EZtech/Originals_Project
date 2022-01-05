@@ -10,18 +10,36 @@ export default function (SpecificComponent, option, adminRoute = null) {
     function AuthenticationCheck(props) {
         const dispatch = useDispatch();
         useEffect(() => {
-        dispatch(auth()).then(response => {
-                console.log("auth에서 response.response는??",response.response)
+            dispatch(auth()).then(response => {
                 // 로그인 안했을 경우
                 if (!response.response.isAuth) {
                     if (option) {
-                        props.history.push('/login')
+                        window.location.replace('/login')
                     }
                 } else {
+                    // isAuth == true
+                    // option == false
+                    // 로그인은 했지만 못들어옴
                     if (option === false) {
-                        window.location.replace("/");
+                        props.history.push("/intro");
+                    } else {
+                        // isAuth == true
+                        // option == true
+                        // 로그인한사람만 들어올수 있음
+                        if (!adminRoute) {
+                            if (!response.response.isAdmin) {
+                                props.history.push("/intro");
+                                console.log("isAuth,option,adminRoute true지만 isAdmin은 false")
+                            }
+                            // option == true
+                            // adminRoute == true
+                            // isAdmin == true
+                            console.log("isAuth,option,adminRoute,isAdmin 전부 true")
+                        }
+                        console.log("isAuth,option 전부 true")
                     }
                 }
+
                 // null은 pass
             })
         }, [dispatch, props.history])

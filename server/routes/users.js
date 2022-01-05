@@ -291,6 +291,7 @@ router.get('/logout', function (req, res) {
             res.clearCookie("accessToken")
             res.clearCookie("user_name")
             res.clearCookie("user_email")
+            res.clearCookie("user_role")
                 .status(200).json({
                     logoutSuccess: true,
                     msg: "로그아웃 되셨습니다."

@@ -46,8 +46,8 @@ const AnimatedSwitch = () => {
 
           <Route exact path="/myclass" component={Auth(MyRoomPage,null)} />
 
-          <Route exact path="/dashboard/app" component={Auth(DashboardApp,null)} />
-          <Route exact path="/dashboard/user" component={Auth(User,null)} />
+          <Route exact path="/dashboard/app" component={Auth(DashboardApp,true, true)} />
+          <Route exact path="/dashboard/user" component={Auth(User,true,true)} />
           <Route exact path="/roomparticipant_2" component={RoomParticipant_2} />
           <Route exact path="/room_2" component={Room_2} />
           <Route exact path="/roomcreate_2" component={RoomCreate_2} />
