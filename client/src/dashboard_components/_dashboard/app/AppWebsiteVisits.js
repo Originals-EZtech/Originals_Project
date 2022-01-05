@@ -25,7 +25,10 @@ const CHART_DATA = [
   }
 ];
 
-export default function AppWebsiteVisits() {
+export default function AppWebsiteVisits(visitorList) {
+
+  // const teste = visitorList.visitorList[0];
+  // console.log("어떰?",visitorList.visitorList)
   const chartOptions = merge(BaseOptionChart(), {
     stroke: { width: [0, 2, 3] },
     plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },
