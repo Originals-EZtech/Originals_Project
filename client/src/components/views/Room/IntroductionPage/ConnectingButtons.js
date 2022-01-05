@@ -10,13 +10,19 @@ const ConnectingButtons = (props) => {
     const pushToJoinRoomPageAsHost =() =>{
         props.history.push('/join-room?host=true');
     }
+
+    const pushToMyClass = () => {
+        props.history.push('/myclass');
+    }
+
     return(
         <div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join class' 
             onClickHandler ={pushToJoinRoomPage}/>
             <ConnectingButton createRoomButton buttonText = 'Create class' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
-            <h2><Link to="../Myclass" >My class</Link></h2>
+            <ConnectingButton createRoomButton buttonText = 'My class'
+            onClickHandler={pushToMyClass}/>
         </div>
     );
 };
