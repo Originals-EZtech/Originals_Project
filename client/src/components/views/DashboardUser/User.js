@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // components
-import Label from '../../../dashboard_components/Label';
+// import Label from '../../../dashboard_components/Label';
 import Scrollbar from '../../../dashboard_components/Scrollbar';
 import { UserListHead, UserCheckFile, UserChangeRole } from '../../../dashboard_components/_dashboard/user';
 //
@@ -157,16 +157,16 @@ export default function User() {
     setSelected(newSelected);
   };
 
-  const changeRole = (user) => {
-    let body = { email: user.EMAIL }
-    console.log("on chagerole click", body)
-    chartInfoService.changeRole(body)
-      .then();
-    toast.success(" 승인처리 되었습니다.");
-    setTimeout(() => {
-      serFlag(!flag);
-    }, 800)
-  }
+  // const changeRole = (user) => {
+  //   let body = { email: user.USER_EMAIL }
+  //   // console.log("on chagerole click", body)
+  //   chartInfoService.changeRole(body)
+  //     .then();
+  //   toast.success(" 승인처리 되었습니다.");
+  //   setTimeout(() => {
+  //     serFlag(!flag);
+  //   }, 800)
+  // }
 
   const list = users.permitlist.map(user => {
     return <TableRow
@@ -187,21 +187,21 @@ export default function User() {
       <TableCell component="th" scope="row" padding="none">
         <Stack direction="row" alignItems="center" spacing={2}>
           <Typography variant="subtitle2" noWrap>
-            {user.NAME}
+            {user.USER_NAME}
           </Typography>
         </Stack>
       </TableCell>
 
       <TableCell align="left">
-        {user.EMAIL}
+        {user.USER_EMAIL}
       </TableCell>
 
       <TableCell align="left">
-        {user.ROLE}
+        {user.USER_ROLE}
       </TableCell>
 
       <TableCell align="left">
-        {user.FLAG ? 'Yes' : 'No'}
+        {user.USER_FLAG ? 'Yes' : 'No'}
       </TableCell>
 
       <TableCell align="left" 
@@ -210,10 +210,10 @@ export default function User() {
         {/* <Label
           variant="ghost"
           color={
-            (user.FLAG === 'banned' && 'error') || 'success'
+            (user.USER_FLAG === 'banned' && 'error') || 'success'
           }
         >
-          {sentenceCase(user.FLAG)}
+          {user.USER_FLAG}
         </Label> */}
         <UserChangeRole user={user} />
       </TableCell>

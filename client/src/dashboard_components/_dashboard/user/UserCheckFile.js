@@ -1,13 +1,7 @@
 import React, {useState,useRef} from 'react';
 import { Icon } from '@iconify/react';
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import Button from "@material-ui/core/Button";
 import attachFill from '@iconify/icons-eva/attach-fill';
-import { IconButton } from '@mui/material';
-
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
 
 export default function UserCheckFile ({image}) {
     // console.log('image', image);
