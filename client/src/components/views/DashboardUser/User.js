@@ -19,14 +19,13 @@ import { styled } from '@mui/material/styles';
 // components
 import Label from '../../../dashboard_components/Label';
 import Scrollbar from '../../../dashboard_components/Scrollbar';
-import { UserListHead, UserCheckFile } from '../../../dashboard_components/_dashboard/user';
+import { UserListHead, UserCheckFile, UserChangeRole } from '../../../dashboard_components/_dashboard/user';
 //
 
 import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavbar';
 import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
 import { toast, ToastContainer } from 'react-toastify';
-import UserChangeRole from '../../../dashboard_components/_dashboard/user/UserChangeRole';
 
 // ----------------------------------------------------------------------
 
