@@ -5,11 +5,16 @@
 }
 
 .chat_section_container {
-  height: 100%;
+  height: 98%;
   width: 20%;
+  margin-top:10px;
+  margin-left:10px;
+  
   background-color: white;
   display: flex;
   flex-direction: column;
+  border: 3px solid #29ca8e ;
+  border-radius: 30px;
 }
 
 .chat_label_container {
@@ -21,7 +26,8 @@
 .chat_label_paragraph {
   font-weight: 700;
   color: #9ca5ab;
-  margin-left: 40px;
+  margin-top:1%;
+  margin-left: 40%;
   font-size: 16px;
 }
 
@@ -35,7 +41,7 @@
 }
 
 .new_message_input {
-  border: 1px solid #d1dbe2;
+  border: 1px solid #9ca4aa;
   border-radius: 60px;
   padding: 0 50px 0px 20px;
   height: 60px;
@@ -50,7 +56,7 @@
 
 .new_message_button {
   position: absolute;
-  right: 21%;
+  right: 22.5%;
 }
 
 .file_sending_button {
@@ -60,12 +66,14 @@
 }
 
 .messages_container {
-  width: calc(100% - 70px);
-  margin-left: 30px;
-  margin-right: 30px;
+  width: calc(100% - 20px);
+  margin-left: 10px;
+  margin-right: 10px;
   flex-grow: 1;
   overflow-x: hidden;
   overflow-y: scroll;
+  background-color:#D0F2FF;
+  border-radius: 10px;
 }
 
 .message_container {
@@ -157,14 +165,15 @@
 }
 
 .participants_container {
-  width: 100%;
+  width: 93%;
+  margin-left:2.5%;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   align-content: flex-start;
   height: 50%;
-  border: 1px solid #21a374;
-  
+  background-color: rgba(224, 220, 220, 0.815);
+  border-radius: 10px;
   
 }
 
@@ -174,13 +183,20 @@
   font-weight: 500;
   margin-left: 40px;
   transition: 0.5s;
-  margin: 0 40px;
+  margin: 0 20px;
   padding: 10px 0px;
+  background-color: rgb(189, 181, 181);
+  margin-top:5px;
+  border-radius:10px;
+  display: inline-block;
+  text-align: center;
+  z-index: 5;
 }
 
 .participants_paragraph:hover {
-  background-color: #e5e5e5;
+  background-color: #888080;
   border-radius: 8px;
+  color: white;
 }
 
 .participants_separator_line {
@@ -206,14 +222,21 @@
   justify-content: flex-start;
   background-color:#29ca8f;
   border-radius: 10px;
+  margin-left: 3%;
+  margin-right: 4%;
+  margin-bottom: 1%;
+  margin-top: 1%;
 }
 
 .participants_label_paragraph {
   font-weight: 700;
-  color: black;
-  margin-left: 25%;
-  margin-top: ;
-  top: 20%;
+  color: white;
+  
+  margin: 7px auto;
+  
+  
+    
+  
   
   font-size: 16px;
 }
@@ -233,7 +256,7 @@
 }
 
 .video_buttons_container {
-  width: 60%;
+  width: 59%;
   height: 10%;
   display: flex;
   align-items: center;
@@ -241,6 +264,7 @@
   position: absolute;
   left: 20%;
   bottom: 0;
+  
   background: linear-gradient(168.68deg, #21a374 1.12%, #29ca8e 100%);
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
@@ -276,6 +300,7 @@
   background: #056441;
   box-shadow: 0px 3px 30px rgba(252, 93, 91, 0.1);
   transition: 0.2s;
+  
 }
 
 .video_button_end:hover {
@@ -351,6 +376,7 @@ video {
 
 .room_label_paragraph {
   font-size: 17px;
+  
   color: white;
   margin-top: 0;
   padding: 18px 38px;
@@ -361,6 +387,7 @@ video {
 .video_track_container:first-child:nth-last-child(1) {
   width: 100%;
   height: 100%;
+  
   position: relative;
 }
 
@@ -368,6 +395,7 @@ video {
 .video_track_container:first-child:nth-last-child(2) ~ .video_track_container {
   width: 50%;
   height: 50%;
+  
   position: relative;
 }
 
@@ -451,11 +479,14 @@ video {
 
 .direct_chat_container {
   height: 45%;
+  margin-right: 3%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 98%;
+  margin-top:5px;
   position: relative;
+ 
 }
 
 .direct_chat_header {
@@ -466,6 +497,7 @@ video {
   border-top-right-radius: 25px;
   display: flex;
   align-items: center;
+  
   justify-content: center;
 }
 
@@ -488,6 +520,9 @@ video {
   display: flex;
   flex-direction: column;
   overflow: auto;
+  background-color: #D0F2FF;
+  margin-top:3px;
+  margin-bottom: 3px;
 }
 
 .conversation_not_chosen_overlay {
@@ -537,7 +572,7 @@ video {
 
 .receiver_direct_message {
   border-radius: 8px 8px 8px 0px;
-  border: 1px solid #d5deeb;
+  border: 1px solid #bac1ca;
   background: #ffffff;
   padding: 13px;
   float: left;
@@ -560,14 +595,14 @@ video {
 
 .Sttcontanor{
   background-color:#29ca8f9c;
-  width:60%;
+  width:59%;
   height:10%;
   position: absolute;
   bottom: 10%;
   left: 20%;
   border-radius: 20px;
   z-index: 2;
-  
+  margin-bottom: 5px;
 }
 
 .sttb{
