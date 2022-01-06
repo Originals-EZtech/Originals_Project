@@ -11,6 +11,7 @@ import moment from 'moment';
 
 export default function AppWebsiteVisits({visitorList,userSignUpList}) {
   const chartData= visitorList;
+  console.log("visitorList",visitorList)
 
   const CHART_DATA = [
     {
