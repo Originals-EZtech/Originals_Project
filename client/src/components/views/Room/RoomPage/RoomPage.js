@@ -28,14 +28,12 @@ const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAu
         }
     }, []);
 
-
-  
     
     return (
         <div className = 'room_container' >
            {isBrowser && <ParticipantsSection />}
            <VideoSection />
-           {isBrowser && <ChatSection />}
+           {isBrowser && <ChatSection />} 
            <Sttsection />
            <RoomLabel roomId = {roomId} />
           {showOverlay && <Overlay />}
