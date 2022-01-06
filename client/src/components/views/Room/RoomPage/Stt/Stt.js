@@ -6,7 +6,7 @@ import * as wss from './../../utils/wss';
 import {useCookies} from "react-cookie";
 import onbut from '../../resources/images/stt_on_icon.svg';
 import offbut from '../../resources/images/stt_off_icon.svg';
-import { Transition } from 'react-transition-group';
+
 import talk from '../../resources/images/talk.svg';
 import notalk from '../../resources/images/notalk.svg';
 
@@ -63,7 +63,7 @@ const Dictaphone = ({socketId}) => {
         </div>
       );
     }
-    if(cookies.user_role ==='prof'){
+    else{
       return(
         <div>
           <img

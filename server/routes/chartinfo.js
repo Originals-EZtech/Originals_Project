@@ -129,8 +129,7 @@ router.get("/visitors", function (req, res) {
 // select * from visitor_table where createdate > (sysdate-7);
 // 내일 배열 0~6 하나씩 빼자
 router.get("/visitorlist", function (req, res) {
-    conn.execute("SELECT VISITOR_COUNT from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-10) ORDER BY createdate", function (err, result) {
-    // conn.execute("SELECT CREATEDATE from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-10) ORDER BY createdate", [], function (err, result) {
+    conn.execute("SELECT VISITOR_COUNT from VISITOR_TABLE WHERE CREATEDATE >= (SYSDATE-11) ORDER BY createdate", function (err, result) {
         if (err) {
             console.log(err);
         }
@@ -166,7 +165,7 @@ router.get("/users", function (req, res) {
 // 최근 10일간 유저수
 router.get("/signuplist", function (req, res) {
     const qry = "SELECT COUNT(*),TO_CHAR(USER_DATE,'YYYY-MM-DD') AS LOL FROM USER_TABLE \
-                WHERE 1=1 AND USER_DATE >=SYSDATE-10 \
+                WHERE 1=1 AND USER_DATE >= SYSDATE-11 \
                 GROUP BY TO_CHAR(USER_DATE,'YYYY-MM-DD') \
                 ORDER BY LOL"
     
