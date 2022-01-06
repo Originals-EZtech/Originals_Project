@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { setIsRoomHost } from '../store/actions';
 import JoinRoomTitle from './JoinRoomTitle';
 import JoinRoomContent from './JoinRoomContent';
+import RoomNavBar from '../../NavBar/RoomNavBar';
 
 import './JoinRoomPage.css';
 
@@ -21,12 +22,13 @@ const JoinRoomPage = (props) =>{
 
     }, []);
     return(
-      <div className ='join_room_page_container'>
-         <div className = 'join_room_page_panel'>
-            <JoinRoomTitle isRoomHost={isRoomHost} />
-            <JoinRoomContent />
-        </div> 
-      </div>
+        <div className ='join_room_page_container'>
+            <RoomNavBar />
+            <div className = 'join_room_page_panel'>
+                <JoinRoomTitle isRoomHost={isRoomHost} />
+                <JoinRoomContent />
+            </div> 
+        </div>
     );
 };
 
