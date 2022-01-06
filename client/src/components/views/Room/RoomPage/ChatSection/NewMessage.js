@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SendMessageButton from "../../resources/images/sendMessageButton.svg";
+import fileSendingButton from "../../resources/images/fileSendingButton.svg";
 import * as webRTCHandler from "../../utils/webRTCHandler";
 
 const NewMessage = () => {
@@ -20,10 +21,18 @@ const NewMessage = () => {
 
   const sendMessage = () => {
     if (message.length > 0) {
-      //webRTCHandler.sendMessageUsingDataChannel(message);
+      webRTCHandler.sendMessageUsingDataChannel(message);
       setMessage("");
     }
   };
+
+  const sendFile = () =>{
+    const file = document.getElementById('fileItem');
+    if(file.files.length > 0){
+      console.log(file.files[0]); 
+      webRTCHandler.sendFileUsingDataChannel(file.files[0]);
+    }
+  }
 
   return (
     <div className="new_message_container">
@@ -40,6 +49,17 @@ const NewMessage = () => {
         src={SendMessageButton}
         onClick={sendMessage}
       />
+      <label className = 'file_container'>
+      <input 
+      id ='fileItem' 
+      type='file' 
+      onClick={sendFile}
+      style={{display: 'none'}}/> 
+      <img 
+      className="file_sending_button"
+      src={fileSendingButton}
+      />
+      </label>  
     </div>
   );
 };

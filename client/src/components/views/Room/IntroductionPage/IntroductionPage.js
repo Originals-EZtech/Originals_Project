@@ -3,21 +3,26 @@ import logo from '../resources/images/logo.png';
 import ConnectingButtons from './ConnectingButtons';
 import { connect} from 'react-redux';
 import { setIsRoomHost } from '../store/actions';
+import RoomNavBar from '../../NavBar/RoomNavBar';
 
 import './IntroductionPage.css';
 
 const IntroductionPage = ({setIsRoomHostAction}) => {
+    
     useEffect(()=> {
         setIsRoomHostAction(false);
     }, []);
     
     return(
+        <>
+        <RoomNavBar />
         <div className = 'introduction_page_container'>
           <div className='introduction_page_panel'>
               <img src={logo} className ='introduction_page_image'></img>
               <ConnectingButtons />
           </div>
         </div>
+        </>
     ); 
 };
 

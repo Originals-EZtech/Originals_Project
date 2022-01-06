@@ -8,15 +8,17 @@ const initState = {
     showOverlay: true,
     participants: [],
     messages: [],
+    fileDatas: [],
     activeConversation: null,
     directChatHistory: [],
     socketId: null,
-    payload: {loginSuccess:"", msg: ""},
-    dataTosubmit:{}
+    word: "",
 };
 
+// reducer는 state의 상태를 변화시켜주는 함수
 const reducer = (state = initState, action) => {
     switch (action.type) {
+        
         case Actions.SET_IS_ROOM_HOST:
             return {
                 ...state,
@@ -52,6 +54,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 messages: action.messages,
             };
+        case Actions.SET_FILEDATAS:
+            return{
+                ...state,
+                fileDatas: action.fileDatas
+            }
         case Actions.SET_ACTIVE_CONVERSATION:
             return {
                 ...state,
@@ -68,13 +75,38 @@ const reducer = (state = initState, action) => {
                 socketId: action.socketId
             };
         case Actions.SET_LOGIN_USER:
-            console.log("dataTosubmit", action.dataTosubmit)
-
-            console.log("payload on reducer?", action.payload)
             return {
                 ...state, 
-                loginSuccess: action.dataTosubmit
+                loginSuccess: action.response.loginSuccess
+            };
+        case Actions.SET_REGISTER_USER:
+            return {
+                ...state,
+                success:action.response.success
+            };
+        case Actions.SET_AUTH_EMAIL:
+            return {
+                ...state,
+            };
+        case Actions.SET_AUTH_USER:
+            return {
+                ...state,
+            };
+        case Actions.SET_LOGOUT_USER:
+            return {
+                ...state,
             }
+        case Actions.SET_FILE_UPLOAD:
+            return{
+                ...state,
+                uploadSuccess: action.response.uploadSuccess
+            }
+        case Actions.SET_WORD:
+            return{
+                ...state,
+                word: action.word
+            };
+
         default:
             return state;
     }

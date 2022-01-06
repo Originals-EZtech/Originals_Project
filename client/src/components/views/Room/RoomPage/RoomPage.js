@@ -6,8 +6,9 @@ import RoomLabel from './RoomLabel';
 import { connect} from 'react-redux';
 import * as webRTCHandler from '../utils/webRTCHandler';
 import Overlay from './Overlay';
+import Sttsection from './Stt/SttSection'
 //import Dictaphone from './Stt/Dictaphone';
-
+import { isBrowser ,  isMobile } from 'react-device-detect';
 import './RoomPage.css';
 
 const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio  }) => {
@@ -27,15 +28,20 @@ const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAu
         }
     }, []);
 
+
+  
+    
     return (
-        <div className = 'room_container'>
-           <ParticipantsSection />
+        <div className = 'room_container' >
+           {isBrowser && <ParticipantsSection />}
            <VideoSection />
-           <ChatSection />
+           {isBrowser && <ChatSection />}
+           <Sttsection />
            <RoomLabel roomId = {roomId} />
           {showOverlay && <Overlay />}
         </div>
     );
+    
 };
 
 const mapStoreStateToProps = (state) =>{

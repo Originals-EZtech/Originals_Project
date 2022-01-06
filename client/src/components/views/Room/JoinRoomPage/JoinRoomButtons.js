@@ -11,13 +11,15 @@ const Button = ({ buttonText, cancelButton = false, onClickHandler }) =>{
         </button>
 );
 };
-const JoinRoomButtons = (props, {handleJoinRoom, isRoomHost}) => {
+//props 부분 지식과 true, false 이외의 값이 전달됐을때 오류메세지 던져주기
+const JoinRoomButtons = ({handleJoinRoom, isRoomHost, history}) => {
     const successButtonText = isRoomHost ? 'Host' : 'Join';
-
+    
     const pushToIntroductionPage = () => {
-        props.history.push('/intro');
+        history.push('/intro');
     };
-
+   // console.log(props);
+    //console.log(handleJoinRoom);
     return (
         <div className='join_room_buttons_container'>
             <Button

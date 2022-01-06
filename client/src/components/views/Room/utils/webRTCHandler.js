@@ -1,4 +1,4 @@
-import { setMessages, setShowOverlay } from '../store/actions.js';
+import { setMessages, setShowOverlay, setFileDatas } from '../store/actions.js';
 import store from '../store/store.js'
 import * as wss from './wss.js'
 import Peer from 'simple-peer'
@@ -92,23 +92,29 @@ const getConfiguration = ()=>{
 const messengerChannel = 'messenger';
 
 export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
-     const configuration = getConfiguration();
-     
+    
+    console.log(connUserSocketId);
+    console.log(isInitiator);
+    const configuration = getConfiguration();
+
      peers[connUserSocketId] = new Peer({
          initiator: isInitiator,
          config: configuration,
          stream: localStream,
-         channelName: messengerChannel
+         channelName: messengerChannel //null why?
      }); // peer connection webrtc object
+     console.log(peers);
+     console.log(peers[connUserSocketId].channelName);
 
      peers[connUserSocketId].on('signal', (data)=>{
-        
+        console.log("check")
         // webRTC offer, webRTC Answer (sdp informations), ice candidates
         
         const signalData = {
             signal: data,
             connUserSocketId: connUserSocketId
         };
+        
         wss.signalPeerData(signalData);
      });
 
@@ -118,12 +124,12 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
          addStream(stream, connUserSocketId);
          streams = [...streams, stream];
      });
-/*
-//not working
-     peers[connUserSocketId].on("data", (data) => {
-        const messageData = JSON.parse(data);
+    
+     peers[connUserSocketId].on('data', async(data) => {
+        console.log('got a message from peer1: ' + data);
+        const messageData = await JSON.parse(data);
         appendNewMessage(messageData);
-      }); */
+      });  
 };
 
 export const handleSignalingData =(data)=>{
@@ -275,32 +281,69 @@ const switchVideoTracks = (stream) => {
   
  //////////////////////////////////////Messages/////////////////////////////////////////////
  
- /*
+
  const appendNewMessage = (messageData) => {
     const messages = store.getState().messages;
+    //console.log(messageData);
+    //console.log(messages);
     store.dispatch(setMessages([...messages, messageData]));
+    //console.log(messages); ok
   };
+
+  const appendNewFileData = (fileData) =>{
+      const fileDatas = store.getState().fileDatas;
+      store.dispatch(setFileDatas([...fileDatas, fileData]));
+      //console.log(fileDatas); //ok
+  }
   
-  export const sendMessageUsingDataChannel = (messageContent) => {
+export const sendMessageUsingDataChannel = (messageContent) => {
+    // console.log(messageContent); ok 
     // append this message locally
     const identity = store.getState().identity;
-  
+    //console.log(identity); message 전달자 ok 
     const localMessageData = {
-      content: messageContent,
-      identity,
-      messageCreatedByMe: true,
+        content: messageContent,
+        identity,
+        messageCreatedByMe: true,
     };
-  
+
+    // console.log(localMessageData); ok
     appendNewMessage(localMessageData);
-  
+
     const messageData = {
-      content: messageContent,
-      identity,
+        content: messageContent,
+        identity,
     };
-  
-    const stringifiedMessageData = JSON.stringify(messageData);
+    // console.log(typeof(messageData)); // object
+    const stringifiedMessageData = JSON.stringify(messageData); 
+    console.log(stringifiedMessageData); //{"content":"tttt","identity":"dfdfdf"} Json 문자열
+    //console.log(peers); // peers가 비었다. 
     for (let socketId in peers) {
-      peers[socketId].send(stringifiedMessageData);
+        peers[socketId].send(stringifiedMessageData);
     }
-  };
-  */
+};
+
+export const sendFileUsingDataChannel = (fileContent) =>{
+    const identity = store.getState().identity;
+
+    const localMessageFileData = {
+        content: fileContent, //blob 값
+        identity,
+        messageCreatedByMe: true,
+        };
+
+    appendNewFileData(localMessageFileData);
+
+    const fileData = {
+        file: fileContent,
+        identity
+    }
+    // 여기 blob 데이터를 품고있는데 어떻게 할지 고민해 보기! 
+    
+    //console.log(peers); ok
+    for (let socketId in peers) {
+        peers[socketId].send(fileData);
+        console.log("파일 데이터 전송")
+    } 
+
+}

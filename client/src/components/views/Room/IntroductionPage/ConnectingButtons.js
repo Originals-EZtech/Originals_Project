@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
 
-
 const ConnectingButtons = (props) => {
     const [cookies] = useCookies();
     const pushToJoinRoomPage = () => {
@@ -14,6 +13,7 @@ const ConnectingButtons = (props) => {
     const pushToJoinRoomPageAsHost =() =>{
         props.history.push('/join-room?host=true');
     }
+
 
     if(cookies.user_role==='prof'){
         return(<div className = 'connecting_buttons_container'>
@@ -26,6 +26,7 @@ const ConnectingButtons = (props) => {
             onClickHandler ={pushToJoinRoomPage}/>
         </div>);
     }
+
 };
 
 export default withRouter(ConnectingButtons);

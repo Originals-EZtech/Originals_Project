@@ -1,9 +1,13 @@
 import axios from 'axios';
-
-const serverApi = 'http://localhost:5000';
+const serverip = require('../../../../config/ipConfig');
+//const serverApi = 'http://localhost:5000/api';
+console.log("serverip"+serverip);
+console.log("serverip.server"+serverip.server);
+const serverApi = serverip.server+'/api';
 
 export const getRoomExists = async (roomId) => {
     const response = await axios.get(`${serverApi}/room-exists/${roomId}`);
+    console.log("(1roomId"+roomId)
     return response.data;
 };
 
