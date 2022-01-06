@@ -7,13 +7,9 @@ import { toast } from 'react-toastify';
 import { useCookies } from "react-cookie";
 
 const ConnectingButtons = (props) => {
-<<<<<<< HEAD
     const [cookies] = useCookies();
-=======
-    const cookies = new Cookies();
     const isProf = (cookies.get('user_role') === 'prof') ? true : false;
     // console.log(isProf);
->>>>>>> c0d8f610d8d11bbf9df1c4862afe2acdbe8e4f1b
 
     const pushToJoinRoomPage = () => {
         if (isProf) {
