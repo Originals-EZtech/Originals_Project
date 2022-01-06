@@ -1,21 +1,38 @@
 import React, { useState, } from 'react';
 import RoomNavBar from '../NavBar/RoomNavBar';
 import RoomListComponent from './RoomListComponent';
-
+import './MyRoomPage.css';
 function JoinRoomComponent() {
+    const [now,setnow]=useState(false);
+    if(now){
+        return(
+            <div className="myall">
+                <div className="mycalss_room_conta">
+                <RoomNavBar /> 
+                </div>
+                <div className="mycalss">
+                    <h1>참여했던 방 목록</h1>
+                    <h3><RoomListComponent /></h3>
+                </div>
+            </div>
+        );
+    }
+    else{
+        return (
+            <div className="myall">
+                <div className="mycalss_room_conta">
+                <RoomNavBar />          
+                </div>
+                <div className="mycalss">
+                    <h1 className="my_title">Create Room List</h1>   
+                    <RoomListComponent />
+                </div>
+            </div>
+            
+        );
+    }
+    
 
-    return (
-        <div>
-            <RoomNavBar />
-            <div style={{paddingTop: 100}}></div>
-            <h3>만들었던 방 목록</h3><br></br>   
-            <h3><RoomListComponent /></h3>
-
-            <br></br>
-            <h3>참여했던 방 목록</h3><br></br>
-            <h3><RoomListComponent /></h3>  
-        </div>
-    );
 };
 
 export default JoinRoomComponent;
