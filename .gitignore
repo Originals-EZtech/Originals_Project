@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-#twilio
 .env
+twilioConfig.js
 
+wdad
 # dependencies
 /node_modules
 /.pnp
@@ -21,7 +21,6 @@ twilioConfig.js
 
 # file upload
 upload
-
 # testing
 /coverage
 
