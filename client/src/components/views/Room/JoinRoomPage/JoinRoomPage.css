@@ -11,6 +11,7 @@
 .join_room_page_panel {
   width: 400px;
   height: 400px;
+  margin-top: 70px;
   background-color: white;
   border: 1px solid grey;
   filter: drop-shadow(0 0 0.2rem grey);
@@ -34,6 +35,7 @@
   width: 100%;
   align-items: center;
   margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .error_message_container {
