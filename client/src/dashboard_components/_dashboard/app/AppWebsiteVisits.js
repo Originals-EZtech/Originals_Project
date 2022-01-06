@@ -9,8 +9,10 @@ import moment from 'moment';
 // ----------------------------------------------------------------------
 
 
-export default function AppWebsiteVisits(visitorList,userSignUpList) {
-  const chartData= visitorList.visitorList;
+export default function AppWebsiteVisits({visitorList,userSignUpList}) {
+  const chartData= visitorList;
+console.log("visitorList",visitorList)
+console.log("userSignUpList",userSignUpList)
 
   const CHART_DATA = [
     {
@@ -19,9 +21,9 @@ export default function AppWebsiteVisits(visitorList,userSignUpList) {
       data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
     },
     {
-      name: 'Team B',
+      name: '가입자수',
       type: 'area',
-      data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
+      data: [userSignUpList.countA, userSignUpList.countB, userSignUpList.countC, userSignUpList.countD, userSignUpList.countE, userSignUpList.countF, userSignUpList.countG, userSignUpList.countH, userSignUpList.countI, userSignUpList.countJ, userSignUpList.countK]
     },
     {
       name: '방문자수',
@@ -30,7 +32,6 @@ export default function AppWebsiteVisits(visitorList,userSignUpList) {
     }
   ];
 
-  console.log('하위', userSignUpList)
   const chartOptions = merge(BaseOptionChart(), {
     stroke: { width: [0, 2, 3] },
     plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },

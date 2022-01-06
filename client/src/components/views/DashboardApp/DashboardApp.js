@@ -76,7 +76,7 @@ export default function DashboardApp() {
   const [visitorList, setVisitorList] = useState(initState);
   const [userSignUpList, setUserSignUpList] = useState(userInitState);
 
-  console.log("상태값 userSignUpList? ", userSignUpList)
+  // console.log("상태값 userSignUpList? ", userSignUpList)
 
   useEffect(() => {
     chartInfoService.getVisitorTotal().then(res => {
@@ -89,11 +89,10 @@ export default function DashboardApp() {
       setUsersCount(res.data)
     })
     chartInfoService.getVisitorlist().then(res => {
-      console.log("useEffect에서 찍은거", res.data)
       setVisitorList(res.data);
     })
     chartInfoService.getSignUpList().then(res => {
-      console.log("useEffect에서 찍은거", res.data)
+      // console.log("useEffect에서 찍은거", res.data)
       setUserSignUpList(res.data);
     })
 
@@ -123,7 +122,7 @@ export default function DashboardApp() {
                 <AppBugReports />
               </Grid>
               <Grid item xs={12} md={6} lg={8}>
-                <AppWebsiteVisits visitorList={visitorList} userSignUpList ={userSignUpList} />
+                <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList}  />
               </Grid>
 
               <Grid item xs={12} md={6} lg={4}>
