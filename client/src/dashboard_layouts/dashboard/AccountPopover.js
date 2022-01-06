@@ -60,20 +60,6 @@ function AccountPopover(props) {
     })
   }
 
-  const logoutHandler = (e) => {
-    e.preventDefault();
-
-    logoutAction()
-    .then(response => {
-        if (response.response.logoutSuccess) {
-            toast.success(response.response.msg)
-            setTimeout(() => {
-                props.history.push('/login');
-            }, 1500)
-        } else if (!response.response.logoutSuccess) {
-            toast.error(response.response.msg) 
-        }
-    })}
 
   return (
     <>
