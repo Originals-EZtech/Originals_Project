@@ -23,15 +23,11 @@ const ConnectingButtons = (props) => {
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton createRoomButton buttonText = 'Host a meeting' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
-            <ConnectingButton createRoomButton buttonText = 'My class'
-            onClickHandler={pushToMyClass}/>
         </div>);
     }else{
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join a meeting' 
             onClickHandler ={pushToJoinRoomPage}/>
-            <ConnectingButton createRoomButton buttonText = 'My class'
-            onClickHandler={pushToMyClass}/>
         </div>);
     }
 };
