@@ -106,6 +106,7 @@ const JoinRoomContent = (props) =>{
         setNameValue = {setNameValue}
         isRoomHost = {isRoomHost}
     /> 
+    
     <OnlyWithAudioCheckbox 
       setConnectOnlyWithAudio = {setConnectOnlyWithAudio}
       connectOnlyWithAudio = {connectOnlyWithAudio}

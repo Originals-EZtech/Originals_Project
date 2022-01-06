@@ -47,7 +47,9 @@ export default function DashboardApp() {
   const [visitorCount, setVisitorCount] = useState();
   const [roomCount, setRoomCount] = useState();
   const [usersCount, setUsersCount] = useState({general: 0, prof: 0, total: 0});
+  const [visitorList, setVisitorList] = useState();
 
+  console.log("상태값???",visitorList.visitorList)
   
   useEffect(() => {
     chartInfoService.getVisitorTotal().then(res =>{
@@ -58,6 +60,10 @@ export default function DashboardApp() {
     })
     chartInfoService.getUsersCount().then(res =>{
       setUsersCount(res.data)
+    })
+    chartInfoService.getVisitorlist().then(res =>{
+      console.log("useEffect에서 찍은거",res.data)
+      setVisitorList(res.data);
     })
 
   }, [])
@@ -85,9 +91,8 @@ export default function DashboardApp() {
               <Grid item xs={12} sm={6} md={3}>
                 <AppBugReports />
               </Grid>
-
               <Grid item xs={12} md={6} lg={8}>
-                <AppWebsiteVisits />
+                <AppWebsiteVisits visitorList={visitorList} />
               </Grid>
 
               <Grid item xs={12} md={6} lg={4}>

@@ -24,8 +24,8 @@ router.get('/count', (req, res) => {
 
     var countCookie = req.cookies.visitor_cookie
     var now = new Date();
-    var date = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
-    var currentTime = ((now.getHours() * 3600) + (now.getMinutes() * 60)) * 1000;
+    var date = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate(); // 현재시간 YYYY/MM/DD으로 format
+    var currentTime = ((now.getHours() * 3600) + (now.getMinutes() * 60)) * 1000; // 현재 시간 ms로 변환
 
     if (countCookie === undefined) {
         conn.execute("select * from VISITOR_TABLE where VISITOR_DATE =:visitor_date", [date], function (err2, res2) {
@@ -63,8 +63,10 @@ router.get('/count', (req, res) => {
 
 })
 
-
-// 권한 승인 요청 리스트
+/**
+ * 승인요청 리스트
+ * user_table에서 flag = true를 가진 user만 가져옴
+ */
 router.get("/permitlist", function (req, res) {
     const query = "SELECT U.USER_EMAIL, U.USER_NAME, U.USER_ROLE, U.USER_FLAG, A.DIRECTORY \
                     FROM USER_TABLE U INNER JOIN ATTACHMENT A \
@@ -88,7 +90,7 @@ router.get("/permitlist", function (req, res) {
 
 /**
  * 해당 USER의 ROLE 승인 받아야하는 리스트를 받고나서
- * 신청 칼럼을 변경(FALSE) 
+ * 신청 flag컬럼을 변경(=FALSE) 
  * 동시에 ROLE 변경
  */
 router.post("/permit", function (req, res) {
@@ -120,6 +122,20 @@ router.get("/visitors", function (req, res) {
         console.log("조회 성공");
         console.log(result.rows);
         res.status(200).json(result.rows[0][0])
+    })
+});
+
+
+// select * from visitor_table where createdate > (sysdate-7);
+// 내일 배열 0~6 하나씩 빼자
+router.get("/visitorlist", function (req, res) {
+    conn.execute("SELECT VISITOR_COUNT, CREATEDATE from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-7)", [], { outFormat: oracledb.OBJECT }, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("조회 성공");
+        console.log(result.rows);
+        res.send(result.rows)
     })
 });
 
