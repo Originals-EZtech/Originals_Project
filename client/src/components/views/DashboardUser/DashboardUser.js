@@ -1,6 +1,6 @@
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
 import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 // material
 import {
   Card,
@@ -26,6 +26,8 @@ import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavba
 import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
 import { toast, ToastContainer } from 'react-toastify';
+
+import { sideOpen } from '../Room/store/actions';
 
 // ----------------------------------------------------------------------
 
@@ -80,25 +82,27 @@ const initState = {
   ]
 }
 
-export default function User() {
+function DashboardUser(props) {
+  const { open, sideOpenAction } = props;
+
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState('name');
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [users, setUsers] = useState(initState);
   const [flag, serFlag] = useState(false);
 
-  console.log("클라에서 users : ", users)
-
+  // console.log("클라에서 users : ", users)
 
   useEffect(() => {
-
+    sideOpenAction(false);
+    // console.log('init open', open);
     chartInfoService.getPermitList().then(res => {
-      console.log("클라에서 res : ", res)
+      // console.log("클라에서 res : ", res)
       setUsers(res.data)
     })
 
-  }, [flag])
+  }, [])
 
   /* 스타일 설정 */
   const APP_BAR_MOBILE = 64;
@@ -124,11 +128,11 @@ export default function User() {
   }));
   /* 스타일 설정 */
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+  // const handleRequestSort = (event, property) => {
+  //   const isAsc = orderBy === property && order === 'asc';
+  //   setOrder(isAsc ? 'desc' : 'asc');
+  //   setOrderBy(property);
+  // };
 
   // const handleSelectAllClick = (event) => {
   //   if (event.target.checked) {
@@ -204,17 +208,7 @@ export default function User() {
         {user.USER_FLAG ? 'Yes' : 'No'}
       </TableCell>
 
-      <TableCell align="left" 
-      // onClick={() => changeRole(user)}
-      >
-        {/* <Label
-          variant="ghost"
-          color={
-            (user.USER_FLAG === 'banned' && 'error') || 'success'
-          }
-        >
-          {user.USER_FLAG}
-        </Label> */}
+      <TableCell align="left">
         <UserChangeRole user={user} />
       </TableCell>
 
@@ -226,8 +220,8 @@ export default function User() {
 
   return (
     <RootStyle>
-      <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
-      <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
+      <DashboardNavbar />
+      <DashboardSidebar isOpenSidebar={open} />
       <MainStyle>
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
@@ -261,3 +255,17 @@ export default function User() {
     </RootStyle>
   );
 }
+
+const mapStoreStateToProps = (state) =>{
+  return {
+      ...state,
+  }
+}
+
+const mapActionsToProps = (dispatch) => {
+  return {
+      sideOpenAction: (open) => dispatch(sideOpen(open))
+  }
+}
+
+export default connect(mapStoreStateToProps, mapActionsToProps)(DashboardUser);
