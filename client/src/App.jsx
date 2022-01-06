@@ -22,7 +22,7 @@ import Auth from './hoc/auth'
 
 import { connectWithSocketIOServer } from './components/views/Room/utils/wss';
 import DashboardApp from './components/views/DashboardApp/DashboardApp';
-import User from './components/views/DashboardUser/User';
+import DashboardUser from './components/views/DashboardUser/DashboardUser';
 import ThemeConfig from './dashboard_theme';
 import GlobalStyles from './dashboard_theme/globalStyles';
 import ScrollToTop from './dashboard_components/ScrollToTop';
@@ -46,8 +46,8 @@ const AnimatedSwitch = () => {
 
           <Route exact path="/myclass" component={Auth(MyRoomPage,null)} />
 
-          <Route exact path="/dashboard/app" component={Auth(DashboardApp,true, true)} />
-          <Route exact path="/dashboard/user" component={Auth(User,true,true)} />
+          <Route exact path="/dashboard/app" component={Auth(DashboardApp,null)} />
+          <Route exact path="/dashboard/user" component={Auth(DashboardUser,null)} />
           <Route exact path="/roomparticipant_2" component={RoomParticipant_2} />
           <Route exact path="/room_2" component={Room_2} />
           <Route exact path="/roomcreate_2" component={RoomCreate_2} />

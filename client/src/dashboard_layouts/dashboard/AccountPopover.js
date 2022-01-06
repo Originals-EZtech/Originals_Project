@@ -1,11 +1,18 @@
 import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
+import { connect } from 'react-redux';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
+<<<<<<< HEAD
 import { Link as RouterLink, withRouter } from 'react-router-dom';
+=======
+import { Link, withRouter } from 'react-router-dom';
+import { logout } from '../../components/views/Room/store/actions';
+import {ToastContainer, toast} from "react-toastify"
+>>>>>>> ef22c17c7c652b017044973933aa68b2c04ab4b9
 // material
 import { alpha } from '@mui/material/styles';
-import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '@mui/material';
+import { Button, Box, Divider, MenuItem, Typography, IconButton } from '@mui/material';
 // components
 import MenuPopover from '../../dashboard_components/MenuPopover';
 //
@@ -16,27 +23,32 @@ import { toast, ToastContainer } from 'react-toastify';
 
 // ----------------------------------------------------------------------
 
-const MENU_OPTIONS = [
-  {
-    label: 'Home',
-    icon: homeFill,
-    linkTo: '/'
-  },
-  {
-    label: 'Profile',
-    icon: personFill,
-    linkTo: '#'
-  }
-];
+// const MENU_OPTIONS = [
+//   {
+//     label: 'Home',
+//     icon: homeFill,
+//     linkTo: '/'
+//   },
+//   {
+//     label: 'Profile',
+//     icon: personFill,
+//     linkTo: '#'
+//   }
+// ];
 
 // ----------------------------------------------------------------------
 
+<<<<<<< HEAD
  function AccountPopover(props) {
    const { logoutAction } = props;
 
+=======
+function AccountPopover(props) {
+>>>>>>> ef22c17c7c652b017044973933aa68b2c04ab4b9
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [cookies] = useCookies();
+  const { logoutAction } = props;
 
 
   const handleOpen = () => {
@@ -45,6 +57,21 @@ const MENU_OPTIONS = [
   const handleClose = () => {
     setOpen(false);
   };
+  const logoutHandler = (e) => {
+    e.preventDefault();
+
+    logoutAction()
+    .then(response => {
+        if (response.response.logoutSuccess) {
+            toast.success(response.response.msg)
+            setTimeout(() => {
+                props.history.push('/login');
+            }, 1500)
+        } else if (!response.response.logoutSuccess) {
+            toast.error(response.response.msg) //nvm
+        }
+    })
+  }
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -68,8 +95,8 @@ const MENU_OPTIONS = [
         onClick={handleOpen}
         sx={{
           padding: 0,
-          width: 44,
-          height: 44,
+          width: 60,
+          height: 60,
           ...(open && {
             '&:before': {
               zIndex: 1,
@@ -78,12 +105,12 @@ const MENU_OPTIONS = [
               height: '100%',
               borderRadius: '50%',
               position: 'absolute',
-              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72)
+              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.3)
             }
           })
         }}
       >
-        <Avatar src="/static/illustrations/illustration_avatar.png" alt="photoURL" />
+        <img src="/static/illustrations/admin_avatar.png" alt="" />
       </IconButton>
 
       <MenuPopover
@@ -103,7 +130,7 @@ const MENU_OPTIONS = [
 
         <Divider sx={{ my: 1 }} />
 
-        {MENU_OPTIONS.map((option) => (
+        {/* {MENU_OPTIONS.map((option) => (
           <MenuItem
             key={option.label}
             to={option.linkTo}
@@ -123,7 +150,7 @@ const MENU_OPTIONS = [
 
             {option.label}
           </MenuItem>
-        ))}
+        ))} */}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
           <Button fullWidth color="inherit" variant="outlined" onClick={logoutHandler} >
@@ -141,6 +168,5 @@ const mapActionsToProps = (dispatch) => {
       logoutAction: () => dispatch(logout())
   }
 }
-
 
 export default withRouter(connect(null, mapActionsToProps)(AccountPopover));

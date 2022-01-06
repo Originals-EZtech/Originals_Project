@@ -18,7 +18,8 @@ const Actions ={
     SET_LOGOUT_USER: "SET_LOGOUT_USER",
     SET_FILE_UPLOAD: "SET_FILE_UPLOAD",
     SET_TOTAL_USER:"SET_TOTAL_USER",
-    SET_WORD:"SET_WORD"
+    SET_WORD:"SET_WORD",
+    SET_SIDE_OPEN:"SET_SIDE_OPEN"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -208,6 +209,13 @@ export const fileUpload = async (fileData) => {
 //         userTotal
 //     }
 // }
+
+export const sideOpen = (open) => {
+    return{
+        type: Actions.SET_SIDE_OPEN,
+        open,
+      }
+}
 
   
 export default Actions;
