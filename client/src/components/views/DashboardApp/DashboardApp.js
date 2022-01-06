@@ -81,7 +81,6 @@ function DashboardApp(props) {
   const [visitorList, setVisitorList] = useState(initState);
   const [userSignUpList, setUserSignUpList] = useState(userInitState);
 
-  // console.log("상태값 userSignUpList? ", userSignUpList)
 
   // console.log("상태값???",visitorList.visitorList)
   
@@ -101,7 +100,6 @@ function DashboardApp(props) {
       setVisitorList(res.data);
     })
     chartInfoService.getSignUpList().then(res => {
-      // console.log("useEffect에서 찍은거", res.data)
       setUserSignUpList(res.data);
     })
 

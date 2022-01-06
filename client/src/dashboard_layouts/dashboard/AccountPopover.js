@@ -3,9 +3,7 @@ import { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
-import { Link, withRouter } from 'react-router-dom';
-import { logout } from '../../components/views/Room/store/actions';
-import {ToastContainer, toast} from "react-toastify"
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 // material
 import { alpha } from '@mui/material/styles';
 import { Button, Box, Divider, MenuItem, Typography, IconButton } from '@mui/material';
@@ -13,6 +11,8 @@ import { Button, Box, Divider, MenuItem, Typography, IconButton } from '@mui/mat
 import MenuPopover from '../../dashboard_components/MenuPopover';
 //
 import { useCookies } from 'react-cookie';
+import { logout } from '../../components/views/Room/store/actions';
+import { toast, ToastContainer } from 'react-toastify';
 
 // ----------------------------------------------------------------------
 
@@ -37,6 +37,7 @@ function AccountPopover(props) {
   const [cookies] = useCookies();
   const { logoutAction } = props;
 
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -58,6 +59,21 @@ function AccountPopover(props) {
         }
     })
   }
+
+  const logoutHandler = (e) => {
+    e.preventDefault();
+
+    logoutAction()
+    .then(response => {
+        if (response.response.logoutSuccess) {
+            toast.success(response.response.msg)
+            setTimeout(() => {
+                props.history.push('/login');
+            }, 1500)
+        } else if (!response.response.logoutSuccess) {
+            toast.error(response.response.msg) 
+        }
+    })}
 
   return (
     <>
@@ -124,11 +140,12 @@ function AccountPopover(props) {
         ))} */}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button onClick={logoutHandler} fullWidth color="inherit" variant="outlined">
+          <Button fullWidth color="inherit" variant="outlined" onClick={logoutHandler} >
             Logout
           </Button>
         </Box>
       </MenuPopover>
+      <ToastContainer hideProgressBar={true}/>
     </>
   );
 }

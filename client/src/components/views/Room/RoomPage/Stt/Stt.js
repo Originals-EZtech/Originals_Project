@@ -53,7 +53,7 @@ const Dictaphone = ({socketId}) => {
       }
      
       }   
-    if(cookies.user_role === 'prof'){
+    if(cookies.user_role ==='general'){
       return(
         <div>
           <img
@@ -63,7 +63,7 @@ const Dictaphone = ({socketId}) => {
         </div>
       );
     }
-    else{
+    if(cookies.user_role ==='prof'){
       return(
         <div>
           <img
