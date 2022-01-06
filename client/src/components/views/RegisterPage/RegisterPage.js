@@ -143,16 +143,6 @@ function Register(props) {
             return toast.error('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
 
-        // 선생님이 회원가입하는 경우
-        if (isTeacher) {
-            // Teacher 체크박스에 체크만 하고 첨부파일 올리지 않을 경우
-            if (selectedFile === null) {
-                return toast.error('첨부파일을 확인해주세요.')
-            }
-            // 회원가입 버튼 클릭시 함께 첨부한 파일도 서버에 전송
-            handleFileUpload();
-        }
-
         // 회원가입시 보내줄 body 데이터를 학생 / 선생님 구분해서 서버로 전송
         let body = {}
 
@@ -176,12 +166,23 @@ function Register(props) {
             }
         }
         
-        console.log(body);
+        // 학생일 경우 바로 registerUserAction 실행 후 종료
+        // 선생님일 경우 아래 모두 실행
 
+        // Teacher 체크박스에 체크만 하고 첨부파일 올리지 않을 경우
+        if (isTeacher && (selectedFile === null)) {
+            return toast.error('첨부파일을 확인해주세요.')
+        }
+        
+        // user 테이블에 data 먼저 insert
         registerUserAction(body)
         .then(response => {
             if (response.response.success) {
                 toast.success(response.response.msg);
+                // Teacher일 경우, 회원가입시 함께 첨부한 파일도 서버에 전송
+                if (isTeacher) {
+                    handleFileUpload();
+                }
                 setTimeout(() => {
                     props.history.push('/login');
                 }, 1200)
@@ -224,7 +225,7 @@ function Register(props) {
         .then(response => {
             // console.log(response.response.uploadSuccess)
             if (response.response.uploadSuccess) {
-                toast.success(response.response.msg);
+                // toast.success(response.response.msg);
                 alert('선생님은 관리자 승인 후 정상 이용 가능합니다. (최대 1일 소요)')
             } else {
                 toast.error(response.response.msg);

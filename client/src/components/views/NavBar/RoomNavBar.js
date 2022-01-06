@@ -48,18 +48,6 @@ function RoomNavBar(props) {
                 toast.error(response.response.msg) //nvm
             }
         })
-        
-        // dispatch(logout())
-        // .then(response => {
-        //     if (response.payload.logoutSuccess) {
-        //         toast.success(response.payload.msg)
-        //         setTimeout(() => {
-        //             props.history.push('/login');
-        //         }, 1500)
-        //     } else if (!response.payload.logoutSuccess) {
-        //         toast.error(response.payload.msg) //nvm
-        //     }
-        //     })
     }
 
 
@@ -74,12 +62,12 @@ function RoomNavBar(props) {
                               <span class="icon icon-bar"></span>
                           </button>
                         
-                          <a href="/room" class="navbar-brand" style={upsideLogo}>ORIGINALS</a>
+                          <a href="/intro" class="navbar-brand" style={upsideLogo}>ORIGINALS</a>
                     </div>
 
                     <div class="collapse navbar-collapse" style={navbarStyle}>
                         <ul class="nav navbar-nav ml-auto" style={firstNav}>
-                            <li style={{marginTop: 15}}><h5>환영합니다 {cookies.user_info}님</h5></li>
+                            <li style={{marginTop: 15}}><h4>환영합니다 &nbsp; {cookies.user_name}님</h4></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" style={secondNav}>
                             <li><Link to="" class="smoothScroll" className={styles.loginStyle} onClick={logoutHandler}>LogOut</Link></li>

@@ -13,6 +13,7 @@ const initState = {
     directChatHistory: [],
     socketId: null,
     word: "",
+    open: false, // dashboard 페이지 화면 축소 상태일 때 side bar 작동하기 위해 필요
 };
 
 // reducer는 state의 상태를 변화시켜주는 함수
@@ -106,7 +107,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 word: action.word
             };
-
+        case Actions.SET_SIDE_OPEN:
+            return{
+                ...state,
+                open: action.open
+            };
         default:
             return state;
     }

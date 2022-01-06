@@ -18,7 +18,8 @@ const Actions ={
     SET_LOGOUT_USER: "SET_LOGOUT_USER",
     SET_FILE_UPLOAD: "SET_FILE_UPLOAD",
     SET_TOTAL_USER:"SET_TOTAL_USER",
-    SET_WORD:"SET_WORD"
+    SET_WORD:"SET_WORD",
+    SET_SIDE_OPEN:"SET_SIDE_OPEN"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -150,8 +151,8 @@ export const authEmail = async (dataTosubmit) => {
 export const auth = async () => {
     const request = await axios.get('/api/users/auth') //endpoint로 get request, get이니까 login과 다르게 param x
     const response = request.data;
-    console.log(request);
-    console.log(response);
+    console.log("actions?res",request);
+    console.log("actions?req",response);
 
     return { //Action 끝내고 이제 Reducer로 보냄
         type: Actions.SET_AUTH_USER,
@@ -208,6 +209,13 @@ export const fileUpload = async (fileData) => {
 //         userTotal
 //     }
 // }
+
+export const sideOpen = (open) => {
+    return{
+        type: Actions.SET_SIDE_OPEN,
+        open,
+      }
+}
 
   
 export default Actions;

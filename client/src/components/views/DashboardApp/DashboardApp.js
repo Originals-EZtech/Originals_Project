@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { connect} from 'react-redux';
 // material
 import { Box, Grid, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -17,10 +18,14 @@ import {
   AppConversionRates
 } from '../../../dashboard_components/_dashboard/app';
 import chartInfoService from './service/chartInfoService';
+import { sideOpen } from '../Room/store/actions';
 
 // ----------------------------------------------------------------------
 
-export default function DashboardApp() {
+function DashboardApp(props) {
+  const { open, sideOpenAction } = props;
+  // console.log(open);
+
   const APP_BAR_MOBILE = 64;
   const APP_BAR_DESKTOP = 92;
 
@@ -43,34 +48,74 @@ export default function DashboardApp() {
     }
   }));
 
-  const [open, setOpen] = useState(false);
+  const initState = {
+    "a": [0],    
+    "b": [0],
+    "c": [0],
+    "d": [0],
+    "e": [0],
+    "f": [0],
+    "g": [0],
+    "h": [0],
+    "i": [0],
+    "j": [0],
+    "k": [0]
+  }
+  const userInitState = {
+    "countA": [0],
+    "countB": [0],
+    "countC": [0],
+    "countD": [0],
+    "countE": [0],
+    "countF": [0],
+    "countG": [0],
+    "countH": [0],
+    "countI": [0],
+    "countJ": [0]
+  }
+
+  // const [open, setOpen] = useState(false);
   const [visitorCount, setVisitorCount] = useState();
   const [roomCount, setRoomCount] = useState();
-  const [usersCount, setUsersCount] = useState({general: 0, prof: 0, total: 0});
+  const [usersCount, setUsersCount] = useState({ general: 0, prof: 0, total: 0 });
+  const [visitorList, setVisitorList] = useState(initState);
+  const [userSignUpList, setUserSignUpList] = useState(userInitState);
 
+  // console.log("상태값 userSignUpList? ", userSignUpList)
+
+  // console.log("상태값???",visitorList.visitorList)
   
   useEffect(() => {
+    sideOpenAction(false);
+
     chartInfoService.getVisitorTotal().then(res =>{
       setVisitorCount(res.data);
     })
-    chartInfoService.getRoomsTotal().then(res =>{
+    chartInfoService.getRoomsTotal().then(res => {
       setRoomCount(res.data);
     })
-    chartInfoService.getUsersCount().then(res =>{
+    chartInfoService.getUsersCount().then(res => {
       setUsersCount(res.data)
+    })
+    chartInfoService.getVisitorlist().then(res => {
+      setVisitorList(res.data);
+    })
+    chartInfoService.getSignUpList().then(res => {
+      // console.log("useEffect에서 찍은거", res.data)
+      setUserSignUpList(res.data);
     })
 
   }, [])
 
   return (
     <RootStyle>
-      <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
-      <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
+      <DashboardNavbar />
+      <DashboardSidebar isOpenSidebar={open} />
       <MainStyle>
         <Page title="Dashboard">
           <Container maxWidth="xl">
             <Box sx={{ pb: 5 }}>
-              <Typography variant="h4">차트 </Typography>
+              <Typography variant="h4">Admin Chart</Typography>
             </Box>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
@@ -80,14 +125,13 @@ export default function DashboardApp() {
                 <AppNewUsers visitorCount={visitorCount} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <AppItemOrders roomCount={roomCount}/>
+                <AppItemOrders roomCount={roomCount} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <AppBugReports />
               </Grid>
-
               <Grid item xs={12} md={6} lg={8}>
-                <AppWebsiteVisits />
+                <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList}  />
               </Grid>
 
               <Grid item xs={12} md={6} lg={4}>
@@ -108,3 +152,17 @@ export default function DashboardApp() {
     </RootStyle>
   );
 }
+
+const mapStoreStateToProps = (state) =>{
+  return {
+      ...state,
+  }
+}
+
+const mapActionsToProps = (dispatch) => {
+  return {
+      sideOpenAction: (open) => dispatch(sideOpen(open))
+  }
+}
+
+export default connect(mapStoreStateToProps, mapActionsToProps)(DashboardApp);

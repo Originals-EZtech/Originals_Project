@@ -3,14 +3,17 @@ import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';//stt라이브러리
 import * as wss from './../../utils/wss';
-
+import {useCookies} from "react-cookie";
 import onbut from '../../resources/images/stt_on_icon.svg';
 import offbut from '../../resources/images/stt_off_icon.svg';
 import { Transition } from 'react-transition-group';
+import talk from '../../resources/images/talk.svg';
+import notalk from '../../resources/images/notalk.svg';
 
 
 const Dictaphone = ({socketId}) => {
     const [now,setnow]= useState(false);
+    const [cookies]=useCookies();
     const {
       transcript,
       listening,
@@ -26,7 +29,7 @@ const Dictaphone = ({socketId}) => {
       SpeechRecognition.startListening({ continuous: {now},language: 'ko' });
       console.log("시작");
     }
-    console.log("추출");
+    
     const stop=()=>{
       //console.log(transcript);
       setnow(now => !now);
@@ -50,8 +53,18 @@ const Dictaphone = ({socketId}) => {
       }
      
       }   
-
-    return(
+    if(cookies.user_role === 'prof'){
+      return(
+        <div>
+          <img
+          className="talksig"
+          src={now? talk:notalk}>
+          </img>
+        </div>
+      );
+    }
+    else{
+      return(
         <div>
           <img
           className="sttb"
@@ -69,7 +82,8 @@ const Dictaphone = ({socketId}) => {
           </div>
         </div>
      );
-    
+    }
+
   };
   
   const mapStoreStateToProps = (state) =>{
