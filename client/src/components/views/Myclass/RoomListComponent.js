@@ -1,5 +1,5 @@
 import React, { useState, } from 'react';
-
+import search from './resourse/search.svg'
 function RoomListComponent() {
   const [state, setState] = useState({
       room_list: "",
@@ -38,11 +38,21 @@ function RoomListComponent() {
       }
       return result;
     };
+    
+    
+    
     return (
-        <div>
-            <button onClick= { onclick }> 방 목록 불러오기</button>
-            <h3>방 목록</h3><br></br>
-            <h3><div>{rendering()}</div></h3>
+        <div className="my_button">
+            <img
+            className="my_ser"
+            onClick={onclick}
+            src={search}
+            ></img>
+            <h3 className="my_list">Room List</h3><br></br>
+            <div className="list_con">
+              <h3><div className="roompage">{rendering()}</div></h3>
+            </div>
+            
         </div>
     );
 };
