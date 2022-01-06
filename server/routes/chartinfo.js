@@ -129,13 +129,25 @@ router.get("/visitors", function (req, res) {
 // select * from visitor_table where createdate > (sysdate-7);
 // 내일 배열 0~6 하나씩 빼자
 router.get("/visitorlist", function (req, res) {
-    conn.execute("SELECT VISITOR_COUNT, CREATEDATE from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-10) ORDER BY createdate", [], { outFormat: oracledb.OBJECT }, function (err, result) {
+    conn.execute("SELECT VISITOR_COUNT from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-10) ORDER BY createdate", function (err, result) {
     // conn.execute("SELECT CREATEDATE from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-10) ORDER BY createdate", [], function (err, result) {
         if (err) {
             console.log(err);
         }
-        console.log("조회 성공");
-        res.send(result.rows)
+        console.log("조회 성공",result.rows[1]);
+        res.json({
+            a: result.rows[0],
+            b: result.rows[1],
+            c: result.rows[2],
+            d: result.rows[3],
+            e: result.rows[4],
+            f: result.rows[5],
+            g: result.rows[6],
+            h: result.rows[7],
+            i: result.rows[8],
+            j: result.rows[9],
+            k: result.rows[10]
+        })
     })
 });
 
@@ -147,6 +159,35 @@ router.get("/users", function (req, res) {
             console.log("조회 실패");
         }
         res.status(200).json(result.rows[0][0])
+    })
+});
+
+
+// 최근 10일간 유저수
+router.get("/signuplist", function (req, res) {
+    const qry = "SELECT COUNT(*),TO_CHAR(USER_DATE,'YYYY-MM-DD') AS LOL FROM USER_TABLE \
+                WHERE 1=1 AND USER_DATE >=SYSDATE-10 \
+                GROUP BY TO_CHAR(USER_DATE,'YYYY-MM-DD') \
+                ORDER BY LOL"
+    
+    conn.execute(qry, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(result.rows[0][0])
+        // res.send(result.rows)
+        res.json({
+            countA: result.rows[0][0],
+            countB: result.rows[1][0],
+            countC: result.rows[2][0],
+            countD: result.rows[3][0],
+            countE: result.rows[4][0],
+            countF: result.rows[5][0],
+            countG: result.rows[6][0],
+            countH: result.rows[7][0],
+            countI: result.rows[8][0],
+            countJ: result.rows[9][0],
+        })
     })
 });
 
