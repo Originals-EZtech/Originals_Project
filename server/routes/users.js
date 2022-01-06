@@ -126,6 +126,24 @@ router.post("/register", function (req, res) {
     }
 });
 
+// register시 Teacher인 경우 파일 업로드
+router.post("/upload", function (req, res) {
+    const upload = require('../fileupload');
+    const multer = require('multer');
+
+    upload(req, res, function(err) {
+        if (err instanceof multer.MulterError) {
+          return err;
+        } else if (err) {
+          return err;
+        }
+        console.log('원본파일명 : ' + req.file.originalname)
+        console.log('저장파일명 : ' + req.file.filename)
+        console.log('크기 : ' + req.file.size)
+        // console.log('경로 : ' + req.file.location) s3 업로드시 업로드 url을 가져옴
+        return res.json({success:1});
+    });
+});
 
 //siginin
 router.post("/login", function (req, res) {

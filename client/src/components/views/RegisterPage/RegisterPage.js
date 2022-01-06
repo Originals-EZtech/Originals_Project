@@ -8,6 +8,7 @@ import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
+import axios from 'axios';
 
 function Register(props) {
     const { registerUserAction, authEmailAction } = props;
@@ -21,6 +22,7 @@ function Register(props) {
 
     const [Time, setTime] = useState(false);
     const [isTeacher, setTeacher] = useState(false);
+    const [selectedFile, setSelectedFile] = useState("");
 
     // 정규식 메세지 상태
     const [EmailMessage, setEmailMessage] = useState("")
@@ -174,6 +176,7 @@ function Register(props) {
         })
     }
 
+    // 체크박스 체크여부 확인
     const checkboxHandler = (event) => {
         // console.log(event.target.checked);
         if (event.target.checked) {
@@ -182,6 +185,26 @@ function Register(props) {
             setTeacher(false);
         }
     }
+
+    // 파일업로드 관련 함수
+    const handleFileInput = (event) => {
+        console.log(event.target.files[0]);
+        setSelectedFile('test')
+        console.log(selectedFile);
+    }
+    
+    const handlePost = () => {
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        console.log(formData);
+    
+        return axios.post("/api/users/upload", formData).then(res => {
+          alert('성공')
+        }).catch(err => {
+          alert('실패')
+        })
+    }
+    
 
     return (
         <div>
@@ -249,21 +272,24 @@ function Register(props) {
                     </form>
 
                     <div className={styles.authDiv}>
-                        <div>
+                        <div className={styles.authentication}>
                             <button onClick={authEmailHandler} className={styles.authBtn}>Authentication</button>
+                            {Time ? <Timer mm={1} ss={0} /> : null}
                         </div>
-
-                        {Time ? <Timer mm={1} ss={0} /> : null}
-
-                        <div>
+                        <div className={styles.checkRole}>
                             <label className={styles.checkbox_container}>
                                 <input type="checkbox" onChange={checkboxHandler} />
                                 Teacher?
                                 <span className={styles.checkmark}></span>
                             </label>
+                            <div className={styles.uploadFile}>
+                                <input type="file" name="file" onChange={handleFileInput}/>
+                                <button type="button" onClick={handlePost} > 파일전송 </button>
+                            </div>
                         </div>
+
+
                     </div>
-                    
                 </div>
                 <div className={styles.img}>
                     <img src="assets/images/register_pic.svg" alt="" />
