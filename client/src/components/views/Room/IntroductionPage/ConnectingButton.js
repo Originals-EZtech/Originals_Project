@@ -13,13 +13,13 @@ const ConnectingButton = ({
     if(cookies.user_role === 'prof'){
         return(
             <button className={'create_room_button'} onClick ={onClickHandler}>
-                {'create_room_button'}
+                {'create room'}
             </button>
         );
     }else{
         return(
             <button className={'join_room_button'} onClick ={onClickHandler}>
-                {'join_room_button'}
+                {'join room'}
             </button>
         );
     }
