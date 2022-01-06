@@ -129,12 +129,12 @@ router.get("/visitors", function (req, res) {
 // select * from visitor_table where createdate > (sysdate-7);
 // 내일 배열 0~6 하나씩 빼자
 router.get("/visitorlist", function (req, res) {
-    conn.execute("SELECT VISITOR_COUNT, CREATEDATE from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-7)", [], { outFormat: oracledb.OBJECT }, function (err, result) {
+    conn.execute("SELECT VISITOR_COUNT, CREATEDATE from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-10) ORDER BY createdate", [], { outFormat: oracledb.OBJECT }, function (err, result) {
+    // conn.execute("SELECT CREATEDATE from VISITOR_TABLE WHERE CREATEDATE > (SYSDATE-10) ORDER BY createdate", [], function (err, result) {
         if (err) {
             console.log(err);
         }
         console.log("조회 성공");
-        console.log(result.rows);
         res.send(result.rows)
     })
 });

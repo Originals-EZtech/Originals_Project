@@ -47,9 +47,10 @@ export default function DashboardApp() {
   const [visitorCount, setVisitorCount] = useState();
   const [roomCount, setRoomCount] = useState();
   const [usersCount, setUsersCount] = useState({general: 0, prof: 0, total: 0});
-  const [visitorList, setVisitorList] = useState();
+  const [visitorList, setVisitorList] = useState({a:{CREATEDATE:"",VISITOR_COUNT:0},b:{CREATEDATE:"",VISITOR_COUNT:0},c:{CREATEDATE:"",VISITOR_COUNT:0},d:{CREATEDATE:"",VISITOR_COUNT:0}});
+  // const [visitorList, setVisitorList] = useState();
 
-  console.log("상태값???",visitorList.visitorList)
+  console.log("상태값 visitorList는? ",visitorList)
   
   useEffect(() => {
     chartInfoService.getVisitorTotal().then(res =>{
