@@ -38,13 +38,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 // ----------------------------------------------------------------------
 
-<<<<<<< HEAD
- function AccountPopover(props) {
-   const { logoutAction } = props;
-
-=======
 function AccountPopover(props) {
->>>>>>> ef22c17c7c652b017044973933aa68b2c04ab4b9
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [cookies] = useCookies();
