@@ -30,3 +30,4 @@ const ConnectingButtons = (props) => {
 };
 
 export default withRouter(ConnectingButtons);
+
