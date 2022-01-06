@@ -40,6 +40,7 @@ const NewMessage = () => {
       console.log(file.files[0].name); 
       setFile(file.files[0]); // file 값 설정
       console.log(file);
+      
       //webRTCHandler.sendFileUsingDataChannel(file.files[0]);
     }
     
