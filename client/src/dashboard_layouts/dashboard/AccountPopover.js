@@ -60,7 +60,6 @@ function AccountPopover(props) {
     })
   }
 
-
   return (
     <>
       <IconButton

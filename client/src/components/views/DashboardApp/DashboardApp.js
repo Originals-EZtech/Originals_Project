@@ -71,7 +71,8 @@ function DashboardApp(props) {
     "countG": [0],
     "countH": [0],
     "countI": [0],
-    "countJ": [0]
+    "countJ": [0],
+    "countK": [0]
   }
 
   // const [open, setOpen] = useState(false);
@@ -82,7 +83,7 @@ function DashboardApp(props) {
   const [userSignUpList, setUserSignUpList] = useState(userInitState);
 
 
-  // console.log("상태값???",visitorList.visitorList)
+  console.log("상태값???",visitorList)
   
   useEffect(() => {
     sideOpenAction(false);
