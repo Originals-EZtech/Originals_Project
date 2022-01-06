@@ -14,15 +14,13 @@ const IntroductionPage = ({setIsRoomHostAction}) => {
     }, []);
     
     return(
-        <>
-        <RoomNavBar />
         <div className = 'introduction_page_container'>
+            <RoomNavBar />
           <div className='introduction_page_panel'>
               <img src={logo} className ='introduction_page_image'></img>
               <ConnectingButtons />
           </div>
         </div>
-        </>
     ); 
 };
 
