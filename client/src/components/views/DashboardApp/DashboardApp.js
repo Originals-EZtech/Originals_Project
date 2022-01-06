@@ -48,11 +48,40 @@ function DashboardApp(props) {
     }
   }));
 
+  const initState = {
+    "a": [0],    
+    "b": [0],
+    "c": [0],
+    "d": [0],
+    "e": [0],
+    "f": [0],
+    "g": [0],
+    "h": [0],
+    "i": [0],
+    "j": [0],
+    "k": [0]
+  }
+  const userInitState = {
+    "countA": [0],
+    "countB": [0],
+    "countC": [0],
+    "countD": [0],
+    "countE": [0],
+    "countF": [0],
+    "countG": [0],
+    "countH": [0],
+    "countI": [0],
+    "countJ": [0]
+  }
+
   // const [open, setOpen] = useState(false);
   const [visitorCount, setVisitorCount] = useState();
   const [roomCount, setRoomCount] = useState();
-  const [usersCount, setUsersCount] = useState({general: 0, prof: 0, total: 0});
-  const [visitorList, setVisitorList] = useState();
+  const [usersCount, setUsersCount] = useState({ general: 0, prof: 0, total: 0 });
+  const [visitorList, setVisitorList] = useState(initState);
+  const [userSignUpList, setUserSignUpList] = useState(userInitState);
+
+  // console.log("상태값 userSignUpList? ", userSignUpList)
 
   // console.log("상태값???",visitorList.visitorList)
   
@@ -62,15 +91,18 @@ function DashboardApp(props) {
     chartInfoService.getVisitorTotal().then(res =>{
       setVisitorCount(res.data);
     })
-    chartInfoService.getRoomsTotal().then(res =>{
+    chartInfoService.getRoomsTotal().then(res => {
       setRoomCount(res.data);
     })
-    chartInfoService.getUsersCount().then(res =>{
+    chartInfoService.getUsersCount().then(res => {
       setUsersCount(res.data)
     })
-    chartInfoService.getVisitorlist().then(res =>{
-      console.log("useEffect에서 찍은거",res.data)
+    chartInfoService.getVisitorlist().then(res => {
       setVisitorList(res.data);
+    })
+    chartInfoService.getSignUpList().then(res => {
+      // console.log("useEffect에서 찍은거", res.data)
+      setUserSignUpList(res.data);
     })
 
   }, [])
@@ -93,13 +125,13 @@ function DashboardApp(props) {
                 <AppNewUsers visitorCount={visitorCount} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <AppItemOrders roomCount={roomCount}/>
+                <AppItemOrders roomCount={roomCount} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <AppBugReports />
               </Grid>
               <Grid item xs={12} md={6} lg={8}>
-                <AppWebsiteVisits visitorList={visitorList} />
+                <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList}  />
               </Grid>
 
               <Grid item xs={12} md={6} lg={4}>

@@ -70,6 +70,15 @@ function DashboardSidebar(props) {
         <Link underline="none">
           <AccountStyle>
             <h4><Clock format={'YYYY-MM-DD HH:mm:ss'} ticking={true} timezone={'US/Pacific'} /></h4>
+            {/* <Avatar src="/static/illustrations/illustration_avatar.png" alt="photoURL" />
+            <Box sx={{ ml: 2 }}>
+              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+                {cookies.user_name}님
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                {account.role}
+              </Typography>
+            </Box> */}
           </AccountStyle>
         </Link>
       </Box>

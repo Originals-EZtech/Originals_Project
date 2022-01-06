@@ -50,6 +50,8 @@
   font-size: 16px;
   width: 80%;
   box-shadow: 2px 20px 5px rgba(0, 82, 201, 0.05);
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .new_message_textarea:focus {
@@ -584,7 +586,7 @@ video {
 }
 
 .author_direct_message {
-  background: linear-gradient(168.68deg, #29ca8e 1.12%, #21a374 100%);
+  background: #21a374;
   float: right;
   border-radius: 8px 8px 0px 8px;
   padding: 13px;
@@ -599,7 +601,7 @@ video {
 
 .receiver_direct_message {
   border-radius: 8px 8px 8px 0px;
-  border: 1px solid #bac1ca;
+  border: 1px solid #a7aeb6;
   background: #ffffff;
   padding: 13px;
   float: left;
@@ -609,6 +611,7 @@ video {
   margin-bottom: 5px;
   font-size: 14px;
   margin-right: 5px;
+  color: black;
 }
 
 
