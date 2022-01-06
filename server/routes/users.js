@@ -339,6 +339,7 @@ router.get('/logout', function (req, res) {
         conn.execute('update TOKEN_TABLE set TOKEN_VALUE = null where USER_EMAIL = :user_email ', [decoded.email], function (err2, result2) {
             if (err) { console.log(err) }
             res.clearCookie("accessToken")
+            res.clearCookie("refreshToken")
             res.clearCookie("user_name")
             res.clearCookie("user_email")
             res.clearCookie("user_role")

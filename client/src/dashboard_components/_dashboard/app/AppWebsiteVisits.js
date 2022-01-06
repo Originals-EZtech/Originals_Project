@@ -11,8 +11,6 @@ import moment from 'moment';
 
 export default function AppWebsiteVisits({visitorList,userSignUpList}) {
   const chartData= visitorList;
-console.log("visitorList",visitorList)
-console.log("userSignUpList",userSignUpList)
 
   const CHART_DATA = [
     {
@@ -28,7 +26,7 @@ console.log("userSignUpList",userSignUpList)
     {
       name: '방문자수',
       type: 'line',
-      data: [chartData.a[0], chartData.b[0], chartData.c[0], chartData.d[0], chartData.e[0], chartData.f[0], chartData.g[0], chartData.h[0], chartData.i[0], chartData.j[0], chartData.k[0]]
+      data: [chartData.a, chartData.b, chartData.c, chartData.d, chartData.e, chartData.f, chartData.g, chartData.h, chartData.i, chartData.j, chartData.k]
     }
   ];
 
