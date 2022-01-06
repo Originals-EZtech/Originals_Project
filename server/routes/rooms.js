@@ -14,6 +14,56 @@ function doRelease(connection) {
         }
     });
 }
+// router.post("/roomcreatedata_test", (req, res) => {
+//     const insertarray = [req.body.room_name]
+//     //테이블에 방 이름 방 비밀번호 입력 
+//     oracledb.getConnection(dbConfig, (err, conn) => {
+//         roomNameInsert(err, conn);
+//     });
+//         function roomNameInsert(err, connection) {
+//             if (err) {
+//                 console.error(err.message);
+//                 console.log("데이터 가져오기 실패");
+//                 return;
+//             }
+//             connection.execute("insert into room_table (ROOM_SEQ,ROOM_ID,USER_ID,ROOM_NAME,ROOM_DATE) values(ROOM_SEQ.NEXTVAL,:room_id,9,:room_name,SYSDATE)", insertarray, function (err, result) {
+//                 if (err) {
+//                     console.error(err.message);
+//                     doRelease(connection);
+//                     return;
+//                 }
+//                 res.send(result);
+//                 doRelease(connection);
+//             });
+//     }
+// });
+
+
+// router.post("/roomjoindata_test", (req, res) => {
+//     const insertarray = [req.body.room_id, req.body.room_name]
+//     //테이블에 방 이름 방 비밀번호 입력 
+//     oracledb.getConnection(dbConfig, (err, conn) => {
+//         roomNameInsert(err, conn);
+//     });
+//         function roomNameInsert(err, connection) {
+//             if (err) {
+//                 console.error(err.message);
+//                 console.log("데이터 가져오기 실패");
+//                 return;
+//             }
+//             connection.execute("insert into room_table (ROOM_SEQ,ROOM_ID,USER_ID,ROOM_NAME,ROOM_DATE) values(ROOM_SEQ.NEXTVAL,:room_id,9,:room_name,SYSDATE)", insertarray, function (err, result) {
+//                 if (err) {
+//                     console.error(err.message);
+//                     doRelease(connection);
+//                     return;
+//                 }
+//                 res.send(result);
+//                 doRelease(connection);
+//             });
+//     }
+// });
+
+
 
 router.post("/roomlist_2", (req, res) => {
     const selectarray = [req.body.user_id,];
