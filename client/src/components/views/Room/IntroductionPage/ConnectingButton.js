@@ -13,13 +13,13 @@ const ConnectingButton = ({
     if(cookies.user_role === 'prof'){
         return(
             <button className={'create_room_button'} onClick ={onClickHandler}>
-                {'create room'}
+                {'방 만들기'}
             </button>
         );
     }else{
         return(
             <button className={'join_room_button'} onClick ={onClickHandler}>
-                {'join room'}
+                {'방 들어가기'}
             </button>
         );
     }
