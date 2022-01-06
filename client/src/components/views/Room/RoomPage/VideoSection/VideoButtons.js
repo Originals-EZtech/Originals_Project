@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 const VideoButtons = (props) =>{
     const { connectOnlyWithAudio} = props;
 
+    
     return (
         <div className ='video_buttons_container'>
             <MicButton />
