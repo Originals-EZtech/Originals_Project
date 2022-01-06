@@ -3,13 +3,7 @@ import { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
-<<<<<<< HEAD
 import { Link as RouterLink, withRouter } from 'react-router-dom';
-=======
-import { Link, withRouter } from 'react-router-dom';
-import { logout } from '../../components/views/Room/store/actions';
-import {ToastContainer, toast} from "react-toastify"
->>>>>>> ef22c17c7c652b017044973933aa68b2c04ab4b9
 // material
 import { alpha } from '@mui/material/styles';
 import { Button, Box, Divider, MenuItem, Typography, IconButton } from '@mui/material';
@@ -17,7 +11,6 @@ import { Button, Box, Divider, MenuItem, Typography, IconButton } from '@mui/mat
 import MenuPopover from '../../dashboard_components/MenuPopover';
 //
 import { useCookies } from 'react-cookie';
-import { connect } from 'react-redux';
 import { logout } from '../../components/views/Room/store/actions';
 import { toast, ToastContainer } from 'react-toastify';
 
