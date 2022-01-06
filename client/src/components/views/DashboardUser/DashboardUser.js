@@ -1,5 +1,4 @@
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
 import { useEffect, useState } from 'react';
 // material
 import {
@@ -80,7 +79,7 @@ const initState = {
   ]
 }
 
-export default function User() {
+export default function DashboardUser() {
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState('name');
@@ -88,17 +87,16 @@ export default function User() {
   const [users, setUsers] = useState(initState);
   const [flag, serFlag] = useState(false);
 
-  console.log("클라에서 users : ", users)
-
+  // console.log("클라에서 users : ", users)
 
   useEffect(() => {
-
+    console.log('init open', open);
     chartInfoService.getPermitList().then(res => {
-      console.log("클라에서 res : ", res)
+      // console.log("클라에서 res : ", res)
       setUsers(res.data)
     })
 
-  }, [flag])
+  }, [])
 
   /* 스타일 설정 */
   const APP_BAR_MOBILE = 64;
@@ -124,11 +122,11 @@ export default function User() {
   }));
   /* 스타일 설정 */
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+  // const handleRequestSort = (event, property) => {
+  //   const isAsc = orderBy === property && order === 'asc';
+  //   setOrder(isAsc ? 'desc' : 'asc');
+  //   setOrderBy(property);
+  // };
 
   // const handleSelectAllClick = (event) => {
   //   if (event.target.checked) {
@@ -204,17 +202,7 @@ export default function User() {
         {user.USER_FLAG ? 'Yes' : 'No'}
       </TableCell>
 
-      <TableCell align="left" 
-      // onClick={() => changeRole(user)}
-      >
-        {/* <Label
-          variant="ghost"
-          color={
-            (user.USER_FLAG === 'banned' && 'error') || 'success'
-          }
-        >
-          {user.USER_FLAG}
-        </Label> */}
+      <TableCell align="left">
         <UserChangeRole user={user} />
       </TableCell>
 

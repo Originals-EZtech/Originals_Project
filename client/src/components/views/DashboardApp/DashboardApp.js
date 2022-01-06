@@ -49,7 +49,7 @@ export default function DashboardApp() {
   const [usersCount, setUsersCount] = useState({general: 0, prof: 0, total: 0});
   const [visitorList, setVisitorList] = useState();
 
-  console.log("상태값???",visitorList.visitorList)
+  // console.log("상태값???",visitorList.visitorList)
   
   useEffect(() => {
     chartInfoService.getVisitorTotal().then(res =>{
@@ -76,7 +76,7 @@ export default function DashboardApp() {
         <Page title="Dashboard">
           <Container maxWidth="xl">
             <Box sx={{ pb: 5 }}>
-              <Typography variant="h4">차트 </Typography>
+              <Typography variant="h4">Admin Chart</Typography>
             </Box>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={3}>

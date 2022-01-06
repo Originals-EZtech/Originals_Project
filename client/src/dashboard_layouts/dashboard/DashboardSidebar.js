@@ -11,8 +11,8 @@ import NavSection from '../../dashboard_components/NavSection';
 import { MHidden } from '../../dashboard_components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
-import account from '../../_mocks_/account';
-import { useCookies } from 'react-cookie';
+// import { useCookies } from 'react-cookie';
+import Clock from 'react-live-clock';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
-  const [cookies] = useCookies();
+  // const [cookies] = useCookies();
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -65,17 +65,9 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none" component={RouterLink} to="#">
+        <Link underline="none">
           <AccountStyle>
-            <Avatar src="/static/illustrations/illustration_avatar.png" alt="photoURL" />
-            <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {cookies.user_name}
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
-              </Typography>
-            </Box>
+            <h4><Clock format={'YYYY-MM-DD HH:mm:ss'} ticking={true} timezone={'US/Pacific'} /></h4>
           </AccountStyle>
         </Link>
       </Box>
