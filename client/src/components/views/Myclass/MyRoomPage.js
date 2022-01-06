@@ -2,9 +2,12 @@ import React, { useState, } from 'react';
 import RoomNavBar from '../NavBar/RoomNavBar';
 import RoomListComponent from './RoomListComponent';
 import './MyRoomPage.css';
+import {useCookies} from "react-cookie";
 function JoinRoomComponent() {
     const [now,setnow]=useState(false);
-    if(now){
+    const [cookies]=useCookies();
+    
+    if(cookies.user_role === 'prof'){
         return(
             <div className="myall">
                 <div className="mycalss_room_conta">
@@ -18,6 +21,7 @@ function JoinRoomComponent() {
         );
     }
     else{
+        console.log(cookies.user_role);
         return (
             <div className="myall">
                 <div className="mycalss_room_conta">
