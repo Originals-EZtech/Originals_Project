@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { connect} from 'react-redux';
 // material
 import { Box, Grid, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -17,10 +18,14 @@ import {
   AppConversionRates
 } from '../../../dashboard_components/_dashboard/app';
 import chartInfoService from './service/chartInfoService';
+import { sideOpen } from '../Room/store/actions';
 
 // ----------------------------------------------------------------------
 
-export default function DashboardApp() {
+function DashboardApp(props) {
+  const { open, sideOpenAction } = props;
+  // console.log(open);
+
   const APP_BAR_MOBILE = 64;
   const APP_BAR_DESKTOP = 92;
 
@@ -43,7 +48,7 @@ export default function DashboardApp() {
     }
   }));
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [visitorCount, setVisitorCount] = useState();
   const [roomCount, setRoomCount] = useState();
   const [usersCount, setUsersCount] = useState({general: 0, prof: 0, total: 0});
@@ -52,6 +57,8 @@ export default function DashboardApp() {
   // console.log("상태값???",visitorList.visitorList)
   
   useEffect(() => {
+    sideOpenAction(false);
+
     chartInfoService.getVisitorTotal().then(res =>{
       setVisitorCount(res.data);
     })
@@ -70,8 +77,8 @@ export default function DashboardApp() {
 
   return (
     <RootStyle>
-      <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
-      <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
+      <DashboardNavbar />
+      <DashboardSidebar isOpenSidebar={open} />
       <MainStyle>
         <Page title="Dashboard">
           <Container maxWidth="xl">
@@ -113,3 +120,17 @@ export default function DashboardApp() {
     </RootStyle>
   );
 }
+
+const mapStoreStateToProps = (state) =>{
+  return {
+      ...state,
+  }
+}
+
+const mapActionsToProps = (dispatch) => {
+  return {
+      sideOpenAction: (open) => dispatch(sideOpen(open))
+  }
+}
+
+export default connect(mapStoreStateToProps, mapActionsToProps)(DashboardApp);

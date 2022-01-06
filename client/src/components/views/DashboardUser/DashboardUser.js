@@ -1,5 +1,6 @@
 import { filter } from 'lodash';
 import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 // material
 import {
   Card,
@@ -25,6 +26,8 @@ import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavba
 import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
 import { toast, ToastContainer } from 'react-toastify';
+
+import { sideOpen } from '../Room/store/actions';
 
 // ----------------------------------------------------------------------
 
@@ -79,18 +82,21 @@ const initState = {
   ]
 }
 
-export default function DashboardUser() {
+function DashboardUser(props) {
+  const { open, sideOpenAction } = props;
+
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState('name');
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [users, setUsers] = useState(initState);
   const [flag, serFlag] = useState(false);
 
   // console.log("클라에서 users : ", users)
 
   useEffect(() => {
-    console.log('init open', open);
+    sideOpenAction(false);
+    // console.log('init open', open);
     chartInfoService.getPermitList().then(res => {
       // console.log("클라에서 res : ", res)
       setUsers(res.data)
@@ -214,8 +220,8 @@ export default function DashboardUser() {
 
   return (
     <RootStyle>
-      <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
-      <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
+      <DashboardNavbar />
+      <DashboardSidebar isOpenSidebar={open} />
       <MainStyle>
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
@@ -249,3 +255,17 @@ export default function DashboardUser() {
     </RootStyle>
   );
 }
+
+const mapStoreStateToProps = (state) =>{
+  return {
+      ...state,
+  }
+}
+
+const mapActionsToProps = (dispatch) => {
+  return {
+      sideOpenAction: (open) => dispatch(sideOpen(open))
+  }
+}
+
+export default connect(mapStoreStateToProps, mapActionsToProps)(DashboardUser);

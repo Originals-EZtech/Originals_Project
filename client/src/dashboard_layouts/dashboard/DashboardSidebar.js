@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
@@ -11,8 +12,9 @@ import NavSection from '../../dashboard_components/NavSection';
 import { MHidden } from '../../dashboard_components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
-// import { useCookies } from 'react-cookie';
 import Clock from 'react-live-clock';
+
+import { sideOpen } from '../../components/views/Room/store/actions';
 
 // ----------------------------------------------------------------------
 
@@ -40,16 +42,16 @@ DashboardSidebar.propTypes = {
   onCloseSidebar: PropTypes.func
 };
 
-export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+function DashboardSidebar(props) {
   const { pathname } = useLocation();
-  // const [cookies] = useCookies();
+  const { open, sideOpenAction } = props;
 
-  useEffect(() => {
-    if (isOpenSidebar) {
-      onCloseSidebar();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  // useEffect(() => {
+  //   if (open) {
+  //     sideOpenAction(false);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [pathname]);
 
   const renderContent = (
     <Scrollbar
@@ -75,44 +77,19 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       <NavSection navConfig={sidebarConfig} />
 
       <Box sx={{ flexGrow: 1 }} />
-
-      {/* <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-        <Stack
-          alignItems="center"
-          spacing={3}
-          sx={{
-            p: 2.5,
-            pt: 5,
-            borderRadius: 2,
-            position: 'relative',
-            bgcolor: 'grey.200'
-          }}
-        >
-          <Box
-            component="img"
-            src="/static/illustrations/illustration_avatar.png"
-            sx={{ width: 100, position: 'absolute', top: -50 }}
-          />
-
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography gutterBottom variant="h6">
-              wat?
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              From only $69
-            </Typography>
-          </Box>
-        </Stack>
-      </Box> */}
     </Scrollbar>
   );
+
+  const closeHandler = () => {
+    sideOpenAction(false)
+  }
 
   return (
     <RootStyle>
       <MHidden width="lgUp">
         <Drawer
-          open={isOpenSidebar}
-          onClose={onCloseSidebar}
+          open={open}
+          onClose={closeHandler} /*open값을 false로 만들기*/
           PaperProps={{
             sx: { width: DRAWER_WIDTH }
           }}
@@ -138,3 +115,17 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
     </RootStyle>
   );
 }
+
+const mapStoreStateToProps = (state) =>{
+  return {
+      ...state,
+  };
+};
+
+const mapActionsToProps = (dispatch) => {
+  return {
+      sideOpenAction: (open) => dispatch(sideOpen(open))
+  }
+}
+
+export default connect(mapStoreStateToProps, mapActionsToProps)(DashboardSidebar);

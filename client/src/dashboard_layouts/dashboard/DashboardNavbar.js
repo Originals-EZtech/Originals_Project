@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 import menu2Fill from '@iconify/icons-eva/menu-2-fill';
@@ -8,6 +9,7 @@ import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 import { MHidden } from '../../dashboard_components/@material-extend';
 //
 import AccountPopover from './AccountPopover';
+import { sideOpen } from '../../components/views/Room/store/actions';
 
 // ----------------------------------------------------------------------
 
@@ -39,12 +41,19 @@ DashboardNavbar.propTypes = {
   onOpenSidebar: PropTypes.func
 };
 
-export default function DashboardNavbar({ onOpenSidebar }) {
+function DashboardNavbar(props) {
+  const { sideOpenAction } = props;
+
+  const clickHandler = () => {
+    sideOpenAction(true)
+  }
+
   return (
     <RootStyle>
       <ToolbarStyle>
         <MHidden width="lgUp">
-          <IconButton onClick={onOpenSidebar} sx={{ mr: 1, color: 'text.primary' }}>
+          <IconButton onClick={clickHandler} /*open값을 true로 만들기*/
+            sx={{ mr: 1, color: 'text.primary' }}>
             <Icon icon={menu2Fill} />
           </IconButton>
         </MHidden>
@@ -58,3 +67,11 @@ export default function DashboardNavbar({ onOpenSidebar }) {
     </RootStyle>
   );
 }
+
+const mapActionsToProps = (dispatch) => {
+  return {
+      sideOpenAction: (open) => dispatch(sideOpen(open))
+  }
+}
+
+export default connect(null, mapActionsToProps)(DashboardNavbar);
