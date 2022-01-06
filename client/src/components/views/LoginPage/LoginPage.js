@@ -45,28 +45,12 @@ function Login(props) {
                 // 뒤로가기 방지 페이지 이동
                 // window.location.href="/";
                 setTimeout(() => {
-                    props.history.push('/room');
+                    props.history.push('/intro');
                 }, 1200)
             } else {
                 toast.error(response.response.msg);
             }
         })
-        // dispatch(loginUser(body))
-        // .then(response => {
-                
-        //         if (response.payload.loginSuccess) {
-        //             // alert(response.payload.msg);
-        //             toast.success(response.payload.msg);
-        //             // 뒤로가기 방지 페이지 이동
-        //             // window.location.href="/";
-        //             setTimeout(() => {
-        //                 props.history.push('/room');
-        //             }, 1200)
-        //         } else {
-        //             toast.error(response.payload.msg);
-        //         }
-        //     })
-            
     }
 
     return (

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { registerUser, authEmail } from '../Room/store/actions';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { registerUser, authEmail, fileUpload } from '../Room/store/actions';
 import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
@@ -8,10 +8,11 @@ import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
-import axios from 'axios';
+// import axios from 'axios';
+// import Customer from './Customer';
 
 function Register(props) {
-    const { registerUserAction, authEmailAction } = props;
+    const { registerUserAction, authEmailAction, fileUploadAction } = props;
 
     const [Email, setEmail] = useState("");
     const [Name, setName] = useState("");
@@ -20,9 +21,10 @@ function Register(props) {
     const [AuthCode, setAuthCode] = useState("");
     const [SecurityCode, setSecurityCode] = useState("");
 
+    const [AuthEmailSuccess, setAuthEmailSuccess] = useState(false);
     const [Time, setTime] = useState(false);
     const [isTeacher, setTeacher] = useState(false);
-    const [selectedFile, setSelectedFile] = useState("");
+    const [selectedFile, setSelectedFile] = useState(null);
 
     // 정규식 메세지 상태
     const [EmailMessage, setEmailMessage] = useState("")
@@ -40,7 +42,7 @@ function Register(props) {
         } else if (!emailRegex.test(event.target.value)) {
             setEmailMessage('이메일 형식이 틀렸습니다.')
         } else {
-            setEmailMessage('올바른 이메일 형식이에요 ')
+            setEmailMessage('올바른 이메일 형식 - 인증을 진행해주세요 ')
         }
     }
 
@@ -111,6 +113,7 @@ function Register(props) {
                 toast.error(response.response.msg)
             }
         })
+        setAuthEmailSuccess(true);
     }
 
     const onSubmitHandler = (event) => {
@@ -144,14 +147,7 @@ function Register(props) {
         let body = {}
 
         if (isTeacher) {
-            body = {
-                email: Email,
-                password: Password,
-                name : Name,
-                role : "prof",
-                flag : "true"
-            }
-        } else {
+            // 선생님일 경우
             body = {
                 email: Email,
                 password: Password,
@@ -159,14 +155,34 @@ function Register(props) {
                 role : "general",
                 flag : "true"
             }
+        } else {
+            // 학생일 경우
+            body = {
+                email: Email,
+                password: Password,
+                name : Name,
+                role : "general",
+                flag : "false"
+            }
         }
         
-        console.log(body);
+        // 학생일 경우 바로 registerUserAction 실행 후 종료
+        // 선생님일 경우 아래 모두 실행
 
+        // Teacher 체크박스에 체크만 하고 첨부파일 올리지 않을 경우
+        if (isTeacher && (selectedFile === null)) {
+            return toast.error('첨부파일을 확인해주세요.')
+        }
+        
+        // user 테이블에 data 먼저 insert
         registerUserAction(body)
         .then(response => {
             if (response.response.success) {
                 toast.success(response.response.msg);
+                // Teacher일 경우, 회원가입시 함께 첨부한 파일도 서버에 전송
+                if (isTeacher) {
+                    handleFileUpload();
+                }
                 setTimeout(() => {
                     props.history.push('/login');
                 }, 1200)
@@ -178,6 +194,12 @@ function Register(props) {
 
     // 체크박스 체크여부 확인
     const checkboxHandler = (event) => {
+        //이메일(아이디) 입력X 또는 이메일(아이디) 인증X 인 경우
+        if (Email === "" || !AuthEmailSuccess) {
+            event.target.checked = false;
+            return toast.error("이메일 인증을 먼저 진행해주세요.");
+        }
+
         // console.log(event.target.checked);
         if (event.target.checked) {
             setTeacher(true);
@@ -187,24 +209,43 @@ function Register(props) {
     }
 
     // 파일업로드 관련 함수
-    const handleFileInput = (event) => {
-        console.log(event.target.files[0]);
-        setSelectedFile('test')
-        console.log(selectedFile);
+    const handleFileChange = (event) => {
+        setSelectedFile(event.target.files[0]);
     }
-    
-    const handlePost = () => {
-        const formData = new FormData();
-        formData.append('file', selectedFile);
-        console.log(formData);
-    
-        return axios.post("/api/users/upload", formData).then(res => {
-          alert('성공')
-        }).catch(err => {
-          alert('실패')
+
+    const handleFileUpload = (event) => {
+        // event.preventDefault();
+
+        const body = {
+            email: Email,
+            image: selectedFile
+        }
+
+        fileUploadAction(body)
+        .then(response => {
+            // console.log(response.response.uploadSuccess)
+            if (response.response.uploadSuccess) {
+                // toast.success(response.response.msg);
+                alert('선생님은 관리자 승인 후 정상 이용 가능합니다. (최대 1일 소요)')
+            } else {
+                toast.error(response.response.msg);
+            }
         })
     }
+
+    // const [testVar, setTestVar] = useState(null);
+    // useEffect(() => {
+    //     callApi()
+    //     .then(res => setTestVar(res));
+    // }, [])
     
+    // const callApi = async () => {
+    //     const response = await fetch('/api/users/userList');       // 해당 주소에 접속
+    //     const body = await response.json();                   // 서버에서 수행된 결과값을 json 형태로 받아옴
+    //     console.log(body);
+    //     return body;        
+    // }
+
 
     return (
         <div>
@@ -278,14 +319,22 @@ function Register(props) {
                         </div>
                         <div className={styles.checkRole}>
                             <label className={styles.checkbox_container}>
-                                <input type="checkbox" onChange={checkboxHandler} />
-                                Teacher?
+                                <input type="checkbox" value={isTeacher} onChange={checkboxHandler} />
+                                <span>Teacher?</span>
                                 <span className={styles.checkmark}></span>
                             </label>
-                            <div className={styles.uploadFile}>
-                                <input type="file" name="file" onChange={handleFileInput}/>
-                                <button type="button" onClick={handlePost} > 파일전송 </button>
-                            </div>
+
+                            {
+                                isTeacher
+                                ?
+                                <div style={{display:"block"}}>
+                                    <form onSubmit={handleFileUpload}>
+                                        <input type="file" name="image" accept="image/*" onChange={handleFileChange}/>
+                                        {/* <button type="submit">업로드</button> */}
+                                    </form>
+                                </div>
+                                : null
+                            }
                         </div>
 
 
@@ -294,6 +343,25 @@ function Register(props) {
                 <div className={styles.img}>
                     <img src="assets/images/register_pic.svg" alt="" />
                 </div>
+
+                {/* <table>
+                    <tr>
+                        <th>email</th>
+                        <th>image</th>
+                    </tr>
+                    {testVar ? testVar.map(c => {
+                    return (
+                        <Customer
+                            key={c.USER_EMAIL}
+                            id={c.USER_EMAIL}
+                            image={c.DIRECTORY}
+                        />
+                    );
+                    }) : 
+                    null
+                    }
+                </table> */}
+
             </div>
             <ToastContainer hideProgressBar={true}/>
         </div>
@@ -303,7 +371,8 @@ function Register(props) {
 const mapActionsToProps = (dispatch) => {
     return {
         registerUserAction: (body) => dispatch(registerUser(body)),
-        authEmailAction: (body) => dispatch(authEmail(body))
+        authEmailAction: (body) => dispatch(authEmail(body)),
+        fileUploadAction: (body) => dispatch(fileUpload(body))
     }
 }
 

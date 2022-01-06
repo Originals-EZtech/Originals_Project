@@ -8,15 +8,18 @@ const initState = {
     showOverlay: true,
     participants: [],
     messages: [],
+    fileDatas: [],
     activeConversation: null,
     directChatHistory: [],
     socketId: null,
-    payload: {loginSuccess:"", msg: ""},
-    dataTosubmit:{}
+    word: "",
+    open: false, // dashboard 페이지 화면 축소 상태일 때 side bar 작동하기 위해 필요
 };
 
+// reducer는 state의 상태를 변화시켜주는 함수
 const reducer = (state = initState, action) => {
     switch (action.type) {
+        
         case Actions.SET_IS_ROOM_HOST:
             return {
                 ...state,
@@ -52,6 +55,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 messages: action.messages,
             };
+        case Actions.SET_FILEDATAS:
+            return{
+                ...state,
+                fileDatas: action.fileDatas
+            }
         case Actions.SET_ACTIVE_CONVERSATION:
             return {
                 ...state,
@@ -68,7 +76,6 @@ const reducer = (state = initState, action) => {
                 socketId: action.socketId
             };
         case Actions.SET_LOGIN_USER:
-            // console.log("payload", action.response)
             return {
                 ...state, 
                 loginSuccess: action.response.loginSuccess
@@ -77,19 +84,34 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 success:action.response.success
-            }
+            };
         case Actions.SET_AUTH_EMAIL:
             return {
                 ...state,
-            }
+            };
         case Actions.SET_AUTH_USER:
             return {
                 ...state,
-            }
+            };
         case Actions.SET_LOGOUT_USER:
             return {
                 ...state,
             }
+        case Actions.SET_FILE_UPLOAD:
+            return{
+                ...state,
+                uploadSuccess: action.response.uploadSuccess
+            }
+        case Actions.SET_WORD:
+            return{
+                ...state,
+                word: action.word
+            };
+        case Actions.SET_SIDE_OPEN:
+            return{
+                ...state,
+                open: action.open
+            };
         default:
             return state;
     }

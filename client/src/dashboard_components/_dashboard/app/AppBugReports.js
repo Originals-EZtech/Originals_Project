@@ -4,7 +4,6 @@ import bugFilled from '@iconify/icons-ant-design/bug-filled';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 // utils
-import { fShortenNumber } from '../../../dashboard_util/formatNumber';
 
 // ----------------------------------------------------------------------
 
@@ -42,9 +41,9 @@ export default function AppBugReports() {
       <IconWrapperStyle>
         <Icon icon={bugFilled} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      <Typography variant="h3">{TOTAL}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Bug Reports
+        총 강의 시간
       </Typography>
     </RootStyle>
   );
