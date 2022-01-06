@@ -4,10 +4,16 @@ import { withRouter, Link } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 import { toast } from 'react-toastify';
 
+import { useCookies } from "react-cookie";
+
 const ConnectingButtons = (props) => {
+<<<<<<< HEAD
+    const [cookies] = useCookies();
+=======
     const cookies = new Cookies();
     const isProf = (cookies.get('user_role') === 'prof') ? true : false;
     // console.log(isProf);
+>>>>>>> c0d8f610d8d11bbf9df1c4862afe2acdbe8e4f1b
 
     const pushToJoinRoomPage = () => {
         if (isProf) {
@@ -25,16 +31,18 @@ const ConnectingButtons = (props) => {
         props.history.push('/myclass');
     }
 
-    return(
-        <div className = 'connecting_buttons_container'>
-            <ConnectingButton buttonText = 'Join class' 
-            onClickHandler ={pushToJoinRoomPage}/>
-            <ConnectingButton createRoomButton buttonText = 'Create class' 
+    if(cookies.user_role==='prof'){
+        return(<div className = 'connecting_buttons_container'>
+            <ConnectingButton createRoomButton buttonText = 'Host a meeting' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
-            <ConnectingButton createRoomButton buttonText = 'My class'
-            onClickHandler={pushToMyClass}/>
-        </div>
-    );
+        </div>);
+    }else{
+        return(<div className = 'connecting_buttons_container'>
+            <ConnectingButton buttonText = 'Join a meeting' 
+            onClickHandler ={pushToJoinRoomPage}/>
+        </div>);
+    }
 };
+
 
 export default withRouter(ConnectingButtons);
