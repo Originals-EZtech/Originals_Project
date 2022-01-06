@@ -129,12 +129,12 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
      peers[connUserSocketId].on('data', async(data) => {
         const messageData = await JSON.parse(data);
         console.log(messageData);
-        // if(typeof(data) === 'string'){
-        //     const messageData = await JSON.parse(data);
-        //     console.log(messageData);
-        // }else{
-        //     console.log(data);
-        // }
+         if(typeof data === 'string'){
+             const messageData = await JSON.parse(data);
+             console.log(messageData);
+         }else{
+             console.log(data);
+         }
         
         //const messageData = await JSON.parse(stringifiedMessageData);
         //const blob = new Blob([data]);
