@@ -60,10 +60,6 @@ function AccountPopover(props) {
     })
   }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8f3764e8b8bc501823c2048d1d1b7343305a10d6
   return (
     <>
       <IconButton
