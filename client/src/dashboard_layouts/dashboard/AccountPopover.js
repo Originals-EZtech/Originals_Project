@@ -1,12 +1,9 @@
-import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import homeFill from '@iconify/icons-eva/home-fill';
-import personFill from '@iconify/icons-eva/person-fill';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 // material
 import { alpha } from '@mui/material/styles';
-import { Button, Box, Divider, MenuItem, Typography, IconButton } from '@mui/material';
+import { Button, Box, Divider, Typography, IconButton } from '@mui/material';
 // components
 import MenuPopover from '../../dashboard_components/MenuPopover';
 //
@@ -14,24 +11,13 @@ import { useCookies } from 'react-cookie';
 import { logout } from '../../components/views/Room/store/actions';
 import { toast, ToastContainer } from 'react-toastify';
 
-// ----------------------------------------------------------------------
-
-// const MENU_OPTIONS = [
-//   {
-//     label: 'Home',
-//     icon: homeFill,
-//     linkTo: '/'
-//   },
-//   {
-//     label: 'Profile',
-//     icon: personFill,
-//     linkTo: '#'
-//   }
-// ];
-
-// ----------------------------------------------------------------------
-
 function AccountPopover(props) {
+  const imgStyle = {
+    width: 60,
+    height: 60,
+    borderRadius: '50%'
+  }
+
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [cookies] = useCookies();
@@ -82,7 +68,7 @@ function AccountPopover(props) {
           })
         }}
       >
-        <img src="/static/illustrations/admin_avatar.png" alt="" />
+        <img style={imgStyle} src="/static/illustrations/admin_avatar.png" alt="" />
       </IconButton>
 
       <MenuPopover

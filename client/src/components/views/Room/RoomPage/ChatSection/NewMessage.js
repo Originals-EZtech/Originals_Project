@@ -76,6 +76,7 @@ const NewMessage = ({disabled}) => {
 };
 
 const mapStoreStateToProps = (state) =>{
+  console.log(state);
   return {
       ...state,
   };

@@ -22,7 +22,8 @@ const Actions ={
     SET_SIDE_OPEN:"SET_SIDE_OPEN",
     SET_DISABLED: "SET_DISABLED",
     SET_FILENAME: "SET_FILENAME",
-    SET_GOTFILED: "SET_GOTFILED"
+    SET_GOTFILED: "SET_GOTFILED",
+    SET_ROOMNAMEVALUE:"SET_ROOMNAMEVALUE"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -240,6 +241,14 @@ export const setGotFiled = (gotFile)=>{
         gotFile
     }
 }
+
+export const setRoomNameValue = (roomNameValue) => {
+    return {
+        type: Actions.SET_ROOMNAMEVALUE,
+        roomNameValue,
+    }
+}
+
 
   
 export default Actions;

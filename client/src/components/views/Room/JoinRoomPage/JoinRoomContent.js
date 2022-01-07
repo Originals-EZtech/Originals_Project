@@ -6,6 +6,7 @@ import ErrorMessage from './ErrorMessage';
 import { setConnectOnlyWithAudio } from '../store/actions';
 import { setRoomId } from '../store/actions';
 import { setIdentity} from '../store/actions';
+import { setRoomNameValue } from '../store/actions';
 import JoinRoomButtons from './JoinRoomButtons';
 import { getRoomExists } from '../utils/api';
 import { withRouter } from 'react-router-dom';
@@ -13,7 +14,7 @@ import { withRouter } from 'react-router-dom';
 
 
 const JoinRoomContent = (props) =>{
-    const { isRoomHost, setConnectOnlyWithAudio, connectOnlyWithAudio, setIdentityAction, setRoomIdAction } = props;
+    const { isRoomHost, setConnectOnlyWithAudio, connectOnlyWithAudio, setIdentityAction, setRoomIdAction, setRoomNameValueAction } = props;
    
     const [roomIdValue, setRoomIdValue] = useState('');
     const [nameValue, setNameValue] = useState('');
@@ -28,7 +29,7 @@ const JoinRoomContent = (props) =>{
         setIdentityAction(nameValue);
         if (isRoomHost){
             createRoom();
-            setRoomNameValue(roomNameValue);
+            setRoomNameValueAction(roomNameValue);
         }else{
             await joinRoom();
         }
@@ -109,6 +110,8 @@ const JoinRoomContent = (props) =>{
         nameValue = {nameValue}
         setNameValue = {setNameValue}
         isRoomHost = {isRoomHost}
+        roomNameValue = {roomNameValue}
+        setRoomNameValue = {setRoomNameValue}
     /> 
     
     <OnlyWithAudioCheckbox 
@@ -138,7 +141,8 @@ const mapActionsToProps = (dispatch) => {
         setConnectOnlyWithAudio: (onlyWithAudio)=> 
          dispatch(setConnectOnlyWithAudio(onlyWithAudio)),
         setIdentityAction: (identity) => dispatch(setIdentity(identity)),
-        setRoomIdAction: (roomId) => dispatch(setRoomId(roomId))
+        setRoomIdAction: (roomId) => dispatch(setRoomId(roomId)),
+        setRoomNameValueAction: (roomNameValue) => dispatch(setRoomNameValue(roomNameValue))
      };
     };
 
