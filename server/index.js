@@ -188,7 +188,7 @@ const createNewRoomHandler = (data, socket) =>{
                 console.log("데이터 가져오기 실패");
                 return;
             }
-            connection.execute("insert into room_table (ROOM_SEQ,ROOM_ID,USER_ID,ROOM_NAME,ROOM_PASSWORD,ROOM_DATE) values(ROOM_SEQ.NEXTVAL,:roomId,9,:room_name,1,SYSDATE)", insertarray, function (err, result) {
+            connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,9,:room_name,1,SYSDATE)", insertarray, function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);
