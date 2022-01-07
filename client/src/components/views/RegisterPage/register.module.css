@@ -53,10 +53,11 @@
 }
 
 .authentication{
-	/* position: relative; */
-	/* display: flex; */
-	/* justify-content: center; */
-	/* align-content: center; */
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
 }
 
 .authBtn{
