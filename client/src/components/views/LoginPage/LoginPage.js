@@ -44,9 +44,9 @@ function Login(props) {
                 // alert(response.payload.msg);
                 toast.success(response.response.msg);
                 // 뒤로가기 방지 페이지 이동
-                //window.onpopstate = function(event) { history.go(1); };
                 // window.location.href="/";
                 setTimeout(() => {
+                    //onpopstate 현재 페이지에 뒤로가기시에, go(1)앞으로 강제이동
                     //window.onpopstate = function(event) { props.history.go(1); };
                     props.history.push('/intro');
                 }, 1200)
