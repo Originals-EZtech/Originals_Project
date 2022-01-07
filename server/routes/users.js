@@ -111,7 +111,7 @@ router.get("/list", function (req, res) {
 
 // SELECT query all attachment
 router.get("/userList", function (req, res) {
-    conn.execute("select * from attachment", [], { outFormat: oracledb.OBJECT }, function (err, result) {
+    conn.execute("select * from attachment_table", [], { outFormat: oracledb.OBJECT }, function (err, result) {
         if (err) {
             console.log(err);
         } else {
@@ -142,7 +142,7 @@ router.post("/register", function (req, res) {
         bcrypt.hash(param[1], saltRounds, (err, hash) => {
             param[1] = hash
 
-            conn.execute('INSERT INTO USER_TABLE (USER_SEQ,USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_FLAG) VALUES(user_seq.NEXTVAL, :email, :password, :name, :role, :flag)', param, function (err, result) {
+            conn.execute('INSERT INTO USER_TABLE (USER_SEQ, USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_FLAG) VALUES(user_seq.NEXTVAL, :email, :password, :name, :role, :flag)', param, function (err, result) {
                 if (err) {
                     console.log(err)
                     res.status(200).json({
@@ -177,7 +177,7 @@ router.post('/imgUpload', upload.single('image'), (req, res) => {
     // console.log('image', image);
     // console.log('email', email);
 
-    conn.execute('insert into attachment (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
+    conn.execute('insert into attachment_table (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
         if (err) {
             console.log(err);
             res.status(200).json({
@@ -218,7 +218,8 @@ router.post("/login", function (req, res) {
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
         })
     }
-    conn.execute('select USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_FLAG from USER_TABLE where USER_EMAIL = :email ', [userEmail], function (err, result) {
+
+    conn.execute('select USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_SEQ, USER_FLAG from USER_TABLE where USER_EMAIL = :email ', [userEmail], function (err, result) {
         if (err) console.log("select err", err)
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
@@ -248,6 +249,7 @@ router.post("/login", function (req, res) {
                                 .cookie("user_email", result.rows[0][0])
                                 .cookie("user_role", result.rows[0][3])
                                 .cookie("user_flag", result.rows[0][4])
+                                .cookie("user_seq", result.rows[0][5])
                                 .status(200)
                                 .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], msg: userEmail + " 로그인 성공" })
                         }

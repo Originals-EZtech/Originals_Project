@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { registerUser, authEmail, fileUpload } from '../Room/store/actions';
 import styles from '../RegisterPage/register.module.css';
@@ -195,7 +195,7 @@ function Register(props) {
     // 체크박스 체크여부 확인
     const checkboxHandler = (event) => {
         //이메일(아이디) 입력X 또는 이메일(아이디) 인증X 인 경우
-        if (Email === "" || !AuthEmailSuccess) {
+        if (Email === "" || !AuthEmailSuccess || AuthCodeMessage !== "보안코드 일치해요") {
             event.target.checked = false;
             return toast.error("이메일 인증을 먼저 진행해주세요.");
         }
@@ -232,20 +232,6 @@ function Register(props) {
             }
         })
     }
-
-    // const [testVar, setTestVar] = useState(null);
-    // useEffect(() => {
-    //     callApi()
-    //     .then(res => setTestVar(res));
-    // }, [])
-    
-    // const callApi = async () => {
-    //     const response = await fetch('/api/users/userList');       // 해당 주소에 접속
-    //     const body = await response.json();                   // 서버에서 수행된 결과값을 json 형태로 받아옴
-    //     console.log(body);
-    //     return body;        
-    // }
-
 
     return (
         <div>
@@ -317,26 +303,26 @@ function Register(props) {
                             <button onClick={authEmailHandler} className={styles.authBtn}>Authentication</button>
                             {Time ? <Timer mm={1} ss={0} /> : null}
                         </div>
-
                         <div className={styles.checkRole}>
                             <label className={styles.checkbox_container}>
                                 <input type="checkbox" value={isTeacher} onChange={checkboxHandler} />
                                 <span>Teacher?</span>
                                 <span className={styles.checkmark}></span>
                             </label>
-
-                            {
-                                isTeacher
-                                ?
-                                <div style={{display:"block"}}>
-                                    <form onSubmit={handleFileUpload}>
-                                        <input type="file" name="image" accept="image/*" onChange={handleFileChange}/>
-                                        {/* <button type="submit">업로드</button> */}
-                                    </form>
-                                </div>
-                                : null
-                            }
                         </div>
+                        {
+                            isTeacher
+                            ?
+                            <div style={{display:"block"}}>
+                                <form onSubmit={handleFileUpload}>
+                                    <input type="file" name="image" accept="image/*" onChange={handleFileChange}/>
+                                    {/* <button type="submit">업로드</button> */}
+                                </form>
+                            </div>
+                            : null
+                        }
+
+
                     </div>
                 </div>
                 <div className={styles.img}>

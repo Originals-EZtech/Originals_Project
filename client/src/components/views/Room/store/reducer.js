@@ -14,6 +14,9 @@ const initState = {
     socketId: null,
     word: "",
     open: false, // dashboard 페이지 화면 축소 상태일 때 side bar 작동하기 위해 필요
+    disabled: false,
+    fileName : '',
+    gotFile: false,
 };
 
 // reducer는 state의 상태를 변화시켜주는 함수
@@ -112,6 +115,21 @@ const reducer = (state = initState, action) => {
                 ...state,
                 open: action.open
             };
+        case Actions.SET_DISABLED:
+            return{
+                ...state,
+                disabled: action.disabled
+            }
+        case Actions.SET_FILENAME:
+            return{
+                ...state,
+                fileName: action.fileName
+            }
+        case Actions.SET_GOTFILED:
+            return{
+                ...state,
+                gotFile: action.gotFile
+            }
         default:
             return state;
     }

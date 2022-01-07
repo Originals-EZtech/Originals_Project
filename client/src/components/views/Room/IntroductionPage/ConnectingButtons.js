@@ -7,8 +7,6 @@ import { useCookies } from "react-cookie";
 
 const ConnectingButtons = (props) => {
     const [cookies] = useCookies();
-
-    // console.log(isProf);
   
     const pushToJoinRoomError = () =>{
         toast.error('승인 허가 되지 않은 유저입니다.');

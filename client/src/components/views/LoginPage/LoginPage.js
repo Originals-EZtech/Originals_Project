@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from '../LoginPage/login.module.css';
 import classnames from 'classnames';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"

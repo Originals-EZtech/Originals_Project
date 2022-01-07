@@ -43,6 +43,7 @@ const NewMessage = ({activeConversation, identity})=>{
                 className='new_message_button'
                 src = {sendMessageButton}
                 onClick={sendMessage}
+                alt=''
             />
         </div>
     );

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import SendMessageButton from "../../resources/images/sendMessageButton.svg";
-import fileSendingButton from "../../resources/images/fileSendingButton.svg";
 import * as webRTCHandler from "../../utils/webRTCHandler";
+import {connect} from 'react-redux';
 
-const NewMessage = () => {
+const NewMessage = ({disabled}) => {
   const [message, setMessage] = useState("");
 
   const handleTextChange = (event) => {
@@ -26,14 +26,21 @@ const NewMessage = () => {
     }
   };
 
-  const sendFile = () =>{
-    const file = document.getElementById('fileItem');
-    if(file.files.length > 0){
-      console.log(file.files[0]); 
-      webRTCHandler.sendFileUsingDataChannel(file.files[0]);
-    }
-  }
 
+
+
+  /*
+  const readTextFile = (file, callback)=>{
+    const reader = new FileReader(); // FileReader 객체 생성
+    reader.onload = ()=>{ // onload 이벤트 처리기 정의
+      callback(reader.result) // 읽어 들인 텍스트를 callback에 전달
+    };
+    reader.onerror = (e) =>{
+      console.log("error", e) //로그로 남기기
+    }
+    reader.readAsText(file); // 파일의 데이터를 읽어들인다. 
+  }
+*/
   return (
     <div className="new_message_container">
       <input
@@ -43,13 +50,15 @@ const NewMessage = () => {
         placeholder="Type your message ..."
         type="text"
         onKeyDown={handleKeyPressed}
+        disabled ={disabled}
       />
       <img
         className="new_message_button"
         src={SendMessageButton}
         onClick={sendMessage}
+        alt=""
       />
-      <label className = 'file_container'>
+      {/* <label className = 'file_container'>
       <input 
       id ='fileItem' 
       type='file' 
@@ -58,10 +67,18 @@ const NewMessage = () => {
       <img 
       className="file_sending_button"
       src={fileSendingButton}
+      alt=""
       />
-      </label>  
+      </label>   */}
     </div>
   );
+
 };
 
-export default NewMessage;
+const mapStoreStateToProps = (state) =>{
+  return {
+      ...state,
+  };
+};
+
+export default connect(mapStoreStateToProps)(NewMessage);
