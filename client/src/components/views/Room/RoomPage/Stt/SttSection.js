@@ -1,5 +1,5 @@
 import React from 'react';
-import Stt from './Sttand';
+// import Stt from './Sttand';
 import Dictaphone from './Stt';
 const Sttsection=()=>{
     return(

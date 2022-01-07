@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import MainNavBar from '../NavBar/MainNavBar';
 import MainHome from './MainHome';
 import MainService from './MainService';
