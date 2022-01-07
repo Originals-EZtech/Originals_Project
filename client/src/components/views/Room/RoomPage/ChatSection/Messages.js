@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const Message = ({ author, content, sameAuthor, messageCreatedByMe, file }) => {
+
+const Message = ({ author, content, sameAuthor, messageCreatedByMe }) => {
 
   const alignClass = messageCreatedByMe
     ? "message_align_right"
@@ -22,8 +23,7 @@ const Message = ({ author, content, sameAuthor, messageCreatedByMe, file }) => {
 };
 
 
-const Messages = ({ messages, fileDatas}) => {
-  console.log(fileDatas);
+const Messages = ({ messages}) => {
   return (
     <div className="messages_container">
       {messages.map((message, index) => {

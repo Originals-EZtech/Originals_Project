@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import SendMessageButton from "../../resources/images/sendMessageButton.svg";
-import fileSendingButton from "../../resources/images/fileSendingButton.svg";
 import * as webRTCHandler from "../../utils/webRTCHandler";
+import {connect} from 'react-redux';
 
-
-const NewMessage = () => {
+const NewMessage = ({disabled}) => {
   const [message, setMessage] = useState("");
-  const [file, setFile] = useState(null);
-  const output = document.getElementById('output')
+
   const handleTextChange = (event) => {
     setMessage(event.target.value);
   };
@@ -22,29 +20,14 @@ const NewMessage = () => {
   };
 
   const sendMessage = () => {
-    if(!(message.length>0) && (file === null)) return;
-    if (message.length > 0 || file !== null) { // message 가 존재하거나 file 객체가 존재하면 전송
-      console.log(file);
-      webRTCHandler.sendMessageUsingDataChannel(message, file); // webrtc로 message,file 데이터 전송 
+    if (message.length > 0) {
+      webRTCHandler.sendMessageUsingDataChannel(message);
       setMessage("");
-      setFile(null); 
-      output.innerHTML = '';
     }
   };
 
-  const sendFile = () =>{
-    const file = document.getElementById('fileItem');
 
-    if(file.files.length > 0){
-      output.innerHTML = file.files[0].name;
-      console.log(file.files[0].name); 
-      setFile(file.files[0]); // file 값 설정
-      console.log(file);
-      
-      //webRTCHandler.sendFileUsingDataChannel(file.files[0]);
-    }
-    
-  }
+
 
   /*
   const readTextFile = (file, callback)=>{
@@ -67,6 +50,7 @@ const NewMessage = () => {
         placeholder="Type your message ..."
         type="text"
         onKeyDown={handleKeyPressed}
+        disabled ={disabled}
       />
       <img
         className="new_message_button"
@@ -74,19 +58,16 @@ const NewMessage = () => {
         onClick={sendMessage}
       />
 
-      <label className = 'file_container'>
-      <input 
-      id ='fileItem' 
-      type='file' 
-      style={{display: 'none'}}
-      onChange={sendFile}/> 
-      <img 
-      className="file_sending_button"
-      src={fileSendingButton}
-      />
-      </label>  
+      
     </div>
   );
+
 };
 
-export default NewMessage;
+const mapStoreStateToProps = (state) =>{
+  return {
+      ...state,
+  };
+};
+
+export default connect(mapStoreStateToProps)(NewMessage);
