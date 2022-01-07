@@ -5,7 +5,7 @@ import {setDisabled} from '../../store/actions';
 import store from '../../store/store.js'
 import {connect} from 'react-redux';
 
-const FileSharing = ({gotFile})=>{
+const FileSharing = ({gotFile, fileName})=>{
     const [file, setFileData] = useState(null);
 
 
@@ -22,12 +22,14 @@ const FileSharing = ({gotFile})=>{
             webRTCHandler.sendFileUsingDataChannel(file);
             setFileData(null);
         }
+        store.dispatch(setDisabled(false));
       }
 
       let downloadPrompt;
       if(gotFile){
           downloadPrompt =(
               <div>
+                  <p>{fileName}</p>
                   <button onClick ={webRTCHandler.download}>yes</button>
               </div>
           )
@@ -46,9 +48,9 @@ const FileSharing = ({gotFile})=>{
             src={fileSendingButton}
             />
             </label>
-            <container>
+            <div>
                 {downloadPrompt}
-            </container>
+            </div>
 
             <label>
                 <button onClick={sendFile}>send File</button>
