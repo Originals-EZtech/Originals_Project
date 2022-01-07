@@ -672,7 +672,7 @@ video {
 
 .st{
   position: absolute;
-  
+  top: 25px;
 }
 
 .copybutton{
