@@ -142,7 +142,7 @@ router.post("/register", function (req, res) {
         bcrypt.hash(param[1], saltRounds, (err, hash) => {
             param[1] = hash
 
-            conn.execute('INSERT INTO USER_TABLE (USER_ID,USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_FLAG) VALUES(user_seq.NEXTVAL, :email, :password, :name, :role, :flag)', param, function (err, result) {
+            conn.execute('INSERT INTO USER_TABLE (USER_SEQ,USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_FLAG) VALUES(user_seq.NEXTVAL, :email, :password, :name, :role, :flag)', param, function (err, result) {
                 if (err) {
                     console.log(err)
                     res.status(200).json({
@@ -150,7 +150,7 @@ router.post("/register", function (req, res) {
                     })
                     // 토큰 칼럼생성 파트
                 } else {
-                    conn.execute('INSERT INTO TOKEN_TABLE (TOKEN_ID, USER_EMAIL) VALUES(token_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
+                    conn.execute('INSERT INTO TOKEN_TABLE (TOKEN_SEQ, USER_EMAIL) VALUES(token_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
                         if (err2) console.log(err2)
                     })
                     res.status(200).json({
@@ -339,6 +339,7 @@ router.get('/logout', function (req, res) {
         conn.execute('update TOKEN_TABLE set TOKEN_VALUE = null where USER_EMAIL = :user_email ', [decoded.email], function (err2, result2) {
             if (err) { console.log(err) }
             res.clearCookie("accessToken")
+            res.clearCookie("refreshToken")
             res.clearCookie("user_name")
             res.clearCookie("user_email")
             res.clearCookie("user_role")
