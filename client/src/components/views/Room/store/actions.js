@@ -20,6 +20,9 @@ const Actions ={
     SET_TOTAL_USER:"SET_TOTAL_USER",
     SET_WORD:"SET_WORD",
     SET_SIDE_OPEN:"SET_SIDE_OPEN",
+    SET_DISABLED: "SET_DISABLED",
+    SET_FILENAME: "SET_FILENAME",
+    SET_GOTFILED: "SET_GOTFILED",
     SET_ROOMNAMEVALUE:"SET_ROOMNAMEVALUE"
 };
 
@@ -218,6 +221,26 @@ export const sideOpen = (open) => {
       }
 }
 
+export const setDisabled = (disabled) =>{
+    return {
+        type: Actions.SET_DISABLED,
+        disabled,
+    }
+}
+
+export const setFileName = (fileName)=>{
+    return {
+        type: Actions.SET_FILENAME,
+        fileName
+    }
+}
+
+export const setGotFiled = (gotFile)=>{
+    return{
+        type: Actions.SET_GOTFILED,
+        gotFile
+    }
+}
 
 export const setRoomNameValue = (roomNameValue) => {
     return {

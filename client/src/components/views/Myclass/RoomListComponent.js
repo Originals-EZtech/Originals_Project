@@ -47,6 +47,7 @@ function RoomListComponent() {
             className="my_ser"
             onClick={onclick}
             src={search}
+            alt=''
             ></img>
             <h3 className="my_list">Room List</h3><br></br>
             <div className="list_con">

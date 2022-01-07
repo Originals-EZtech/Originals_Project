@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import { Box, Link, Drawer } from '@mui/material';
 // components
 import Logo from '../../dashboard_components/Logo';
 import Scrollbar from '../../dashboard_components/Scrollbar';
@@ -43,15 +42,7 @@ DashboardSidebar.propTypes = {
 };
 
 function DashboardSidebar(props) {
-  const { pathname } = useLocation();
-  const { open, sideOpenAction } = props;
-
-  // useEffect(() => {
-  //   if (open) {
-  //     sideOpenAction(false);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [pathname]);
+  const { open, sideOpenAction, theme } = props;
 
   const renderContent = (
     <Scrollbar
@@ -60,30 +51,23 @@ function DashboardSidebar(props) {
         '& .simplebar-content': { height: '100%', display: 'flex', flexDirection: 'column' }
       }}
     >
-      <Box sx={{ px: 2.5, py: 3 }}>
+      <Box sx={{ px: 2.5, py: 3 }} style={{backgroundColor: "#bee9b4"}}>
         <Box component={RouterLink} to="/dashboard/app" sx={{ display: 'inline-flex' }}>
           <Logo />
         </Box>
       </Box>
 
+      <br/>
+
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
           <AccountStyle>
             <h4><Clock format={'YYYY-MM-DD HH:mm:ss'} ticking={true} timezone={'US/Pacific'} /></h4>
-            {/* <Avatar src="/static/illustrations/illustration_avatar.png" alt="photoURL" />
-            <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {cookies.user_name}님
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
-              </Typography>
-            </Box> */}
           </AccountStyle>
         </Link>
       </Box>
 
-      <NavSection navConfig={sidebarConfig} />
+      <NavSection navConfig={sidebarConfig} theme={theme} />
 
       <Box sx={{ flexGrow: 1 }} />
     </Scrollbar>
