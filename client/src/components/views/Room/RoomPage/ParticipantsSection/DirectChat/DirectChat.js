@@ -29,7 +29,7 @@ const DirectChat = ({activeConversation, directChatHistory})=>{
 
     }, [activeConversation, directChatHistory]);
     // directChatHistory 는 넘어간다.. host만 안되고있음. ..
-    console.log(activeConversation);
+    //console.log(activeConversation);
     // 넘어간다!!!  
     return(
         <div className='direct_chat_container'>

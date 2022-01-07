@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import logo from '../resources/images/logo.png';
 import ConnectingButtons from './ConnectingButtons';
@@ -17,7 +18,7 @@ const IntroductionPage = ({setIsRoomHostAction}) => {
         <div className = 'introduction_page_container'>
             <RoomNavBar />
           <div className='introduction_page_panel'>
-              <img src={logo} className ='introduction_page_image'></img>
+              <img src={logo} className ='introduction_page_image' alt=''></img>
               <ConnectingButtons />
           </div>
         </div>

@@ -4,7 +4,7 @@ import CameraButton from './CameraButton';
 import LeaveRoomButton from './LeaveRoomButton';
 import SwitchToScreenSharingButton from './SwitchToScreenSharingButton';
 import {connect} from 'react-redux';
-import { isBrowser ,  isMobile } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 const VideoButtons = (props) =>{
     const { connectOnlyWithAudio} = props;
 

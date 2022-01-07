@@ -1,13 +1,17 @@
-import { setMessages, setShowOverlay, setFileDatas } from '../store/actions.js';
+import { setMessages, setShowOverlay, setFileName, setDisabled, setGotFiled } from '../store/actions.js';
 import store from '../store/store.js'
 import * as wss from './wss.js'
 import Peer from 'simple-peer'
 import { fetchTURNCredentials, getTurnIceServers } from './turn.js';
-
+import { fileUpload, setSocketId } from '../store/actions';
+import streamSaver from 'streamsaver';
+import react, {useRef} from 'react';
 
 // to get our local camera preview and create the room if we are the host on the server
 // so we'll initialize the connection if the hos and if the user which way is joining the name of that
 
+
+const worker = new Worker('./../../../worker.js')
 const defaultConstraints = {
     audio: true,
     video: {
@@ -91,9 +95,8 @@ const getConfiguration = ()=>{
 };
 
 const messengerChannel = 'messenger';
-
+var fileName = '';
 export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
-    
     console.log(connUserSocketId);
     console.log(isInitiator);
     const configuration = getConfiguration();
@@ -125,13 +128,44 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
          addStream(stream, connUserSocketId);
          streams = [...streams, stream];
      });
-    
-     peers[connUserSocketId].on('data', async(data) => {
-        console.log('got a message from peer1: ' + data);
-        const messageData = await JSON.parse(data);
-        appendNewMessage(messageData);
-      });  
+  
+ 
+   peers[connUserSocketId].on('data', async(data) => {
+       console.log('got a message from peer1: ' + data);
+
+       if(data.toString().includes("done")){
+           console.log('done')
+           const parsed = JSON.parse(data);
+           store.dispatch(setFileName(parsed.fileName));
+           fileName = parsed.fileName;
+           store.dispatch(setDisabled(false));
+        }
+        if(data.toString().includes("ms")){
+            console.log('ms');
+            const messageData = await JSON.parse(data);
+            appendNewMessage(messageData); 
+        }
+        if(!(data.toString().includes("done")) && !(data.toString().includes("ms"))){
+            console.log('file');
+            store.dispatch(setGotFiled(true));
+            worker.postMessage(data);
+        }
+   
+  });   
+
 };
+
+export const download = ()=>{
+    console.log('......downloading');
+    store.dispatch(setGotFiled(false))
+    worker.postMessage('download');
+    worker.addEventListener('message', event =>{
+        const stream = event.data.stream();
+        const fileStream = streamSaver.createWriteStream(fileName);
+        stream.pipeTo(fileStream);
+    })
+    fileName = '';
+}
 
 export const handleSignalingData =(data)=>{
     //add signaling data to peer connection
@@ -161,6 +195,7 @@ export const removePeerConnection = (data) =>{
 };
 
 ///////////////////////////////////////// UI Videos //////////////////////////////
+
 const showLocalVideoPreview = (stream) =>{
     // show local video preview
     const videosContainer = document.getElementById('videos_portal');
@@ -285,66 +320,62 @@ const switchVideoTracks = (stream) => {
 
  const appendNewMessage = (messageData) => {
     const messages = store.getState().messages;
-    //console.log(messageData);
+    console.log(messageData);
     //console.log(messages);
     store.dispatch(setMessages([...messages, messageData]));
     //console.log(messages); ok
   };
 
-  const appendNewFileData = (fileData) =>{
-      const fileDatas = store.getState().fileDatas;
-      store.dispatch(setFileDatas([...fileDatas, fileData]));
-      //console.log(fileDatas); //ok
-  }
-  
-export const sendMessageUsingDataChannel = (messageContent) => {
+  export const sendMessageUsingDataChannel = (messageContent) => {
     // console.log(messageContent); ok 
     // append this message locally
     const identity = store.getState().identity;
     //console.log(identity); message 전달자 ok 
     const localMessageData = {
-        content: messageContent,
-        identity,
-        messageCreatedByMe: true,
+      ms: true,
+      content: messageContent,
+      identity,
+      messageCreatedByMe: true,
     };
-
+    
     // console.log(localMessageData); ok
     appendNewMessage(localMessageData);
-
+  
     const messageData = {
-        content: messageContent,
-        identity,
+      ms: true,
+      content: messageContent,
+      identity,
     };
     // console.log(typeof(messageData)); // object
     const stringifiedMessageData = JSON.stringify(messageData); 
-    console.log(stringifiedMessageData); //{"content":"tttt","identity":"dfdfdf"} Json 문자열
+    //console.log(stringifiedMessageData); //{"content":"tttt","identity":"dfdfdf"} Json 문자열
     //console.log(peers); // peers가 비었다. 
     for (let socketId in peers) {
-        peers[socketId].send(stringifiedMessageData);
+      peers[socketId].send(stringifiedMessageData);
     }
-};
+  };
 
-export const sendFileUsingDataChannel = (fileContent) =>{
-    const identity = store.getState().identity;
+  export const sendFileUsingDataChannel= (file)=>{
+      const stream = file.stream();
+      console.log(stream);
+      const reader = stream.getReader();
+      
+      reader.read().then(obj =>{
+          handlereading(obj.done, obj.value);
+      });
 
-    const localMessageFileData = {
-        content: fileContent, //blob 값
-        identity,
-        messageCreatedByMe: true,
-        };
-
-    appendNewFileData(localMessageFileData);
-
-    const fileData = {
-        file: fileContent,
-        identity
-    }
-    // 여기 blob 데이터를 품고있는데 어떻게 할지 고민해 보기! 
-    
-    //console.log(peers); ok
-    for (let socketId in peers) {
-        peers[socketId].send(fileData);
-        console.log("파일 데이터 전송")
-    } 
-
-}
+      const handlereading=(done, value)=> {
+          if(done){
+              for(let socketId in peers){
+                  peers[socketId].write(JSON.stringify({ done: true, fileName: file.name }));
+              }
+              return;
+          }
+          for(let socketId in peers){
+              peers[socketId].write(value)
+              reader.read().then(obj =>{
+                  handlereading(obj.done, obj.value);
+              })
+          }
+      }
+  }

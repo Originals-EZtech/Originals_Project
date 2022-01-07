@@ -11,13 +11,6 @@ import RoomPage from './components/views/Room/RoomPage/RoomPage';
 import IntroductionPage from './components/views/Room/IntroductionPage/IntroductionPage';
 import MyRoomPage from './components/views/Myclass/MyRoomPage';
 
-// _2붙어있는건 테스트 room
-import Room_2 from './components/views/Room_By_Dong/Room';
-import RoomCreate_2 from './components/views/Room_By_Dong/RoomCreate/RoomCreate';
-import RoomJoin_2 from './components/views/Room_By_Dong/RoomJoin/RoomJoin';
-import RoomAdmin_2 from './components/views/Room_By_Dong/RoomCreate/RoomAdmin';
-import RoomParticipant_2 from './components/views/Room_By_Dong/RoomJoin/RoomParticipant';
-
 import Auth from './hoc/auth'
 
 import { connectWithSocketIOServer } from './components/views/Room/utils/wss';
@@ -48,38 +41,9 @@ const AnimatedSwitch = () => {
 
           <Route exact path="/dashboard/app" component={Auth(DashboardApp,null)} />
           <Route exact path="/dashboard/user" component={Auth(DashboardUser,null)} />
-          <Route exact path="/roomparticipant_2" component={RoomParticipant_2} />
-          <Route exact path="/room_2" component={Room_2} />
-          <Route exact path="/roomcreate_2" component={RoomCreate_2} />
-          <Route exact path="/roomjoin_2" component={RoomJoin_2} />
-          <Route exact path="/roomadmin_2" component={RoomAdmin_2} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>
-
-    // <TransitionGroup component={null}>
-    //   <CSSTransition key={location.key} classNames="fade" timeout={500}>
-    //     <Switch location={location}>
-    //       <Route exact path="/" component={MainPage} />
-    //       <Route exact path="/login" component={LoginPage} />
-    //       <Route exact path="/register" component={RegisterPage} />
-
-    //       <Route exact path = "/join-room" component = {JoinRoomPage} />
-    //       <Route exact path ="/room" component ={RoomPage} />
-    //       <Route exact path ="/intro" component = {IntroductionPage} />
-    //       <Route exact path="/myclass" component={MyRoomPage } />
-
-    //       <Route exact path="/dashboard/app" component={DashboardApp } />
-    //       <Route exact path="/dashboard/user" component={User } />
-
-    //       <Route exact path="/roomparticipant_2" component={RoomParticipant_2 } />
-    //       <Route exact path="/room_2" component={Room_2} />
-    //       <Route exact path="/roomcreate_2" component={RoomCreate_2} />
-    //       <Route exact path="/roomjoin_2" component={RoomJoin_2} />
-    //       <Route exact path="/roomadmin_2" component={RoomAdmin_2 } />
-    //     </Switch>
-    //   </CSSTransition>
-    // </TransitionGroup>
   );
 };
 

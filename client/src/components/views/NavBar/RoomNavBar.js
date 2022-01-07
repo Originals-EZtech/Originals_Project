@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import styles from '../NavBar/navbar.module.css';
 import { Link, withRouter } from 'react-router-dom';
 import {ToastContainer, toast} from "react-toastify"

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import ChatSection from './ChatSection/ChatSection';
 import ParticipantsSection from './ParticipantsSection/ParticipantsSection';
@@ -8,7 +9,7 @@ import * as webRTCHandler from '../utils/webRTCHandler';
 import Overlay from './Overlay';
 import Sttsection from './Stt/SttSection'
 //import Dictaphone from './Stt/Dictaphone';
-import { isBrowser ,  isMobile } from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 import './RoomPage.css';
 import { useCookies } from "react-cookie";
 

@@ -8,7 +8,8 @@ const RoomLabel = ({roomId}) => {
            <CopyToClipboard text={roomId}>
                <img
                className="copybutton"
-               src={copy}>
+               src={copy}
+               alt=''>
                </img>
            </CopyToClipboard>
         </div>
