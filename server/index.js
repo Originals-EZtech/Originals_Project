@@ -137,7 +137,7 @@ const createNewRoomHandler = (data, socket) =>{
     console.log('host is creating a new room');
     console.log(data);
     // get that cost identity from 'data'
-    const { identity, onlyAudio,user_email } = data;
+    const { identity, onlyAudio, user_seq } = data;
 
     // thanks to that we are able to generate a random id 
     const roomId = uuidv4();
@@ -171,7 +171,7 @@ const createNewRoomHandler = (data, socket) =>{
 
     // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
     const room_name=data.roomNameValue
-    const insertarray = [roomId, room_name];
+    const insertarray = [roomId, user_seq, room_name];
     
     // room-id 테이블에 저장
     oracledb.getConnection(dbConfig, (err, conn) => {
@@ -183,7 +183,7 @@ const createNewRoomHandler = (data, socket) =>{
                 console.log("데이터 가져오기 실패");
                 return;
             }
-            connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,9,:room_name,SYSDATE)", insertarray, function (err, result) {
+            connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,:user_seq,:room_name,SYSDATE)", insertarray, function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);
