@@ -15,7 +15,7 @@ export default function AppWebsiteVisits({visitorList,userSignUpList}) {
 
   const CHART_DATA = [
     {
-      name: 'Team A',
+      name: '미지정',
       type: 'column',
       data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
     },
