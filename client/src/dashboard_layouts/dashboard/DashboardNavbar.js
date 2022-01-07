@@ -50,7 +50,7 @@ function DashboardNavbar(props) {
 
   return (
     <RootStyle>
-      <ToolbarStyle>
+      <ToolbarStyle style={{backgroundColor: "#bee9b4"}}>
         <MHidden width="lgUp">
           <IconButton onClick={clickHandler} /*open값을 true로 만들기*/
             sx={{ mr: 1, color: 'text.primary' }}>

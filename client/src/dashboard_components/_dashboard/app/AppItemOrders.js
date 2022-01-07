@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import windowsFilled from '@iconify/icons-ant-design/windows-filled';
+import homeFill from '@iconify/icons-eva/home-fill';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
@@ -38,7 +38,7 @@ export default function AppItemOrders(roomCount) {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={windowsFilled} width={24} height={24} />
+        <Icon icon={homeFill} width={24} height={24} />
       </IconWrapperStyle>
       <Typography variant="h3">{roomCount.roomCount }</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>

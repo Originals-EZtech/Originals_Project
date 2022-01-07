@@ -1,6 +1,5 @@
 import React from 'react';
 import VideoButtons from './VideoButtons';
-import { useCookies } from "react-cookie";
 
 
 const VideoSection = () => 

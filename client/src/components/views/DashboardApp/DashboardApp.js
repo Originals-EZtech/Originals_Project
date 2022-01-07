@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { connect} from 'react-redux';
 // material
 import { Box, Grid, Container, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 // components
 import Page from '../../../dashboard_components/Page';
 import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavbar';
@@ -82,6 +82,8 @@ function DashboardApp(props) {
   const [visitorList, setVisitorList] = useState(initState);
   const [userSignUpList, setUserSignUpList] = useState(userInitState);
 
+  const theme = useTheme();
+  // console.log('theme확인', theme);
 
   console.log("상태값???",visitorList)
   
@@ -109,12 +111,14 @@ function DashboardApp(props) {
   return (
     <RootStyle>
       <DashboardNavbar />
-      <DashboardSidebar isOpenSidebar={open} />
+      <DashboardSidebar isOpenSidebar={open} theme={theme}/>
       <MainStyle>
         <Page title="Dashboard">
           <Container maxWidth="xl">
             <Box sx={{ pb: 5 }}>
-              <Typography variant="h4">Admin Chart</Typography>
+              <Typography variant="h3" style={{fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>
+                Admin Chart
+              </Typography>
             </Box>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={3}>

@@ -1,5 +1,4 @@
 /* eslint-disable no-const-assign */
-import cookieParser from 'cookie-parser';
 import React from 'react';
 import { useCookies } from "react-cookie";
 

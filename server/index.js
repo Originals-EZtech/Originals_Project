@@ -137,7 +137,7 @@ const createNewRoomHandler = (data, socket) =>{
     console.log('host is creating a new room');
     console.log(data);
     // get that cost identity from 'data'
-    const { identity, onlyAudio} = data;
+    const { identity, onlyAudio,user_email } = data;
 
     // thanks to that we are able to generate a random id 
     const roomId = uuidv4();
@@ -163,19 +163,14 @@ const createNewRoomHandler = (data, socket) =>{
 
     // join socket.io room
     socket.join(roomId);
-
-    console.log("roomId"+roomId)
-    console.log("typeof(roomId)"+typeof(roomId))
-    console.log("typeof(data.identity)"+typeof(data.identity))
-
-
+    
     rooms = [...rooms, newRoom]; //rooms - room - roomId, connectedusers
 
     // emit to that client which created that room roomId
     socket.emit('room-id', {roomId});
 
     // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
-    const room_name=data.identity
+    const room_name=data.roomNameValue
     const insertarray = [roomId, room_name];
     
     // room-id 테이블에 저장
@@ -188,7 +183,7 @@ const createNewRoomHandler = (data, socket) =>{
                 console.log("데이터 가져오기 실패");
                 return;
             }
-            connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,9,:room_name,1,SYSDATE)", insertarray, function (err, result) {
+            connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,9,:room_name,SYSDATE)", insertarray, function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);

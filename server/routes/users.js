@@ -10,7 +10,6 @@ const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
 oracledb.autoCommit = true;
-require('dotenv').config();
 //oracledb connection
 var conn;
 oracledb.getConnection(dbConfig, function (err, con) {
@@ -22,10 +21,6 @@ oracledb.getConnection(dbConfig, function (err, con) {
     console.log('DB connection');
 });
 
-router.get('/dotenv', function (req, res) {
-    res.send(process.env.TEST);
-    console.log(process.env.TEST)
-})
 
 /**
  * 이메일인증
@@ -218,7 +213,8 @@ router.post("/login", function (req, res) {
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
         })
     }
-    conn.execute('select USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE from USER_TABLE where USER_EMAIL = :email ', [userEmail], function (err, result) {
+
+    conn.execute('select USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_SEQ, USER_FLAG from USER_TABLE where USER_EMAIL = :email ', [userEmail], function (err, result) {
         if (err) console.log("select err", err)
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
@@ -247,6 +243,8 @@ router.post("/login", function (req, res) {
                                 .cookie("user_name", result.rows[0][2])
                                 .cookie("user_email", result.rows[0][0])
                                 .cookie("user_role", result.rows[0][3])
+                                .cookie("user_seq", result.rows[0][4])
+                                .cookie("user_flag", result.rows[0][5])
                                 .status(200)
                                 .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], msg: userEmail + " 로그인 성공" })
                         }

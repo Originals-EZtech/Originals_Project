@@ -66,7 +66,7 @@ function doRelease(connection) {
 
 
 router.post("/roomlist_2", (req, res) => {
-    const selectarray = [req.body.user_id,];
+    const selectarray = [req.body.user_seq,];
     oracledb.getConnection(dbConfig, (err, conn) => {
         todoWork(err, conn);
     });
@@ -79,7 +79,7 @@ router.post("/roomlist_2", (req, res) => {
             //{outFormat:oracledb.OBJECT} => 칼럼명을 오프잭트마다 제이슨 형식으로 이름 부여해주기
             // 참고링크 https://gaemi606.tistory.com/entry/Nodejs-Oracle-%EC%97%B0%EB%8F%99-npm-oracledb
             // 참고링크 오라클 공식문서 http://oracle.github.io/node-oracledb/doc/api.html
-            connection.execute("SELECT ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE FROM ROOM_TABLE WHERE USER_ID=:user_id", selectarray,{outFormat:oracledb.OBJECT}, function (err, result) {
+            connection.execute("SELECT ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE FROM ROOM_TABLE WHERE USER_SEQ=:user_seq", selectarray,{outFormat:oracledb.OBJECT}, function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);
