@@ -14,13 +14,10 @@ const initState = {
     socketId: null,
     word: "",
     open: false, // dashboard 페이지 화면 축소 상태일 때 side bar 작동하기 위해 필요
-<<<<<<< HEAD
-    roomNameValue: ""
-=======
     disabled: false,
     fileName : '',
     gotFile: false,
->>>>>>> 7cedea10f97db192bd337bcf190e38b248c3d077
+    roomNameValue: "",
 };
 
 // reducer는 state의 상태를 변화시켜주는 함수
