@@ -3,10 +3,7 @@ import store from '../store/store.js'
 import * as wss from './wss.js'
 import Peer from 'simple-peer'
 import { fetchTURNCredentials, getTurnIceServers } from './turn.js';
-import { fileUpload, setSocketId } from '../store/actions';
 import streamSaver from 'streamsaver';
-import react, {useRef} from 'react';
-
 // to get our local camera preview and create the room if we are the host on the server
 // so we'll initialize the connection if the hos and if the user which way is joining the name of that
 
@@ -96,7 +93,7 @@ const getConfiguration = ()=>{
 };
 
 const messengerChannel = 'messenger';
-var fileName = '';
+
 export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
     console.log(connUserSocketId);
     console.log(isInitiator);
@@ -138,15 +135,15 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
            console.log('done')
            const parsed = JSON.parse(data);
            store.dispatch(setFileName(parsed.fileName));
-           fileName = parsed.fileName;
-           store.dispatch(setDisabled(false));
+           console.log(parsed.fileName);
+           
         }
-        if(data.toString().includes("ms")){
-            console.log('ms');
-            const messageData = await JSON.parse(data);
+        if(data.toString().includes("message")){
+            console.log('message');
+            const messageData = await JSON.parse(data);            
             appendNewMessage(messageData); 
         }
-        if(!(data.toString().includes("done")) && !(data.toString().includes("ms"))){
+        if(!(data.toString().includes("done")) && !(data.toString().includes("message"))){
             console.log('file');
             store.dispatch(setGotFiled(true));
             worker.postMessage(data);
@@ -157,15 +154,17 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
 };
 
 export const download = ()=>{
+    const {fileName} = store.getState();
     console.log('......downloading');
     store.dispatch(setGotFiled(false))
     worker.postMessage('download');
     worker.addEventListener('message', event =>{
+        console.log(fileName);
         const stream = event.data.stream();
-        const fileStream = streamSaver.createWriteStream(fileName);
+        const fileStream =  streamSaver.createWriteStream(fileName, {size: 900000});
         stream.pipeTo(fileStream);
+        console.log(fileStream);
     })
-    fileName = '';
 }
 
 export const handleSignalingData =(data)=>{
@@ -333,18 +332,18 @@ const switchVideoTracks = (stream) => {
     const identity = store.getState().identity;
     //console.log(identity); message 전달자 ok 
     const localMessageData = {
-      ms: true,
-      content: messageContent,
+      "message": true,
+      "content": messageContent,
       identity,
-      messageCreatedByMe: true,
+      "messageCreatedByMe": true,
     };
     
     // console.log(localMessageData); ok
     appendNewMessage(localMessageData);
   
     const messageData = {
-      ms: true,
-      content: messageContent,
+      "message": true,
+      "content": messageContent,
       identity,
     };
     // console.log(typeof(messageData)); // object
@@ -358,25 +357,29 @@ const switchVideoTracks = (stream) => {
 
   export const sendFileUsingDataChannel= (file)=>{
       const stream = file.stream();
-      console.log(stream);
       const reader = stream.getReader();
       
       reader.read().then(obj =>{
+          console.log(obj)
           handlereading(obj.done, obj.value);
       });
 
       const handlereading=(done, value)=> {
           if(done){
               for(let socketId in peers){
-                  peers[socketId].write(JSON.stringify({ done: true, fileName: file.name }));
+                  peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name }));
               }
               return;
           }
           for(let socketId in peers){
-              peers[socketId].write(value)
+              peers[socketId].write(value);
               reader.read().then(obj =>{
-                  handlereading(obj.done, obj.value);
-              })
+                console.log(obj.done);
+                console.log(obj.value);
+                handlereading(obj.done, obj.value);
+            });
           }
+
+
       }
   }
