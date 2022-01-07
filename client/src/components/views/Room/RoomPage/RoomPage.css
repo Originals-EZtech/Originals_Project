@@ -492,8 +492,8 @@ video {
 }
 
 .label_only_audio_container {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   z-index: 2;
   display: flex;
   align-items: center;
@@ -501,6 +501,7 @@ video {
   position: absolute;
   top: 0%;
   left: 0%;
+  background-color:b
 }
 
 .label_only_audio_container {
@@ -688,4 +689,9 @@ video {
   transition: 1s;
   top:17px;
   height: 20px;
+}
+
+
+.new_file_container{
+  background-color:gray;
 }

@@ -13,6 +13,7 @@ const Dictaphone = ({socketId}) => {
     const [cookies]=useCookies();
     const {
       transcript,
+      listening,
       resetTranscript,
       browserSupportsSpeechRecognition
     } = useSpeechRecognition();
@@ -32,7 +33,7 @@ const Dictaphone = ({socketId}) => {
       resetTranscript();
     }
     
-    if (transcript.length>100) {
+    if (transcript.length>100 ) {
       resetTranscript();
     }
 
@@ -72,6 +73,7 @@ const Dictaphone = ({socketId}) => {
             <p className="sttc">{transcript}</p>
             {sendToAll(transcript)}
           </div>
+          <h3>{cookies.user_role}</h3>
         </div>
      );
     }
