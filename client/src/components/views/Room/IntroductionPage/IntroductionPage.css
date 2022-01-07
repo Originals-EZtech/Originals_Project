@@ -50,7 +50,7 @@
 
 .create_room_button {
   margin-top: 15px;
-  background-color: white;
+  background-color: #26ce90;
   border: 1px solid #e5e5e5;
   color: black;
   font-size: 1.7rem;
@@ -61,5 +61,5 @@
 }
 
 .create_room_button:hover {
-  background-color: #e5e5e5;
+  background-color: #21a374;
 }
