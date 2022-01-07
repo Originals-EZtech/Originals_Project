@@ -164,14 +164,20 @@ const createNewRoomHandler = (data, socket) =>{
     // join socket.io room
     socket.join(roomId);
 
+    console.log("roomId"+roomId)
+    console.log("typeof(roomId)"+typeof(roomId))
+    console.log("typeof(data.identity)"+typeof(data.identity))
+
+
     rooms = [...rooms, newRoom]; //rooms - room - roomId, connectedusers
 
     // emit to that client which created that room roomId
     socket.emit('room-id', {roomId});
 
     // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
-    const insertarray = [roomId, "roomname", "roompassword"];
-
+    const room_name=data.identity
+    const insertarray = [roomId, room_name];
+    
     // room-id 테이블에 저장
     oracledb.getConnection(dbConfig, (err, conn) => {
         roomNameInsert(err, conn);
@@ -182,7 +188,7 @@ const createNewRoomHandler = (data, socket) =>{
                 console.log("데이터 가져오기 실패");
                 return;
             }
-            connection.execute("insert into room_table (ROOM_SEQ,ROOM_ID,USER_ID,ROOM_NAME,ROOM_PASSWORD,ROOM_DATE) values(ROOM_SEQ.NEXTVAL,:roomId,9,:roomname,:roompassword,SYSDATE)", insertarray, function (err, result) {
+            connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,9,:room_name,1,SYSDATE)", insertarray, function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);
