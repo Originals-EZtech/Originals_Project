@@ -7,17 +7,11 @@ import { useCookies } from "react-cookie";
 
 const ConnectingButtons = (props) => {
     const [cookies] = useCookies();
-    const isProf = (cookies.user_role === 'prof') ? true : false;
     // console.log(isProf);
-
+  
     const pushToJoinRoomPage = () => {
-        if (isProf) {
-            props.history.push('/join-room');
-        } else {
-            toast.error('승인 허가 되지 않은 유저입니다.');
-        }
+        props.history.push('/join-room');
     }
-    
     const pushToJoinRoomPageAsHost =() =>{
         props.history.push('/join-room?host=true');
     }
@@ -26,7 +20,7 @@ const ConnectingButtons = (props) => {
         props.history.push('/myclass');
     }
 
-    if(cookies.user_role ==='prof'){
+    if(cookies.user_role ==='prof' && cookies.user_flag ==='false'){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton createRoomButton buttonText = 'Host a meeting' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
