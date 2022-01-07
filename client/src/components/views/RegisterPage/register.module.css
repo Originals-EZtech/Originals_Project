@@ -48,11 +48,9 @@
 }
 
 .authDiv{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+	height: 320px;
+	margin-left: 10px;
 }
-
 
 .authentication{
 	/* position: relative; */
