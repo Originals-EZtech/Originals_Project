@@ -26,7 +26,6 @@ const Name =({}) =>{
 const JoinRoomInputs = (props) =>{
     const { roomIdValue, setRoomIdValue, nameValue, setNameValue, isRoomHost, roomNameValue, setRoomNameValue } =
     props;
-    //console.log(props);
 
     const handleRoomIdValueChange = (event) =>{
         setRoomIdValue(event.target.value);

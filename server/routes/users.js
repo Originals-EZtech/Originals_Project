@@ -10,7 +10,6 @@ const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
 oracledb.autoCommit = true;
-require('dotenv').config();
 //oracledb connection
 var conn;
 oracledb.getConnection(dbConfig, function (err, con) {
@@ -22,10 +21,6 @@ oracledb.getConnection(dbConfig, function (err, con) {
     console.log('DB connection');
 });
 
-router.get('/dotenv', function (req, res) {
-    res.send(process.env.TEST);
-    console.log(process.env.TEST)
-})
 
 /**
  * 이메일인증

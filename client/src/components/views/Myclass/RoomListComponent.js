@@ -6,11 +6,11 @@ function RoomListComponent() {
     });
 
   const { room_list, } = state;
-  const user_id=9;
+  const user_seq=9;
 
   const onclick = () => {
       const textbox = {
-          user_id: user_id,
+          user_seq: user_seq,
         };
         fetch("/api/data2//roomlist_2", { //text 주소에서 받을 예정
           method: "post", //통신방법
