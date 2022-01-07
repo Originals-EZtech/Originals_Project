@@ -26,6 +26,7 @@ const FileSharing = ({gotFile, fileName})=>{
       }
 
       let downloadPrompt;
+      let fileNamePrompt;
       if(gotFile){
           downloadPrompt =(
               <div>
@@ -34,7 +35,13 @@ const FileSharing = ({gotFile, fileName})=>{
               </div>
           )
       }
-
+      if(file !== null){
+          fileNamePrompt =(
+              <div>
+                  <p>{file.name}</p>
+              </div>
+          )
+      }
     return(
         <div className="new_file_container">
             <label className = 'file_container'>
@@ -50,6 +57,7 @@ const FileSharing = ({gotFile, fileName})=>{
             </label>
             <div>
                 {downloadPrompt}
+                {fileNamePrompt}
             </div>
 
             <label>
