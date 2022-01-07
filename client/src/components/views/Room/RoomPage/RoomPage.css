@@ -9,7 +9,8 @@
   width: 20%;
   margin-top:10px;
   margin-left:10px;
-  
+  left:59%;
+  position: relative;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -431,6 +432,7 @@ video {
 .video_track_container:first-child:nth-last-child(3) ~ .video_track_container {
   width: 50%;
   height: 50%;
+  
   position: relative;
 }
 
@@ -670,7 +672,7 @@ video {
 
 .st{
   position: absolute;
-  
+  top: 25px;
 }
 
 .copybutton{
