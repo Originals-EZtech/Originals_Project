@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from 'react';
 import { connect } from "react-redux";
 
 
@@ -13,17 +13,27 @@ const Message = ({ author, content, sameAuthor, messageCreatedByMe }) => {
   const contentAdditionalStyles = messageCreatedByMe
     ? "message_right_styles"
     : "message_left_styles";
+   
 
   return (
     <div className={`message_container ${alignClass}`}>
       {!sameAuthor && <p className="message_title">{authorText}</p>}
       <p className={`message_content ${contentAdditionalStyles}`}>{content}</p>
     </div>
+  
   );
 };
 
 
 const Messages = ({ messages}) => {
+  const scrollRef = useRef();
+  useEffect(()=>{
+    if(scrollRef){
+        scrollRef.current.scrollIntoView({ behaviour: 'smooth'});
+    }
+}, [
+    messages
+]);
   return (
     <div className="messages_container">
       {messages.map((message, index) => {
@@ -40,6 +50,7 @@ const Messages = ({ messages}) => {
           />
         );
       })}
+      <div ref={scrollRef}></div>
     </div>
   );
 };
