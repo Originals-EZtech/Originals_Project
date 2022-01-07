@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { registerUser, authEmail, fileUpload } from '../Room/store/actions';
 import styles from '../RegisterPage/register.module.css';
 import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
@@ -8,6 +7,7 @@ import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
+import { authEmail, fileUpload, registerUser } from '../../../redux/actions/actions';
 // import axios from 'axios';
 // import Customer from './Customer';
 

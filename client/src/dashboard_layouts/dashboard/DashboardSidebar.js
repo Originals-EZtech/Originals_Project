@@ -12,8 +12,8 @@ import { MHidden } from '../../dashboard_components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
 import Clock from 'react-live-clock';
+import { sideOpen } from '../../redux/actions/actions';
 
-import { sideOpen } from '../../components/views/Room/store/actions';
 
 // ----------------------------------------------------------------------
 

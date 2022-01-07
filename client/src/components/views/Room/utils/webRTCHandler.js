@@ -1,9 +1,9 @@
-import { setMessages, setShowOverlay, setFileName, setDisabled, setGotFiled } from '../store/actions.js';
-import store from '../store/store.js'
 import * as wss from './wss.js'
 import Peer from 'simple-peer'
 import { fetchTURNCredentials, getTurnIceServers } from './turn.js';
 import streamSaver from 'streamsaver';
+import { setFileName, setGotFiled, setMessages, setShowOverlay } from '../../../../redux/actions/actions.js';
+import store from '../../../../redux/store/store.js';
 // to get our local camera preview and create the room if we are the host on the server
 // so we'll initialize the connection if the hos and if the user which way is joining the name of that
 

@@ -8,8 +8,8 @@ import { Button, Box, Divider, Typography, IconButton } from '@mui/material';
 import MenuPopover from '../../dashboard_components/MenuPopover';
 //
 import { useCookies } from 'react-cookie';
-import { logout } from '../../components/views/Room/store/actions';
 import { toast, ToastContainer } from 'react-toastify';
+import { logout } from '../../redux/actions/actions';
 
 function AccountPopover(props) {
   const imgStyle = {

@@ -7,7 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { loginUser } from '../Room/store/actions'
+import { loginUser } from '../../../redux/actions/actions';
 
 
 function Login(props) {

@@ -2,12 +2,12 @@
 import React, { useEffect } from 'react';
 import { useLocation} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setIsRoomHost } from '../store/actions';
 import JoinRoomTitle from './JoinRoomTitle';
 import JoinRoomContent from './JoinRoomContent';
 import RoomNavBar from '../../NavBar/RoomNavBar';
 
 import './JoinRoomPage.css';
+import { setIsRoomHost } from '../../../../redux/actions/actions';
 
 
 const JoinRoomPage = (props) =>{

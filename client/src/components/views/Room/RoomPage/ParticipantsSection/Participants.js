@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect} from 'react-redux';
-import { setActiveConversation } from '../../store/actions';
+import { setActiveConversation } from '../../../../../redux/actions/actions';
 
 const SingleParticipant = (props) => {
     //console.log(props); // ok

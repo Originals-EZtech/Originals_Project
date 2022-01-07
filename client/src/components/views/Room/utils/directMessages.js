@@ -1,5 +1,5 @@
-import { setDirectChatHistory } from "../store/actions";
-import store from "../store/store";
+import { setDirectChatHistory } from "../../../../redux/actions/actions";
+import store from "../../../../redux/store/store";
 
 export const appendNewMessageToChatHistory = (data) =>{
     const {isAuthor, receiverSocketId, authorSocketId} = data;

@@ -18,7 +18,7 @@ import {
   AppConversionRates
 } from '../../../dashboard_components/_dashboard/app';
 import chartInfoService from './service/chartInfoService';
-import { sideOpen } from '../Room/store/actions';
+import { sideOpen } from '../../../redux/actions/actions';
 
 // ----------------------------------------------------------------------
 
