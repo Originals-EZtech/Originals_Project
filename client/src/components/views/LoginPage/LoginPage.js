@@ -47,7 +47,7 @@ function Login(props) {
                 //window.onpopstate = function(event) { history.go(1); };
                 // window.location.href="/";
                 setTimeout(() => {
-                    window.onpopstate = function(event) { props.history.go(1); };
+                    //window.onpopstate = function(event) { props.history.go(1); };
                     props.history.push('/intro');
                 }, 1200)
             } else {
