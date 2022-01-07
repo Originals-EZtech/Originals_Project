@@ -17,6 +17,7 @@ const JoinRoomContent = (props) =>{
    
     const [roomIdValue, setRoomIdValue] = useState('');
     const [nameValue, setNameValue] = useState('');
+    const [roomNameValue, setRoomNameValue] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
 
     //쿠키
@@ -27,6 +28,7 @@ const JoinRoomContent = (props) =>{
         setIdentityAction(nameValue);
         if (isRoomHost){
             createRoom();
+            setRoomNameValue(roomNameValue);
         }else{
             await joinRoom();
         }
