@@ -48,9 +48,11 @@
 }
 
 .authDiv{
-	height: 320px;
-	margin-left: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
+
 
 .authentication{
 	/* position: relative; */
@@ -108,7 +110,6 @@
 	height: 0;
 	width: 0;
 }
-
 /* Create a custom checkbox */
 .checkmark {
 	position: absolute;
@@ -157,6 +158,7 @@
 /* **************************** */
 
 .uploadFile {
+	display: block;
 	font-size: 12px;
 }
 

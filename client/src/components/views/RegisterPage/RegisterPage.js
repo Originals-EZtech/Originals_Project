@@ -317,7 +317,6 @@ function Register(props) {
                             <button onClick={authEmailHandler} className={styles.authBtn}>Authentication</button>
                             {Time ? <Timer mm={1} ss={0} /> : null}
                         </div>
-
                         <div className={styles.checkRole}>
                             <label className={styles.checkbox_container}>
                                 <input type="checkbox" value={isTeacher} onChange={checkboxHandler} />
@@ -337,6 +336,8 @@ function Register(props) {
                                 : null
                             }
                         </div>
+
+
                     </div>
                 </div>
                 <div className={styles.img}>
