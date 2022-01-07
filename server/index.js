@@ -137,7 +137,7 @@ const createNewRoomHandler = (data, socket) =>{
     console.log('host is creating a new room');
     console.log(data);
     // get that cost identity from 'data'
-    const { identity, onlyAudio} = data;
+    const { identity, onlyAudio,user_email } = data;
 
     // thanks to that we are able to generate a random id 
     const roomId = uuidv4();
@@ -164,10 +164,10 @@ const createNewRoomHandler = (data, socket) =>{
     // join socket.io room
     socket.join(roomId);
 
-    console.log("roomId"+roomId)
-    console.log("typeof(roomId)"+typeof(roomId))
+    console.log("roomId ::: "+roomId)
+    console.log("typeof(roomId) ::: "+typeof(roomId))
     console.log("typeof(data.identity)"+typeof(data.identity))
-
+    console.log("user_email :::: "+user_email)
 
     rooms = [...rooms, newRoom]; //rooms - room - roomId, connectedusers
 

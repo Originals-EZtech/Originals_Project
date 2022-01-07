@@ -39,8 +39,18 @@ const JoinRoomInputs = (props) =>{
         placeholder= 'Enter class ID'
         value = {roomIdValue}
         changeHandler={handleRoomIdValueChange}
+        /> , <Input 
+         placeholder = 'Enter your Name'
+         value = {nameValue}
+         changeHandler={handleNameValueChange}
         />
+        
         )}
+        <Input 
+         placeholder = 'Enter class Name'
+         value = {nameValue}
+         changeHandler={handleNameValueChange}
+        />
         <Input 
          placeholder = 'Enter your Name'
          value = {nameValue}
