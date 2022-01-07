@@ -9,6 +9,7 @@ import { setIdentity} from '../store/actions';
 import JoinRoomButtons from './JoinRoomButtons';
 import { getRoomExists } from '../utils/api';
 import { withRouter } from 'react-router-dom';
+// import tokenConfig from '../../../../../../server/config/tokenConfig';
 
 
 const JoinRoomContent = (props) =>{
@@ -18,6 +19,7 @@ const JoinRoomContent = (props) =>{
     const [nameValue, setNameValue] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
 
+    //쿠키
     //console.log(props); 
 
     const handleJoinRoom = async () =>{ 
