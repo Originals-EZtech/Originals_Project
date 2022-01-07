@@ -36,8 +36,8 @@ const ConnectingButtons = (props) => {
         </div>);
     }else{
         return(<div className = 'connecting_buttons_container'>
-            <ConnectingButton buttonText = 'Join a meeting' />
-            onClickHandler ={pushToJoinRoomError}
+            <ConnectingButton buttonText = 'Join a meeting' 
+            onClickHandler ={pushToJoinRoomError}/>
         </div>);
     }
 };
