@@ -23,12 +23,12 @@ const ConnectingButtons = (props) => {
     if(cookies.user_role ==='prof' && cookies.user_flag ==='false'){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton createRoomButton buttonText = 'Host a meeting' 
-            onClickHandler ={pushToJoinRoomPageAsHost}/>
+            onClickHandler ={pushToJoinRoomPage}/>
         </div>);
     }else{
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join a meeting' 
-            onClickHandler ={pushToJoinRoomPage}/>
+            onClickHandler ={pushToJoinRoomPageAsHost}/>
         </div>);
     }
 };
