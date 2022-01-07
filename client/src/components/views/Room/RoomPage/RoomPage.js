@@ -3,7 +3,7 @@ import ChatSection from './ChatSection/ChatSection';
 import ParticipantsSection from './ParticipantsSection/ParticipantsSection';
 import VideoSection from './VideoSection/VideoSection';
 import RoomLabel from './RoomLabel';
-import { connect} from 'react-redux';
+import {connect} from 'react-redux';
 import * as webRTCHandler from '../utils/webRTCHandler';
 import Overlay from './Overlay';
 import Sttsection from './Stt/SttSection'
@@ -12,10 +12,10 @@ import { isBrowser ,  isMobile } from 'react-device-detect';
 import './RoomPage.css';
 import { useCookies } from "react-cookie";
 
-const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio  }) => {
+const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio, roomNameValue }) => {
     const [cookies] = useCookies();
     const user_email = cookies.user_email;
-
+    
     useEffect(() => {
         if(!isRoomHost && !roomId){
             const siteUrl = window.location.origin; // get current url
@@ -27,7 +27,8 @@ const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAu
                 roomId,
                 //showOverlay,
                 connectOnlyWithAudio,
-                user_email
+                user_email,
+                roomNameValue
             );
         }
     }, []);

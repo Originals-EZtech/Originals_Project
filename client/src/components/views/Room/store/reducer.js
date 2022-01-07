@@ -14,6 +14,7 @@ const initState = {
     socketId: null,
     word: "",
     open: false, // dashboard 페이지 화면 축소 상태일 때 side bar 작동하기 위해 필요
+    roomNameValue: ""
 };
 
 // reducer는 state의 상태를 변화시켜주는 함수
@@ -112,6 +113,12 @@ const reducer = (state = initState, action) => {
                 ...state,
                 open: action.open
             };
+        case Actions.SET_ROOMNAMEVALUE:
+            return{
+                ...state,
+                roomNameValue: action.roomNameValue
+            };
+            
         default:
             return state;
     }

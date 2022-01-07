@@ -19,7 +19,8 @@ const Actions ={
     SET_FILE_UPLOAD: "SET_FILE_UPLOAD",
     SET_TOTAL_USER:"SET_TOTAL_USER",
     SET_WORD:"SET_WORD",
-    SET_SIDE_OPEN:"SET_SIDE_OPEN"
+    SET_SIDE_OPEN:"SET_SIDE_OPEN",
+    SET_ROOMNAMEVALUE:"SET_ROOMNAMEVALUE"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -216,6 +217,15 @@ export const sideOpen = (open) => {
         open,
       }
 }
+
+
+export const setRoomNameValue = (roomNameValue) => {
+    return {
+        type: Actions.SET_ROOMNAMEVALUE,
+        roomNameValue,
+    }
+}
+
 
   
 export default Actions;
