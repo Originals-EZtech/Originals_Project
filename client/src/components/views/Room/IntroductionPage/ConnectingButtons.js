@@ -20,15 +20,15 @@ const ConnectingButtons = (props) => {
         props.history.push('/myclass');
     }
 
-    if(cookies.user_role ==='prof' && cookies.user_flag ==='false'){
+    if(cookies.user_role ==='prof'){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton createRoomButton buttonText = 'Host a meeting' 
-            onClickHandler ={pushToJoinRoomPage}/>
+            onClickHandler ={pushToJoinRoomPageAsHost}/>
         </div>);
     }else{
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join a meeting' 
-            onClickHandler ={pushToJoinRoomPageAsHost}/>
+            onClickHandler ={pushToJoinRoomPage}/>
         </div>);
     }
 };
