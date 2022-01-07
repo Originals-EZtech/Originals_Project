@@ -6,7 +6,7 @@ import * as wss from './../../utils/wss';
 import {useCookies} from "react-cookie";
 import onbut from '../../resources/images/stt_on_icon.svg';
 import offbut from '../../resources/images/stt_off_icon.svg';
-
+import Stt from './Sttand';
 import talk from '../../resources/images/talk.svg';
 import notalk from '../../resources/images/notalk.svg';
 
@@ -55,12 +55,7 @@ const Dictaphone = ({socketId}) => {
       }   
     if(cookies.user_role ==='general'){
       return(
-        <div>
-          <img
-          className="talksig"
-          src={now? talk:notalk}>
-          </img>
-        </div>
+        <Stt />
       );
     }
     else{
@@ -78,7 +73,7 @@ const Dictaphone = ({socketId}) => {
           </img>
           <div className="te">
             <p className="sttc">{transcript}</p>
-            {sendToAll(transcript)},
+            {sendToAll(transcript)}
           </div>
         </div>
      );
