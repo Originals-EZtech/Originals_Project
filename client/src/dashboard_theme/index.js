@@ -17,6 +17,7 @@ ThemeConfig.propTypes = {
 };
 
 export default function ThemeConfig({ children }) {
+  console.log('children',children)
   const themeOptions = useMemo(
     () => ({
       palette,
