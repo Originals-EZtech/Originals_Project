@@ -248,8 +248,8 @@ router.post("/login", function (req, res) {
                                 .cookie("user_name", result.rows[0][2])
                                 .cookie("user_email", result.rows[0][0])
                                 .cookie("user_role", result.rows[0][3])
-                                .cookie("user_flag", result.rows[0][4])
-                                .cookie("user_seq", result.rows[0][5])
+                                .cookie("user_seq", result.rows[0][4])
+                                .cookie("user_flag", result.rows[0][5])
                                 .status(200)
                                 .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], msg: userEmail + " 로그인 성공" })
                         }
