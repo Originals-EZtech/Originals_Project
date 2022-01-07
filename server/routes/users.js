@@ -111,7 +111,7 @@ router.get("/list", function (req, res) {
 
 // SELECT query all attachment
 router.get("/userList", function (req, res) {
-    conn.execute("select * from attachment", [], { outFormat: oracledb.OBJECT }, function (err, result) {
+    conn.execute("select * from attachment_table", [], { outFormat: oracledb.OBJECT }, function (err, result) {
         if (err) {
             console.log(err);
         } else {
@@ -142,7 +142,7 @@ router.post("/register", function (req, res) {
         bcrypt.hash(param[1], saltRounds, (err, hash) => {
             param[1] = hash
 
-            conn.execute('INSERT INTO USER_TABLE (USER_SEQ,USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_FLAG) VALUES(user_seq.NEXTVAL, :email, :password, :name, :role, :flag)', param, function (err, result) {
+            conn.execute('INSERT INTO USER_TABLE (USER_SEQ, USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_FLAG) VALUES(user_seq.NEXTVAL, :email, :password, :name, :role, :flag)', param, function (err, result) {
                 if (err) {
                     console.log(err)
                     res.status(200).json({
@@ -177,7 +177,7 @@ router.post('/imgUpload', upload.single('image'), (req, res) => {
     // console.log('image', image);
     // console.log('email', email);
 
-    conn.execute('insert into attachment (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
+    conn.execute('insert into attachment_table (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
         if (err) {
             console.log(err);
             res.status(200).json({
