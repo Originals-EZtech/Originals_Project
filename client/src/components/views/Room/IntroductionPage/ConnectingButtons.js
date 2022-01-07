@@ -8,10 +8,11 @@ import { useCookies } from "react-cookie";
 const ConnectingButtons = (props) => {
     const [cookies] = useCookies();
 
-    const isProf = (cookies.user_role === 'general') ? true : false;
-
     // console.log(isProf);
   
+    const pushToJoinRoomError = () =>{
+        toast.error('승인 허가 되지 않은 유저입니다.');
+    }
     const pushToJoinRoomPage = () => {
         props.history.push('/join-room');
     }
@@ -23,15 +24,20 @@ const ConnectingButtons = (props) => {
         props.history.push('/myclass');
     }
 
-    if(cookies.user_role ==='prof'){
+    if(cookies.user_role ==='prof' && cookies.user_flag  === 'false'){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton createRoomButton buttonText = 'Host a meeting' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
         </div>);
-    }else{
+    }else if(cookies.user_role ==='general' || (cookies.user_role ==='prof' && cookies.user_flag  === 'true')){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join a meeting' 
             onClickHandler ={pushToJoinRoomPage}/>
+        </div>);
+    }else{
+        return(<div className = 'connecting_buttons_container'>
+            <ConnectingButton buttonText = 'Join a meeting' />
+            onClickHandler ={pushToJoinRoomError}
         </div>);
     }
 };
