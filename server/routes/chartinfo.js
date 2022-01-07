@@ -69,7 +69,7 @@ router.get('/count', (req, res) => {
  */
 router.get("/permitlist", function (req, res) {
     const query = "SELECT U.USER_EMAIL, U.USER_NAME, U.USER_ROLE, U.USER_FLAG, A.DIRECTORY \
-                    FROM USER_TABLE U INNER JOIN ATTACHMENT A \
+                    FROM USER_TABLE U INNER JOIN ATTACHMENT_TABLE A \
                     ON U.USER_EMAIL = A.USER_EMAIL \
                     WHERE U.USER_FLAG='true'";
 
@@ -78,12 +78,21 @@ router.get("/permitlist", function (req, res) {
         if (err) {
             console.log(err);
         }
-        // console.log("select 성공");
-        console.log(result.rows);
 
         res.json({
             permitlist: result.rows
         })
+
+        // 쿼리문 결과로 반환되는 것이 없을 경우
+        // if (typeof result === 'undefined') { 
+        //     res.json({
+        //         permitlist: ""
+        //     })
+        // } else {
+        //     res.json({
+        //         permitlist: result.rows
+        //     })
+        // }
     })
 });
 
