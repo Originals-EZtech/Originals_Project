@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import logo from '../resources/images/logo.png';
 import ConnectingButtons from './ConnectingButtons';
