@@ -24,7 +24,7 @@ const Name =({}) =>{
 }
 
 const JoinRoomInputs = (props) =>{
-    const { roomIdValue, setRoomIdValue, nameValue, setNameValue, isRoomHost } =
+    const { roomIdValue, setRoomIdValue, nameValue, setNameValue, isRoomHost, roomNameValue, setRoomNameValue } =
     props;
     //console.log(props);
 
@@ -34,29 +34,28 @@ const JoinRoomInputs = (props) =>{
     const handleNameValueChange = (event) => {
         setNameValue(event.target.value);
     }
+    const handleRoomNameValueChange = (event) => {
+        setRoomNameValue(event.target.value);
+    }
+
     return <div className = 'join_room_inputs_container'>
         {!isRoomHost && (<Input 
         placeholder= 'Enter class ID'
         value = {roomIdValue}
         changeHandler={handleRoomIdValueChange}
-        /> , <Input 
-         placeholder = 'Enter your Name'
-         value = {nameValue}
-         changeHandler={handleNameValueChange}
         />
-        
+        )}
+        {!!isRoomHost && (<Input 
+         placeholder = 'Enter class Name'
+         value = {roomNameValue}
+         changeHandler={handleRoomNameValueChange}
+        />
         )}
         <Input 
-         placeholder = 'Enter class Name'
-         value = {nameValue}
-         changeHandler={handleNameValueChange}
-        />
-        <Input 
          placeholder = 'Enter your Name'
          value = {nameValue}
          changeHandler={handleNameValueChange}
         />
-        
     </div>
 };
 
