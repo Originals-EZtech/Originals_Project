@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import ReactDOM from 'react-dom';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';//stt라이브러리
 import * as wss from './../../utils/wss';
 import {useCookies} from "react-cookie";
@@ -16,8 +15,6 @@ const Dictaphone = ({socketId}) => {
     const [cookies]=useCookies();
     const {
       transcript,
-      listening,
-      finalTranscript,
       resetTranscript,
       browserSupportsSpeechRecognition
     } = useSpeechRecognition();
@@ -58,7 +55,8 @@ const Dictaphone = ({socketId}) => {
         <div>
           <img
           className="talksig"
-          src={now? talk:notalk}>
+          src={now? talk:notalk}
+          alt="">
           </img>
         </div>
       );
@@ -69,12 +67,14 @@ const Dictaphone = ({socketId}) => {
           <img
           className="sttb"
           onClick={start} 
-          src={now ? null:offbut}>
+          src={now ? null:offbut}
+          alt="">
           </img>
           <img
           className="sttb"
           onClick={stop} 
-          src={!now ? null:onbut}>
+          src={!now ? null:onbut}
+          alt="">
           </img>
           <div className="te">
             <p className="sttc">{transcript}</p>

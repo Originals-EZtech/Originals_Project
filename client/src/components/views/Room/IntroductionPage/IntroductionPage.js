@@ -17,7 +17,7 @@ const IntroductionPage = ({setIsRoomHostAction}) => {
         <div className = 'introduction_page_container'>
             <RoomNavBar />
           <div className='introduction_page_panel'>
-              <img src={logo} className ='introduction_page_image'></img>
+              <img src={logo} className ='introduction_page_image' alt=''></img>
               <ConnectingButtons />
           </div>
         </div>

@@ -48,6 +48,7 @@ const NewMessage = () => {
         className="new_message_button"
         src={SendMessageButton}
         onClick={sendMessage}
+        alt=""
       />
       <label className = 'file_container'>
       <input 
@@ -58,6 +59,7 @@ const NewMessage = () => {
       <img 
       className="file_sending_button"
       src={fileSendingButton}
+      alt=""
       />
       </label>  
     </div>

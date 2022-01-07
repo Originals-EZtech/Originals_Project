@@ -41,7 +41,7 @@ const Timer = ({ mm, ss }) => {
 
     return (
         // 인증시간 만료됐을 경우
-        (minutes === 0) && (seconds == 0) ?        
+        (minutes === 0) && (seconds === 0) ?        
         <div>
             <h5 style={styleText1}>인증코드 만료</h5>
             <h5 style={styleText2}>인증번호를 다시 발급 받으세요</h5>
