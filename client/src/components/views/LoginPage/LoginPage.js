@@ -9,6 +9,7 @@ import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { loginUser } from '../Room/store/actions'
 
+
 function Login(props) {
     // const dispatch = useDispatch();
     const { loginUserAction } = props;
@@ -43,8 +44,10 @@ function Login(props) {
                 // alert(response.payload.msg);
                 toast.success(response.response.msg);
                 // 뒤로가기 방지 페이지 이동
+                //window.onpopstate = function(event) { history.go(1); };
                 // window.location.href="/";
                 setTimeout(() => {
+                    window.onpopstate = function(event) { props.history.go(1); };
                     props.history.push('/intro');
                 }, 1200)
             } else {
