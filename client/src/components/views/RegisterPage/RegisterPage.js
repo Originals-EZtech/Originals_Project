@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { registerUser, authEmail, fileUpload } from '../Room/store/actions';
 import styles from '../RegisterPage/register.module.css';

@@ -56,9 +56,20 @@ const NewMessage = ({disabled}) => {
         className="new_message_button"
         src={SendMessageButton}
         onClick={sendMessage}
+        alt=""
       />
-
-      
+      {/* <label className = 'file_container'>
+      <input 
+      id ='fileItem' 
+      type='file' 
+      onClick={sendFile}
+      style={{display: 'none'}}/> 
+      <img 
+      className="file_sending_button"
+      src={fileSendingButton}
+      alt=""
+      />
+      </label>   */}
     </div>
   );
 
