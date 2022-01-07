@@ -7,10 +7,9 @@ import { useCookies } from "react-cookie";
 
 const ConnectingButtons = (props) => {
     const [cookies] = useCookies();
-<<<<<<< HEAD
+
     const isProf = (cookies.user_role === 'general') ? true : false;
-=======
->>>>>>> 310ef8f87dd6b469460b485d86b110492c57250c
+
     // console.log(isProf);
   
     const pushToJoinRoomPage = () => {
