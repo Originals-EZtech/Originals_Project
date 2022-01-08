@@ -10,7 +10,7 @@ const SingleParticipant = (props) => {
         ,participant
         ,setActiveConversationAction
         ,socketId
-         } = props;
+        ,roomHost } = props;
     console.log(lastItem);
     const handleOpenActiveChatbox = () =>{
         console.log(participant.socketId); //선택한 user 
@@ -21,19 +21,59 @@ const SingleParticipant = (props) => {
         }
         
     };
+
+    let showParti;
+    let showHost;
+    if(participant.socketId !== socketId){
+        showParti=(
+            <>
+                <p className = 'participants_paragraph' onClick={handleOpenActiveChatbox}>{identity}</p>
+                {!lastItem && <span className = 'participants_separator_line'></span>}
+            </>
+        )
+    }else{
+        showHost=(
+            <>
+                <p className = 'host_paragraph' onClick={handleOpenActiveChatbox}>{identity}</p>
+                {!lastItem && <span className = 'participants_separator_line'></span>}
+            </>
+        )  
+    }
+  
+
+    
+
+    // if(!roomHost){
+    //     show_participants = (
+    //         <>
+    //         <p className = 'participants_paragraph' onClick={handleOpenActiveChatbox}>{identity}</p>
+    //         {!lastItem && <span className = 'participants_separator_line'></span>}
+    //         </>
+    //     )
+    // }else{
+    //     show_participants = (
+    //         <>
+    //         <p className = 'participants_host_paragraph' onClick={handleOpenActiveChatbox}>{identity}</p>
+    //         {!lastItem && <span className = 'participants_separator_line'></span>}
+    //         </>
+    //     )
+
+    // }
     // 여기 onClick이 안먹네..? (25) 왜.. ? identity값은 다 들어오는데! 
     return( 
-    <> 
-        <p className = 'participants_paragraph' onClick={handleOpenActiveChatbox}>{identity}</p>
-        {!lastItem && <span className = 'participants_separator_line'></span>}
-    </>
+        <> 
+            {showParti}
+            {showHost}
+        </>
   );
+
 };
 
 const Participants = ({
     participants
     ,setActiveConversationAction
-    ,socketId}) => {
+    ,socketId,
+    isRoomHost}) => {
     //console.log(setActiveConversationAction);
     //console.log(props);
     return (

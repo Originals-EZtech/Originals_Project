@@ -133,7 +133,7 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
 
        if(data.toString().includes("done")){
            console.log('done')
-           const parsed = JSON.parse(data);
+           const parsed = await JSON.parse(data);
            store.dispatch(setFileName(parsed.fileName));
            console.log(parsed.fileName);
            
@@ -358,32 +358,49 @@ const switchVideoTracks = (stream) => {
   export const sendFileUsingDataChannel= (file)=>{
       const stream = file.stream(); //file 안에 stream() 함수
       const reader = stream.getReader();
+      console.log(reader);
       
 /*
 getReader(): ReadableStream interface 메소드 --> creates a reader and locks the stream to it
 */
-
-      reader.read().then(obj =>{
-          console.log(obj)
-          handlereading(obj.done, obj.value);
-      });
-
-      const handlereading=(done, value)=> {
-          /*
-           
-          */
-          if(done){
-              for(let socketId in peers){
-                  peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name }));
+        reader.read(10000).then(function handlereading({done, value}) {
+            
+            if(done){
+                for(let socketId in peers){
+                    peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name }));
                 }
-              return;
-          } //ok
-          console.log(value);
-          for(let socketId in peers){
-              peers[socketId].write(value);
-          }
-          reader.read().then(obj =>{
-            handlereading(obj.done, obj.value);
+                return;  
+            }
+            console.log(value.length);
+            for(let socketId in peers){
+                peers[socketId].write(value);
+            }
+            return reader.read(10000).then(handlereading);
+            
+
         });
-      }
+
+    //   reader.read().then(obj =>{
+    //       console.log(obj)
+    //       handlereading(obj.done, obj.value);
+    //   });
+
+    //   const handlereading=(done, value)=> {
+    //       /*
+           
+    //       */
+    //       if(done){
+    //           for(let socketId in peers){
+    //               peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name }));
+    //             }
+    //           return;
+    //       } //ok
+    //       console.log(value);
+    //       for(let socketId in peers){
+    //           peers[socketId].write(value);
+    //       }
+    //       reader.read().then(obj =>{
+    //         handlereading(obj.done, obj.value);
+    //     });
+    //   }
   }
