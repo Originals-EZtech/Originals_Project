@@ -24,8 +24,8 @@ import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavba
 import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
 import { ToastContainer } from 'react-toastify';
+import { sideOpen } from '../../../redux/actions/actions';
 
-import { sideOpen } from '../Room/store/actions';
 
 // ----------------------------------------------------------------------
 

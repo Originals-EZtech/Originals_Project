@@ -9,7 +9,7 @@ import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 import { MHidden } from '../../dashboard_components/@material-extend';
 //
 import AccountPopover from './AccountPopover';
-import { sideOpen } from '../../components/views/Room/store/actions';
+import { sideOpen } from '../../redux/actions/actions';
 
 // ----------------------------------------------------------------------
 

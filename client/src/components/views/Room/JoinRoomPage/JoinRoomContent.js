@@ -3,13 +3,11 @@ import JoinRoomInputs from './JoinRoomInputs';
 import { connect} from 'react-redux';
 import OnlyWithAudioCheckbox from './OnlyWithAudioCheckbox';
 import ErrorMessage from './ErrorMessage';
-import { setConnectOnlyWithAudio } from '../store/actions';
-import { setRoomId } from '../store/actions';
-import { setIdentity} from '../store/actions';
-import { setRoomNameValue } from '../store/actions';
+
 import JoinRoomButtons from './JoinRoomButtons';
 import { getRoomExists } from '../utils/api';
 import { withRouter } from 'react-router-dom';
+import { setConnectOnlyWithAudio, setIdentity, setRoomId, setRoomNameValue } from '../../../../redux/actions/actions';
 // import tokenConfig from '../../../../../../server/config/tokenConfig';
 
 
