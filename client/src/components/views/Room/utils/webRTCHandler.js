@@ -356,30 +356,34 @@ const switchVideoTracks = (stream) => {
   };
 
   export const sendFileUsingDataChannel= (file)=>{
-      const stream = file.stream();
+      const stream = file.stream(); //file 안에 stream() 함수
       const reader = stream.getReader();
       
+/*
+getReader(): ReadableStream interface 메소드 --> creates a reader and locks the stream to it
+*/
+
       reader.read().then(obj =>{
           console.log(obj)
           handlereading(obj.done, obj.value);
       });
 
       const handlereading=(done, value)=> {
+          /*
+           */
           if(done){
               for(let socketId in peers){
                   peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name }));
-              }
+                }
               return;
           }
           for(let socketId in peers){
               peers[socketId].write(value);
-              reader.read().then(obj =>{
-                console.log(obj.done);
-                console.log(obj.value);
-                handlereading(obj.done, obj.value);
-            });
           }
-
-
+          reader.read().then(obj =>{
+            console.log(obj.done);
+            console.log(obj.value);
+            handlereading(obj.done, obj.value);
+        });
       }
   }
