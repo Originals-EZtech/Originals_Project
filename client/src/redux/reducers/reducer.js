@@ -126,7 +126,7 @@ const reducer = (state = initState, action) => {
                 ...state,
                 fileName: action.fileName
             };
-        case Actions.SET_GOTFILED:
+        case Actions.SET_GOTFILE:
             return{
                 ...state,
                 gotFile: action.gotFile
