@@ -23,10 +23,6 @@ function UserChangeRole (props) {
         setTimeout(() => {
             props.history.push('/dashboard/user')
         }, 1200)
-
-        // // setTimeout(() => {
-        // //   serFlag(!flag);
-        // // }, 800)
     }
 
     return (
@@ -38,7 +34,7 @@ function UserChangeRole (props) {
                     (props.user.USER_FLAG === 'banned' && 'error') || 'success'
                 }
                 >
-                {props.user.USER_FLAG}
+                {props.user.USER_FLAG ==='true'? 'Confrim':''}
                 </Label> 
             </IconButton>
 
