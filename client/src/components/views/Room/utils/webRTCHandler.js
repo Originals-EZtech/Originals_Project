@@ -2,7 +2,7 @@ import * as wss from './wss.js'
 import Peer from 'simple-peer'
 import { fetchTURNCredentials, getTurnIceServers } from './turn.js';
 import streamSaver from 'streamsaver';
-import { setFileName, setGotFiled, setMessages, setShowOverlay } from '../../../../redux/actions/actions.js';
+import { setFileName, setGotFile, setMessages, setShowOverlay } from '../../../../redux/actions/actions.js';
 import store from '../../../../redux/store/store.js';
 // to get our local camera preview and create the room if we are the host on the server
 // so we'll initialize the connection if the hos and if the user which way is joining the name of that
@@ -130,13 +130,16 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
   
  
    peers[connUserSocketId].on('data', async(data) => {
-       console.log('got a message from peer1: ' + data);
+       console.log('2');
+       //console.log('got a message from peer1: ' + data);
 
        if(data.toString().includes("done")){
            console.log('done')
-           const parsed = JSON.parse(data);
+           const parsed = await JSON.parse(data);
            store.dispatch(setFileName(parsed.fileName));
+           store.dispatch(setGotFile(true));
            console.log(parsed.fileName);
+           console.log(parsed.fileSize);
            
         }
         if(data.toString().includes("message")){
@@ -146,7 +149,6 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
         }
         if(!(data.toString().includes("done")) && !(data.toString().includes("message"))){
             console.log('file');
-            store.dispatch(setGotFiled(true));
             worker.postMessage(data);
         }
    
@@ -155,17 +157,20 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
 };
 
 export const download = ()=>{
-    const {fileName} = store.getState();
+    const {fileName, gotFile} = store.getState();
+    store.dispatch(setGotFile(false))
+    console.log(gotFile);
     console.log('......downloading');
-    store.dispatch(setGotFiled(false))
     worker.postMessage('download');
     worker.addEventListener('message', event =>{
         console.log(fileName);
         const stream = event.data.stream();
-        const fileStream =  streamSaver.createWriteStream(fileName, {size: 900000});
+        const fileStream =  streamSaver.createWriteStream(fileName);
         stream.pipeTo(fileStream);
         console.log(fileStream);
     })
+
+    console.log(gotFile);
 }
 
 export const handleSignalingData =(data)=>{
@@ -357,30 +362,19 @@ const switchVideoTracks = (stream) => {
   };
 
   export const sendFileUsingDataChannel= (file)=>{
-      const stream = file.stream();
-      const reader = stream.getReader();
-      
-      reader.read().then(obj =>{
-          console.log(obj)
-          handlereading(obj.done, obj.value);
-      });
-
-      const handlereading=(done, value)=> {
-          if(done){
-              for(let socketId in peers){
-                  peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name }));
-              }
-              return;
+      file.arrayBuffer().then(buffer =>{
+          const chunkSize = 16*1024;
+          // keep chunking and sending the chunks to the other peers
+          while (buffer.byteLength){
+            const chunk = buffer.slice(0, chunkSize);
+            buffer = buffer.slice(chunkSize, buffer.byteLength);
+            for(let socketId in peers){
+                peers[socketId].send(chunk);
+            }
           }
           for(let socketId in peers){
-              peers[socketId].write(value);
-              reader.read().then(obj =>{
-                console.log(obj.done);
-                console.log(obj.value);
-                handlereading(obj.done, obj.value);
-            });
+              peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name, "fileSize":file.size }));
           }
-
-
-      }
+      });
   }
+

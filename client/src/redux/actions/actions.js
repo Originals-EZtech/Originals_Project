@@ -22,7 +22,7 @@ const Actions ={
     SET_SIDE_OPEN:"SET_SIDE_OPEN",
     SET_DISABLED: "SET_DISABLED",
     SET_FILENAME: "SET_FILENAME",
-    SET_GOTFILED: "SET_GOTFILED",
+    SET_GOTFILE: "SET_GOTFILE",
     SET_ROOMNAMEVALUE:"SET_ROOMNAMEVALUE",
     SET_MYROOMID:"SET_MYROOMID"
 };
@@ -236,9 +236,9 @@ export const setFileName = (fileName)=>{
     }
 }
 
-export const setGotFiled = (gotFile)=>{
+export const setGotFile = (gotFile)=>{
     return{
-        type: Actions.SET_GOTFILED,
+        type: Actions.SET_GOTFILE,
         gotFile
     }
 }

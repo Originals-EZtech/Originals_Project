@@ -8,7 +8,7 @@ self.addEventListener('message', event =>{
         self.postMessage(blob);
         //console.log(href);
         array = [];
-        console.log(array) //[]
+        console.log(array); //[]
     }else{
         console.log('still collecting~');
         array.push(event.data);
