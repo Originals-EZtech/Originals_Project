@@ -2,6 +2,8 @@
   width: 100%;
   height: 100vh;
   display: flex;
+  
+  
 }
 
 .chat_section_container {
@@ -9,8 +11,8 @@
   width: 20%;
   margin-top:10px;
   margin-left:10px;
-  left:59%;
-  position: relative;
+  left:79%;
+  position: absolute;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -30,13 +32,13 @@
   font-weight: 700;
   color: #9ca5ab;
   margin-top:1%;
-  margin-left: 40%;
+  margin-left: 43%;
   font-size: 16px;
 }
 
 .new_message_container {
   width: 100%;
-  height: 100px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,18 +63,22 @@
 
 .new_message_button {
   position: absolute;
-  right: 22.5%;
+  right: 13%;
+  
 }
 
 
 .file_sending_button {
   position: absolute;
-  right: 13%;
-  bottom: 40%;
+  right: 6%;
+  bottom:13.5%;
+  border-radius: 50%;
+  background-color:white;
 }
 
 .messages_container {
   width: calc(100% - 20px);
+  height:77%;
   margin-left: 10px;
   margin-right: 10px;
   flex-grow: 1;
@@ -150,18 +156,18 @@ border-top:15px solid #21a374;
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
-  background: rgba(0, 188, 164, 0.1);
+  background: #259DB3;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
+  box-shadow: gray;
   border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #e5e5e5;
+  background: #b21bee;
   border-radius: 10px;
 }
 
@@ -204,6 +210,7 @@ border-top:15px solid #21a374;
   height: 50%;
   background-color: rgba(224, 220, 220, 0.815);
   border-radius: 10px;
+  border: 3px solid white;
   
 }
 
@@ -244,6 +251,7 @@ border-top:15px solid #21a374;
   background-color: white;
   display: flex;
   flex-direction: column;
+  
 }
 
 .participants_label_container {
@@ -293,7 +301,7 @@ border-top:15px solid #21a374;
   justify-content: center;
   position: absolute;
   left: 20%;
-  bottom: 0;
+  bottom: 0%;
   
   background: linear-gradient(168.68deg, #21a374 1.12%, #29ca8e 100%);
   border-top-left-radius: 25px;
@@ -406,11 +414,13 @@ video {
 
 .room_label_paragraph {
   font-size: 17px;
-  
+  height:28px;
   color: white;
   margin-top: 0;
-  padding: 18px 38px;
-  background: linear-gradient(168.68deg, #21a374 1.12%, #29ca8e 100%);
+  
+  padding-left: 30px;
+  padding-bottom: 20px;
+  background: #29ca8e;
   border-radius: 0px 0px 15px 15px;
 }
 
@@ -492,8 +502,8 @@ video {
 }
 
 .label_only_audio_container {
-  width: 80%;
-  height: 80%;
+  width: 96%;
+  height: 98%;
   z-index: 2;
   display: flex;
   align-items: center;
@@ -501,7 +511,10 @@ video {
   position: absolute;
   top: 0%;
   left: 0%;
-  background-color:b
+  background-color:#29ca8f;
+  background-image: url(../resources/images/people.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .label_only_audio_container {
@@ -511,20 +524,22 @@ video {
 
 .direct_chat_container {
   height: 45%;
-  margin-right: 3%;
+  margin-right: 5%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 98%;
+  width: 94%;
   margin-top:5px;
   position: relative;
- 
+  border: 4px solid #29ca8f;
+  border-radius: 34px;
+  margin-left: 5px;
 }
 
 .direct_chat_header {
   height: 50px;
   background: linear-gradient(168.68deg, #21a374 1.12%, #29ca8e 100%);
-  width: 95%;
+  width: 100%;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   display: flex;
@@ -539,14 +554,14 @@ video {
 }
 
 .new_message_direct_border {
-  border-left: 1px solid #e5e5e5;
-  border-right: 1px solid #e5e5e5;
-  width: 95%;
+ 
+  width: 100%;
 }
 
 .direct_messages_container {
   flex-grow: 1;
-  width: 95%;
+  width: 100%;
+  
   border-left: 1px solid #e5e5e5;
   border-right: 1px solid #e5e5e5;
   display: flex;
@@ -675,23 +690,77 @@ video {
 .st{
   position: absolute;
   top: 25px;
+  left:-4%;
 }
 
 .copybutton{
   position: relative;
-  right:28px;
-  bottom:4px;
+  right:-90%;
+  bottom:45%;
   border:5px;
 }
 
 
 .copybutton:hover{
   transition: 1s;
-  top:17px;
+  top:-42px;
   height: 20px;
 }
 
 
 .new_file_container{
-  background-color:gray;
+  background-color:#00f89d9d;
+  margin-top: 3px;
+  width: 95%;
+  margin-left:3%;
+  height:50px;
+  border-radius: 15px;
+}
+ 
+.file_up{
+  bottom: 13.5%;
+  left:14%;
+  position: absolute;
+}
+
+.file_down{
+  bottom: 13.5%;
+  left:-35%;
+  position: absolute;
+}
+
+.file_sen{
+  background-color:white;
+  width:60%;
+  height:30px;
+  left:25%;
+  bottom: 13%;
+  border-radius:10px;
+  position: absolute;
+}
+.file_name{
+  background-color:white;
+  width:60%;
+  height:30px;
+  left:25%;
+  bottom: 13%;
+  border-radius:10px;
+  position: absolute;
+}
+
+.file_na{
+  margin-left: 6px;
+}
+
+.mark > summary{
+  background-color: #29ca8e;
+  text-align: center;
+  color: white;
+  width:480px;
+  height:25px;
+  
+}
+.mark{
+  background-color: rgba(255, 255, 255, 0);
+  padding:0;
 }

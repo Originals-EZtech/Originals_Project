@@ -73,7 +73,7 @@ const Dictaphone = ({socketId}) => {
             <p className="sttc">{transcript}</p>
             {sendToAll(transcript)}
           </div>
-          <h3>{cookies.user_role}</h3>
+          
         </div>
      );
     }
