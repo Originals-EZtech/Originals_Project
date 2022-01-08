@@ -1,4 +1,3 @@
-import { filter } from 'lodash';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 // material
@@ -6,7 +5,6 @@ import {
   Card,
   Table,
   Stack,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
@@ -61,7 +59,7 @@ function DashboardUser(props) {
     chartInfoService.getPermitList().then(res => {
       setUsers(res.data)
     })
-  }, [])
+  }, [sideOpenAction])
 
   /* 스타일 설정 */
   const APP_BAR_MOBILE = 64;
@@ -88,10 +86,10 @@ function DashboardUser(props) {
   /* 스타일 설정 */
 
 
-  const list = users.permitlist.map(user => {
+  const list = users.permitlist.map((user) => {
     return <TableRow
       hover
-      key={user.EMAIL}
+      key={user.USER_EMAIL}
       tabIndex={-1}
     >
       <TableCell></TableCell>
