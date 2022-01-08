@@ -200,7 +200,6 @@ function Register(props) {
             return toast.error("이메일 인증을 먼저 진행해주세요.");
         }
 
-        // console.log(event.target.checked);
         if (event.target.checked) {
             setTeacher(true);
         } else {
@@ -214,7 +213,6 @@ function Register(props) {
     }
 
     const handleFileUpload = (event) => {
-        // event.preventDefault();
 
         const body = {
             email: Email,
@@ -223,7 +221,6 @@ function Register(props) {
 
         fileUploadAction(body)
         .then(response => {
-            // console.log(response.response.uploadSuccess)
             if (response.response.uploadSuccess) {
                 // toast.success(response.response.msg);
                 alert('선생님은 관리자 승인 후 정상 이용 가능합니다. (최대 1일 소요)')
