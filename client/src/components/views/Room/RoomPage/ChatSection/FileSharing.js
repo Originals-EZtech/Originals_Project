@@ -2,7 +2,7 @@ import react, {useState} from "react";
 import fileSendingButton from "../../resources/images/fileSendingButton.svg";
 import * as webRTCHandler from "../../utils/webRTCHandler"; 
 import {connect} from 'react-redux';
-import { setDisabled } from "../../../../../redux/actions/actions";
+import { setDisabled, setGotFile } from "../../../../../redux/actions/actions";
 import store from "../../../../../redux/store/store";
 import download from "../../resources/images/download.svg"
 import file_upload from "../../resources/images/file_upload.svg"
@@ -13,8 +13,10 @@ const FileSharing = ({gotFile, fileName})=>{
 
     const setFile = () =>{
         const file = document.getElementById('fileItem');
+        //if(file.files[0].length < )
         setFileData(file.files[0]);
         console.log(file.files[0]);
+        document.getElementById("fileItem").value = "";
         store.dispatch(setDisabled(true)) 
       }
 
@@ -22,6 +24,7 @@ const FileSharing = ({gotFile, fileName})=>{
         if(file){
             webRTCHandler.sendFileUsingDataChannel(file);
             setFileData(null);
+            console.log(file.files)
         }
         store.dispatch(setDisabled(false));
       }
