@@ -1,11 +1,8 @@
 import React from 'react';
 import styles from '../NavBar/navbar.module.css';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../../redux/actions/actions';
 
 function MainNavBar() {
-    const dispatch = useDispatch();
     const navbarStyle={
         float: "right"
     }
@@ -26,10 +23,6 @@ function MainNavBar() {
 
     const upsideLogo={
         fontSize: 45
-    }
-    const logoutHandler = (e) => {
-        e.preventDefault();
-            dispatch(logout()).then()
     }
 
     return (
@@ -55,7 +48,6 @@ function MainNavBar() {
                         <ul class="nav navbar-nav navbar-right" style={secondNav}>
                             <li><Link to="/login" class="smoothScroll" className={styles.loginStyle}>LogIn</Link></li>
                             <li><Link to="/register" class="smoothScroll" className={styles.loginStyle}>SignUp</Link></li>
-                    <button onClick={logoutHandler}>쿠키제거용</button>
                         </ul>
                     </div>
 

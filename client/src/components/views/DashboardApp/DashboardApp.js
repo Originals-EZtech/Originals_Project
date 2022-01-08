@@ -106,7 +106,7 @@ function DashboardApp(props) {
       setUserSignUpList(res.data);
     })
 
-  }, [])
+  }, [sideOpenAction])
 
   return (
     <RootStyle>

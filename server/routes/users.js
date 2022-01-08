@@ -69,7 +69,7 @@ router.post('/emailauth', (req, res) => {
         var mailOptions = {
             from: "testeryuja@gmail.com",
             to: userEmail,
-            subject: "Originals 회원가입 코드",
+            subject: "[ORIGINALS] 회원가입 인증 코드",
             html: emailTemplete
         };
 
