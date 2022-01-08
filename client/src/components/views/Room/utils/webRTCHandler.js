@@ -30,7 +30,8 @@ export const getLocalPreviewAndInitRoomConnection = async (
     roomId = null,
     onlyAudio,
     user_seq,
-    roomNameValue
+    roomNameValue,
+    myRoomId
 ) =>{
     await fetchTURNCredentials();
 
@@ -50,7 +51,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
         // dispatch an action to hide overlay
         
         isRoomHost 
-        ? wss.createNewRoom(identity, onlyAudio, user_seq, roomNameValue) 
+        ? wss.createNewRoom(identity, onlyAudio, user_seq, roomNameValue, roomId, myRoomId ) 
         : wss.joinRoom(identity, roomId, onlyAudio);
     }).catch((err) => {
         console.log('error occured when trying to get an access to local stream'); 

@@ -72,15 +72,17 @@ export const connectWithSocketIOServer = () =>{
 
 
 //identity : our user name
-export const createNewRoom = (identity, onlyAudio, user_seq, roomNameValue) =>{
+export const createNewRoom = (identity, onlyAudio, user_seq, roomNameValue, roomId, myRoomId) =>{
     //emit an event to server that we would like to create new room
     const data = {
         identity,
         onlyAudio,
         user_seq,
-        roomNameValue
+        roomNameValue,
+        roomId,
+        myRoomId
     };
-    
+
     socket.emit('create-new-room', data);
 }
 

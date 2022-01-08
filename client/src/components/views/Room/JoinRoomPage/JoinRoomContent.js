@@ -13,7 +13,7 @@ import { setConnectOnlyWithAudio, setIdentity, setRoomId, setRoomNameValue } fro
 
 const JoinRoomContent = (props) =>{
     const { isRoomHost, setConnectOnlyWithAudio, connectOnlyWithAudio, setIdentityAction, setRoomIdAction, setRoomNameValueAction } = props;
-   
+ 
     const [roomIdValue, setRoomIdValue] = useState('');
     const [nameValue, setNameValue] = useState('');
     const [roomNameValue, setRoomNameValue] = useState('');
