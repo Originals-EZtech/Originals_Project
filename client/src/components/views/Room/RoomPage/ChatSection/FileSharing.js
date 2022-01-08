@@ -1,9 +1,9 @@
 import react, {useState} from "react";
 import fileSendingButton from "../../resources/images/fileSendingButton.svg";
 import * as webRTCHandler from "../../utils/webRTCHandler"; 
-import {setDisabled} from '../../store/actions'; 
-import store from '../../store/store.js'
 import {connect} from 'react-redux';
+import { setDisabled } from "../../../../../redux/actions/actions";
+import store from "../../../../../redux/store/store";
 
 const FileSharing = ({gotFile, fileName})=>{
     const [file, setFileData] = useState(null);

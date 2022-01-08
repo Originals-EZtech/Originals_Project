@@ -15,7 +15,7 @@ import { useCookies } from "react-cookie";
 
 const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio, roomNameValue }) => {
     const [cookies] = useCookies();
-    const user_email = cookies.user_email;
+    const user_seq = cookies.user_seq;
     
     useEffect(() => {
         if(!isRoomHost && !roomId){
@@ -28,7 +28,7 @@ const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAu
                 roomId,
                 //showOverlay,
                 connectOnlyWithAudio,
-                user_email,
+                user_seq,
                 roomNameValue
             );
         }

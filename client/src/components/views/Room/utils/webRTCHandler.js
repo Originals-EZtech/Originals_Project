@@ -1,9 +1,9 @@
-import { setMessages, setShowOverlay, setFileName, setDisabled, setGotFiled } from '../store/actions.js';
-import store from '../store/store.js'
 import * as wss from './wss.js'
 import Peer from 'simple-peer'
 import { fetchTURNCredentials, getTurnIceServers } from './turn.js';
 import streamSaver from 'streamsaver';
+import { setFileName, setGotFiled, setMessages, setShowOverlay } from '../../../../redux/actions/actions.js';
+import store from '../../../../redux/store/store.js';
 // to get our local camera preview and create the room if we are the host on the server
 // so we'll initialize the connection if the hos and if the user which way is joining the name of that
 
@@ -29,7 +29,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
     identity,
     roomId = null,
     onlyAudio,
-    user_email,
+    user_seq,
     roomNameValue
 ) =>{
     await fetchTURNCredentials();
@@ -50,7 +50,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
         // dispatch an action to hide overlay
         
         isRoomHost 
-        ? wss.createNewRoom(identity, onlyAudio, user_email, roomNameValue) 
+        ? wss.createNewRoom(identity, onlyAudio, user_seq, roomNameValue) 
         : wss.joinRoom(identity, roomId, onlyAudio);
     }).catch((err) => {
         console.log('error occured when trying to get an access to local stream'); 

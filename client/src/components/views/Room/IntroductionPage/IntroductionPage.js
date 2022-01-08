@@ -3,10 +3,10 @@ import React, { useEffect } from 'react';
 import logo from '../resources/images/logo.png';
 import ConnectingButtons from './ConnectingButtons';
 import { connect} from 'react-redux';
-import { setIsRoomHost } from '../store/actions';
 import RoomNavBar from '../../NavBar/RoomNavBar';
 
 import './IntroductionPage.css';
+import { setIsRoomHost } from '../../../../redux/actions/actions';
 
 const IntroductionPage = ({setIsRoomHostAction}) => {
     

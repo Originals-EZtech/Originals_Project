@@ -4,8 +4,8 @@ import styles from '../NavBar/navbar.module.css';
 import { Link, withRouter } from 'react-router-dom';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { logout } from '../Room/store/actions';
 import { useCookies } from "react-cookie";
+import { logout } from '../../../redux/actions/actions';
 
 
 function RoomNavBar(props) {

@@ -7,7 +7,8 @@ import { Link, withRouter } from 'react-router-dom';
 import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { loginUser } from '../Room/store/actions'
+import { loginUser } from '../../../redux/actions/actions';
+
 
 function Login(props) {
     // const dispatch = useDispatch();
@@ -45,6 +46,8 @@ function Login(props) {
                 // 뒤로가기 방지 페이지 이동
                 // window.location.href="/";
                 setTimeout(() => {
+                    //onpopstate 현재 페이지에 뒤로가기시에, go(1)앞으로 강제이동
+                    //window.onpopstate = function(event) { props.history.go(1); };
                     props.history.push('/intro');
                 }, 1200)
             } else {

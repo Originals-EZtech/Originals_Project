@@ -1,8 +1,8 @@
 import io from 'socket.io-client';
-import { setRoomId, setParticipants, setSocketId ,sttword} from '../store/actions';
-import store from '../store/store.js';
 import * as webRTCHandler from './webRTCHandler';
 import { appendNewMessageToChatHistory } from './directMessages';
+import { setParticipants, setRoomId, setSocketId, sttword } from '../../../../redux/actions/actions.js';
+import store from '../../../../redux/store/store';
 
 
 const serverip = require('../../../../config/ipconfig');
@@ -72,12 +72,12 @@ export const connectWithSocketIOServer = () =>{
 
 
 //identity : our user name
-export const createNewRoom = (identity, onlyAudio, user_email, roomNameValue) =>{
+export const createNewRoom = (identity, onlyAudio, user_seq, roomNameValue) =>{
     //emit an event to server that we would like to create new room
     const data = {
         identity,
         onlyAudio,
-        user_email,
+        user_seq,
         roomNameValue
     };
     

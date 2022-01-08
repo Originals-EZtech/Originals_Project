@@ -174,7 +174,7 @@ router.get("/users", function (req, res) {
 // 최근 10일간 유저수
 router.get("/signuplist", function (req, res) {
     const qry = "SELECT COUNT(*),TO_CHAR(USER_DATE,'YYYY-MM-DD') AS LOL FROM USER_TABLE \
-                WHERE 1=1 AND USER_DATE >= SYSDATE-11 \
+                WHERE 1=1 AND USER_DATE >= SYSDATE-10 \
                 GROUP BY TO_CHAR(USER_DATE,'YYYY-MM-DD') \
                 ORDER BY LOL"
     
@@ -182,7 +182,7 @@ router.get("/signuplist", function (req, res) {
         if (err) {
             console.log(err);
         }
-        console.log(result.rows[0][0])
+        console.log(result.rows)
         // res.send(result.rows)
         res.json({
             countA: result.rows[0][0],
@@ -195,6 +195,7 @@ router.get("/signuplist", function (req, res) {
             countH: result.rows[7][0],
             countI: result.rows[8][0],
             countJ: result.rows[9][0],
+            countK: result.rows[10][0],
         })
     })
 });

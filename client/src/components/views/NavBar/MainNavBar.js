@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../NavBar/navbar.module.css';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logout } from '../Room/store/actions';
+import { logout } from '../../../redux/actions/actions';
 
 function MainNavBar() {
     const dispatch = useDispatch();
