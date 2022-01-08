@@ -232,7 +232,6 @@ router.post("/login", function (req, res) {
                     var refreshToken = jwt.sign({}, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
                     var accessToken = jwt.sign({ email: userEmail }, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
                     const completedToken = [refreshToken, userEmail]
-                    console.log("배열에 넣은 토큰정보:", completedToken)
                     conn.execute('update TOKEN_TABLE set TOKEN_VALUE = :token_value where USER_EMAIL = :user_email ', completedToken, function (err2, result2) {
                         if (err2) {
                             console.log(err2)
@@ -275,8 +274,6 @@ router.get('/auth', function (req, res) {
     let refresh = req.cookies.refreshToken;
     let access = req.cookies.accessToken;
 
-    console.log(" refresh 값은? ", refresh)
-    console.log(" access 값은?  ", access)
     // access 만료됬다면
     if (access === undefined) {
         // refresh 까지 만료됬다면 

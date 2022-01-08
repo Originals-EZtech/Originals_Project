@@ -85,7 +85,7 @@ function Login(props) {
                                 <input style={{fontSize: "large", fontWeight: "bold"}} type="password" value={Password} onChange={onPasswordHandler} name="password" placeholder="PASSWORD" />
                             </div>
                         </div>
-                        <Link to="" className={styles.userA}>Forgot Password?</Link>
+                        {/* <Link to="" className={styles.userA}>Forgot Password?</Link> */}
                         <br />
                         <br />
                         <input type="submit" className={styles.btn} value="Login" />
