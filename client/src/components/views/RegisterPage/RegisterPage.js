@@ -31,6 +31,7 @@ function Register(props) {
     const [PasswordMessage, setPasswordMessage] = useState("")
     const [ConfirmPasswordMessage, setConfirmPasswordMessage] = useState("")
     const [AuthCodeMessage, setAuthCodeMessage] = useState("")
+    const [NameMessage, setNameMessage] = useState("")
 
     const onEmailHandler = (event) => {
         const emailRegex =
@@ -40,15 +41,20 @@ function Register(props) {
         if (event.target.value.length < 1) {
             setEmailMessage('')
         } else if (!emailRegex.test(event.target.value)) {
-            setEmailMessage('이메일 형식이 틀렸습니다.')
+            setEmailMessage('이메일 형식을 확인해주세요')
+        } else if(event.target.value.length>20){
+            setEmailMessage('이메일 길이는 최대 25글자 이내로 사용하세요.')
         } else {
             setEmailMessage('올바른 이메일 형식 - 인증을 진행해주세요 ')
         }
     }
 
     const onNameHandler = (event) => {
-        console.log(event.target.value)
         setName(event.target.value)
+
+        if (event.target.value.length > 15) {
+            setNameMessage('이름의 길이는 최대 15글자 이내로 사용하세요.')
+        }
     }
 
     const onPasswordHandler = (event) => {
@@ -61,7 +67,7 @@ function Register(props) {
         } else if (event.target.value.length > 16 || !passwordRegex.test(event.target.value) || event.target.value.length < 8) {
             setPasswordMessage('8~16자 영문, 숫자를 사용하세요.')
         } else {
-            setPasswordMessage('올바른 비밀번호 형식이에요 ')
+            setPasswordMessage('올바른 비밀번호 형식이에요')
         }
     }
 
@@ -70,7 +76,9 @@ function Register(props) {
 
         if (event.target.value.length < 1) {
             setConfirmPasswordMessage("")
-        } else if (Password === event.target.value) {
+        }else if(PasswordMessage ==='8~16자 영문, 숫자를 사용하세요.'){
+            setConfirmPasswordMessage("8~16자 영문, 숫자를 사용하세요.")
+        }else if (Password === event.target.value) {
             setConfirmPasswordMessage("비밀번호가 일치합니다.")
         } else {
             setConfirmPasswordMessage("비밀번호가 틀립니다. 다시 확인해주세요")
@@ -93,8 +101,7 @@ function Register(props) {
     const authEmailHandler = (e) => {
         e.preventDefault();
 
-        if (Email !== "")
-        toast.info('인증 메일을 발송했습니다');
+        if (Email !== ""){}
         
         let body = {
             email: Email
@@ -104,7 +111,6 @@ function Register(props) {
         .then(response => {
             if (response.response.sendCodeSuccess) {
                 setSecurityCode(response.response.authNum)
-                console.log(response.response.authNum)
                 toast.success(response.response.msg)
                 // 인증 타이머 시작
                 setTime(false);
@@ -138,10 +144,20 @@ function Register(props) {
             return toast.error('올바른 비밀번호 형식이 아닙니다.');
         }
 
+        if (Email.length >25) {
+            return toast.error('이메일 길이는 최대 25글자 이내로 사용하세요.')
+        }
+
+        if (Name.length >15) {
+            return toast.error('이름은 최대 15글자 이내로 사용하세요.')
+        }
+
         // 입력한 비밀번호와 비밀번호 확인이 같지 않을 경우
         if (Password !== ConfirmPassword) {
             return toast.error('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
+
+        
 
         // 회원가입시 보내줄 body 데이터를 학생 / 선생님 구분해서 서버로 전송
         let body = {}
@@ -268,6 +284,8 @@ function Register(props) {
                                 <input style={{fontSize: "large", fontWeight: "bold"}} type="name" value={Name} onChange={onNameHandler} name="name" placeholder="NAME" />
                             </div>
                         </div>
+                        <span >{NameMessage}</span>
+
 
                         <div className={classnames(styles.input_div, styles.pass)}>
                             <div className={styles.i}>

@@ -73,7 +73,6 @@ router.get("/permitlist", function (req, res) {
                     ON U.USER_EMAIL = A.USER_EMAIL \
                     WHERE U.USER_FLAG='true'";
 
-    // console.log('query result', query);
     conn.execute(query, [], { outFormat: oracledb.OBJECT }, function (err, result) {
         if (err) {
             console.log(err);
@@ -82,17 +81,6 @@ router.get("/permitlist", function (req, res) {
         res.json({
             permitlist: result.rows
         })
-
-        // 쿼리문 결과로 반환되는 것이 없을 경우
-        // if (typeof result === 'undefined') { 
-        //     res.json({
-        //         permitlist: ""
-        //     })
-        // } else {
-        //     res.json({
-        //         permitlist: result.rows
-        //     })
-        // }
     })
 });
 
@@ -104,7 +92,6 @@ router.get("/permitlist", function (req, res) {
  */
 router.post("/permit", function (req, res) {
     const userEmail = req.body.email
-    console.log("서버에서 받은 이메일?", userEmail)
 
     conn.execute("UPDATE USER_TABLE SET USER_ROLE = 'prof', USER_FLAG = 'false' WHERE USER_EMAIL =:useremail", [userEmail], function (err, result) {
         if (err) {
@@ -129,20 +116,17 @@ router.get("/visitors", function (req, res) {
             console.log(err);
         }
         console.log("조회 성공");
-        console.log(result.rows);
         res.status(200).json(result.rows[0][0])
     })
 });
 
-
-// select * from visitor_table where createdate > (sysdate-7);
-// 내일 배열 0~6 하나씩 빼자
+// 최근 10일간 방문자수 쿼리
 router.get("/visitorlist", function (req, res) {
     conn.execute("SELECT VISITOR_COUNT from VISITOR_TABLE WHERE CREATEDATE >= (SYSDATE-11) ORDER BY createdate", function (err, result) {
         if (err) {
             console.log(err);
         }
-        console.log("조회 성공",result.rows[1]);
+        console.log("조회 성공");
         res.json({
             a: result.rows[0],
             b: result.rows[1],
@@ -164,7 +148,7 @@ router.get("/visitorlist", function (req, res) {
 router.get("/users", function (req, res) {
     conn.execute("select count(*) from USER_TABLE", function (err, result) {
         if (err) {
-            console.log("조회 실패");
+            console.log(err);
         }
         res.status(200).json(result.rows[0][0])
     })
@@ -182,8 +166,6 @@ router.get("/signuplist", function (req, res) {
         if (err) {
             console.log(err);
         }
-        console.log(result.rows)
-        // res.send(result.rows)
         res.json({
             countA: result.rows[0][0],
             countB: result.rows[1][0],
@@ -221,7 +203,6 @@ router.get("/usertest", function (req, res) {
         if (err) {
             console.log("조회 실패");
         }
-        console.log(result.rows)
         res.status(200).json({
             general: result.rows[0][0],
             prof: result.rows[0][1],

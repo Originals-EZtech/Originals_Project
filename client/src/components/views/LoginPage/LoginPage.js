@@ -28,26 +28,16 @@ function Login(props) {
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
-        console.log('Email', Email)
-        console.log('Password', Password)
-
         let body = {
             email: Email,
             password: Password
         }
-        console.log("body: ",body)
 
         loginUserAction(body)
         .then(response => {
-            // console.log(response.response);
             if (response.response.loginSuccess) {
-                // alert(response.payload.msg);
                 toast.success(response.response.msg);
-                // 뒤로가기 방지 페이지 이동
-                // window.location.href="/";
                 setTimeout(() => {
-                    //onpopstate 현재 페이지에 뒤로가기시에, go(1)앞으로 강제이동
-                    //window.onpopstate = function(event) { props.history.go(1); };
                     props.history.push('/intro');
                 }, 1200)
             } else {
