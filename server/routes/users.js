@@ -32,7 +32,6 @@ oracledb.getConnection(dbConfig, function (err, con) {
  */
 router.post('/emailauth', (req, res) => {
     const userEmail = [req.body.email];
-    console.log("서버에 건내받은 이메일: ", userEmail)
 
     conn.execute('select USER_EMAIL from USER_TABLE where USER_EMAIL = :email ', userEmail, function (err, result) {
         if (err) {
@@ -69,14 +68,12 @@ router.post('/emailauth', (req, res) => {
         var mailOptions = {
             from: "testeryuja@gmail.com",
             to: userEmail,
-            subject: "Originals 회원가입 코드",
+            subject: "[ORIGINALS] 회원가입 인증 코드",
             html: emailTemplete
         };
 
         //이메일 전송 파트
         smtpTransport.sendMail(mailOptions, (error, res23) => {
-            console.log("nodemailer 발송");
-
             if (error) {
                 res.json({ msg: '이메일 주소를 확인해주세요' });
             } else {
@@ -85,7 +82,6 @@ router.post('/emailauth', (req, res) => {
                     sendCodeSuccess: true, authNum: authNum, msg: '인증 메일 발송 완료'
                 })
             }
-            console.log("nodemailer종료");
             smtpTransport.close();
         });
     });
@@ -94,11 +90,10 @@ router.post('/emailauth', (req, res) => {
 
 // SELECT query all users
 router.get("/list", function (req, res) {
-    conn.execute("select * from user_table", [], { outFormat: oracledb.OBJECT }, function (err, result, fields) {
+    conn.execute("select * from user_table", [], { outFormat: oracledb.OBJECT }, function (err, result) {
         if (err) {
             console.log("조회 실패");
         }
-        console.log("result:", result);
 
         res.send(result)
     })
@@ -110,7 +105,6 @@ router.get("/userList", function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            // console.log('query result', result);
             res.send(result.rows);
         }
     })
@@ -127,7 +121,6 @@ router.get("/userList", function (req, res) {
 router.post("/register", function (req, res) {
     //클라이언트에서 받아온 정보
     const param = [req.body.email, req.body.password, req.body.name, req.body.role, req.body.flag]
-    console.log("req: ", req.body)
     if (param.email === '' || param.password === '' || param.name) {
         res.status(200).json({
             success: false
@@ -165,12 +158,10 @@ const multer = require('multer');
 const upload = multer({ dest: './upload' });
 
 router.post('/imgUpload', upload.single('image'), (req, res) => {
-    console.log(req.file);
     let email = req.body.email;
     let image = '/api/image/' + req.file.filename;
     const param = [email, image];
-    // console.log('image', image);
-    // console.log('email', email);
+
 
     conn.execute('insert into attachment_table (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
         if (err) {
@@ -207,7 +198,6 @@ router.post('/imgUpload', upload.single('image'), (req, res) => {
 router.post("/login", function (req, res) {
     const userEmail = req.body.email
     const userPassword = req.body.password
-    console.log(req.body.email, req.body.password)
     if (userEmail === '' || userPassword === '') {
         res.status(200).json({
             loginSuccess: false, msg: "이메일 또는 비밀번호 기입해주세요."
@@ -232,7 +222,6 @@ router.post("/login", function (req, res) {
                     var refreshToken = jwt.sign({}, tokenConfig.secretKey, { expiresIn: "2h", issuer: "Originals-Team" });
                     var accessToken = jwt.sign({ email: userEmail }, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
                     const completedToken = [refreshToken, userEmail]
-                    console.log("배열에 넣은 토큰정보:", completedToken)
                     conn.execute('update TOKEN_TABLE set TOKEN_VALUE = :token_value where USER_EMAIL = :user_email ', completedToken, function (err2, result2) {
                         if (err2) {
                             console.log(err2)
@@ -275,8 +264,6 @@ router.get('/auth', function (req, res) {
     let refresh = req.cookies.refreshToken;
     let access = req.cookies.accessToken;
 
-    console.log(" refresh 값은? ", refresh)
-    console.log(" access 값은?  ", access)
     // access 만료됬다면
     if (access === undefined) {
         // refresh 까지 만료됬다면 
@@ -296,7 +283,6 @@ router.get('/auth', function (req, res) {
     } else {
         // access === 존재
         if (refresh === undefined) {
-            console.log("도착?")
             let verifyAccess = jwt.verify(access, tokenConfig.secretKey);
             const test = verifyAccess.email
             let newRefreshToken = jwt.sign({}, tokenConfig.secretKey, { expiresIn: "14d", issuer: "Originals-Team" });
@@ -315,10 +301,8 @@ router.get('/auth', function (req, res) {
                 console.log(err5)
             } if (result5.rows[0][0] === 'admin') {
                 res.json({ isAuth: true, isAdmin: true })
-                console.log("토큰인증끝")
             } else {
                 res.json({ isAuth: true, isAdmin: false })
-                console.log("토큰인증끝")
             }
         })
     }
