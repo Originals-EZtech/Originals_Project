@@ -24,7 +24,6 @@ import { sideOpen } from '../../../redux/actions/actions';
 
 function DashboardApp(props) {
   const { open, sideOpenAction } = props;
-  // console.log(open);
 
   const APP_BAR_MOBILE = 64;
   const APP_BAR_DESKTOP = 92;
@@ -83,9 +82,6 @@ function DashboardApp(props) {
   const [userSignUpList, setUserSignUpList] = useState(userInitState);
 
   const theme = useTheme();
-  // console.log('theme확인', theme);
-
-  console.log("상태값???",visitorList)
   
   useEffect(() => {
     sideOpenAction(false);
@@ -134,7 +130,7 @@ function DashboardApp(props) {
                 <AppBugReports />
               </Grid>
               <Grid item xs={12} md={6} lg={8}>
-                <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList}  />
+                <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList} />
               </Grid>
 
               <Grid item xs={12} md={6} lg={4}>
