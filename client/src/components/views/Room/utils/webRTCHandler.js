@@ -370,19 +370,19 @@ getReader(): ReadableStream interface 메소드 --> creates a reader and locks t
 
       const handlereading=(done, value)=> {
           /*
-           */
+           
+          */
           if(done){
               for(let socketId in peers){
                   peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name }));
                 }
               return;
-          }
+          } //ok
+          console.log(value);
           for(let socketId in peers){
               peers[socketId].write(value);
           }
           reader.read().then(obj =>{
-            console.log(obj.done);
-            console.log(obj.value);
             handlereading(obj.done, obj.value);
         });
       }
