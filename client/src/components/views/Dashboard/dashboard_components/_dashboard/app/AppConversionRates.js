@@ -6,19 +6,23 @@ import { Box, Card, CardHeader } from '@mui/material';
 import { fNumber } from '../../../dashboard_util/formatNumber';
 //
 import { BaseOptionChart } from '../../charts';
+import moment from 'moment';
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [{ data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380] }];
 
-export default function AppConversionRates() {
+export default function AppConversionRates(roomList) {
+  const chartData= roomList.roomList;
+  const CHART_DATA = [{ data: [chartData.roomB, chartData.roomC, chartData.roomD, chartData.roomE, chartData.roomF, chartData.roomG, chartData.roomH, chartData.roomI, chartData.roomJ, chartData.roomK] }];
+
+
   const chartOptions = merge(BaseOptionChart(), {
     tooltip: {
       marker: { show: false },
       y: {
         formatter: (seriesName) => fNumber(seriesName),
         title: {
-          formatter: (seriesName) => `#${seriesName}`
+          formatter: (seriesName) => '교육장 개설수'
         }
       }
     },
@@ -27,23 +31,23 @@ export default function AppConversionRates() {
     },
     xaxis: {
       categories: [
-        'Italy',
-        'Japan',
-        'China',
-        'Canada',
-        'France',
-        'Germany',
-        'South Korea',
-        'Netherlands',
-        'United States',
-        'United Kingdom'
+        moment().add(-9, 'days').format('MMM/DD'),
+        moment().add(-8, 'days').format('MMM/DD'),
+        moment().add(-7, 'days').format('MMM/DD'),
+        moment().add(-6, 'days').format('MMM/DD'),
+        moment().add(-5, 'days').format('MMM/DD'),
+        moment().add(-4, 'days').format('MMM/DD'),
+        moment().add(-3, 'days').format('MMM/DD'),
+        moment().add(-2, 'days').format('MMM/DD'),
+        moment().add(-1, 'days').format('MMM/DD'),
+        moment().format('MMM/DD')
       ]
     }
   });
 
   return (
     <Card>
-      <CardHeader title="Conversion Rates" subheader="(+43%) than last year" />
+      <CardHeader title="Activation Rates" subheader="일일 교육장 생성량" />
       <Box sx={{ mx: 3 }} dir="ltr">
         <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={364} />
       </Box>

@@ -18,19 +18,19 @@ export default function (SpecificComponent, option, adminRoute = null) {
         useEffect(() => {
 
             dispatch(auth()).then(response => {
-console.log(response)
+                console.log(response)
                 // 로그인 안했을 경우
                 if (!response.response.isAuth) {
                     if (option) {
                         window.location.replace('/login')
                     }
-                // }
+                    // }
 
-                // if (response.response.isAuth) {
-                //     if (!option) {
-                //         window.location.replace('/intro')
-                //     }
-                // }
+                    // if (response.response.isAuth) {
+                    //     if (!option) {
+                    //         window.location.replace('/intro')
+                    //     }
+                    // }
                 } else {
                     // isAuth == true
                     // option == false
@@ -57,7 +57,7 @@ console.log(response)
                         }
                     }
                 }
-                                // null은 pass
+                // null은 pass
             })
         }, [dispatch, props.history])
 
