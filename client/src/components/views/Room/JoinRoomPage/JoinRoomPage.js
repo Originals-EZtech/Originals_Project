@@ -30,7 +30,7 @@ const JoinRoomPage = (props) =>{
                 <JoinRoomTitle isRoomHost={isRoomHost} />
                 <JoinRoomContent />
             </div> 
-            <RoomListComponent />
+            {/* <RoomListComponent /> */}
         </div>
     );
 };
