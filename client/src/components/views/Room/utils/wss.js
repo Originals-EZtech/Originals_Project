@@ -86,12 +86,13 @@ export const createNewRoom = (identity, onlyAudio, user_seq, roomNameValue, room
     socket.emit('create-new-room', data);
 }
 
-export const joinRoom = (identity, roomId, onlyAudio) =>{
+export const joinRoom = (identity, roomId, onlyAudio, user_seq) =>{
     //emit an event to server that we would like to join a room
     const data = {
         roomId,
         identity,
-        onlyAudio
+        onlyAudio,
+        user_seq
     };
     socket.emit('join-room' ,data);
 }

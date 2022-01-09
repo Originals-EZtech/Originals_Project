@@ -40,6 +40,18 @@ let rooms = []; //active room
 
 // create route to check if room exists
 
+//oracle setting
+
+//oracle release
+function doRelease(connection) {
+    connection.release(function (err) {
+        if (err) {
+            console.error(err.message);
+        }
+    });
+}
+
+
 app.get('/api/room-exists/:roomId', (req,res)=> {
     //express가 room-exists 이후에 오는 값 {roomId} 받아오면 캡쳐해서
     // req.params에 저장 
@@ -189,30 +201,22 @@ const createNewRoomHandler = (data, socket) =>{
         oracledb.getConnection(dbConfig, (err, conn) => {
             roomNameInsert(err, conn);
         });
-            function roomNameInsert(err, connection) {
+        function roomNameInsert(err, connection) {
+            if (err) {
+                console.error(err.message);
+                console.log("데이터 가져오기 실패");
+                return;
+            }
+            connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,:user_seq,:room_name,SYSDATE)", insertarray, function (err, result) {
                 if (err) {
                     console.error(err.message);
-                    console.log("데이터 가져오기 실패");
+                    doRelease(connection);
                     return;
                 }
-                connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,:user_seq,:room_name,SYSDATE)", insertarray, function (err, result) {
-                    if (err) {
-                        console.error(err.message);
-                        doRelease(connection);
-                        return;
-                    }
-                    console.log(result);
-                    doRelease(connection);
-                });
-            function doRelease(connection) {
-                connection.release(function (err) {
-                    if (err) {
-                        console.error(err.message);
-                    }
-                });
-            }
+                console.log(result);
+                doRelease(connection);
+            });
         }
-        
         // emit an event to all users connected 
         // to that room about new users which are right in this room
         socket.emit('room-update', { connectedUsers: newRoom.connectedUsers});
@@ -258,8 +262,40 @@ const createNewRoomHandler = (data, socket) =>{
 };
 
 const joinRoomHandler = (data,socket) =>{
-    const { identity, roomId, onlyAudio} = data;
-
+    const { identity, roomId, onlyAudio, user_seq} = data;
+    const roomselectarray = [roomId];
+    let joinuser_seq=0
+    let joinroom_name=""
+    let joinroominsertarray=[]
+    oracledb.getConnection(dbConfig, (err, conn) => {
+        roomTableSearch(err, conn);
+    });
+    function roomTableSearch(err, connection) {
+        if (err) {
+            console.error(err.message);
+            console.log("데이터 가져오기 실패");
+            return;
+        }else{
+        connection.execute("SELECT ROOM_NAME FROM ROOM_TABLE WHERE ROOM_ID=:roomId", roomselectarray, {outFormat:oracledb.OBJECT}, function (err, result) {
+            if (err) {
+                console.error(err.message);
+                doRelease(connection);
+                return;
+            }
+            joinuser_seq = data.user_seq
+            joinroom_name = result.rows[0].ROOM_NAME
+            joinroominsertarray = [joinuser_seq, roomId, joinroom_name]
+        connection.execute("insert into roomjoin_table (ROOMJOIN_SEQ,USER_SEQ,ROOM_ID,ROOM_NAME,ROOMJOIN_DATE) values(ROOMJOIN_SEQ.NEXTVAL,:joinuser_seq,:roomId,:joinroom_name,SYSDATE)", joinroominsertarray, function (err, result2) {
+            if (err) {
+                console.error(err.message);
+                doRelease(connection);
+                return;
+            }
+            doRelease(connection);
+        });
+        });
+    }
+}
     const newUser = {
         identity,
         id: uuidv4(),
