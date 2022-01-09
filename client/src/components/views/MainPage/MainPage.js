@@ -6,11 +6,12 @@ import MainContact from './MainContact';
 
 function MainPage() {
     return (
+        
         <div>
             <MainNavBar />
-            
-            <div style={{paddingTop: 70}}></div>
-    
+
+            <div style={{ paddingTop: 70 }}></div>
+
             <MainHome />
 
             <MainService />

@@ -11,6 +11,7 @@ import { loginUser } from '../../../redux/actions/actions';
 
 
 function Login(props) {
+    window.onpopstate = function (event) { props.history.go(1); };
     // const dispatch = useDispatch();
     const { loginUserAction } = props;
 
@@ -39,6 +40,7 @@ function Login(props) {
                 toast.success(response.response.msg);
                 setTimeout(() => {
                     props.history.push('/intro');
+  
                 }, 1200)
             } else {
                 toast.error(response.response.msg);
