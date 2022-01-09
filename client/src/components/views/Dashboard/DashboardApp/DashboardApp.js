@@ -4,9 +4,9 @@ import { connect} from 'react-redux';
 import { Box, Grid, Container, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 // components
-import Page from '../../../dashboard_components/Page';
-import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavbar';
-import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
+import Page from '../dashboard_components/Page';
+import DashboardNavbar from '../dashboard_layouts/DashboardNavbar';
+import DashboardSidebar from '../dashboard_layouts/DashboardSidebar';
 import {
   AppNewUsers,
   AppBugReports,
@@ -16,9 +16,9 @@ import {
   AppWebsiteVisits,
   AppCurrentSubject,
   AppConversionRates
-} from '../../../dashboard_components/_dashboard/app';
+} from '../dashboard_components/_dashboard/app';
 import chartInfoService from './service/chartInfoService';
-import { sideOpen } from '../../../redux/actions/actions';
+import { sideOpen } from '../../../../redux/actions/actions';
 
 // ----------------------------------------------------------------------
 
