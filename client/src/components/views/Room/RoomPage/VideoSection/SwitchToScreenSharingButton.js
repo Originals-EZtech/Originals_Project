@@ -44,7 +44,7 @@ const SwitchToScreenSharingButton = () =>{
 };
     return(
         <>
-        <div className = 'video_button_container'>
+        <div className = 'video_shar'>
             <img
             src = {isScreenSharingActive ? sharin:shar}
             onClick={handleScreenShareToggle}
