@@ -5,11 +5,11 @@ import { withRouter } from 'react-router-dom';
 import { alpha } from '@mui/material/styles';
 import { Button, Box, Divider, Typography, IconButton } from '@mui/material';
 // components
-import MenuPopover from '../../dashboard_components/MenuPopover';
+import MenuPopover from '../dashboard_components/MenuPopover';
 //
 import { useCookies } from 'react-cookie';
 import { toast, ToastContainer } from 'react-toastify';
-import { logout } from '../../redux/actions/actions';
+import { logout } from '../../../../redux/actions/actions';
 
 function AccountPopover(props) {
   const imgStyle = {

@@ -15,14 +15,14 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // components
-import Scrollbar from '../../../dashboard_components/Scrollbar';
-import { UserListHead, UserCheckFile, UserChangeRole } from '../../../dashboard_components/_dashboard/user';
+import Scrollbar from '../dashboard_components/Scrollbar';
+import { UserListHead, UserCheckFile, UserChangeRole } from '../dashboard_components/_dashboard/user';
 
-import DashboardNavbar from '../../../dashboard_layouts/dashboard/DashboardNavbar';
-import DashboardSidebar from '../../../dashboard_layouts/dashboard/DashboardSidebar';
+import DashboardNavbar from '../dashboard_layouts/DashboardNavbar';
+import DashboardSidebar from '../dashboard_layouts/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
 import { ToastContainer } from 'react-toastify';
-import { sideOpen } from '../../../redux/actions/actions';
+import { sideOpen } from '../../../../redux/actions/actions';
 
 
 // ----------------------------------------------------------------------
