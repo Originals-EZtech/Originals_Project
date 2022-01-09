@@ -31,6 +31,7 @@ const http = require('http');
 const { v4: uuidv4} = require('uuid');
 const cors = require('cors');
 const twilio = require('twilio');
+const e = require('express');
 const server = http.createServer(app);
 
 app.use(cors());
@@ -39,6 +40,18 @@ let connectedUsers = [];
 let rooms = []; //active room
 
 // create route to check if room exists
+
+//oracle setting
+
+//oracle release
+function doRelease(connection) {
+    connection.release(function (err) {
+        if (err) {
+            console.error(err.message);
+        }
+    });
+}
+
 
 app.get('/api/room-exists/:roomId', (req,res)=> {
     //express가 room-exists 이후에 오는 값 {roomId} 받아오면 캡쳐해서
@@ -189,30 +202,22 @@ const createNewRoomHandler = (data, socket) =>{
         oracledb.getConnection(dbConfig, (err, conn) => {
             roomNameInsert(err, conn);
         });
-            function roomNameInsert(err, connection) {
+        function roomNameInsert(err, connection) {
+            if (err) {
+                console.error(err.message);
+                console.log("데이터 가져오기 실패");
+                return;
+            }
+            connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,:user_seq,:room_name,SYSDATE)", insertarray, function (err, result) {
                 if (err) {
                     console.error(err.message);
-                    console.log("데이터 가져오기 실패");
+                    doRelease(connection);
                     return;
                 }
-                connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,:user_seq,:room_name,SYSDATE)", insertarray, function (err, result) {
-                    if (err) {
-                        console.error(err.message);
-                        doRelease(connection);
-                        return;
-                    }
-                    console.log(result);
-                    doRelease(connection);
-                });
-            function doRelease(connection) {
-                connection.release(function (err) {
-                    if (err) {
-                        console.error(err.message);
-                    }
-                });
-            }
+                console.log(result);
+                doRelease(connection);
+            });
         }
-        
         // emit an event to all users connected 
         // to that room about new users which are right in this room
         socket.emit('room-update', { connectedUsers: newRoom.connectedUsers});
@@ -258,36 +263,103 @@ const createNewRoomHandler = (data, socket) =>{
 };
 
 const joinRoomHandler = (data,socket) =>{
-    const { identity, roomId, onlyAudio} = data;
-
-    const newUser = {
-        identity,
-        id: uuidv4(),
-        socketId: socket.id,
-        roomId,
-        onlyAudio
-    }
-    // join room as user which just is trying to join room passing room id 
-    const room = rooms.find(room => room.id === roomId);
-    room.connectedUsers = [...room.connectedUsers, newUser];
-
-    //join socket.io room
-    socket.join(roomId);
-
-    //add new user to connected users array
-    connectedUsers = [...connectedUsers, newUser];
-
-    // emit to all users which are already in this room to prepare peer connection.
-    room.connectedUsers.forEach(user => {
-        if(user.socketId !== socket.id){
-            const data = {
-                connUserSocketId: socket.id
-            };
-            io.to(user.socketId).emit('conn-prepare', data);
+    const { identity, roomId, onlyAudio, user_seq} = data;
+    const roomselectarray = [roomId];
+    let joinuser_seq=0
+    let joinroom_name=""
+    let joinroominsertarray=[]
+    
+    if (!data.myRoomId){
+        oracledb.getConnection(dbConfig, (err, conn) => {
+            roomTableSearch(err, conn);
+        });
+        function roomTableSearch(err, connection) {
+            if (err) {
+                console.error(err.message);
+                console.log("데이터 가져오기 실패");
+                return;
+            }else{
+            connection.execute("SELECT ROOM_NAME FROM ROOM_TABLE WHERE ROOM_ID=:roomId", roomselectarray, {outFormat:oracledb.OBJECT}, function (err, result) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+                joinuser_seq = data.user_seq
+                joinroom_name = result.rows[0].ROOM_NAME
+                joinroominsertarray = [joinuser_seq, roomId, joinroom_name]
+            connection.execute("insert into roomjoin_table (ROOMJOIN_SEQ,USER_SEQ,ROOM_ID,ROOM_NAME,ROOMJOIN_DATE) values(ROOMJOIN_SEQ.NEXTVAL,:joinuser_seq,:roomId,:joinroom_name,SYSDATE)", joinroominsertarray, function (err, result2) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+                doRelease(connection);
+            });
+            });
         }
-    });
+    }
+        const newUser = {
+            identity,
+            id: uuidv4(),
+            socketId: socket.id,
+            roomId,
+            onlyAudio
+        }
+        // join room as user which just is trying to join room passing room id 
+        const room = rooms.find(room => room.id === roomId);
+        room.connectedUsers = [...room.connectedUsers, newUser];
 
-    io.to(roomId).emit('room-update', {connectedUsers: room.connectedUsers});
+        //join socket.io room
+        socket.join(roomId);
+
+        //add new user to connected users array
+        connectedUsers = [...connectedUsers, newUser];
+
+        // emit to all users which are already in this room to prepare peer connection.
+        room.connectedUsers.forEach(user => {
+            if(user.socketId !== socket.id){
+                const data = {
+                    connUserSocketId: socket.id
+                };
+                io.to(user.socketId).emit('conn-prepare', data);
+            }
+        });
+
+        io.to(roomId).emit('room-update', {connectedUsers: room.connectedUsers});
+    }else{
+        console.log("data.myRoomId"+data.myRoomId)
+
+        const myRoomId=data.myRoomId
+        const newUser = {
+            identity,
+            id: uuidv4(),
+            socketId: socket.id,
+            roomId,
+            onlyAudio
+        }
+        // join room as user which just is trying to join room passing room id 
+        const room = rooms.find(room => room.id === myRoomId);
+        room.connectedUsers = [...room.connectedUsers, newUser];
+
+        //join socket.io room
+        socket.join(myRoomId);
+
+        //add new user to connected users array
+        connectedUsers = [...connectedUsers, newUser];
+
+        // emit to all users which are already in this room to prepare peer connection.
+        room.connectedUsers.forEach(user => {
+            if(user.socketId !== socket.id){
+                const data = {
+                    connUserSocketId: socket.id
+                };
+                io.to(user.socketId).emit('conn-prepare', data);
+            }
+        });
+
+        io.to(myRoomId).emit('room-update', {connectedUsers: room.connectedUsers});
+    }
 };
 
 const disconnectHandler = (socket) =>{
