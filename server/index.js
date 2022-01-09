@@ -138,9 +138,20 @@ const createNewRoomHandler = (data, socket) =>{
     console.log(data);
     // get that cost identity from 'data'
     const { identity, onlyAudio, user_seq } = data;
-
+    console.log("!data.myRoomId"+!data.myRoomId)
     // thanks to that we are able to generate a random id 
-    if (data.myRoomId==undefined){
+    
+    // 단일 느낌표(!) — 논리 부정 연산자
+    // !1  false
+    // !-1  false
+    // !0  true
+    // !function() {}  false
+    // !{}  false
+    // !''  true
+    // !NaN  true
+    // !null  true
+    // !undefined  true
+    if (!data.myRoomId){
         const roomId = uuidv4();
 
         // create new user
