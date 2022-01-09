@@ -5,23 +5,12 @@ const Input = ({placeholder, value, changeHandler})=> {
         <input 
         value = {value}
         onChange={changeHandler}
-        //style={{fontWeight:"bold"}}
         className = 'join_room_input'
         placeholder= {placeholder} 
         />
 
     )
 }
-
-// const Name =({}) =>{
-//     return(
-//         <input className="roomname" 
-//         type="text" 
-//         placeholder="Room Name" 
-//          maxlength='10'>
-//         </input>
-//     );
-// }
 
 const JoinRoomInputs = (props) =>{
     const { roomIdValue, setRoomIdValue, nameValue, setNameValue, isRoomHost, roomNameValue, setRoomNameValue } =

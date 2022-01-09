@@ -11,7 +11,6 @@ import {
   TimelineDot
 } from '@mui/lab';
 // utils
-import { fDateTime } from '../../../dashboard_util/formatTime';
 
 // ----------------------------------------------------------------------
 
@@ -70,7 +69,6 @@ function OrderItem({ item, isLast }) {
       <TimelineContent>
         <Typography variant="subtitle2">{title}</Typography>
         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-          {fDateTime(time)}
         </Typography>
       </TimelineContent>
     </TimelineItem>

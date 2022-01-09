@@ -5,8 +5,6 @@ const Sttsection=()=>{
     return(
         <div className="Sttcontanor">
             <Dictaphone />
-            
-            
         </div>
     );
 }

@@ -6,23 +6,13 @@ import store from '../../../../redux/store/store';
 
 
 const serverip = require('../../../../config/ipconfig');
-console.log("serverip"+serverip);
-console.log("serverip.server"+serverip.server);
-// 로컬 아이피, 공유기 아이피 ipconfig를 자기 공유기 ip로 바꿔준다
-// const SERVER = 'http://localhost:5000';
 const SERVER = serverip.server;
 
-
 let socket = null;
-
-
 
 export const connectWithSocketIOServer = () =>{
     socket = io(SERVER);
     socket.on('connect', ()=>{
-        console.log('successfully connected with socket.io server');
-        console.log(socket.id);
-        console.log("socket.id"+socket.id);
         store.dispatch(setSocketId(socket.id));    
     });
     socket.on('room-id', (data)=>{
@@ -55,19 +45,13 @@ export const connectWithSocketIOServer = () =>{
     });
 
     socket.on('direct-message', (data) =>{
-        console.log("direct message came");
-        console.log(data);
+
         appendNewMessageToChatHistory(data);
     });
     socket.on('conn-stt', (data)=>{
-        console.log("stt message came"); 
-        
-        //console.log(data.transcript);
         store.dispatch(sttword(data.transcript));
-        //console.log(store.getState());
     });
 };
-
 
 
 
@@ -106,10 +90,8 @@ export const signalPeerData = (data) =>{
 
 export const sendDirectMessage = (data) =>{
     socket.emit('direct-message', data);
-    console.log(data); 
 };
 
 export const sendSTT =(data) =>{
     socket.emit('send-stt', data);
-    console.log(data);
 };

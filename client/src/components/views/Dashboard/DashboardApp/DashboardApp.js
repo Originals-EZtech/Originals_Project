@@ -14,7 +14,6 @@ import {
   AppWeeklySales,
   AppCurrentVisits,
   AppWebsiteVisits,
-  AppCurrentSubject,
   AppConversionRates
 } from '../dashboard_components/_dashboard/app';
 import chartInfoService from './service/chartInfoService';

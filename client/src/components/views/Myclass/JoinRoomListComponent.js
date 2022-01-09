@@ -9,7 +9,7 @@ function RoomListComponent(props) {
   const { setMyRoomIdAction } = props;
   const [cookies] = useCookies();
   const user_seq = cookies.user_seq;
-  let [myRoomId, setMyRoomId] = useState('');
+  let [myRoomId] = useState('');
   const [state, setState] = useState({
       room_list: "",
     });

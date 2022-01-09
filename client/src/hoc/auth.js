@@ -16,44 +16,30 @@ export default function (SpecificComponent, option, adminRoute = null) {
     function AuthenticationCheck(props) {
         const dispatch = useDispatch();
         useEffect(() => {
-
             dispatch(auth()).then(response => {
-                console.log(response)
                 // 로그인 안했을 경우
                 if (!response.response.isAuth) {
                     if (option) {
                         window.location.replace('/login')
                     }
-                    // }
-
-                    // if (response.response.isAuth) {
-                    //     if (!option) {
-                    //         window.location.replace('/intro')
-                    //     }
-                    // }
                 } else {
-                    // isAuth == true
-                    // option == false
-                    // 로그인유저 못들어옴
+                        /**
+                         * 로그인유저 못들어옴
+                         * isAuth == true
+                         * option == false
+                         */
                     if (option === false) {
                         props.history.push("/intro");
                     } else {
-                        // isAuth == true
-                        // option == true
-                        // 로그인한사람만 들어올수 있음
-
-                        // adminRoute == true
+                        /**
+                         * 로그인한사람만 들어올수 있음
+                         * isAuth == true
+                         * option == true
+                         */
                         if (adminRoute) {
-                            // isAdmin == false
                             if (!response.response.isAdmin) {
                                 window.location.replace('/intro')
-                                // props.history.push("/intro");
                             }
-                            // if (response.response.isAdmin) {
-                            //     props.history.push("/dashboard/app");
-                            // }
-                            // adminRoute == true
-                            // isAdmin == false
                         }
                     }
                 }

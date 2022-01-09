@@ -3,7 +3,7 @@ import chartInfoService from '../Dashboard/DashboardApp/service/chartInfoService
 
 function MainHome() {
 
-    //방문자수 카운트
+    // 방문자수 카운트
     useEffect(()=>{
         chartInfoService.getVisitorCount().then();
     }, [])

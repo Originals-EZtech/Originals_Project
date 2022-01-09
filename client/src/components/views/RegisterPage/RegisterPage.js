@@ -8,8 +8,6 @@ import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
 import { authEmail, fileUpload, registerUser } from '../../../redux/actions/actions';
-// import axios from 'axios';
-// import Customer from './Customer';
 
 function Register(props) {
     const { registerUserAction, authEmailAction, fileUploadAction } = props;
@@ -331,37 +329,16 @@ function Register(props) {
                             <div style={{display:"block"}}>
                                 <form onSubmit={handleFileUpload}>
                                     <input type="file" name="image" accept="image/*" onChange={handleFileChange}/>
-                                    {/* <button type="submit">업로드</button> */}
                                 </form>
                             </div>
                             : null
                         }
-
 
                     </div>
                 </div>
                 <div className={styles.img}>
                     <img src="assets/images/register_pic.svg" alt="" />
                 </div>
-
-                {/* <table>
-                    <tr>
-                        <th>email</th>
-                        <th>image</th>
-                    </tr>
-                    {testVar ? testVar.map(c => {
-                    return (
-                        <Customer
-                            key={c.USER_EMAIL}
-                            id={c.USER_EMAIL}
-                            image={c.DIRECTORY}
-                        />
-                    );
-                    }) : 
-                    null
-                    }
-                </table> */}
-
             </div>
             <ToastContainer hideProgressBar={true}/>
         </div>

@@ -96,7 +96,6 @@ router.post("/permit", function (req, res) {
     conn.execute("UPDATE USER_TABLE SET USER_ROLE = 'prof', USER_FLAG = 'false' WHERE USER_EMAIL =:useremail", [userEmail], function (err, result) {
         if (err) {
             console.log(err)
-            console.log("update 실패");
         }
         else {
             console.log("update 성공");
@@ -236,14 +235,12 @@ router.get("/usertest", function (req, res) {
     })
 });
 
-// select SUM(round((LEAVEROOM_DATE - ROOM_DATE)*24*60)) from ROOM_TABLE;
 // 화상채팅 사용 시간
 router.get("/usagetime", function (req, res) {
     conn.execute("select SUM(round((LEAVEROOM_DATE - ROOM_DATE)*24*60)) from ROOM_TABLE", function (err, result) {
         if (err) {
             console.log(err);
         }
-        console.log(result.rows[0][0])
         res.status(200).json(result.rows[0][0])
     })
 });
