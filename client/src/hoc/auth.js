@@ -16,12 +16,21 @@ export default function (SpecificComponent, option, adminRoute = null) {
     function AuthenticationCheck(props) {
         const dispatch = useDispatch();
         useEffect(() => {
+
             dispatch(auth()).then(response => {
+console.log(response)
                 // 로그인 안했을 경우
                 if (!response.response.isAuth) {
                     if (option) {
                         window.location.replace('/login')
                     }
+                // }
+
+                // if (response.response.isAuth) {
+                //     if (!option) {
+                //         window.location.replace('/intro')
+                //     }
+                // }
                 } else {
                     // isAuth == true
                     // option == false
@@ -37,15 +46,18 @@ export default function (SpecificComponent, option, adminRoute = null) {
                         if (adminRoute) {
                             // isAdmin == false
                             if (!response.response.isAdmin) {
-                                props.history.push("/intro");
+                                window.location.replace('/intro')
+                                // props.history.push("/intro");
                             }
+                            // if (response.response.isAdmin) {
+                            //     props.history.push("/dashboard/app");
+                            // }
                             // adminRoute == true
                             // isAdmin == false
                         }
                     }
                 }
-                return
-                // null은 pass
+                                // null은 pass
             })
         }, [dispatch, props.history])
 

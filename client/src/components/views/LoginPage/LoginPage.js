@@ -11,7 +11,6 @@ import { loginUser } from '../../../redux/actions/actions';
 
 
 function Login(props) {
-    // const dispatch = useDispatch();
     const { loginUserAction } = props;
 
     const [Email, setEmail] = useState("")
@@ -35,10 +34,16 @@ function Login(props) {
 
         loginUserAction(body)
         .then(response => {
+            console.log('response.response',response)
             if (response.response.loginSuccess) {
                 toast.success(response.response.msg);
                 setTimeout(() => {
+                    if(response.response.role === 'admin'){
+                        console.log("여기?")
+                        props.history.push('/dashboard/app');
+                    }else{
                     props.history.push('/intro');
+                    }
                 }, 1200)
             } else {
                 toast.error(response.response.msg);

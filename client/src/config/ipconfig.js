@@ -6,5 +6,5 @@ module.exports =
     //5G
     // server:'http://172.30.1.55:5000'
 
-    server:'http://192.168.219.102:5000'
+    server:'http://localhost:5000'
 }

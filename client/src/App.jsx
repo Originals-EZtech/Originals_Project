@@ -29,18 +29,18 @@ const AnimatedSwitch = () => {
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
         <Switch location={location}>
-          <Route exact path="/" component={Auth(MainPage, null)} />
-          <Route exact path="/login" component={Auth(LoginPage, null)} />
-          <Route exact path="/register" component={Auth(RegisterPage, null)} />
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/login" component={Auth(LoginPage, false)} />
+          <Route exact path="/register" component={Auth(RegisterPage, false)} />
 
-          <Route exact path="/join-room" component={Auth(JoinRoomPage, null)} />
-          <Route exact path="/room" component={Auth(RoomPage, null)} />
-          <Route exact path="/intro" component={Auth(IntroductionPage, null)} />
+          <Route exact path="/join-room" component={Auth(JoinRoomPage, true)} />
+          <Route exact path="/room" component={Auth(RoomPage, true)} />
+          <Route exact path="/intro" component={Auth(IntroductionPage, true)} />
 
-          <Route exact path="/myclass" component={Auth(MyRoomPage,null)} />
+          <Route exact path="/myclass" component={Auth(MyRoomPage,true)} />
 
-          <Route exact path="/dashboard/app" component={Auth(DashboardApp,null)} />
-          <Route exact path="/dashboard/user" component={Auth(DashboardUser,null)} />
+          <Route exact path="/dashboard/app" component={Auth(DashboardApp,true,true)} />
+          <Route exact path="/dashboard/user" component={Auth(DashboardUser,true,true)} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>

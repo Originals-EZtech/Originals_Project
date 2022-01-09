@@ -42,7 +42,7 @@ function RoomNavBar(props) {
             if (response.response.logoutSuccess) {
                 toast.success(response.response.msg)
                 setTimeout(() => {
-                    props.history.push('/login');
+                    props.history.push('/');
                 }, 1500)
             } else if (!response.response.logoutSuccess) {
                 toast.error(response.response.msg) //nvm
