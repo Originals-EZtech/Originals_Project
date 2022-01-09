@@ -235,7 +235,7 @@ router.post("/login", function (req, res) {
                                 .cookie("user_seq", result.rows[0][4])
                                 .cookie("user_flag", result.rows[0][5])
                                 .status(200)
-                                .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], msg: userEmail + " 로그인 성공" })
+                                .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], role:result.rows[0][3], msg: userEmail + " 로그인 성공" })
                         }
                     })
                     // 비번일치안한다면
@@ -263,7 +263,7 @@ router.get('/auth', function (req, res) {
     // 쿠키에 있는 token 정보
     let refresh = req.cookies.refreshToken;
     let access = req.cookies.accessToken;
-
+console.log("refresh?",req.cookies.refreshToken)
     // access 만료됬다면
     if (access === undefined) {
         // refresh 까지 만료됬다면 
@@ -291,10 +291,8 @@ router.get('/auth', function (req, res) {
                 res.cookie("refreshToken", newRefreshToken)
                     .json({ isAuth: true })
             })
-        }
-    }
-    if (!access === null) {
-        let verify = jwt.verify(access, tokenConfig.secretKey);
+        }else{
+            let verify = jwt.verify(access, tokenConfig.secretKey);
         const email_user = verify.email
         conn.execute('SELECT USER_ROLE FROM USER_TABLE WHERE USER_EMAIL = :email', [email_user], function (err5, result5) {
             if (err5) {
@@ -305,6 +303,7 @@ router.get('/auth', function (req, res) {
                 res.json({ isAuth: true, isAdmin: false })
             }
         })
+        }
     }
 })
 
@@ -325,6 +324,9 @@ router.get('/logout', function (req, res) {
             res.clearCookie("user_name")
             res.clearCookie("user_email")
             res.clearCookie("user_role")
+            res.clearCookie("user_seq")
+            res.clearCookie("user_flag")
+
                 .status(200).json({
                     logoutSuccess: true,
                     msg: "로그아웃 되셨습니다."

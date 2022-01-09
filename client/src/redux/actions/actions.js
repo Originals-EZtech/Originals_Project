@@ -156,8 +156,6 @@ export const authEmail = async (dataTosubmit) => {
 export const auth = async () => {
     const request = await axios.get('/api/users/auth') //endpoint로 get request, get이니까 login과 다르게 param x
     const response = request.data;
-    console.log("actions?res",request);
-    console.log("actions?req",response);
 
     return { //Action 끝내고 이제 Reducer로 보냄
         type: Actions.SET_AUTH_USER,
