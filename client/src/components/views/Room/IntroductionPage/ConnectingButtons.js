@@ -21,13 +21,14 @@ const ConnectingButtons = (props) => {
     const pushToMyClass = () => {
         props.history.push('/myclass');
     }
-
-    if(cookies.user_role ==='prof' && cookies.user_flag  === 'false'){
+/* && cookies.user_flag  === 'false'*/
+    if(cookies.user_role ==='prof'){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton createRoomButton buttonText = 'Host a meeting' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
         </div>);
-    }else if(cookies.user_role ==='general' || (cookies.user_role ==='prof' && cookies.user_flag  === 'true')){
+        /* || (cookies.user_role ==='prof' && cookies.user_flag  === 'true') */
+    }else if(cookies.user_role ==='general'){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join a meeting' 
             onClickHandler ={pushToJoinRoomPage}/>
