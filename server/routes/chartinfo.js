@@ -236,5 +236,17 @@ router.get("/usertest", function (req, res) {
     })
 });
 
+// select SUM(round((LEAVEROOM_DATE - ROOM_DATE)*24*60)) from ROOM_TABLE;
+// 화상채팅 사용 시간
+router.get("/usagetime", function (req, res) {
+    conn.execute("select SUM(round((LEAVEROOM_DATE - ROOM_DATE)*24*60)) from ROOM_TABLE", function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(result.rows[0][0])
+        res.status(200).json(result.rows[0][0])
+    })
+});
+
 
 module.exports = router;

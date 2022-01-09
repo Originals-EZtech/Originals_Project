@@ -49,10 +49,13 @@ const chartInfoService = () => {
 
     const getRoomUpList = async () => {
         const result = await axios.get('/api/chart/roomslist')
-        console.log("result",result)
+        return result;
+    }
+    const getUsageTime = async () => {
+        const result = await axios.get('/api/chart/usagetime')
         return result;
     }
 
-    return {getUserTotal, getVisitorTotal, getRoomsTotal, getUsersCount, getPermitList, changeRole, getVisitorCount,getVisitorlist, getSignUpList,getRoomUpList}
+    return {getUserTotal, getVisitorTotal, getRoomsTotal, getUsersCount, getPermitList, changeRole, getVisitorCount,getVisitorlist, getSignUpList,getRoomUpList,getUsageTime}
 }
 export default chartInfoService();

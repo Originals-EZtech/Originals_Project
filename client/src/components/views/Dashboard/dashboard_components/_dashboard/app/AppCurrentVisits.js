@@ -65,7 +65,7 @@ export default function AppCurrentVisits(usersCount) {
 
   return (
     <Card>
-      <CardHeader title="User Ratio" />
+      <CardHeader title="User Ratio" subheader="사용자 비율"/>
       <ChartWrapperStyle dir="ltr">
         <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
       </ChartWrapperStyle>

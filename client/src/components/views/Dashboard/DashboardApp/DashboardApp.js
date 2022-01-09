@@ -93,6 +93,8 @@ function DashboardApp(props) {
   const [visitorList, setVisitorList] = useState(initState);
   const [userSignUpList, setUserSignUpList] = useState(userInitState);
   const [roomList, setRoomList] = useState(roomInitState);
+  const [usageTime, setUsageTime] = useState();
+
 
   const theme = useTheme();
   
@@ -116,6 +118,9 @@ function DashboardApp(props) {
     })
     chartInfoService.getRoomUpList().then(res => {
       setRoomList(res.data);
+    })
+    chartInfoService.getUsageTime().then(res => {
+      setUsageTime(res.data);
     })
 
   }, [sideOpenAction])
@@ -143,7 +148,7 @@ function DashboardApp(props) {
                 <AppItemOrders roomCount={roomCount} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <AppBugReports />
+                <AppBugReports usageTime={usageTime}/>
               </Grid>
               <Grid item xs={12} md={6} lg={8}>
                 <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList} roomList={roomList} />

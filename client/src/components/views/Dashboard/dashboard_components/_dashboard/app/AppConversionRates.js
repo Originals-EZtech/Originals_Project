@@ -22,7 +22,7 @@ export default function AppConversionRates(roomList) {
       y: {
         formatter: (seriesName) => fNumber(seriesName),
         title: {
-          formatter: (seriesName) => `#${seriesName}`
+          formatter: (seriesName) => '교육장 개설수'
         }
       }
     },
@@ -47,7 +47,7 @@ export default function AppConversionRates(roomList) {
 
   return (
     <Card>
-      <CardHeader title="Activation Rates" subheader="일일 교육방 개설 비율" />
+      <CardHeader title="Activation Rates" subheader="일일 교육장 생성량" />
       <Box sx={{ mx: 3 }} dir="ltr">
         <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={364} />
       </Box>
