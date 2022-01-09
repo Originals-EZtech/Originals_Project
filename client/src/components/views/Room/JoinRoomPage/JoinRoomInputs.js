@@ -37,6 +37,7 @@ const JoinRoomInputs = (props) =>{
         setRoomNameValue(event.target.value);
     }
 
+    //!는 논리부정연산자 && 는 앞에 조건이 참이면 뒤에 실행 거짓이면 무시
     return <div className = 'join_room_inputs_container'>
         {!isRoomHost && (<Input 
         placeholder= 'Enter class ID'

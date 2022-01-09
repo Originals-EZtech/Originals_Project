@@ -13,9 +13,11 @@ import { isBrowser } from 'react-device-detect';
 import './RoomPage.css';
 import { useCookies } from "react-cookie";
 
-const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio, roomNameValue }) => {
+const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio, roomNameValue, myRoomId }) => {
     const [cookies] = useCookies();
     const user_seq = cookies.user_seq;
+    console.log("RoomPage roomId::: "+roomId )
+    console.log("RoomPage myRoomId:::"+myRoomId)
     
     useEffect(() => {
         if(!isRoomHost && !roomId){
@@ -29,7 +31,8 @@ const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAu
                 //showOverlay,
                 connectOnlyWithAudio,
                 user_seq,
-                roomNameValue
+                roomNameValue,
+                myRoomId
             );
         }
     }, []);

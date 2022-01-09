@@ -229,6 +229,21 @@ border-top:15px solid #21a374;
   text-align: center;
   z-index: 5;
 }
+.host_paragraph{
+  color: black;
+  text-align: start;
+  font-weight: 500;
+  margin-left: 40px;
+  transition: 0.5s;
+  margin: 0 20px;
+  padding: 10px 0px;
+  background-color: rgb(189, 181, 181);
+  margin-top:5px;
+  border-radius:10px;
+  display: inline-block;
+  text-align: center;
+  z-index: 5;
+}
 
 .participants_paragraph:hover {
   background-color: #888080;

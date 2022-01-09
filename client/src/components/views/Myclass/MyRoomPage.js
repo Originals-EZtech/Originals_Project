@@ -14,8 +14,8 @@ function JoinRoomComponent() {
                 <RoomNavBar /> 
                 </div>
                 <div className="mycalss">
-                    <h1>참여했던 방 목록</h1>
-                    <h3><RoomListComponent /></h3>
+                    <h1 className="my_title">Create Room List</h1>   
+                    <RoomListComponent />
                 </div>
             </div>
         );
@@ -28,7 +28,7 @@ function JoinRoomComponent() {
                 <RoomNavBar />          
                 </div>
                 <div className="mycalss">
-                    <h1 className="my_title">Create Room List</h1>   
+                    <h1 className="my_title">Join Room List</h1>   
                     <RoomListComponent />
                 </div>
             </div>

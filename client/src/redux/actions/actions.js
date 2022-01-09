@@ -22,8 +22,9 @@ const Actions ={
     SET_SIDE_OPEN:"SET_SIDE_OPEN",
     SET_DISABLED: "SET_DISABLED",
     SET_FILENAME: "SET_FILENAME",
-    SET_GOTFILED: "SET_GOTFILED",
-    SET_ROOMNAMEVALUE:"SET_ROOMNAMEVALUE"
+    SET_GOTFILE: "SET_GOTFILE",
+    SET_ROOMNAMEVALUE:"SET_ROOMNAMEVALUE",
+    SET_MYROOMID:"SET_MYROOMID"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -233,9 +234,9 @@ export const setFileName = (fileName)=>{
     }
 }
 
-export const setGotFiled = (gotFile)=>{
+export const setGotFile = (gotFile)=>{
     return{
-        type: Actions.SET_GOTFILED,
+        type: Actions.SET_GOTFILE,
         gotFile
     }
 }
@@ -244,6 +245,13 @@ export const setRoomNameValue = (roomNameValue) => {
     return {
         type: Actions.SET_ROOMNAMEVALUE,
         roomNameValue,
+    }
+}
+
+export const setMyRoomId = (myRoomId) => {
+    return {
+        type: Actions.SET_MYROOMID,
+        myRoomId,
     }
 }
 

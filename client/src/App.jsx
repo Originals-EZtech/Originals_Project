@@ -14,12 +14,12 @@ import MyRoomPage from './components/views/Myclass/MyRoomPage';
 import Auth from './hoc/auth'
 
 import { connectWithSocketIOServer } from './components/views/Room/utils/wss';
-import DashboardApp from './components/views/DashboardApp/DashboardApp';
-import DashboardUser from './components/views/DashboardUser/DashboardUser';
-import ThemeConfig from './dashboard_theme';
-import GlobalStyles from './dashboard_theme/globalStyles';
-import ScrollToTop from './dashboard_components/ScrollToTop';
-import { BaseOptionChartStyle } from './dashboard_components/charts/BaseOptionChart';
+import DashboardApp from './components/views/Dashboard/DashboardApp/DashboardApp';
+import DashboardUser from './components/views/Dashboard/DashboardUser/DashboardUser';
+import ThemeConfig from './components/views/Dashboard/dashboard_theme';
+import GlobalStyles from './components/views/Dashboard/dashboard_theme/globalStyles';
+import ScrollToTop from './components/views/Dashboard/dashboard_components/ScrollToTop';
+import { BaseOptionChartStyle } from './components/views/Dashboard/dashboard_components/charts/BaseOptionChart';
 
 
 const AnimatedSwitch = () => {

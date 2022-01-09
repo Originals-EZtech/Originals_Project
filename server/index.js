@@ -138,72 +138,123 @@ const createNewRoomHandler = (data, socket) =>{
     console.log(data);
     // get that cost identity from 'data'
     const { identity, onlyAudio, user_seq } = data;
-
+    console.log("!data.myRoomId"+!data.myRoomId)
     // thanks to that we are able to generate a random id 
-    const roomId = uuidv4();
-
-    // create new user 
-    const newUser = {
-        identity,
-        id: uuidv4(),
-        socketId: socket.id,
-        roomId,
-        onlyAudio
-    };
-
-    // push that user to connectedUsers
-    // get all previous connected users in this array, will just pass this new User
-    connectedUsers = [...connectedUsers, newUser];
-
-    // create new room
-    const newRoom = {
-        id: roomId,
-        connectedUsers: [newUser]
-    }
-
-    // join socket.io room
-    socket.join(roomId);
     
-    rooms = [...rooms, newRoom]; //rooms - room - roomId, connectedusers
+    // 단일 느낌표(!) — 논리 부정 연산자
+    // !1  false
+    // !-1  false
+    // !0  true
+    // !function() {}  false
+    // !{}  false
+    // !''  true
+    // !NaN  true
+    // !null  true
+    // !undefined  true
+    if (!data.myRoomId){
+        const roomId = uuidv4();
 
-    // emit to that client which created that room roomId
-    socket.emit('room-id', {roomId});
+        // create new user
+        const newUser = {
+            identity,
+            id: uuidv4(),
+            socketId: socket.id,
+            roomId,
+            onlyAudio
+        };
+        
+        // push that user to connectedUsers
+        // get all previous connected users in this array, will just pass this new User
+        connectedUsers = [...connectedUsers, newUser];
 
-    // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
-    const room_name=data.roomNameValue
-    const insertarray = [roomId, user_seq, room_name];
-    
-    // room-id 테이블에 저장
-    oracledb.getConnection(dbConfig, (err, conn) => {
-        roomNameInsert(err, conn);
-    });
-        function roomNameInsert(err, connection) {
-            if (err) {
-                console.error(err.message);
-                console.log("데이터 가져오기 실패");
-                return;
-            }
-            connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,:user_seq,:room_name,SYSDATE)", insertarray, function (err, result) {
+        // create new room
+        const newRoom = {
+            id: roomId,
+            connectedUsers: [newUser]
+        }
+
+        // join socket.io room
+        socket.join(roomId);
+
+        rooms = [...rooms, newRoom]; //rooms - room - roomId, connectedusers
+
+        // emit to that client which created that room roomId
+        socket.emit('room-id', {roomId});
+
+        // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
+        const room_name=data.roomNameValue
+        const insertarray = [roomId, user_seq, room_name];
+        
+        // room-id 테이블에 저장
+        oracledb.getConnection(dbConfig, (err, conn) => {
+            roomNameInsert(err, conn);
+        });
+            function roomNameInsert(err, connection) {
                 if (err) {
                     console.error(err.message);
-                    doRelease(connection);
+                    console.log("데이터 가져오기 실패");
                     return;
                 }
-                console.log(result);
-                doRelease(connection);
-            });
-        function doRelease(connection) {
-            connection.release(function (err) {
-                if (err) {
-                    console.error(err.message);
-                }
-            });
+                connection.execute("insert into room_table (ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE) values(:roomId,:user_seq,:room_name,SYSDATE)", insertarray, function (err, result) {
+                    if (err) {
+                        console.error(err.message);
+                        doRelease(connection);
+                        return;
+                    }
+                    console.log(result);
+                    doRelease(connection);
+                });
+            function doRelease(connection) {
+                connection.release(function (err) {
+                    if (err) {
+                        console.error(err.message);
+                    }
+                });
+            }
         }
+        
+        // emit an event to all users connected 
+        // to that room about new users which are right in this room
+        socket.emit('room-update', { connectedUsers: newRoom.connectedUsers});
+    }else{
+        const roomId =data.myRoomId;
+        // create new user 
+        const newUser = {
+            identity,
+            id: uuidv4(),
+            socketId: socket.id,
+            roomId,
+            onlyAudio
+        };
+
+        // push that user to connectedUsers
+        // get all previous connected users in this array, will just pass this new User
+        connectedUsers = [...connectedUsers, newUser];
+
+        // create new room
+        const newRoom = {
+            id: roomId,
+            connectedUsers: [newUser]
+        }
+
+        // join socket.io room
+        socket.join(roomId);
+
+        rooms = [...rooms, newRoom]; //rooms - room - roomId, connectedusers
+
+        // emit to that client which created that room roomId
+        console.log("roomId::: "+roomId);
+        socket.emit('room-id', {roomId});
+
+        // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
+
+        // const room_name=data.roomNameValue
+        // const insertarray = [roomId, user_seq, room_name];
+
+        // emit an event to all users connected 
+        // to that room about new users which are right in this room
+        socket.emit('room-update', { connectedUsers: newRoom.connectedUsers});
     }
-    
-    // emit an event to all users connected 
-    // to that room about new users which are right in this room
-    socket.emit('room-update', { connectedUsers: newRoom.connectedUsers});
 };
 
 const joinRoomHandler = (data,socket) =>{
