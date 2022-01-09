@@ -1,6 +1,7 @@
 import React, { useState, } from 'react';
 import RoomNavBar from '../NavBar/RoomNavBar';
 import RoomListComponent from './RoomListComponent';
+import JoinRoomListComponent from './JoinRoomListComponent';
 import './MyRoomPage.css';
 import {useCookies} from "react-cookie";
 function JoinRoomComponent() {
@@ -29,7 +30,7 @@ function JoinRoomComponent() {
                 </div>
                 <div className="mycalss">
                     <h1 className="my_title">Join Room List</h1>   
-                    <RoomListComponent />
+                    <JoinRoomListComponent />
                 </div>
             </div>
             
