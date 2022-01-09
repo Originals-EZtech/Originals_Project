@@ -5,14 +5,14 @@ import { Link as RouterLink, } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box, Link, Drawer } from '@mui/material';
 // components
-import Logo from '../../dashboard_components/Logo';
-import Scrollbar from '../../dashboard_components/Scrollbar';
-import NavSection from '../../dashboard_components/NavSection';
-import { MHidden } from '../../dashboard_components/@material-extend';
+import Logo from '../dashboard_components/Logo';
+import Scrollbar from '../dashboard_components/Scrollbar';
+import NavSection from '../dashboard_components/NavSection';
+import { MHidden } from '../dashboard_components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
 import Clock from 'react-live-clock';
-import { sideOpen } from '../../redux/actions/actions';
+import { sideOpen } from '../../../../redux/actions/actions';
 
 
 // ----------------------------------------------------------------------

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import chartInfoService from '../DashboardApp/service/chartInfoService';
+import chartInfoService from '../Dashboard/DashboardApp/service/chartInfoService';
 
 function MainHome() {
 

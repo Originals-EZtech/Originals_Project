@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import { withRouter } from 'react-router-dom';
 import Label from '../../Label';
-import chartInfoService from '../../../components/views/DashboardApp/service/chartInfoService';
+import chartInfoService from '../../../DashboardApp/service/chartInfoService';
 import { toast } from 'react-toastify';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
 
