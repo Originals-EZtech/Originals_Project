@@ -259,7 +259,7 @@ function Register(props) {
                                 <i className="fas fa-at" />
                             </div>
                             <div className={styles.div}>
-                                <input style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="USEREMAIL" />
+                                <input style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="EMAIL" />
                             </div>
                         </div>
                         <span >{EmailMessage}</span>

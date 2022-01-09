@@ -194,4 +194,31 @@ router.post("/roomjoinsearch_2", (req, res) => {
     }
 });
 
+
+router.post("/roomleave_2", (req, res) => {
+    console.log("req.body.user_seq"+req.body.user_seq)
+    console.log("req.body.roomId"+req.body.roomId)
+    const insertarray = [req.body.roomId]
+    //테이블에 방 이름 방 비밀번호 입력 
+    oracledb.getConnection(dbConfig, (err, conn) => {
+        roomNameInsert(err, conn);
+    });
+        function roomNameInsert(err, connection) {
+            if (err) {
+                console.error(err.message);
+                console.log("데이터 가져오기 실패");
+                return;
+            }
+            connection.execute("UPDATE ROOM_TABLE SET LEAVEROOM_DATE = SYSDATE WHERE room_id=:roomId", insertarray, function (err, result) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+                doRelease(connection);
+            });
+    }
+});
+
+
 module.exports = router

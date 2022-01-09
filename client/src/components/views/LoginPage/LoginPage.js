@@ -67,7 +67,7 @@ function Login(props) {
                                 <i class="fas fa-user" />
                             </div>
                             <div className={styles.div}>
-                                <input style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="USERNAME" />
+                                <input style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="EMAIL" />
                             </div>
                         </div>
                         <div className={classnames(styles.input_div, styles.pass)}>
