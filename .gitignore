@@ -14,6 +14,7 @@ mybatisConfig.js
 mailConfig.js
 tokenConfig.js
 twilioConfig.js
+ipconfig.js
 
 # image file
 upload
