@@ -79,7 +79,7 @@ router.post("/roomlist_2", (req, res) => {
             //{outFormat:oracledb.OBJECT} => 칼럼명을 오프잭트마다 제이슨 형식으로 이름 부여해주기
             // 참고링크 https://gaemi606.tistory.com/entry/Nodejs-Oracle-%EC%97%B0%EB%8F%99-npm-oracledb
             // 참고링크 오라클 공식문서 http://oracle.github.io/node-oracledb/doc/api.html
-            connection.execute("SELECT ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE FROM ROOM_TABLE WHERE USER_SEQ=:user_seq", selectarray,{outFormat:oracledb.OBJECT}, function (err, result) {
+            connection.execute("SELECT ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE FROM ROOM_TABLE WHERE USER_SEQ=:user_seq ORDER BY ROOM_DATE DESC", selectarray,{outFormat:oracledb.OBJECT}, function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);
@@ -106,7 +106,7 @@ router.post("/roomjoinlist_2", (req, res) => {
             //{outFormat:oracledb.OBJECT} => 칼럼명을 오프잭트마다 제이슨 형식으로 이름 부여해주기
             // 참고링크 https://gaemi606.tistory.com/entry/Nodejs-Oracle-%EC%97%B0%EB%8F%99-npm-oracledb
             // 참고링크 오라클 공식문서 http://oracle.github.io/node-oracledb/doc/api.html
-            connection.execute("SELECT ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE FROM ROOM_TABLE WHERE USER_SEQ=:user_seq", selectarray,{outFormat:oracledb.OBJECT}, function (err, result) {
+            connection.execute("SELECT ROOMJOIN_SEQ,USER_SEQ,ROOM_ID,ROOM_NAME,ROOMJOIN_DATE FROM ROOMJOIN_TABLE WHERE USER_SEQ=:user_seq ORDER BY ROOMJOIN_DATE DESC", selectarray,{outFormat:oracledb.OBJECT}, function (err, result) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);

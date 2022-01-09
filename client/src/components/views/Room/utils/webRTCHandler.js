@@ -52,7 +52,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
         
         isRoomHost 
         ? wss.createNewRoom(identity, onlyAudio, user_seq, roomNameValue, roomId, myRoomId ) 
-        : wss.joinRoom(identity, roomId, onlyAudio, user_seq);
+        : wss.joinRoom(identity, roomId, onlyAudio, user_seq, myRoomId);
     }).catch((err) => {
         console.log('error occured when trying to get an access to local stream'); 
         console.log(err);
