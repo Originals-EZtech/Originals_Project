@@ -11,7 +11,6 @@ import { loginUser } from '../../../redux/actions/actions';
 
 
 function Login(props) {
-    // const dispatch = useDispatch();
     const { loginUserAction } = props;
 
     const [Email, setEmail] = useState("")
@@ -38,7 +37,11 @@ function Login(props) {
             if (response.response.loginSuccess) {
                 toast.success(response.response.msg);
                 setTimeout(() => {
+                    if(response.response.role === 'admin'){
+                        props.history.push('/dashboard/app');
+                    }else{
                     props.history.push('/intro');
+                    }
                 }, 1200)
             } else {
                 toast.error(response.response.msg);
@@ -64,7 +67,7 @@ function Login(props) {
                                 <i class="fas fa-user" />
                             </div>
                             <div className={styles.div}>
-                                <input style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="USERNAME" />
+                                <input style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="EMAIL" />
                             </div>
                         </div>
                         <div className={classnames(styles.input_div, styles.pass)}>

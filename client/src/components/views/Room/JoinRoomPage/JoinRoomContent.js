@@ -8,7 +8,6 @@ import JoinRoomButtons from './JoinRoomButtons';
 import { getRoomExists } from '../utils/api';
 import { withRouter } from 'react-router-dom';
 import { setConnectOnlyWithAudio, setIdentity, setRoomId, setRoomNameValue } from '../../../../redux/actions/actions';
-// import tokenConfig from '../../../../../../server/config/tokenConfig';
 
 
 const JoinRoomContent = (props) =>{
@@ -19,11 +18,9 @@ const JoinRoomContent = (props) =>{
     const [roomNameValue, setRoomNameValue] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
 
-    //쿠키
-    //console.log(props); 
+
 
     const handleJoinRoom = async () =>{ 
-        //console.log("check");
         setIdentityAction(nameValue);
         if (isRoomHost){
             createRoom();

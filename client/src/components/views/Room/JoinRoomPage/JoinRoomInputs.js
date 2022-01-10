@@ -5,23 +5,12 @@ const Input = ({placeholder, value, changeHandler})=> {
         <input 
         value = {value}
         onChange={changeHandler}
-        //style={{fontWeight:"bold"}}
         className = 'join_room_input'
         placeholder= {placeholder} 
         />
 
     )
 }
-
-// const Name =({}) =>{
-//     return(
-//         <input className="roomname" 
-//         type="text" 
-//         placeholder="Room Name" 
-//          maxlength='10'>
-//         </input>
-//     );
-// }
 
 const JoinRoomInputs = (props) =>{
     const { roomIdValue, setRoomIdValue, nameValue, setNameValue, isRoomHost, roomNameValue, setRoomNameValue } =
@@ -40,19 +29,19 @@ const JoinRoomInputs = (props) =>{
     //!는 논리부정연산자 && 는 앞에 조건이 참이면 뒤에 실행 거짓이면 무시
     return <div className = 'join_room_inputs_container'>
         {!isRoomHost && (<Input 
-        placeholder= 'Enter class ID'
+        placeholder= 'Class ID'
         value = {roomIdValue}
         changeHandler={handleRoomIdValueChange}
         />
         )}
         {!!isRoomHost && (<Input 
-         placeholder = 'Enter class Name'
+         placeholder = 'Class Name'
          value = {roomNameValue}
          changeHandler={handleRoomNameValueChange}
         />
         )}
         <Input 
-         placeholder = 'Enter your Name'
+         placeholder = 'Your Name'
          value = {nameValue}
          changeHandler={handleNameValueChange}
         />

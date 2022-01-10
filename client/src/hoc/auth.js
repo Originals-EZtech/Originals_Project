@@ -23,28 +23,26 @@ export default function (SpecificComponent, option, adminRoute = null) {
                         window.location.replace('/login')
                     }
                 } else {
-                    // isAuth == true
-                    // option == false
-                    // 로그인유저 못들어옴
+                        /**
+                         * 로그인유저 못들어옴
+                         * isAuth == true
+                         * option == false
+                         */
                     if (option === false) {
                         props.history.push("/intro");
                     } else {
-                        // isAuth == true
-                        // option == true
-                        // 로그인한사람만 들어올수 있음
-
-                        // adminRoute == true
+                        /**
+                         * 로그인한사람만 들어올수 있음
+                         * isAuth == true
+                         * option == true
+                         */
                         if (adminRoute) {
-                            // isAdmin == false
                             if (!response.response.isAdmin) {
-                                props.history.push("/intro");
+                                window.location.replace('/intro')
                             }
-                            // adminRoute == true
-                            // isAdmin == false
                         }
                     }
                 }
-                return
                 // null은 pass
             })
         }, [dispatch, props.history])

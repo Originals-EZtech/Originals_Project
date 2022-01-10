@@ -5,8 +5,8 @@ const RoomLabel = ({roomId}) => {
     return (
         <div className ='room_label'>
             <details className="mark">
-                <summary className="mark_name">ROOM ID</summary>
-                <p className = 'room_label_paragraph'>Class ID: {roomId} </p>
+                <summary className="mark_name">▼　　　　　　　　　　　　ROOM ID　　　　　　　　　　　　▼</summary>
+                <p className = 'room_label_paragraph'> {roomId} </p>
                 <CopyToClipboard text={roomId}>
                     <img
                     className="copybutton"

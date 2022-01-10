@@ -40,7 +40,7 @@ export default function AppNewUsers(visitorCount) {
       <IconWrapperStyle>
         <Icon icon={roomFill} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{visitorCount.visitorCount}</Typography>
+      <Typography variant="h3">{visitorCount.visitorCount}명</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         누적 방문자 수
       </Typography>

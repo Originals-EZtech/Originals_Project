@@ -33,15 +33,14 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 'dummy';
 
-export default function AppBugReports() {
+export default function AppBugReports(usageTime) {
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={messageFill} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{TOTAL}</Typography>
+      <Typography variant="h3">{usageTime.usageTime}분</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         총 강의 시간
       </Typography>

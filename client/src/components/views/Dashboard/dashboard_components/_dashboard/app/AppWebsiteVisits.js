@@ -9,23 +9,23 @@ import moment from 'moment';
 // ----------------------------------------------------------------------
 
 
-export default function AppWebsiteVisits({visitorList,userSignUpList}) {
+export default function AppWebsiteVisits({visitorList, userSignUpList, roomList}) {
   const chartData= visitorList;
 
   const CHART_DATA = [
-    {
-      name: '미지정',
-      type: 'column',
-      data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-    },
+    // {
+    //   name: '방 개설수',
+    //   type: 'column',
+    //   data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
+    // },
     {
       name: '가입자수',
-      type: 'area',
+      type: 'column',
       data: [userSignUpList.countA, userSignUpList.countB, userSignUpList.countC, userSignUpList.countD, userSignUpList.countE, userSignUpList.countF, userSignUpList.countG, userSignUpList.countH, userSignUpList.countI, userSignUpList.countJ, userSignUpList.countK]
     },
     {
       name: '방문자수',
-      type: 'line',
+      type: 'area',
       data: [chartData.a, chartData.b, chartData.c, chartData.d, chartData.e, chartData.f, chartData.g, chartData.h, chartData.i, chartData.j, chartData.k]
     }
   ];
@@ -63,7 +63,7 @@ export default function AppWebsiteVisits({visitorList,userSignUpList}) {
 
   return (
     <Card>
-      <CardHeader title="Website Visits" subheader="(+43%) than last year" />
+      <CardHeader title="Website Visits" subheader="일일 트래픽 비율" />
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
         <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} height={364} />
       </Box>

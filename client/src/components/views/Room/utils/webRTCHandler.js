@@ -52,7 +52,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
         
         isRoomHost 
         ? wss.createNewRoom(identity, onlyAudio, user_seq, roomNameValue, roomId, myRoomId ) 
-        : wss.joinRoom(identity, roomId, onlyAudio);
+        : wss.joinRoom(identity, roomId, onlyAudio, user_seq, myRoomId);
     }).catch((err) => {
         console.log('error occured when trying to get an access to local stream'); 
         console.log(err);
@@ -204,11 +204,14 @@ export const removePeerConnection = (data) =>{
 
 const showLocalVideoPreview = (stream) =>{
     // show local video preview
+    const participant = store.getState().identity;
+    
     const videosContainer = document.getElementById('videos_portal');
     videosContainer.classList.add('videos_portal_styles');
     const videoContainer = document.createElement('div');
     videoContainer.classList.add('video_track_container');
     const videoElement = document.createElement('video');
+    videoElement.classList.add('video_track');
     videoElement.autoplay = true;
     videoElement.muted = true;
     videoElement.srcObject = stream;
@@ -217,7 +220,7 @@ const showLocalVideoPreview = (stream) =>{
         videoElement.play();
     };
 
-    videoContainer.appendChild(videoElement);
+    videoContainer.append(videoElement,getnameLabel(participant));
 
     if (store.getState().connectOnlyWithAudio){
         videoContainer.appendChild(getAudioOnlyLabel());
@@ -235,6 +238,7 @@ const addStream = (stream, connUserSocketId)=>{
 
     videoContainer.classList.add('video_track_container');
     const videoElement = document.createElement('video');
+    videoElement.classList.add('video_track');
     videoElement.autoplay = true;
     videoElement.srcObject = stream;
     videoElement.id = `${connUserSocketId}-video`;
@@ -252,12 +256,12 @@ const addStream = (stream, connUserSocketId)=>{
     });
 
 
-    videoContainer.appendChild(videoElement);
+    
 
 //check if other user connected only with audio
     const participants = store.getState().participants;
     const participant = participants.find(p => p.socketId === connUserSocketId);
-
+    videoContainer.append(videoElement,getnameLabel(participant.identity));
     if(participant?.onlyAudio){
         videoContainer.appendChild(getAudioOnlyLabel(participant.identity));
     }else{
@@ -267,7 +271,7 @@ const addStream = (stream, connUserSocketId)=>{
     videosContainer.appendChild(videoContainer);
 };
 
-const getAudioOnlyLabel =(identity ='' )=>{
+const getAudioOnlyLabel =(identity )=>{
     const labelContainer = document.createElement('div');
     labelContainer.classList.add('label_only_audio_container');
 
@@ -278,6 +282,19 @@ const getAudioOnlyLabel =(identity ='' )=>{
     labelContainer.appendChild(label);
     return labelContainer;
 };
+
+const getnameLabel =(identity)=>{
+    const NameContainer = document.createElement('div');
+    NameContainer.classList.add('label_name_con');
+
+    const Name = document.createElement('p');
+    Name.classList.add('label_name_text');
+    Name.innerHTML = `${identity}`;
+
+    NameContainer.appendChild(Name);
+    return NameContainer;
+};
+
 
 ///////////////////////////////////////// Button Logic //////////////////////////////
 

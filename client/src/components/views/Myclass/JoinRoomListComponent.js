@@ -26,7 +26,7 @@ function RoomListComponent(props) {
       const textbox = {
           user_seq: user_seq,
         };
-        fetch("/api/data2/roomlist_2", { //text 주소에서 받을 예정
+        fetch("/api/data2/roomjoinlist_2", { //text 주소에서 받을 예정
           method: "post", //통신방법
           headers: {
             "content-type": "application/json",
@@ -49,7 +49,7 @@ function RoomListComponent(props) {
     const rendering = () => {
       const result = [];
       for (let i = 0; i < room_list.length; i++) {
-        element.innerHTML= result.push(<div key={i}> <button onClick={() => { myroomclick(room_list[i]) }}> {(i+1)+"번째 방이름 : "+room_list[i].ROOM_NAME + " /  참여시간, 만든시간 : "+room_list[i].ROOM_DATE + "  "} </button> </div>);
+        element.innerHTML= result.push(<div key={i}> <button onClick={() => { myroomclick(room_list[i]) }}> {(i+1)+"번째 방이름 : "+room_list[i].ROOM_NAME + " /  참여시간, 만든시간 : "+room_list[i].ROOMJOIN_DATE + "  "} </button> </div>);
       }
       return result;
     };

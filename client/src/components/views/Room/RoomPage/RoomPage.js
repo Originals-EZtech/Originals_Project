@@ -8,7 +8,6 @@ import {connect} from 'react-redux';
 import * as webRTCHandler from '../utils/webRTCHandler';
 import Overlay from './Overlay';
 import Sttsection from './Stt/SttSection'
-//import Dictaphone from './Stt/Dictaphone';
 import { isBrowser } from 'react-device-detect';
 import './RoomPage.css';
 import { useCookies } from "react-cookie";
@@ -28,7 +27,6 @@ const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAu
                 isRoomHost,
                 identity,
                 roomId,
-                //showOverlay,
                 connectOnlyWithAudio,
                 user_seq,
                 roomNameValue,

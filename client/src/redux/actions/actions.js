@@ -113,7 +113,6 @@ export const setSocketId = (socketId) =>{
 
 
 export const sttword = (word) =>{
-    // console.log(word);
     return{
         type: Actions.SET_WORD,
         word,
@@ -124,9 +123,6 @@ export const sttword = (word) =>{
 export const loginUser = async (loginData) => {
     const request = await axios.post('/api/users/login', loginData)
     const response = request.data;
-    console.log("axios로 서버에 보내는 값: ", loginData)
-    // console.log('request', request);
-    // console.log('response', response);
     return {
         type: Actions.SET_LOGIN_USER,
         response
@@ -137,7 +133,6 @@ export const loginUser = async (loginData) => {
 export const registerUser = async (registerData) => {
     const request = await axios.post('/api/users/register', registerData)
     const response = request.data;
-    console.log(response);
 
     return {
         type: Actions.SET_REGISTER_USER,
@@ -149,9 +144,6 @@ export const registerUser = async (registerData) => {
 export const authEmail = async (dataTosubmit) => {
     const request = await axios.post('/api/users/emailauth', dataTosubmit)
     const response = request.data;
-    console.log('dataTosubmit', dataTosubmit);
-    console.log(request);
-    console.log(response);
 
     return {
         type: Actions.SET_AUTH_EMAIL,
@@ -161,12 +153,10 @@ export const authEmail = async (dataTosubmit) => {
 
 // auth token (토큰 인증)
 export const auth = async () => {
-    const request = await axios.get('/api/users/auth') //endpoint로 get request, get이니까 login과 다르게 param x
+    const request = await axios.get('/api/users/auth') 
     const response = request.data;
-    console.log("actions?res",request);
-    console.log("actions?req",response);
 
-    return { //Action 끝내고 이제 Reducer로 보냄
+    return { 
         type: Actions.SET_AUTH_USER,
         response
     }
@@ -176,8 +166,6 @@ export const auth = async () => {
 export const logout = async () => {
     const request = await axios.get('/api/users/logout')
     const response = request.data;
-    console.log(request);
-    console.log(response);
 
     return {
         type: Actions.SET_LOGOUT_USER,
@@ -187,12 +175,8 @@ export const logout = async () => {
 
 // 파일첨부
 export const fileUpload = async (fileData) => {
-    // console.log('action');
-    // console.log(fileData);
     const url = "/api/users/imgUpload";
     const formData = new FormData();
-    // console.log('fileData.email', fileData.email);
-    // console.log('fileData.image', fileData.image);
     formData.append('email', fileData.email);
     formData.append('image', fileData.image);
 
@@ -203,24 +187,13 @@ export const fileUpload = async (fileData) => {
     }
     const request = await axios.post(url, formData, config);
     const response = request.data;
-    // console.log(request);
-    // console.log(response);
+
 
     return {
         type: Actions.SET_FILE_UPLOAD,
         response
     }
 }
-
-// export const userTotal = async () => {
-//     const request = await axios.get('/api/chart/users')
-//     const userTotal = request.data;
-//     console.log(userTotal);
-//     return { //Action 끝내고 이제 Reducer로 보냄
-//         type: Actions.SET_TOTAL_USER,
-//         userTotal
-//     }
-// }
 
 export const sideOpen = (open) => {
     return{

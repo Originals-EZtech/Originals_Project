@@ -14,7 +14,6 @@ import {
   AppWeeklySales,
   AppCurrentVisits,
   AppWebsiteVisits,
-  AppCurrentSubject,
   AppConversionRates
 } from '../dashboard_components/_dashboard/app';
 import chartInfoService from './service/chartInfoService';
@@ -73,13 +72,28 @@ function DashboardApp(props) {
     "countJ": [0],
     "countK": [0]
   }
+  const roomInitState = {
+    "roomA": [0],
+    "roomB": [0],
+    "roomC": [0],
+    "roomD": [0],
+    "roomE": [0],
+    "roomF": [0],
+    "roomG": [0],
+    "roomH": [0],
+    "roomI": [0],
+    "roomJ": [0],
+    "roomK": [0]
+  }
 
-  // const [open, setOpen] = useState(false);
   const [visitorCount, setVisitorCount] = useState();
   const [roomCount, setRoomCount] = useState();
   const [usersCount, setUsersCount] = useState({ general: 0, prof: 0, total: 0 });
   const [visitorList, setVisitorList] = useState(initState);
   const [userSignUpList, setUserSignUpList] = useState(userInitState);
+  const [roomList, setRoomList] = useState(roomInitState);
+  const [usageTime, setUsageTime] = useState();
+
 
   const theme = useTheme();
   
@@ -100,6 +114,12 @@ function DashboardApp(props) {
     })
     chartInfoService.getSignUpList().then(res => {
       setUserSignUpList(res.data);
+    })
+    chartInfoService.getRoomUpList().then(res => {
+      setRoomList(res.data);
+    })
+    chartInfoService.getUsageTime().then(res => {
+      setUsageTime(res.data);
     })
 
   }, [sideOpenAction])
@@ -127,10 +147,10 @@ function DashboardApp(props) {
                 <AppItemOrders roomCount={roomCount} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <AppBugReports />
+                <AppBugReports usageTime={usageTime}/>
               </Grid>
               <Grid item xs={12} md={6} lg={8}>
-                <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList} />
+                <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList} roomList={roomList} />
               </Grid>
 
               <Grid item xs={12} md={6} lg={4}>
@@ -138,12 +158,12 @@ function DashboardApp(props) {
               </Grid>
 
               <Grid item xs={12} md={6} lg={8}>
-                <AppConversionRates />
+                <AppConversionRates roomList={roomList}/>
               </Grid>
 
-              <Grid item xs={12} md={6} lg={4}>
+              {/* <Grid item xs={12} md={6} lg={4}>
                 <AppCurrentSubject />
-              </Grid>
+              </Grid> */}
             </Grid>
           </Container>
         </Page>

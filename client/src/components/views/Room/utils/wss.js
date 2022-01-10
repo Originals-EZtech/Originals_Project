@@ -12,17 +12,11 @@ console.log("serverip.server"+serverip.server);
 // const SERVER = 'http://localhost:5000';
 const SERVER = serverip.server;
 
-
 let socket = null;
-
-
 
 export const connectWithSocketIOServer = () =>{
     socket = io(SERVER);
     socket.on('connect', ()=>{
-        console.log('successfully connected with socket.io server');
-        console.log(socket.id);
-        console.log("socket.id"+socket.id);
         store.dispatch(setSocketId(socket.id));    
     });
     socket.on('room-id', (data)=>{
@@ -55,19 +49,13 @@ export const connectWithSocketIOServer = () =>{
     });
 
     socket.on('direct-message', (data) =>{
-        console.log("direct message came");
-        console.log(data);
+
         appendNewMessageToChatHistory(data);
     });
     socket.on('conn-stt', (data)=>{
-        console.log("stt message came"); 
-        
-        //console.log(data.transcript);
         store.dispatch(sttword(data.transcript));
-        //console.log(store.getState());
     });
 };
-
 
 
 
@@ -86,12 +74,14 @@ export const createNewRoom = (identity, onlyAudio, user_seq, roomNameValue, room
     socket.emit('create-new-room', data);
 }
 
-export const joinRoom = (identity, roomId, onlyAudio) =>{
+export const joinRoom = (identity, roomId, onlyAudio, user_seq, myRoomId) =>{
     //emit an event to server that we would like to join a room
     const data = {
         roomId,
         identity,
-        onlyAudio
+        onlyAudio,
+        user_seq,
+        myRoomId
     };
     socket.emit('join-room' ,data);
 }
@@ -104,10 +94,8 @@ export const signalPeerData = (data) =>{
 
 export const sendDirectMessage = (data) =>{
     socket.emit('direct-message', data);
-    console.log(data); 
 };
 
 export const sendSTT =(data) =>{
     socket.emit('send-stt', data);
-    console.log(data);
 };
