@@ -21,27 +21,61 @@ const ConnectingButtons = (props) => {
     //     props.history.push('/myclass');
     // }
 
-    if(cookies.user_role ==='prof' && cookies.user_flag  === 'false'){
-        return(<div className = 'connecting_buttons_container'>
+    // user_role = general && user_flag = true이면 승인 허가 기다리는 선생님
+    // user_role = general && user_flag = false이면 학생
+    // user_role = prof && user_flag = false이면 승인 허가된 선생님
+    if (cookies.user_flag === 'false') {
+        if (cookies.user_role === 'prof') {
+            return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'create a class' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
             {/* <ConnectingButton buttonText = 'My class'
             onClickHandler={pushToMyClass} /> */}
-        </div>);
-    }else if(cookies.user_role ==='general' || (cookies.user_role ==='prof' && cookies.user_flag  === 'true')){
-        return(<div className = 'connecting_buttons_container'>
+            </div>);
+        } else {
+            return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join a class' 
             onClickHandler ={pushToJoinRoomPage}/>
             {/* <ConnectingButton buttonText = 'My class'
             onClickHandler={pushToMyClass} /> */}
-        </div>);
-    }else{
+            </div>);
+        }
+    } else {
         return(<div className = 'connecting_buttons_container'>
-            <ConnectingButton onClickHandler ={pushToJoinRoomError}/>
-            {/* <ConnectingButton buttonText = 'My class'
-            onClickHandler={pushToMyClass} /> */}
+        <ConnectingButton buttonText = 'create a class' 
+        onClickHandler ={pushToJoinRoomError}/>
+        {/* <ConnectingButton buttonText = 'My class'
+        onClickHandler={pushToMyClass} /> */}
         </div>);
     }
+
+
+    
+    // if(cookies.user_role ==='prof' && cookies.user_flag  === 'false'){
+    //     return(<div className = 'connecting_buttons_container'>
+    //         <ConnectingButton buttonText = 'create a class' 
+    //         onClickHandler ={pushToJoinRoomPageAsHost}/>
+    //         <ConnectingButton buttonText = 'My class'
+    //         onClickHandler={pushToMyClass} />
+    //     </div>);
+    
+    // }else if(cookies.user_role ==='general' || (cookies.user_role ==='prof' && cookies.user_flag  === 'true')){
+    //     return(<div className = 'connecting_buttons_container'>
+    //         <ConnectingButton buttonText = 'Join a class' 
+    //         onClickHandler ={pushToJoinRoomPage}/>
+    //         <ConnectingButton buttonText = 'My class'
+    //         onClickHandler={pushToMyClass} />
+    //     </div>);
+    // }else if () {
+
+    // }
+    // else{
+    //     return(<div className = 'connecting_buttons_container'>
+    //         <ConnectingButton onClickHandler ={pushToJoinRoomError}/>
+    //         <ConnectingButton buttonText = 'My class'
+    //         onClickHandler={pushToMyClass} />
+    //     </div>);
+    // }
 };
 
 
