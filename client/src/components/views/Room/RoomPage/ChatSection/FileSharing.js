@@ -9,8 +9,6 @@ import file_upload from "../../resources/images/file_upload.svg"
 const FileSharing = ({gotFile, fileName})=>{
     const [file, setFileData] = useState(null);
 
-
-
     const setFile = () =>{
         const file = document.getElementById('fileItem');
         //if(file.files[0].length < )

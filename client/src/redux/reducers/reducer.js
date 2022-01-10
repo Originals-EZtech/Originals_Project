@@ -19,7 +19,7 @@ const initState = {
     gotFile: false,
     roomNameValue: "",
     myRoomId: "",
-    activeChat: null
+    activeChat: ''
 };
 
 // reducer는 state의 상태를 변화시켜주는 함수
