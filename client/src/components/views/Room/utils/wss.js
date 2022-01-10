@@ -18,11 +18,14 @@ export const connectWithSocketIOServer = () =>{
     socket.on('room-id', (data)=>{
         const { roomId } = data;
         // our store should change if will host a new room
+        console.log("connectwithsocketioserver roomId:::"+roomId);
         store.dispatch(setRoomId(roomId));
     });
 
     socket.on('room-update', (data) => {
         const { connectedUsers} = data;
+
+        console.log("connectwithsocketioserver connectedUsers:::" + connectedUsers)
         store.dispatch(setParticipants(connectedUsers));
     })
 

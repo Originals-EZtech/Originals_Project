@@ -17,29 +17,29 @@ const ConnectingButtons = (props) => {
     const pushToJoinRoomPageAsHost =() =>{
         props.history.push('/join-room?host=true');
     }
-    const pushToMyClass = () => {
-        props.history.push('/myclass');
-    }
+    // const pushToMyClass = () => {
+    //     props.history.push('/myclass');
+    // }
 
     if(cookies.user_role ==='prof' && cookies.user_flag  === 'false'){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'create a class' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
-            <ConnectingButton buttonText = 'My class'
-            onClickHandler={pushToMyClass} />
+            {/* <ConnectingButton buttonText = 'My class'
+            onClickHandler={pushToMyClass} /> */}
         </div>);
     }else if(cookies.user_role ==='general' || (cookies.user_role ==='prof' && cookies.user_flag  === 'true')){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join a class' 
             onClickHandler ={pushToJoinRoomPage}/>
-            <ConnectingButton buttonText = 'My class'
-            onClickHandler={pushToMyClass} />
+            {/* <ConnectingButton buttonText = 'My class'
+            onClickHandler={pushToMyClass} /> */}
         </div>);
     }else{
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton onClickHandler ={pushToJoinRoomError}/>
-            <ConnectingButton buttonText = 'My class'
-            onClickHandler={pushToMyClass} />
+            {/* <ConnectingButton buttonText = 'My class'
+            onClickHandler={pushToMyClass} /> */}
         </div>);
     }
 };

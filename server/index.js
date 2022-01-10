@@ -345,9 +345,11 @@ const joinRoomHandler = (data,socket) =>{
 
         io.to(roomId).emit('room-update', {connectedUsers: room.connectedUsers});
     }else{
-        console.log("data.myRoomId"+data.myRoomId)
+        console.log("data.myRoomId ::: "+data.myRoomId)
 
         const myRoomId=data.myRoomId
+
+        console.log("myRoomId ::: "+myRoomId)
         const newUser = {
             identity,
             id: uuidv4(),
