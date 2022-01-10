@@ -5,7 +5,7 @@ import { setParticipants, setRoomId, setSocketId, sttword } from '../../../../re
 import store from '../../../../redux/store/store';
 
 
-const serverip = require('./config/ipconfig');
+const serverip = require('../../../../config/ipconfig');
 console.log("serverip"+serverip);
 console.log("serverip.server"+serverip.server);
 // 로컬 아이피, 공유기 아이피 ipconfig를 자기 공유기 ip로 바꿔준다
