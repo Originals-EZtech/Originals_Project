@@ -8,12 +8,12 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
 const sidebarConfig = [
   {
-    title: 'dashboard',
+    title: '통계',
     path: '/dashboard/app',
     icon: getIcon(pieChart2Fill)
   },
   {
-    title: 'user',
+    title: '승인 대기자',
     path: '/dashboard/user',
     icon: getIcon(peopleFill)
   }
