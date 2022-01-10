@@ -684,9 +684,10 @@ video {
   vertical-align: bottom;
   color: black;
   margin-top: 13px;
-  margin-left: 50px;
+  margin-left: 60px;
   margin-bottom: 10px;
   margin-right: 10px;
+  font-size:23px;
   font-family: Helvetica, Arial, sans-serif;
   
 }
@@ -748,7 +749,7 @@ video {
 }
 
 .file_down{
-  bottom: 13.5%;
+  bottom: 13%;
   left:85%;
   position: absolute;
   z-index: 3;
@@ -759,7 +760,7 @@ video {
   width:70%;
   height:30px;
   left:15%;
-  bottom: 13%;
+  bottom: 12%;
   border-radius:10px;
 
   position: absolute;
@@ -773,7 +774,7 @@ video {
   width:70%;
   height:30px;
   left:15%;
-  bottom: 13%;
+  bottom: 12%;
   
   border-radius:10px;
   position: absolute;
