@@ -198,7 +198,10 @@ router.post("/roomjoinsearch_2", (req, res) => {
 router.post("/roomleave_2", (req, res) => {
     console.log("req.body.user_seq"+req.body.user_seq)
     console.log("req.body.roomId"+req.body.roomId)
-    const insertarray = [req.body.roomId]
+    const roomId=req.body.roomId
+    const user_seq=req.body.user_seq
+    const insertarray = [roomId]
+    const insertarray2 = [roomId,user_seq]
     //테이블에 방 이름 방 비밀번호 입력 
     oracledb.getConnection(dbConfig, (err, conn) => {
         roomNameInsert(err, conn);
@@ -215,8 +218,42 @@ router.post("/roomleave_2", (req, res) => {
                     doRelease(connection);
                     return;
                 }
+            connection.execute("UPDATE TIMEUSE_TABLE SET ROOMLEAVE_DATE = SYSDATE WHERE room_id=:roomId AND user_seq=:user_seq", insertarray2, function (err, result) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+            });
                 doRelease(connection);
             });
+    }
+});
+
+router.post("/roomjoinleave_2", (req, res) => {
+    console.log("req.body.user_seq"+req.body.user_seq)
+    console.log("req.body.roomId"+req.body.roomId)
+    const roomId=req.body.roomId
+    const user_seq=req.body.user_seq
+    const insertarray = [roomId,user_seq]
+    //테이블에 방 이름 방 비밀번호 입력 
+    oracledb.getConnection(dbConfig, (err, conn) => {
+        roomNameInsert(err, conn);
+    });
+        function roomNameInsert(err, connection) {
+            if (err) {
+                console.error(err.message);
+                console.log("데이터 가져오기 실패");
+                return;
+            }
+            connection.execute("UPDATE TIMEUSE_TABLE SET ROOMLEAVE_DATE = SYSDATE WHERE room_id=:roomId AND user_seq=:user_seq", insertarray, function (err, result) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+            });
+                doRelease(connection);
     }
 });
 
