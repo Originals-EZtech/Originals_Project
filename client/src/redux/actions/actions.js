@@ -24,7 +24,8 @@ const Actions ={
     SET_FILENAME: "SET_FILENAME",
     SET_GOTFILE: "SET_GOTFILE",
     SET_ROOMNAMEVALUE:"SET_ROOMNAMEVALUE",
-    SET_MYROOMID:"SET_MYROOMID"
+    SET_MYROOMID:"SET_MYROOMID",
+    SET_ACTIVE_CHAT: "SET_ACTIVE_CHAT"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -34,6 +35,12 @@ export const setIsRoomHost = (isRoomHost) => {
     };
 };
 
+export const setActiveChat = (activeChat) =>{
+    return {
+        type: Actions.SET_ACTIVE_CHAT,
+        activeChat
+    };
+};
 export const setConnectOnlyWithAudio = (onlyWithAudio)=>{
     return {
         type: Actions.SET_CONNECT_ONLY_WITH_AUDIO,
