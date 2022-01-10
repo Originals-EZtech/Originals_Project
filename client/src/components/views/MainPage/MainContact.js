@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 
 function MainContact() {
@@ -28,11 +28,10 @@ function MainContact() {
                             </div>
                             <div class="team-info">
                                 <h3>Dong Soo</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
                                 <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                {/* <li><Link to="" class="fa fa-instagram"></Link></li> */}
                             </ul>
                         </div>
                     </div>
@@ -43,11 +42,10 @@ function MainContact() {
                             </div>
                             <div class="team-info">
                                 <h3>Chan Hyuk</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
                                 <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                {/* <li><Link to="" class="fa fa-instagram"></Link></li> */}
                             </ul>
                         </div>
                     </div>
@@ -58,11 +56,10 @@ function MainContact() {
                             </div>
                             <div class="team-info">
                                 <h3>Min Gi</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
                                 <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                {/* <li><Link to="" class="fa fa-instagram"></Link></li> */}
                             </ul>
                         </div>
                     </div>
@@ -73,11 +70,10 @@ function MainContact() {
                             </div>
                             <div class="team-info">
                                 <h3>Hyun Il</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
                                 <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                {/* <li><Link to="" class="fa fa-instagram"></Link></li> */}
                             </ul>
                         </div>
                     </div>
@@ -88,11 +84,10 @@ function MainContact() {
                             </div>
                             <div class="team-info">
                                 <h3>Na Gyeong</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
                                 <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                {/* <li><Link to="" class="fa fa-instagram"></Link></li> */}
                             </ul>
                         </div>
                     </div>
@@ -103,11 +98,10 @@ function MainContact() {
                             </div>
                             <div class="team-info">
                                 <h3>Yoon Seon</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
                                 <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                {/* <li><Link to="" class="fa fa-instagram"></Link></li> */}
                             </ul>
                         </div>
                     </div>
