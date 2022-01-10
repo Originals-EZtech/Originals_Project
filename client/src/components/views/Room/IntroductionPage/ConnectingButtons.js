@@ -17,24 +17,29 @@ const ConnectingButtons = (props) => {
     const pushToJoinRoomPageAsHost =() =>{
         props.history.push('/join-room?host=true');
     }
-
     const pushToMyClass = () => {
         props.history.push('/myclass');
     }
 
     if(cookies.user_role ==='prof' && cookies.user_flag  === 'false'){
         return(<div className = 'connecting_buttons_container'>
-            <ConnectingButton createRoomButton buttonText = 'Host a meeting' 
+            <ConnectingButton buttonText = 'Host a meeting' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
+            <ConnectingButton buttonText = 'My class'
+            onClickHandler={pushToMyClass} />
         </div>);
     }else if(cookies.user_role ==='general' || (cookies.user_role ==='prof' && cookies.user_flag  === 'true')){
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton buttonText = 'Join a meeting' 
             onClickHandler ={pushToJoinRoomPage}/>
+            <ConnectingButton buttonText = 'My class'
+            onClickHandler={pushToMyClass} />
         </div>);
     }else{
         return(<div className = 'connecting_buttons_container'>
             <ConnectingButton onClickHandler ={pushToJoinRoomError}/>
+            <ConnectingButton buttonText = 'My class'
+            onClickHandler={pushToMyClass} />
         </div>);
     }
 };

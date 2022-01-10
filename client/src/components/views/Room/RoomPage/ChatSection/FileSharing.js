@@ -17,7 +17,7 @@ const FileSharing = ({gotFile, fileName})=>{
         setFileData(file.files[0]);
         console.log(file.files[0]);
         document.getElementById("fileItem").value = "";
-        store.dispatch(setDisabled(true)) 
+        store.dispatch(setDisabled(true));
       }
 
       const sendFile=()=>{
@@ -45,9 +45,9 @@ const FileSharing = ({gotFile, fileName})=>{
       }
       if(file !== null){
           fileNamePrompt =(
-              <div className="file_name">
+              <ui id="file_name">
                   <p className="file_na">{file.name}</p>
-              </div>
+              </ui>
           )
       }
     return(
