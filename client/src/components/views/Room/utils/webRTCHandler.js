@@ -130,27 +130,30 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
   
  
    peers[connUserSocketId].on('data', async(data) => {
-       console.log('2');
        //console.log('got a message from peer1: ' + data);
-
-       if(data.toString().includes("done")){
-           console.log('done')
-           const parsed = await JSON.parse(data);
-           store.dispatch(setFileName(parsed.fileName));
-           store.dispatch(setGotFile(true));
-           console.log(parsed.fileName);
-           console.log(parsed.fileSize);
-           
+        try{
+            if(data.toString().includes("done")){
+                console.log('done')
+                const parsed = await JSON.parse(data);
+                store.dispatch(setFileName(parsed.fileName));
+                store.dispatch(setGotFile(true));
+                console.log(parsed.fileName);
+                console.log(parsed.fileSize);
+                
+             }
+             if(data.toString().includes("message")){
+                 console.log('message');
+                 const messageData = await JSON.parse(data);            
+                 appendNewMessage(messageData); 
+             }
+             if(!(data.toString().includes("done")) && !(data.toString().includes("message"))){
+                 console.log('file');
+                 worker.postMessage(data);
+             }
+        }catch(e){
+            console.log('data channel failed');
         }
-        if(data.toString().includes("message")){
-            console.log('message');
-            const messageData = await JSON.parse(data);            
-            appendNewMessage(messageData); 
-        }
-        if(!(data.toString().includes("done")) && !(data.toString().includes("message"))){
-            console.log('file');
-            worker.postMessage(data);
-        }
+       
    
   });   
 
@@ -385,13 +388,25 @@ const switchVideoTracks = (stream) => {
           while (buffer.byteLength){
             const chunk = buffer.slice(0, chunkSize);
             buffer = buffer.slice(chunkSize, buffer.byteLength);
-            for(let socketId in peers){
-                peers[socketId].send(chunk);
+            try{
+                for(let socketId in peers){
+                    peers[socketId].send(chunk);
+                }
+            }catch(e){
+                alert('sending failed');
+                console.log('sending failed');
             }
+
           }
-          for(let socketId in peers){
-              peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name, "fileSize":file.size }));
+          try{
+            for(let socketId in peers){
+                peers[socketId].write(JSON.stringify({ "done": true, "fileName": file.name, "fileSize":file.size }));
+            }
+          }catch(e){
+              alert('sending done failed');
+              console.log('sending done failed');
           }
+
       });
   }
 
