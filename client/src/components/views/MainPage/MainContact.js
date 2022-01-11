@@ -51,7 +51,7 @@ function MainContact() {
                     <div class="col-md-2 col-sm-6">
                         <div class="team-thumb">
                             <div class="team-image">
-                                <img src="assets/images/author-image3.jpg" class="img-responsive" alt="" />
+                                <img src="assets/images/mingi.jpg" class="img-responsive" alt="" />
                             </div>
                             <div class="team-info">
                                 <h3>Min Gi</h3>
