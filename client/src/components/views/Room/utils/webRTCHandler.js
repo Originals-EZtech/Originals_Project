@@ -4,8 +4,6 @@ import { fetchTURNCredentials, getTurnIceServers } from './turn.js';
 import streamSaver from 'streamsaver';
 import { setFileName, setGotFile, setMessages, setShowOverlay } from '../../../../redux/actions/actions.js';
 import store from '../../../../redux/store/store.js';
-// to get our local camera preview and create the room if we are the host on the server
-// so we'll initialize the connection if the hos and if the user which way is joining the name of that
 
 
 const worker = new Worker('./../../../worker.js')
@@ -56,6 +54,23 @@ export const getLocalPreviewAndInitRoomConnection = async (
     }).catch((err) => {
         console.log('error occured when trying to get an access to local stream'); 
         console.log(err);
+        if(constraints.audio === null){
+            alert('check your audio');
+            if(isRoomHost === true){
+                window.location.replace('/join-room?host=true')
+            }else{
+                window.location.replace('/join-room')
+            }
+
+            //console.log('check')
+        }else{
+            alert('check your camera!');
+            if(isRoomHost === true){
+                window.location.replace('/join-room?host=true')
+            }else{
+                window.location.replace('/join-room')
+            }
+        }
     });
     
 }

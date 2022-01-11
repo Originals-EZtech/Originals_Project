@@ -30,10 +30,9 @@ const JoinRoomPage = (props) =>{
             <div className = 'join_room_page_panel'>
                 <JoinRoomTitle isRoomHost={isRoomHost} />
                 <JoinRoomContent />
-            </div> 
+            </div>
             {/* {cookies.user_role === 'prof' &&<RoomListComponent />}
-            {cookies.user_role === 'general' &&<JoinRoomListComponent />} */}
-            
+            {cookies.user_role === 'general' &&<JoinRoomListComponent />}  */}
         </div>
     );
 };

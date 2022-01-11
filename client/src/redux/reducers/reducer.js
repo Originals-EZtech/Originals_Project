@@ -18,7 +18,7 @@ const initState = {
     fileName : '',
     gotFile: false,
     roomNameValue: "",
-    myRoomId: "",
+    myRoomId: null,
     activeChat: ''
 };
 
