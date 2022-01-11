@@ -43,9 +43,9 @@ const FileSharing = ({gotFile, fileName})=>{
       }
       if(file !== null){
           fileNamePrompt =(
-              <ui id="file_name">
+              <div className="file_name">
                   <p className="file_na">{file.name}</p>
-              </ui>
+              </div>
           )
       }
     return(

@@ -32,7 +32,7 @@ const JoinRoomPage = (props) =>{
                 <JoinRoomContent />
             </div> 
             {cookies.user_role === 'prof' &&<RoomListComponent />}
-            {cookies.user_role === 'general' &&<JoinRoomListComponent />}
+            {cookies.user_role === 'general' &&<JoinRoomListComponent />} 
             
         </div>
     );

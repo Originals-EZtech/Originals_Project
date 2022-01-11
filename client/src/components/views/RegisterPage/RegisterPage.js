@@ -7,7 +7,8 @@ import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
-import { authEmail, fileUpload, registerUser } from '../../../redux/actions/actions';
+import { authEmail, fileUpload, registerUser, setActiveChat } from '../../../redux/actions/actions';
+import store from '../../../redux/store/store';
 
 function Register(props) {
     const { registerUserAction, authEmailAction, fileUploadAction } = props;
@@ -31,6 +32,12 @@ function Register(props) {
     const [AuthCodeMessage, setAuthCodeMessage] = useState("")
     const [NameMessage, setNameMessage] = useState("")
 
+    // 뒤로가기 방지
+    window.onpopstate = function () {
+        window.history.go(1);
+        store.dispatch(setActiveChat('yes'))
+    };
+
     const onEmailHandler = (event) => {
         const emailRegex =
             /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
@@ -40,7 +47,7 @@ function Register(props) {
             setEmailMessage('')
         } else if (!emailRegex.test(event.target.value)) {
             setEmailMessage('이메일 형식을 확인해주세요')
-        } else if(event.target.value.length>20){
+        } else if(event.target.value.length>25){
             setEmailMessage('이메일 길이는 최대 25글자 이내로 사용하세요.')
         } else {
             setEmailMessage('올바른 이메일 형식 - 인증을 진행해주세요 ')
@@ -259,7 +266,7 @@ function Register(props) {
                                 <i className="fas fa-at" />
                             </div>
                             <div className={styles.div}>
-                                <input style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="EMAIL" />
+                                <input maxLength={26} style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="email" placeholder="EMAIL" />
                             </div>
                         </div>
                         <span >{EmailMessage}</span>
@@ -279,7 +286,7 @@ function Register(props) {
                                 <i className="fas fa-user" />
                             </div>
                             <div className={styles.div}>
-                                <input style={{fontSize: "large", fontWeight: "bold"}} type="name" value={Name} onChange={onNameHandler} name="name" placeholder="NAME" />
+                                <input maxLength={15} style={{fontSize: "large", fontWeight: "bold"}} type="name" value={Name} onChange={onNameHandler} name="name" placeholder="NAME" />
                             </div>
                         </div>
                         <span >{NameMessage}</span>
@@ -319,7 +326,7 @@ function Register(props) {
                         <div className={styles.checkRole}>
                             <label className={styles.checkbox_container}>
                                 <input type="checkbox" value={isTeacher} onChange={checkboxHandler} />
-                                <span>Teacher?</span>
+                                <span>Teacher?</span><br/>
                                 <span className={styles.checkmark}></span>
                             </label>
                         </div>

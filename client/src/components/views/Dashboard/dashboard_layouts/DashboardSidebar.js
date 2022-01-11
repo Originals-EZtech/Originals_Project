@@ -11,7 +11,6 @@ import NavSection from '../dashboard_components/NavSection';
 import { MHidden } from '../dashboard_components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
-import Clock from 'react-live-clock';
 import { sideOpen } from '../../../../redux/actions/actions';
 
 
@@ -24,14 +23,6 @@ const RootStyle = styled('div')(({ theme }) => ({
     flexShrink: 0,
     width: DRAWER_WIDTH
   }
-}));
-
-const AccountStyle = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(2, 2.5),
-  borderRadius: theme.shape.borderRadiusSm,
-  backgroundColor: theme.palette.grey[200]
 }));
 
 // ----------------------------------------------------------------------
@@ -61,11 +52,9 @@ function DashboardSidebar(props) {
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
-          <AccountStyle>
-            <h4><Clock format={'YYYY-MM-DD HH:mm:ss'} ticking={true} timezone={'US/Pacific'} /></h4>
-          </AccountStyle>
         </Link>
       </Box>
+      <br/><br/>
 
       <NavSection navConfig={sidebarConfig} theme={theme} />
 

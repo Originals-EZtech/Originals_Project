@@ -197,7 +197,7 @@ const createNewRoomHandler = (data, socket) =>{
         // createNewRoomHandler 값 받아서 룸아이디 insert 테스트
         const room_name=data.roomNameValue
         const insertarray = [roomId, user_seq, room_name];
-        
+        const insertarray2 = [roomId, user_seq];
         // room-id 테이블에 저장
         oracledb.getConnection(dbConfig, (err, conn) => {
             roomNameInsert(err, conn);
@@ -214,6 +214,13 @@ const createNewRoomHandler = (data, socket) =>{
                     doRelease(connection);
                     return;
                 }
+            connection.execute("insert into timeuse_table (TIMEUSE_SEQ, ROOM_ID, USER_SEQ, ROOMSTART_DATE) values(TIMEUSE_SEQ.NEXTVAL,:roomId,:user_seq,SYSDATE)", insertarray2, function (err, result2) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+            });
                 console.log(result);
                 doRelease(connection);
             });
@@ -268,6 +275,7 @@ const joinRoomHandler = (data,socket) =>{
     let joinuser_seq=0
     let joinroom_name=""
     let joinroominsertarray=[]
+    let joinroominsertarray2=[]
     
     if (!data.myRoomId){
         oracledb.getConnection(dbConfig, (err, conn) => {
@@ -288,13 +296,22 @@ const joinRoomHandler = (data,socket) =>{
                 joinuser_seq = data.user_seq
                 joinroom_name = result.rows[0].ROOM_NAME
                 joinroominsertarray = [joinuser_seq, roomId, joinroom_name]
+                joinroominsertarray2 = [joinuser_seq, roomId,]
             connection.execute("insert into roomjoin_table (ROOMJOIN_SEQ,USER_SEQ,ROOM_ID,ROOM_NAME,ROOMJOIN_DATE) values(ROOMJOIN_SEQ.NEXTVAL,:joinuser_seq,:roomId,:joinroom_name,SYSDATE)", joinroominsertarray, function (err, result2) {
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);
                     return;
                 }
+            connection.execute("insert into timeuse_table (TIMEUSE_SEQ,USER_SEQ,ROOM_ID,ROOMSTART_DATE) values(TIMEUSE_SEQ.NEXTVAL,:joinuser_seq,:roomId,SYSDATE)", joinroominsertarray2, function (err, result2) {
+                if (err) {
+                    console.error(err.message);
+                    doRelease(connection);
+                    return;
+                }
+            
                 doRelease(connection);
+            });
             });
             });
         }
@@ -328,9 +345,11 @@ const joinRoomHandler = (data,socket) =>{
 
         io.to(roomId).emit('room-update', {connectedUsers: room.connectedUsers});
     }else{
-        console.log("data.myRoomId"+data.myRoomId)
+        console.log("data.myRoomId ::: "+data.myRoomId)
 
         const myRoomId=data.myRoomId
+
+        console.log("myRoomId ::: "+myRoomId)
         const newUser = {
             identity,
             id: uuidv4(),
