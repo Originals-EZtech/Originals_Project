@@ -1,8 +1,8 @@
-import react, {useState} from "react";
+import {useState} from "react";
 import fileSendingButton from "../../resources/images/fileSendingButton.svg";
 import * as webRTCHandler from "../../utils/webRTCHandler"; 
 import {connect} from 'react-redux';
-import { setDisabled, setGotFile } from "../../../../../redux/actions/actions";
+import { setDisabled } from "../../../../../redux/actions/actions";
 import store from "../../../../../redux/store/store";
 import download from "../../resources/images/download.svg"
 import file_upload from "../../resources/images/file_upload.svg"
@@ -40,6 +40,7 @@ const FileSharing = ({gotFile, fileName})=>{
                     className="file_down"
                     onClick={webRTCHandler.download}
                     src={download}
+                    alt=""
                   ></img>
               </div>
           )
@@ -62,6 +63,7 @@ const FileSharing = ({gotFile, fileName})=>{
             <img 
             className="file_sending_button"
             src={fileSendingButton}
+            alt=""
             />
             </label>
             <div>
@@ -74,6 +76,7 @@ const FileSharing = ({gotFile, fileName})=>{
                 className="file_up"
                 onClick={sendFile}
                 src={file_upload}
+                alt=""
                 ></img>
                 
             </label>

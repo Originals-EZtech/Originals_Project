@@ -153,7 +153,7 @@ export const authEmail = async (dataTosubmit) => {
 
 // auth token (토큰 인증)
 export const auth = async () => {
-    const request = await axios.get('/api/users/auth') 
+    const request = await axios.get('/api/auth/auth') 
     const response = request.data;
 
     return { 
@@ -164,7 +164,7 @@ export const auth = async () => {
 
 // 로그아웃
 export const logout = async () => {
-    const request = await axios.get('/api/users/logout')
+    const request = await axios.get('/api/auth/logout')
     const response = request.data;
 
     return {

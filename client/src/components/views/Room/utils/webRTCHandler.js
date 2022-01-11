@@ -61,8 +61,6 @@ export const getLocalPreviewAndInitRoomConnection = async (
             }else{
                 window.location.replace('/join-room')
             }
-
-            //console.log('check')
         }else{
             alert('check your camera!');
             if(isRoomHost === true){
@@ -78,14 +76,11 @@ export const getLocalPreviewAndInitRoomConnection = async (
 let peers = {};
 let streams = [];
 
-// peers {} 
-   // socketId: {}
 
 const getConfiguration = ()=>{
     const turnIceServers = getTurnIceServers();
     if(turnIceServers){
-        //console.log('TURN server credentials fetched');
-        //console.log(turnIceServers);
+
         return{
             iceServers: [
                 {
@@ -145,7 +140,6 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) =>{
   
  
    peers[connUserSocketId].on('data', async(data) => {
-       //console.log('got a message from peer1: ' + data);
         try{
             if(data.toString().includes("done")){
                 console.log('done')
@@ -362,16 +356,12 @@ const switchVideoTracks = (stream) => {
  const appendNewMessage = (messageData) => {
     const messages = store.getState().messages;
     console.log(messageData);
-    //console.log(messages);
     store.dispatch(setMessages([...messages, messageData]));
-    //console.log(messages); ok
   };
 
   export const sendMessageUsingDataChannel = (messageContent) => {
-    // console.log(messageContent); ok 
     // append this message locally
     const identity = store.getState().identity;
-    //console.log(identity); message 전달자 ok 
     const localMessageData = {
       "message": true,
       "content": messageContent,
@@ -379,7 +369,6 @@ const switchVideoTracks = (stream) => {
       "messageCreatedByMe": true,
     };
     
-    // console.log(localMessageData); ok
     appendNewMessage(localMessageData);
   
     const messageData = {
@@ -387,10 +376,8 @@ const switchVideoTracks = (stream) => {
       "content": messageContent,
       identity,
     };
-    // console.log(typeof(messageData)); // object
     const stringifiedMessageData = JSON.stringify(messageData); 
-    //console.log(stringifiedMessageData); //{"content":"tttt","identity":"dfdfdf"} Json 문자열
-    //console.log(peers); // peers가 비었다. 
+
     for (let socketId in peers) {
       peers[socketId].send(stringifiedMessageData);
     }

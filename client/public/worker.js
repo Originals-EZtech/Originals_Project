@@ -6,7 +6,6 @@ self.addEventListener('message', event =>{
         const blob = new Blob(array);
         //const href = URL.createObjectURL(blob);
         self.postMessage(blob);
-        //console.log(href);
         array = [];
         console.log(array); //[]
     }else{
