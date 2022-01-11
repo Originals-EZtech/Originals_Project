@@ -10,12 +10,12 @@ const Timer = ({ mm, ss }) => {
         fontSize: 11,
     }
     const time_underTen = {
-        fontSize: 15,
+        fontSize: 17,
         fontFamily: "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
         color: "red"
     }
     const time_upTen = {
-        fontSize: 15,
+        fontSize: 17,
         fontFamily: "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"
     }
 
