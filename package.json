@@ -8,8 +8,7 @@
     "backend": "nodemon server/index.js",
     "chat": "nodemon chat/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\"",
-    "dev2": "concurrently \"npm run backend\" \"npm run start --prefix client\" \"npm run chat\""
+    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\" \"npm run chat\""
   },
   "author": "Originals",
   "license": "ISC",
