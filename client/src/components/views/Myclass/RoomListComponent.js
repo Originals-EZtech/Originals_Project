@@ -52,6 +52,7 @@ function RoomListComponent(props) {
       const result = [];
       for (let i = 0; i < room_list.length; i++) {
         element.innerHTML= result.push(<div key={i}> <button onClick={() => { myroomclick(room_list[i]) }}> {(i+1)+"번째 방이름 : "+room_list[i].ROOM_NAME + " /  참여시간, 만든시간 : "+room_list[i].ROOM_DATE + "  "} </button> </div>);
+        // button 태그 대신 p 태그로 바꾸기
       }
       return result;
     };
