@@ -11,7 +11,6 @@ import NavSection from '../dashboard_components/NavSection';
 import { MHidden } from '../dashboard_components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
-import Clock from 'react-live-clock';
 import { sideOpen } from '../../../../redux/actions/actions';
 
 
@@ -61,11 +60,9 @@ function DashboardSidebar(props) {
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
-          <AccountStyle>
-            <h4><Clock format={'YYYY-MM-DD HH:mm:ss'} ticking={true} timezone={'US/Pacific'} /></h4>
-          </AccountStyle>
         </Link>
       </Box>
+      <br/><br/>
 
       <NavSection navConfig={sidebarConfig} theme={theme} />
 

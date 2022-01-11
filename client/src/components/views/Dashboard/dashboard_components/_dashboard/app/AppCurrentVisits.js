@@ -45,7 +45,7 @@ export default function AppCurrentVisits(usersCount) {
       theme.palette.warning.main,
       theme.palette.error.main
     ],
-    labels: ['일반회원', '강사'],
+    labels: ['학생', '강사'],
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
