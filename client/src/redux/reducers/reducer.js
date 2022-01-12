@@ -19,7 +19,10 @@ const initState = {
     gotFile: false,
     roomNameValue: "",
     myRoomId: null,
-    activeChat: ''
+    activeChat: '', // back 막으려고
+    checkMessage: null,
+    checkMessageSign:false,
+
 };
 
 // reducer는 state의 상태를 변화시켜주는 함수
@@ -147,6 +150,16 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 activeChat: action.activeChat
+            }
+        case Actions.SET_CHECK_MESSAGE:
+            return{
+                ...state,
+                checkMessage: action.checkMessage
+            }
+        case Actions.SET_CHECK_MESSAGE_SIGN:
+            return{
+                ...state,
+                checkMessageSign: action.checkMessageSign
             }
         default:
             return state;

@@ -10,6 +10,8 @@ const SingleMessage = ({messageContent, isAuthor}) =>{
     ?'direct_message_container_author' 
     : 'direct_message_container_receiver';
 
+    
+
     return (
         <div className= {containerStyling}>
             <p className={messageStyling}>{messageContent}</p>
