@@ -1,5 +1,5 @@
 import axios from 'axios';
-const serverip = require('./config/ipconfig');
+const serverip = require('../../../../config/ipconfig');
 //const serverApi = 'http://localhost:5000/api';
 console.log("serverip"+serverip);
 console.log("serverip.server"+serverip.server);

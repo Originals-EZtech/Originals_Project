@@ -310,7 +310,7 @@ border-top:15px solid #21a374;
 
 .video_buttons_container {
   width: 59%;
-  height: 10%;
+  height: 9%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -432,7 +432,7 @@ video {
   height:28px;
   color: white;
   margin-top: 0;
-  
+  text-align: center;
   padding-left: 30px;
   padding-bottom: 20px;
   background: #29ca8e;
@@ -441,7 +441,7 @@ video {
 
 .video_track_container:first-child:nth-last-child(1) {
   width: 100%;
-  height: 88%;
+  height: 100%;
   
   position: relative;
 }
@@ -511,9 +511,10 @@ video {
 .full_screen {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 90%;
   top: 0%;
   left: 0%;
+  z-index: 2;
 }
 
 .label_only_audio_container {
@@ -664,7 +665,7 @@ video {
   width:59%;
   height:10%;
   position: absolute;
-  bottom: 10%;
+  bottom: 9%;
   left: 20%;
   border-radius: 20px;
   z-index: 2;
@@ -674,7 +675,7 @@ video {
 .sttb{
   top: 15px;
   position: absolute;
-  left: 1.5%;
+  left: 1%;
   padding:10px;
   z-index: 3;
 }
@@ -684,10 +685,10 @@ video {
   vertical-align: bottom;
   color: black;
   margin-top: 13px;
-  margin-left: 60px;
+  margin-left: 65px;
   margin-bottom: 10px;
   margin-right: 10px;
-  font-size:23px;
+  font-size:21.5px;
   font-family: Helvetica, Arial, sans-serif;
   
 }
@@ -695,10 +696,10 @@ video {
 .otherstt{
   color: black;
   margin-top:-20px;
-  margin-left: 60px;
+  margin-left: 65px;
   margin-bottom: 30px;
   margin-right: 10px;
-  
+  font-size: 21.5px;
   
 }
 .te{
@@ -731,7 +732,7 @@ video {
   margin-top: 3px;
   width: 95%;
   margin-left:3%;
-  height:50px;
+  height:60px;
   border-radius: 15px;
   
 }
@@ -775,7 +776,6 @@ video {
   height:30px;
   left:15%;
   bottom: 11.5%;
-  
   border-radius:10px;
   position: absolute;
   z-index: 1;
@@ -834,5 +834,5 @@ video {
 
 .video_track{
   width:100%;
-  height:100%;
+  height:88%;
 }

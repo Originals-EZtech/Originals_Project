@@ -15,6 +15,7 @@ import {setActiveChat} from '../../../../redux/actions/actions';
 import store from '../../../../redux/store/store';
 
 const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio, roomNameValue, myRoomId }) => {
+    console.log(myRoomId);
     const [cookies] = useCookies();
     const user_seq = cookies.user_seq;
     console.log("RoomPage roomId::: "+roomId )

@@ -36,8 +36,8 @@ function MainService() {
                                                 </div>
                                         </div>
                                         <div class="courses-detail">
-                                                <h3>전체 채팅</h3>
-                                                <p>화상 기능에 참여한 구성원 간의 전체 채팅이 가능합니다.</p>
+                                                <h3>전체 채팅 & 개인 채팅</h3>
+                                                <p>화상 기능에 참여한 구성원 간의 전체 채팅 & 개인 채팅이 가능합니다.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -62,12 +62,12 @@ function MainService() {
                                     <div class="courses-thumb">
                                         <div class="courses-top">
                                                 <div class="courses-image">
-                                                    <img src="assets/images/service-image5.png" class="img-responsive" alt="" />
+                                                    <img src="assets/images/service-image4.png" class="img-responsive" alt="" />
                                                 </div>
                                         </div>
                                         <div class="courses-detail">
-                                                <h3>개인 채팅</h3>
-                                                <p>화상 기능에 참여한 구성원 간의 개인 채팅이 가능합니다.</p>
+                                                <h3>권한 구분</h3>
+                                                <p>관리자 / 선생님 / 학생 권한으로 구분된 기능들로 웹 사이트 이용 가능합니다.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -77,12 +77,12 @@ function MainService() {
                                     <div class="courses-thumb">
                                         <div class="courses-top">
                                                 <div class="courses-image">
-                                                    <img src="assets/images/service-image4.png" class="img-responsive" alt="" />
+                                                    <img src="assets/images/service-image5.png" class="img-responsive" alt="" />
                                                 </div>
                                         </div>
                                         <div class="courses-detail">
-                                                <h3>권한 구분</h3>
-                                                <p>관리자 / 선생님 / 학생 권한으로 구분된 기능들로 웹 사이트 이용 가능합니다.</p>
+                                                <h3>Dashboard</h3>
+                                                <p>관리자 접속 시 전체 웹 사이트의 통계 및 로그 기록을 확인할 수 있습니다.</p>
                                         </div>
                                     </div>
                                 </div>

@@ -38,7 +38,6 @@ function Login(props) {
                 toast.success(response.response.msg);
                 setTimeout(() => {
                     if(response.response.role === 'admin'){
-                        // props.history.push('/dashboard/app');
                         window.location.href='/dashboard/app';
                     }else{
                     props.history.push('/intro');
