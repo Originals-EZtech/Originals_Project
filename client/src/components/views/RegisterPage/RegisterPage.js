@@ -7,7 +7,8 @@ import SubNavBar from '../NavBar/SubNavBar';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
-import { authEmail, fileUpload, registerUser } from '../../../redux/actions/actions';
+import { authEmail, fileUpload, registerUser, setActiveChat } from '../../../redux/actions/actions';
+import store from '../../../redux/store/store';
 
 function Register(props) {
     const { registerUserAction, authEmailAction, fileUploadAction } = props;
@@ -30,6 +31,12 @@ function Register(props) {
     const [ConfirmPasswordMessage, setConfirmPasswordMessage] = useState("")
     const [AuthCodeMessage, setAuthCodeMessage] = useState("")
     const [NameMessage, setNameMessage] = useState("")
+
+    // 뒤로가기 방지
+    window.onpopstate = function () {
+        window.history.go(1);
+        store.dispatch(setActiveChat('yes'))
+    };
 
     const onEmailHandler = (event) => {
         const emailRegex =
