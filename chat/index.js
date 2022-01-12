@@ -115,8 +115,6 @@ io.on('connection', (socket) => {
 // socket.io handlers
 
 const createNewRoomHandler = (data, socket) => {
-    console.log('host is creating a new room');
-    console.log(data);
     // get that cost identity from 'data'
     const { identity, onlyAudio, user_seq } = data;
     console.log("!data.myRoomId" + !data.myRoomId)
