@@ -18,6 +18,7 @@ export const connectWithSocketIOServer = () =>{
     socket = io(SERVER);
     socket.on('connect', ()=>{
         store.dispatch(setSocketId(socket.id));    
+        console.log(socket.id);
     });
     socket.on('room-id', (data)=>{
         const { roomId } = data;

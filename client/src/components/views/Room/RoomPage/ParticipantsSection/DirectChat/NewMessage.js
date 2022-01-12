@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { setCheckMessageSign } from '../../../../../../redux/actions/actions';
+import store from '../../../../../../redux/store/store';
 import sendMessageButton from '../../../resources/images/sendMessageButton.svg';
 import * as wss from '../../../utils/wss';
 
@@ -8,6 +10,10 @@ const NewMessage = ({activeConversation, identity})=>{
     const [message, setMessage] = useState('');
 
     const sendMessage = ()=>{
+        //console.log(checkMessageSign);
+        //store.dispatch(setCheckMessageSign(true))
+        //const {checkMessageSign} = store.getState()
+        //store.dispatch(setCheckMessageSign(true));
         if(message.length >0){
             wss.sendDirectMessage({
                 receiverSocketId: activeConversation.socketId,
@@ -20,6 +26,8 @@ const NewMessage = ({activeConversation, identity})=>{
     };
 
     const handleTextChange = (event)=>{
+        //console.log(event.target.value);
+        store.dispatch(setCheckMessageSign(false));
         setMessage(event.target.value);
     }
 
