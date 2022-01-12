@@ -11,6 +11,7 @@ import Stt from './Sttand';
 const Dictaphone = ({socketId}) => {
     const [now,setnow]= useState(false);
     const [cookies]=useCookies();
+    const reset="";
     const {
       transcript,
       resetTranscript,
@@ -27,8 +28,8 @@ const Dictaphone = ({socketId}) => {
     
     const stop=()=>{
       setnow(now => !now);
-      SpeechRecognition.abortListening();
       resetTranscript();
+      SpeechRecognition.abortListening();
     }
     
     if (transcript.length>100 ) {
@@ -41,6 +42,12 @@ const Dictaphone = ({socketId}) => {
         wss.sendSTT({
           socketId,
           transcript
+        })
+      }
+      if(now === false){
+        wss.sendSTT({
+          socketId,
+          reset
         })
       }
      

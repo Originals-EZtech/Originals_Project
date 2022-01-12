@@ -70,10 +70,11 @@
 
 .file_sending_button {
   position: absolute;
-  right: 6%;
-  bottom:12.5%;
+  right: 5%;
+  bottom:12%;
   border-radius: 50%;
   background-color:white;
+  padding:2px;
 }
 
 .messages_container {
@@ -310,7 +311,7 @@ border-top:15px solid #21a374;
 
 .video_buttons_container {
   width: 59%;
-  height: 9%;
+  height: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -511,10 +512,9 @@ video {
 .full_screen {
   position: absolute;
   width: 100%;
-  height: 90%;
+  height: 100%;
   top: 0%;
   left: 0%;
-  z-index: 2;
 }
 
 .label_only_audio_container {
@@ -665,7 +665,7 @@ video {
   width:59%;
   height:10%;
   position: absolute;
-  bottom: 9%;
+  bottom: 10%;
   left: 20%;
   border-radius: 20px;
   z-index: 2;
@@ -675,7 +675,7 @@ video {
 .sttb{
   top: 15px;
   position: absolute;
-  left: 1%;
+  left: 1.5%;
   padding:10px;
   z-index: 3;
 }
@@ -685,10 +685,9 @@ video {
   vertical-align: bottom;
   color: black;
   margin-top: 13px;
-  margin-left: 65px;
+  margin-left: 50px;
   margin-bottom: 10px;
   margin-right: 10px;
-  font-size:21.5px;
   font-family: Helvetica, Arial, sans-serif;
   
 }
@@ -696,10 +695,10 @@ video {
 .otherstt{
   color: black;
   margin-top:-20px;
-  margin-left: 65px;
+  margin-left: 60px;
   margin-bottom: 30px;
   margin-right: 10px;
-  font-size: 21.5px;
+  
   
 }
 .te{
@@ -738,8 +737,8 @@ video {
 }
  
 .file_up{
-  bottom: 12%;
-  left:4%;
+  bottom: 13%;
+  left:85%;
   position: absolute;
 }
 
@@ -750,20 +749,19 @@ video {
 }
 
 .file_down{
-  bottom: 13%;
+  bottom: 13.5%;
   left:85%;
   position: absolute;
   z-index: 3;
 }
 
 .file_sen{
-  background-color:white;
-  width:70%;
-  height:30px;
-  left:15%;
-  bottom: 12%;
-  border-radius:10px;
-
+  background-color: white;
+  width: 75%;
+  height: 38px;
+  left: 7%;
+  bottom: 11.5%;
+  border-radius: 10px;
   position: absolute;
   z-index: 1;
   overflow: hidden;
@@ -771,12 +769,12 @@ video {
   white-space: nowrap;
 }
 .file_name{
-  background-color:white;
-  width:70%;
-  height:30px;
-  left:15%;
+  background-color: white;
+  width: 75%;
+  height: 38px;
+  left: 7%;
   bottom: 11.5%;
-  border-radius:10px;
+  border-radius: 10px;
   position: absolute;
   z-index: 1;
   overflow: hidden;
@@ -790,6 +788,8 @@ video {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .mark > summary{
@@ -835,4 +835,5 @@ video {
 .video_track{
   width:100%;
   height:88%;
+  top:1.5%
 }
