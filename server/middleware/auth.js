@@ -3,6 +3,7 @@ const router = express.Router();
 const dbConfig = require('../config/dbConfig');
 const tokenConfig = require('../config/tokenConfig');
 var jwt = require('jsonwebtoken');
+var requestIp = require('request-ip');
 const oracledb = require('oracledb');
 oracledb.autoCommit = true;
 
@@ -64,7 +65,7 @@ router.get('/auth', function (req, res) {
                 } if (result5.rows[0][0] === 'admin') {
                     res.json({ isAuth: true, isAdmin: true })
                 } else {
-                    res.json({ isAuth: true, isAdmin: false })
+                    res.json({ isAuth: true, isAdmin: false})
                 }
             })
         }
@@ -94,6 +95,14 @@ router.get('/logout', function (req, res) {
                     logoutSuccess: true,
                     msg: "로그아웃 되셨습니다."
                 })
+        })
+        const userIp = requestIp.getClientIp(req)
+        const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
+        conn.execute("INSERT INTO USERLOG_TABLE (USERLOG_SEQ, USERLOG_ACTION, USER_EMAIL, USERLOG_IP) VALUES(USERLOG_SEQ.NEXTVAL, 'LOGOUT' , :email, :ip)", [decoded.email,user_Ip], function (err3, result3) {
+            if(err3) {console.log(err3)}
+            else{
+                console.log(result3)
+            }
         })
         console.log("Cookie cleared");
     })
