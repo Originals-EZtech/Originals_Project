@@ -6,10 +6,10 @@ import { setDisabled, setGotFile } from "../../../../../redux/actions/actions";
 import store from "../../../../../redux/store/store";
 import download from "../../resources/images/download.svg"
 import file_upload from "../../resources/images/file_upload.svg"
+import {toast} from 'react-toastify';
+
 const FileSharing = ({gotFile, fileName})=>{
     const [file, setFileData] = useState(null);
-
-
 
     const setFile = () =>{
         const file = document.getElementById('fileItem');
@@ -17,7 +17,7 @@ const FileSharing = ({gotFile, fileName})=>{
         setFileData(file.files[0]);
         console.log(file.files[0]);
         document.getElementById("fileItem").value = "";
-        store.dispatch(setDisabled(true)) 
+        store.dispatch(setDisabled(true));
       }
 
       const sendFile=()=>{
@@ -25,6 +25,7 @@ const FileSharing = ({gotFile, fileName})=>{
             webRTCHandler.sendFileUsingDataChannel(file);
             setFileData(null);
             console.log(file.files)
+            toast.success('Your file was sent successfully!');
         }
         store.dispatch(setDisabled(false));
       }

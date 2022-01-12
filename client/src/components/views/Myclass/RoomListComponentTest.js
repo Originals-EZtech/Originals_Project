@@ -3,12 +3,12 @@ import search from './resourse/search.svg'
 import { useCookies } from "react-cookie";
 import { withRouter } from 'react-router-dom';
 import { connect} from 'react-redux';
-import { setMyRoomId, setIsRoomHost, setIdentity } from '../../../redux/actions/actions';
+import { setMyRoomId } from '../../../redux/actions/actions';
 
-function RoomListComponent(props) {
-  const { setMyRoomIdAction, isRoomHost, setIsRoomHostAction, identity, setIdentityAction } = props;
-  const [cookies] = useCookies();
-  const user_seq = cookies.user_seq;
+function RoomListComponentTest(props) {
+  const { setMyRoomIdAction } = props;
+  const [cookies] = useCookies(); //cookies
+  const user_seq = cookies.user_seq; // user table의 pk  값 
   let [myRoomId] = useState('');
   const [state, setState] = useState({
       room_list: "",
@@ -17,10 +17,8 @@ function RoomListComponent(props) {
   const { room_list } = state;
 
   const myroomclick = (room) => {
-    myRoomId=room.ROOM_ID;
+    myRoomId=room.ROOM_ID; // roomId에다가 room.ROOM_ID 넣어줬다. room.ROOM_ID
     setMyRoomIdAction(myRoomId);
-    setIsRoomHostAction(true);
-    setIdentityAction('user'); // 여기다가 쿠키 받아오면 됩니당!
     props.history.push('/room');
   };
 
@@ -52,7 +50,6 @@ function RoomListComponent(props) {
       const result = [];
       for (let i = 0; i < room_list.length; i++) {
         element.innerHTML= result.push(<div key={i}> <button onClick={() => { myroomclick(room_list[i]) }}> {(i+1)+"번째 방이름 : "+room_list[i].ROOM_NAME + " /  참여시간, 만든시간 : "+room_list[i].ROOM_DATE + "  "} </button> </div>);
-        // button 태그 대신 p 태그로 바꾸기
       }
       return result;
     };
@@ -82,10 +79,8 @@ const mapStoreStateToProps = (state) =>{
 
 const mapActionsToProps = (dispatch) => {
   return {
-    setIsRoomHostAction: (isRoomHost)=>dispatch(setIsRoomHost(isRoomHost)), 
-    setMyRoomIdAction: (myRoomId) => dispatch(setMyRoomId(myRoomId)),
-    setIdentityAction: (identity) => dispatch(setIdentity(identity))
+    setMyRoomIdAction: (myRoomId) => dispatch(setMyRoomId(myRoomId))
    };
   };
 
-export default withRouter(connect(mapStoreStateToProps, mapActionsToProps)(RoomListComponent));
+export default withRouter(connect(mapStoreStateToProps, mapActionsToProps)(RoomListComponentTest));

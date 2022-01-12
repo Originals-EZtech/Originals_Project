@@ -38,13 +38,12 @@ function Login(props) {
 
         loginUserAction(body)
         .then(response => {
-            console.log('response.response',response)
             if (response.response.loginSuccess) {
                 toast.success(response.response.msg);
                 setTimeout(() => {
                     if(response.response.role === 'admin'){
-                        console.log("여기?")
-                        props.history.push('/dashboard/app');
+                        // props.history.push('/dashboard/app');
+                        window.location.href='/dashboard/app';
                     }else{
                     props.history.push('/intro');
                     }
@@ -73,7 +72,7 @@ function Login(props) {
                                 <i class="fas fa-user" />
                             </div>
                             <div className={styles.div}>
-                                <input style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="USERNAME" />
+                                <input style={{fontSize: "large", fontWeight: "bold"}} type="email" value={Email} onChange={onEmailHandler} name="id" placeholder="EMAIL" />
                             </div>
                         </div>
                         <div className={classnames(styles.input_div, styles.pass)}>

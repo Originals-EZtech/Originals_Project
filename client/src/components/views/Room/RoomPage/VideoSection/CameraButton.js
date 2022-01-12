@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import CameraButtonImg from '../../resources/images/camera.svg';
 import CameraButtonImgOff from '../../resources/images/cameraOff.svg';
-// import { setIdentity } from '../../store/actions';
 import * as webRTCHandler from '../../utils/webRTCHandler';
 
 const CameraButton = () =>{

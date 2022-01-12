@@ -96,7 +96,6 @@ router.post("/permit", function (req, res) {
     conn.execute("UPDATE USER_TABLE SET USER_ROLE = 'prof', USER_FLAG = 'false' WHERE USER_EMAIL =:useremail", [userEmail], function (err, result) {
         if (err) {
             console.log(err)
-            console.log("update 실패");
         }
         else {
             console.log("update 성공");
@@ -158,7 +157,7 @@ router.get("/users", function (req, res) {
 // 최근 10일간 유저수
 router.get("/signuplist", function (req, res) {
     const qry = "SELECT COUNT(*),TO_CHAR(USER_DATE,'YYYY-MM-DD') AS LOL FROM USER_TABLE \
-                WHERE 1=1 AND USER_DATE >= SYSDATE-10 \
+                WHERE 1=1 AND USER_DATE >= SYSDATE-11 \
                 GROUP BY TO_CHAR(USER_DATE,'YYYY-MM-DD') \
                 ORDER BY LOL"
     
@@ -182,6 +181,31 @@ router.get("/signuplist", function (req, res) {
     })
 });
 
+router.get("/roomslist", function (req, res) {
+    const qry = "SELECT COUNT(*),TO_CHAR(ROOM_DATE,'YYYY-MM-DD') AS LOL FROM ROOM_TABLE  \
+                WHERE 1=1 AND ROOM_DATE >= SYSDATE-11  \
+                GROUP BY TO_CHAR(ROOM_DATE,'YYYY-MM-DD') \
+                ORDER BY LOL"
+    
+    conn.execute(qry, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.json({
+            roomA: result.rows[0][0],
+            roomB: result.rows[1][0],
+            roomC: result.rows[2][0],
+            roomD: result.rows[3][0],
+            roomE: result.rows[4][0],
+            roomF: result.rows[5][0],
+            roomG: result.rows[6][0],
+            roomH: result.rows[7][0],
+            roomI: result.rows[8][0],
+            roomJ: result.rows[9][0],
+            roomK: result.rows[10][0]
+        })
+    })
+});
 
 
 // 방 개설수
@@ -208,6 +232,16 @@ router.get("/usertest", function (req, res) {
             prof: result.rows[0][1],
             total: result.rows[0][2],
         })
+    })
+});
+
+// 화상채팅 사용 시간
+router.get("/usagetime", function (req, res) {
+    conn.execute("select SUM(round((LEAVEROOM_DATE - ROOM_DATE)*24*60)) from ROOM_TABLE", function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.status(200).json(result.rows[0][0])
     })
 });
 

@@ -40,9 +40,9 @@ export default function AppItemOrders(roomCount) {
       <IconWrapperStyle>
         <Icon icon={homeFill} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{roomCount.roomCount }</Typography>
+      <Typography variant="h3">{roomCount.roomCount }개</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        누적 방 개설 수
+        누적 교육장 수
       </Typography>
     </RootStyle>
   );

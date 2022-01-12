@@ -8,34 +8,54 @@ import {connect} from 'react-redux';
 import * as webRTCHandler from '../utils/webRTCHandler';
 import Overlay from './Overlay';
 import Sttsection from './Stt/SttSection'
-//import Dictaphone from './Stt/Dictaphone';
 import { isBrowser } from 'react-device-detect';
 import './RoomPage.css';
 import { useCookies } from "react-cookie";
+import {setActiveChat} from '../../../../redux/actions/actions';
+import store from '../../../../redux/store/store';
 
 const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio, roomNameValue, myRoomId }) => {
+    console.log(myRoomId);
     const [cookies] = useCookies();
     const user_seq = cookies.user_seq;
     console.log("RoomPage roomId::: "+roomId )
     console.log("RoomPage myRoomId:::"+myRoomId)
-    
+    const {activeChat} = store.getState()
+
+    window.onpopstate = function () {
+        window.history.go(1);
+        store.dispatch(setActiveChat('yes'))
+    };
+    /**
+     1) host
+     else --> 뒤로가기 --> yes --> 
+     2) 참여자 
+    if =--> 뒤로가기 --> yes -->
+     */
     useEffect(() => {
         if(!isRoomHost && !roomId){
             const siteUrl = window.location.origin; // get current url
-            window.location.href = siteUrl; // 현재 페이지에서 siteUrl 페이지로 이동     
+            window.location.href = siteUrl; // 현재 페이지에서 siteUrl 페이지로 이동  
         }else{
-            webRTCHandler.getLocalPreviewAndInitRoomConnection(
-                isRoomHost,
-                identity,
-                roomId,
-                //showOverlay,
-                connectOnlyWithAudio,
-                user_seq,
-                roomNameValue,
-                myRoomId
-            );
+            if(activeChat === ''){
+                webRTCHandler.getLocalPreviewAndInitRoomConnection(
+                    isRoomHost,
+                    identity,
+                    roomId,
+                    connectOnlyWithAudio,
+                    user_seq,
+                    roomNameValue,
+                    myRoomId
+                );
+            }else{
+                console.log(isRoomHost);
+                console.log(activeChat);
+                store.dispatch(setActiveChat(''));
+            }
         }
+
     }, []);
+
 
     
     return (

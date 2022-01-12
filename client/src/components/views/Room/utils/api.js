@@ -7,7 +7,6 @@ const serverApi = serverip.server+'/api';
 
 export const getRoomExists = async (roomId) => {
     const response = await axios.get(`${serverApi}/room-exists/${roomId}`);
-    console.log("(1roomId"+roomId)
     return response.data;
 };
 

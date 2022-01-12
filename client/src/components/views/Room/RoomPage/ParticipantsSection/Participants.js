@@ -10,7 +10,7 @@ const SingleParticipant = (props) => {
         ,participant
         ,setActiveConversationAction
         ,socketId
-        ,roomHost } = props;
+         } = props;
     console.log(lastItem);
     const handleOpenActiveChatbox = () =>{
         console.log(participant.socketId); //선택한 user 

@@ -13,7 +13,7 @@ const Button = ({ buttonText, cancelButton = false, onClickHandler }) =>{
 };
 //props 부분 지식과 true, false 이외의 값이 전달됐을때 오류메세지 던져주기
 const JoinRoomButtons = ({handleJoinRoom, isRoomHost, history}) => {
-    const successButtonText = isRoomHost ? 'Host' : 'Join';
+    const successButtonText = isRoomHost ? 'Create' : 'Join';
     
     const pushToIntroductionPage = () => {
         history.push('/intro');

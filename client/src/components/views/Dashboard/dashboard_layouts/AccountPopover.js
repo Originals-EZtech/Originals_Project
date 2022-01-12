@@ -38,10 +38,10 @@ function AccountPopover(props) {
         if (response.response.logoutSuccess) {
             toast.success(response.response.msg)
             setTimeout(() => {
-                props.history.push('/login');
+              window.location.replace('/')
             }, 1500)
         } else if (!response.response.logoutSuccess) {
-            toast.error(response.response.msg) //nvm
+            toast.error(response.response.msg) 
         }
     })
   }

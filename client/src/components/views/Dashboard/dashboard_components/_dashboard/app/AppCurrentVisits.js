@@ -45,7 +45,7 @@ export default function AppCurrentVisits(usersCount) {
       theme.palette.warning.main,
       theme.palette.error.main
     ],
-    labels: ['일반회원', '강사'],
+    labels: ['학생', '강사'],
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
@@ -65,7 +65,7 @@ export default function AppCurrentVisits(usersCount) {
 
   return (
     <Card>
-      <CardHeader title="User Ratio" />
+      <CardHeader title="User Ratio" subheader="사용자 비율"/>
       <ChartWrapperStyle dir="ltr">
         <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
       </ChartWrapperStyle>

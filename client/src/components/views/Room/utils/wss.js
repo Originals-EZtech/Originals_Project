@@ -12,27 +12,24 @@ console.log("serverip.server"+serverip.server);
 // const SERVER = 'http://localhost:5000';
 const SERVER = serverip.server;
 
-
 let socket = null;
-
-
 
 export const connectWithSocketIOServer = () =>{
     socket = io(SERVER);
     socket.on('connect', ()=>{
-        console.log('successfully connected with socket.io server');
-        console.log(socket.id);
-        console.log("socket.id"+socket.id);
         store.dispatch(setSocketId(socket.id));    
     });
     socket.on('room-id', (data)=>{
         const { roomId } = data;
         // our store should change if will host a new room
+        console.log("connectwithsocketioserver roomId:::"+roomId);
         store.dispatch(setRoomId(roomId));
     });
 
     socket.on('room-update', (data) => {
         const { connectedUsers} = data;
+
+        console.log("connectwithsocketioserver connectedUsers:::" + connectedUsers)
         store.dispatch(setParticipants(connectedUsers));
     })
 
@@ -55,19 +52,13 @@ export const connectWithSocketIOServer = () =>{
     });
 
     socket.on('direct-message', (data) =>{
-        console.log("direct message came");
-        console.log(data);
+
         appendNewMessageToChatHistory(data);
     });
     socket.on('conn-stt', (data)=>{
-        console.log("stt message came"); 
-        
-        //console.log(data.transcript);
         store.dispatch(sttword(data.transcript));
-        //console.log(store.getState());
     });
 };
-
 
 
 
@@ -106,10 +97,8 @@ export const signalPeerData = (data) =>{
 
 export const sendDirectMessage = (data) =>{
     socket.emit('direct-message', data);
-    console.log(data); 
 };
 
 export const sendSTT =(data) =>{
     socket.emit('send-stt', data);
-    console.log(data);
 };

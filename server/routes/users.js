@@ -263,7 +263,6 @@ router.get('/auth', function (req, res) {
     // 쿠키에 있는 token 정보
     let refresh = req.cookies.refreshToken;
     let access = req.cookies.accessToken;
-console.log("refresh?",req.cookies.refreshToken)
     // access 만료됬다면
     if (access === undefined) {
         // refresh 까지 만료됬다면 
@@ -326,7 +325,6 @@ router.get('/logout', function (req, res) {
             res.clearCookie("user_role")
             res.clearCookie("user_seq")
             res.clearCookie("user_flag")
-
                 .status(200).json({
                     logoutSuccess: true,
                     msg: "로그아웃 되셨습니다."

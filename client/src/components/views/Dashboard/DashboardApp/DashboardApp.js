@@ -14,11 +14,11 @@ import {
   AppWeeklySales,
   AppCurrentVisits,
   AppWebsiteVisits,
-  AppCurrentSubject,
   AppConversionRates
 } from '../dashboard_components/_dashboard/app';
 import chartInfoService from './service/chartInfoService';
 import { sideOpen } from '../../../../redux/actions/actions';
+import Spinner from '../../Loading/Spinner';
 
 // ----------------------------------------------------------------------
 
@@ -73,13 +73,29 @@ function DashboardApp(props) {
     "countJ": [0],
     "countK": [0]
   }
+  const roomInitState = {
+    "roomA": [0],
+    "roomB": [0],
+    "roomC": [0],
+    "roomD": [0],
+    "roomE": [0],
+    "roomF": [0],
+    "roomG": [0],
+    "roomH": [0],
+    "roomI": [0],
+    "roomJ": [0],
+    "roomK": [0]
+  }
 
-  // const [open, setOpen] = useState(false);
   const [visitorCount, setVisitorCount] = useState();
   const [roomCount, setRoomCount] = useState();
   const [usersCount, setUsersCount] = useState({ general: 0, prof: 0, total: 0 });
   const [visitorList, setVisitorList] = useState(initState);
   const [userSignUpList, setUserSignUpList] = useState(userInitState);
+  const [roomList, setRoomList] = useState(roomInitState);
+  const [usageTime, setUsageTime] = useState();
+  const [isLoaded, setIsLoaded] = useState(false);
+
 
   const theme = useTheme();
   
@@ -101,54 +117,70 @@ function DashboardApp(props) {
     chartInfoService.getSignUpList().then(res => {
       setUserSignUpList(res.data);
     })
+    chartInfoService.getRoomUpList().then(res => {
+      setRoomList(res.data);
+    })
+    chartInfoService.getUsageTime().then(res => {
+      setUsageTime(res.data);
+    })
 
+    // setIsLoaded(true)
+
+    setTimeout(() =>
+      setIsLoaded(true)
+    , 1500)
+    
   }, [sideOpenAction])
 
   return (
-    <RootStyle>
-      <DashboardNavbar />
-      <DashboardSidebar isOpenSidebar={open} theme={theme}/>
-      <MainStyle>
-        <Page title="Dashboard">
-          <Container maxWidth="xl">
-            <Box sx={{ pb: 5 }}>
-              <Typography variant="h3" style={{fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>
-                Admin Chart
-              </Typography>
-            </Box>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6} md={3}>
-                <AppWeeklySales usersTotal={usersCount} />
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <AppNewUsers visitorCount={visitorCount} />
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <AppItemOrders roomCount={roomCount} />
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <AppBugReports />
-              </Grid>
-              <Grid item xs={12} md={6} lg={8}>
-                <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList} />
-              </Grid>
+    <>
+      {isLoaded ?
+      <RootStyle>
+        <DashboardNavbar />
+        <DashboardSidebar isOpenSidebar={open} theme={theme}/>
+        <MainStyle>
+          <Page title="Dashboard">
+            <Container maxWidth="xl">
+              <Box sx={{ pb: 5 }}>
+                <Typography variant="h3" style={{fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>
+                  Admin Chart
+                </Typography>
+              </Box>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6} md={3}>
+                  <AppWeeklySales usersTotal={usersCount} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <AppNewUsers visitorCount={visitorCount} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <AppItemOrders roomCount={roomCount} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <AppBugReports usageTime={usageTime}/>
+                </Grid>
+                <Grid item xs={12} md={6} lg={8}>
+                  <AppWebsiteVisits visitorList={visitorList} userSignUpList={userSignUpList} roomList={roomList} />
+                </Grid>
 
-              <Grid item xs={12} md={6} lg={4}>
-                <AppCurrentVisits usersCount={usersCount} />
-              </Grid>
+                <Grid item xs={12} md={6} lg={4}>
+                  <AppCurrentVisits usersCount={usersCount} />
+                </Grid>
 
-              <Grid item xs={12} md={6} lg={8}>
-                <AppConversionRates />
-              </Grid>
+                <Grid item xs={12} md={6} lg={8}>
+                  <AppConversionRates roomList={roomList}/>
+                </Grid>
 
-              <Grid item xs={12} md={6} lg={4}>
-                <AppCurrentSubject />
+                {/* <Grid item xs={12} md={6} lg={4}>
+                  <AppCurrentSubject />
+                </Grid> */}
               </Grid>
-            </Grid>
-          </Container>
-        </Page>
-      </MainStyle>
-    </RootStyle>
+            </Container>
+          </Page>
+        </MainStyle>
+      </RootStyle> : <Spinner />
+      }
+    </>
   );
 }
 

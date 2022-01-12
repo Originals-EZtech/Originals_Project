@@ -37,7 +37,7 @@ export default function AppWeeklySales(usersTotal) {
       <IconWrapperStyle>
         <Icon icon={peopleFill} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{usersTotal.usersTotal.total}</Typography>
+      <Typography variant="h3">{usersTotal.usersTotal.total}명</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         누적 가입 유저수
       </Typography>

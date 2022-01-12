@@ -13,7 +13,6 @@ const Dictaphone = ({socketId}) => {
     const [cookies]=useCookies();
     const {
       transcript,
-      listening,
       resetTranscript,
       browserSupportsSpeechRecognition
     } = useSpeechRecognition();

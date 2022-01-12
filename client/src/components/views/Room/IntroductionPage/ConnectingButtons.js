@@ -1,7 +1,7 @@
 import React from 'react';
 import ConnectingButton from './ConnectingButton';
 import { withRouter } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { useCookies } from "react-cookie";
 
@@ -17,32 +17,65 @@ const ConnectingButtons = (props) => {
     const pushToJoinRoomPageAsHost =() =>{
         props.history.push('/join-room?host=true');
     }
-    const pushToMyClass = () => {
-        props.history.push('/myclass');
-    }
-/* && cookies.user_flag  === 'false'*/
-    if(cookies.user_role ==='prof'){
-        return(<div className = 'connecting_buttons_container'>
-            <ConnectingButton buttonText = 'Host a meeting' 
+    // const pushToMyClass = () => {
+    //     props.history.push('/myclass');
+    // }
+
+    // user_role = general && user_flag = true이면 승인 허가 기다리는 선생님
+    // user_role = general && user_flag = false이면 학생
+    // user_role = prof && user_flag = false이면 승인 허가된 선생님
+    if (cookies.user_flag === 'false') {
+        if (cookies.user_role === 'prof') {
+            return(<div className = 'connecting_buttons_container'>
+            <ConnectingButton buttonText = 'create a class' 
             onClickHandler ={pushToJoinRoomPageAsHost}/>
-            <ConnectingButton buttonText = 'My class'
-            onClickHandler={pushToMyClass} />
-        </div>);
-        /* || (cookies.user_role ==='prof' && cookies.user_flag  === 'true') */
-    }else if(cookies.user_role ==='general'){
-        return(<div className = 'connecting_buttons_container'>
-            <ConnectingButton buttonText = 'Join a meeting' 
+            {/* <ConnectingButton buttonText = 'My class'
+            onClickHandler={pushToMyClass} /> */}
+            </div>);
+        } else {
+            return(<div className = 'connecting_buttons_container'>
+            <ConnectingButton buttonText = 'Join a class' 
             onClickHandler ={pushToJoinRoomPage}/>
-            <ConnectingButton buttonText = 'My class'
-            onClickHandler={pushToMyClass} />
-        </div>);
-    }else{
+            {/* <ConnectingButton buttonText = 'My class'
+            onClickHandler={pushToMyClass} /> */}
+            </div>);
+        }
+    } else {
         return(<div className = 'connecting_buttons_container'>
-            <ConnectingButton onClickHandler ={pushToJoinRoomError}/>
-            <ConnectingButton buttonText = 'My class'
-            onClickHandler={pushToMyClass} />
+        <ConnectingButton buttonText = 'create a class' 
+        onClickHandler ={pushToJoinRoomError}/>
+        {/* <ConnectingButton buttonText = 'My class'
+        onClickHandler={pushToMyClass} /> */}
         </div>);
     }
+
+
+    
+    // if(cookies.user_role ==='prof' && cookies.user_flag  === 'false'){
+    //     return(<div className = 'connecting_buttons_container'>
+    //         <ConnectingButton buttonText = 'create a class' 
+    //         onClickHandler ={pushToJoinRoomPageAsHost}/>
+    //         <ConnectingButton buttonText = 'My class'
+    //         onClickHandler={pushToMyClass} />
+    //     </div>);
+    
+    // }else if(cookies.user_role ==='general' || (cookies.user_role ==='prof' && cookies.user_flag  === 'true')){
+    //     return(<div className = 'connecting_buttons_container'>
+    //         <ConnectingButton buttonText = 'Join a class' 
+    //         onClickHandler ={pushToJoinRoomPage}/>
+    //         <ConnectingButton buttonText = 'My class'
+    //         onClickHandler={pushToMyClass} />
+    //     </div>);
+    // }else if () {
+
+    // }
+    // else{
+    //     return(<div className = 'connecting_buttons_container'>
+    //         <ConnectingButton onClickHandler ={pushToJoinRoomError}/>
+    //         <ConnectingButton buttonText = 'My class'
+    //         onClickHandler={pushToMyClass} />
+    //     </div>);
+    // }
 };
 
 

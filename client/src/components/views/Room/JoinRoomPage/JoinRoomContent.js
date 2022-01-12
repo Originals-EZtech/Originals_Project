@@ -8,7 +8,6 @@ import JoinRoomButtons from './JoinRoomButtons';
 import { getRoomExists } from '../utils/api';
 import { withRouter } from 'react-router-dom';
 import { setConnectOnlyWithAudio, setIdentity, setRoomId, setRoomNameValue } from '../../../../redux/actions/actions';
-// import tokenConfig from '../../../../../../server/config/tokenConfig';
 
 
 const JoinRoomContent = (props) =>{
@@ -19,11 +18,9 @@ const JoinRoomContent = (props) =>{
     const [roomNameValue, setRoomNameValue] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
 
-    //쿠키
-    //console.log(props); 
+
 
     const handleJoinRoom = async () =>{ 
-        //console.log("check");
         setIdentityAction(nameValue);
         if (isRoomHost){
             createRoom();
@@ -39,7 +36,7 @@ const JoinRoomContent = (props) =>{
 
         if(roomExists){
             if(full){
-                setErrorMessage('Meeting is full. Please try again later.');
+                setErrorMessage('Class is full. Please try again later.');
             }else{
                 // join a room !
                 // save in our redux store meeting id which was provided by user which would like to join
@@ -69,7 +66,7 @@ const JoinRoomContent = (props) =>{
                 props.history.push('/room');
             }
         }else{
-            setErrorMessage('Meeting not found. Check your meeting ID');
+            setErrorMessage('Class not found. Check your Class ID');
         }
     };
 
