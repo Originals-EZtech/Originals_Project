@@ -16,6 +16,11 @@ const sidebarConfig = [
     title: 'Approve User',
     path: '/dashboard/user',
     icon: getIcon(peopleFill)
+  },
+  {
+    title: 'User Log',
+    path: '/dashboard/userlog',
+    icon: getIcon(peopleFill)
   }
 ];
 
