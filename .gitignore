@@ -5,24 +5,22 @@ twilioConfig.js
 wdad
 # dependencies
 /node_modules
+node_modules
 /.pnp
 .pnp.js
 
-# db
+# config
 dbConfig.js
 mybatisConfig.js
 mailConfig.js
 tokenConfig.js
 twilioConfig.js
 ipconfig.js
-
 # image file
 upload
 
 twilioConfig.js
 
-# file upload
-upload
 # testing
 /coverage
 

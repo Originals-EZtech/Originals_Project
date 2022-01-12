@@ -3,7 +3,6 @@ import { connect} from 'react-redux';
 import { setActiveConversation } from '../../../../../redux/actions/actions';
 
 const SingleParticipant = (props) => {
-    //console.log(props); // ok
     const { 
         identity
         ,lastItem
@@ -74,8 +73,7 @@ const Participants = ({
     ,setActiveConversationAction
     ,socketId,
     isRoomHost}) => {
-    //console.log(setActiveConversationAction);
-    //console.log(props);
+
     return (
         <div className = 'participants_container'>
             {participants.map((participant, index)=> {
