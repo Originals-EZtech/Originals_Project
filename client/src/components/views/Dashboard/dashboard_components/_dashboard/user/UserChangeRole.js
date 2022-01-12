@@ -33,7 +33,7 @@ function UserChangeRole (props) {
                     (props.user.USER_FLAG === 'banned' && 'error') || 'success'
                 }
                 >
-                {props.user.USER_FLAG ==='true'? 'Confrim':''}
+                {props.user.USER_FLAG ==='true'? 'Confirm':''}
                 </Label> 
             </IconButton>
 
