@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const oracledb = require('oracledb');
-const dbConfig = require('./config/dbConfig');
-const twilioConfig = require('./config/twilioConfig');
+const dbConfig = require('./config/dbConfig'); //../client/src/config/dbConfig
+const twilioConfig = require('./config/twilioConfig');//../client/src/config/dbConfig
 oracledb.autoCommit = true;
 
 
