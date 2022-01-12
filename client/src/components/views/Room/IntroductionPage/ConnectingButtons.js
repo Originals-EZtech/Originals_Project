@@ -2,7 +2,6 @@ import React from 'react';
 import ConnectingButton from './ConnectingButton';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
 import { useCookies } from "react-cookie";
 
 const ConnectingButtons = (props) => {
