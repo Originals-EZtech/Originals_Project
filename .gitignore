@@ -6,13 +6,16 @@ node_modules
 /.pnp
 .pnp.js
 
-# db
+# config
 dbConfig.js
 mybatisConfig.js
 mailConfig.js
 tokenConfig.js
 ipconfig.js
 twilioConfig.js
+ipconfig.js
+
+# file upload
 upload
 # testing
 /coverage

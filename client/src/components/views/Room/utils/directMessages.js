@@ -1,8 +1,18 @@
-import { setDirectChatHistory } from "../../../../redux/actions/actions";
+import { setDirectChatHistory,setCheckMessage,setCheckMessageSign } from "../../../../redux/actions/actions";
 import store from "../../../../redux/store/store";
+
 
 export const appendNewMessageToChatHistory = (data) =>{
     const {isAuthor, receiverSocketId, authorSocketId} = data;
+    const checkMessage = {
+        authorSocketId: authorSocketId,
+        messageLength: document.getElementsByClassName('author_direct_message').length +1,
+    }
+    store.dispatch(setCheckMessage(checkMessage));
+
+    //console.log( document.getElementsByClassName('author_direct_message').length);
+    //console.log(receiverSocketId);
+    //console.log(authorSocketId);
     if (isAuthor){
         appendMessageToChatHistory(receiverSocketId, data);
     }else{

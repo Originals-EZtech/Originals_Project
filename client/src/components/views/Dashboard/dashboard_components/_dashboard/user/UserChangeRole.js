@@ -15,7 +15,6 @@ function UserChangeRole (props) {
 
     const changeRole = (user) => {
         let body = { email: user.USER_EMAIL }
-        console.log("on chagerole click", body)
         chartInfoService.changeRole(body)
         .then();
         toast.success(" 승인처리 되었습니다.");
@@ -34,7 +33,7 @@ function UserChangeRole (props) {
                     (props.user.USER_FLAG === 'banned' && 'error') || 'success'
                 }
                 >
-                {props.user.USER_FLAG ==='true'? 'Confrim':''}
+                {props.user.USER_FLAG ==='true'? 'Confirm':''}
                 </Label> 
             </IconButton>
 

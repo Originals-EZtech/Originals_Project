@@ -1,9 +1,15 @@
 import React from 'react';
 import { connect} from 'react-redux';
-import { setActiveConversation } from '../../../../../redux/actions/actions';
+import {
+    setActiveConversation,
+    setCheckMessageSign,
+    setCheckMessage
+} from '../../../../../redux/actions/actions';
+import store from '../../../../../redux/store/store';
+import {toast} from 'react-toastify';
 
 const SingleParticipant = (props) => {
-    //console.log(props); // ok
+    const { checkMessage, checkMessageSign} = store.getState();
     const { 
         identity
         ,lastItem
@@ -11,8 +17,9 @@ const SingleParticipant = (props) => {
         ,setActiveConversationAction
         ,socketId
          } = props;
-    console.log(lastItem);
+    console.log(checkMessage);
     const handleOpenActiveChatbox = () =>{
+        store.dispatch(setCheckMessageSign(false));
         console.log(participant.socketId); //선택한 user 
         console.log(socketId); // 본인
         if(participant.socketId !== socketId){
@@ -21,9 +28,21 @@ const SingleParticipant = (props) => {
         }
         
     };
-
+  
+    if(checkMessage !== null){
+        if(checkMessage.authorSocketId === participant.socketId){
+            console.log('찾았다');
+            toast.success(`'${identity}' sent you a message`);
+            store.dispatch(setCheckMessageSign(true));
+            store.dispatch(setCheckMessage(null));
+            //alert(`${identity} sent you a message`);
+        }
+    }
+    //store.dispatch(setCheckMessageSign(false))
+    console.log(checkMessageSign);
     let showParti;
     let showHost;
+    let showCheck;
     if(participant.socketId !== socketId){
         showParti=(
             <>
@@ -31,6 +50,7 @@ const SingleParticipant = (props) => {
                 {!lastItem && <span className = 'participants_separator_line'></span>}
             </>
         )
+
     }else{
         showHost=(
             <>
@@ -64,6 +84,7 @@ const SingleParticipant = (props) => {
         <> 
             {showParti}
             {showHost}
+            {showCheck}
         </>
   );
 
@@ -72,8 +93,7 @@ const SingleParticipant = (props) => {
 const Participants = ({
     participants
     ,setActiveConversationAction
-    ,socketId,
-    isRoomHost}) => {
+    ,socketId}) => {
     //console.log(setActiveConversationAction);
     //console.log(props);
     return (
@@ -103,7 +123,7 @@ const mapActionsToProps= (dispatch) =>{
     return{
         setActiveConversationAction: (activeConversation)=>{
             dispatch(setActiveConversation(activeConversation))
-        }
+        },
     }
 }
 
