@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
 import { authEmail, fileUpload, registerUser, setActiveChat } from '../../../redux/actions/actions';
 import store from '../../../redux/store/store';
+import { Icon } from '@iconify/react';
+import infoFill from '@iconify/icons-ant-design/info-circle-filled';
 
 function Register(props) {
     const { registerUserAction, authEmailAction, fileUploadAction } = props;
@@ -23,6 +25,7 @@ function Register(props) {
     const [AuthEmailSuccess, setAuthEmailSuccess] = useState(false);
     const [Time, setTime] = useState(false);
     const [isTeacher, setTeacher] = useState(false);
+    const [isStudent, setStudent] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
 
     // 정규식 메세지 상태
@@ -162,7 +165,10 @@ function Register(props) {
             return toast.error('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
 
-        
+        // Student or Teacher 둘 중 아무것도 선택하지 않을 경우
+        if (!isStudent && !isTeacher) {
+            return toast.error('오른쪽 상단의 Student / Teacher 중 하나를 선택해야 합니다')
+        }
 
         // 회원가입시 보내줄 body 데이터를 학생 / 선생님 구분해서 서버로 전송
         let body = {}
@@ -213,9 +219,15 @@ function Register(props) {
         })
     }
 
-    // 체크박스 체크여부 확인
+    // 회원가입시 권한 제어
+    const checkStudent = () => {
+        setStudent(true);
+        setTeacher(false);
+    }
+
     const checkTeacher = () => {
         setTeacher(true);
+        setStudent(false);
     }
 
     // 파일업로드 관련 함수
@@ -311,9 +323,17 @@ function Register(props) {
                     <div className={styles.authDiv}>
                         <div className={styles.checkRole}>
                             <div>
-                                <span className={styles.roleStudent} onClick={() => setTeacher(false)}>Student</span> 
+                                <span 
+                                    className={styles.roleStudent} 
+                                    onClick={checkStudent}
+                                    style={isStudent ? {backgroundColor:"#2deebed0", borderRadius:10} : null}
+                                >Student</span> 
                                 &nbsp; / &nbsp; 
-                                <span className={styles.roleTeacher} onClick={() => setTeacher(true)}>Teacher</span>
+                                <span 
+                                    className={styles.roleTeacher} 
+                                    onClick={checkTeacher}
+                                    style={isTeacher ? {backgroundColor:"#2deebed0", borderRadius:10} : null}
+                                >Teacher</span>
                             </div>
                         </div>
                         <div className={styles.authentication}>
@@ -323,11 +343,12 @@ function Register(props) {
                         {
                             isTeacher
                             ?
-                            <div className={styles.checkbox_container}>
+                            <div>
                                 <label className={styles.uploadFile} for="input-file">
-                                    재직증명서 업로드
+                                    <span>재직증명서를 업로드</span>
                                     <input type="file" id="input-file" name="image" accept="image/*" onChange={handleFileChange} />
                                 </label>
+                                <Icon icon={infoFill} style={{width: 24, height: 24, cursor: "pointer"}} onClick={() => toast.info('선생님은 재직증명서를 업로드 해야 웹 사이트 정상 이용이 가능합니다.')}/>
                             </div>
                             : null
                         }
