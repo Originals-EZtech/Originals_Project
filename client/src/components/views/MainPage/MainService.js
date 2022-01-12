@@ -21,8 +21,8 @@ function MainService() {
                                                 </div>
                                         </div>
                                         <div class="courses-detail">
-                                                <h3>Summer Kids</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <h3>화상 기능 (WebRTC)</h3>
+                                                <p>영상 on/off, 음성 on/off, 자막 on/off, 화면 공유 기능 이용 가능합니다.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -36,8 +36,8 @@ function MainService() {
                                                 </div>
                                         </div>
                                         <div class="courses-detail">
-                                                <h3>Graphic & Web Design</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <h3>전체 채팅 & 개인 채팅</h3>
+                                                <p>화상 기능에 참여한 구성원 간의 전체 채팅 & 개인 채팅이 가능합니다.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -51,8 +51,8 @@ function MainService() {
                                                 </div>
                                         </div>
                                         <div class="courses-detail">
-                                                <h3>Marketing Communication</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <h3>자막 기능 (STT)</h3>
+                                                <p>선생님의 음성을 자막으로 변환시켜 제공하여 효과적인 수업 진행이 가능합니다.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -66,8 +66,8 @@ function MainService() {
                                                 </div>
                                         </div>
                                         <div class="courses-detail">
-                                                <h3>Summer Kids</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <h3>권한 구분</h3>
+                                                <p>관리자 / 선생님 / 학생 권한으로 구분된 기능들로 웹 사이트 이용 가능합니다.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -81,8 +81,8 @@ function MainService() {
                                                 </div>
                                         </div>
                                         <div class="courses-detail">
-                                                <h3>Business &amp; Management</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <h3>Dashboard</h3>
+                                                <p>관리자 접속 시 전체 웹 사이트의 통계 및 로그 기록을 확인할 수 있습니다.</p>
                                         </div>
                                     </div>
                                 </div>

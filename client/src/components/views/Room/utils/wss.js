@@ -6,6 +6,10 @@ import store from '../../../../redux/store/store';
 
 
 const serverip = require('../../../../config/ipconfig');
+console.log("serverip"+serverip);
+console.log("serverip.server"+serverip.server);
+// 로컬 아이피, 공유기 아이피 ipconfig를 자기 공유기 ip로 바꿔준다
+// const SERVER = 'http://localhost:5000';
 const SERVER = serverip.server;
 
 let socket = null;
@@ -18,11 +22,14 @@ export const connectWithSocketIOServer = () =>{
     socket.on('room-id', (data)=>{
         const { roomId } = data;
         // our store should change if will host a new room
+        console.log("connectwithsocketioserver roomId:::"+roomId);
         store.dispatch(setRoomId(roomId));
     });
 
     socket.on('room-update', (data) => {
         const { connectedUsers} = data;
+
+        console.log("connectwithsocketioserver connectedUsers:::" + connectedUsers)
         store.dispatch(setParticipants(connectedUsers));
     })
 

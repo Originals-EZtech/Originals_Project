@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import Footer from '../Footer/Footer';
 
 function MainContact() {
@@ -24,90 +23,84 @@ function MainContact() {
                     <div class="col-md-2 col-sm-6">
                         <div class="team-thumb">
                             <div class="team-image">
-                                <img src="assets/images/author-image1.jpg" class="img-responsive" alt="" />
+                                <img src="assets/images/dongsoo.jpg" class="img-responsive" height="50px" alt="" />
                             </div>
                             <div class="team-info">
                                 <h3>Dong Soo</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
-                                <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                <li><a href="https://github.com/sjagz" class="fab fa-github"></a></li>
+                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-6">
                         <div class="team-thumb">
                             <div class="team-image">
-                                <img src="assets/images/author-image2.jpg" class="img-responsive" alt="" />
+                                <img src="assets/images/chanhyuk.jpg" class="img-responsive" alt="" />
                             </div>
                             <div class="team-info">
-                                <h3>Chan Hyuk</h3>
-                                <span>...</span>
+                                <h3>Chan Huk</h3>
                             </div>
                             <ul class="social-icon">
-                                <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                <li><a href="https://github.com/mintorca" class="fab fa-github"></a></li>
+                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-6">
                         <div class="team-thumb">
                             <div class="team-image">
-                                <img src="assets/images/author-image3.jpg" class="img-responsive" alt="" />
+                                <img src="assets/images/mingi.jpg" class="img-responsive" alt="" />
                             </div>
                             <div class="team-info">
                                 <h3>Min Gi</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
-                                <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                <li><a href="" class="fab fa-github"></a></li>
+                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-6">
                         <div class="team-thumb">
                             <div class="team-image">
-                                <img src="assets/images/author-image4.jpg" class="img-responsive" alt="" />
+                                <img src="assets/images/hyunil.jpg" class="img-responsive" alt="" />
                             </div>
                             <div class="team-info">
                                 <h3>Hyun Il</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
-                                <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                <li><a href="https://github.com/johney-suk" class="fab fa-github"></a></li>
+                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-6">
                         <div class="team-thumb">
                             <div class="team-image">
-                                <img src="assets/images/author-image1.jpg" class="img-responsive" alt="" />
+                                <img src="assets/images/nagyung.jpg" class="img-responsive" alt="" />
                             </div>
                             <div class="team-info">
-                                <h3>Na Gyeong</h3>
-                                <span>...</span>
+                                <h3>Na Gyung</h3>
                             </div>
                             <ul class="social-icon">
-                                <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                <li><a href="https://github.com/nagggyung" class="fab fa-github"></a></li>
+                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-6">
                         <div class="team-thumb">
                             <div class="team-image">
-                                <img src="assets/images/author-image3.jpg" class="img-responsive" alt="" />
+                                <img src="assets/images/yoonseon.jpg" class="img-responsive" alt="" />
                             </div>
                             <div class="team-info">
                                 <h3>Yoon Seon</h3>
-                                <span>...</span>
                             </div>
                             <ul class="social-icon">
-                                <li><Link to="" class="fab fa-github"></Link></li>
-                                <li><Link to="" class="fa fa-instagram"></Link></li>
+                                <li><a href="https://github.com/ynsseon07" class="fab fa-github"></a></li>
+                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>

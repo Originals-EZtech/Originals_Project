@@ -18,7 +18,8 @@ const initState = {
     fileName : '',
     gotFile: false,
     roomNameValue: "",
-    myRoomId: "",
+    myRoomId: null,
+    activeChat: ''
 };
 
 // reducer는 state의 상태를 변화시켜주는 함수
@@ -142,7 +143,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 myRoomId: action.myRoomId
             };
-        
+        case Actions.SET_ACTIVE_CHAT:
+            return {
+                ...state,
+                activeChat: action.activeChat
+            }
         default:
             return state;
     }
