@@ -675,7 +675,7 @@ video {
 .sttb{
   top: 15px;
   position: absolute;
-  left: 1.5%;
+  left: 1%;
   padding:10px;
   z-index: 3;
 }
@@ -685,10 +685,10 @@ video {
   vertical-align: bottom;
   color: black;
   margin-top: 13px;
-  margin-left: 60px;
+  margin-left: 65px;
   margin-bottom: 10px;
   margin-right: 10px;
-  font-size:22px;
+  font-size:21.5px;
   font-family: Helvetica, Arial, sans-serif;
   
 }
@@ -696,10 +696,10 @@ video {
 .otherstt{
   color: black;
   margin-top:-20px;
-  margin-left: 60px;
+  margin-left: 65px;
   margin-bottom: 30px;
   margin-right: 10px;
-  font-size: 22px;
+  font-size: 21.5px;
   
 }
 .te{
