@@ -4,7 +4,6 @@ import attachFill from '@iconify/icons-eva/attach-fill';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
 
 export default function UserCheckFile ({image}) {
-    // console.log('image', image);
     const ref = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
 

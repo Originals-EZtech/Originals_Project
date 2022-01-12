@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import JoinRoomTitle from './JoinRoomTitle';
 import JoinRoomContent from './JoinRoomContent';
 import RoomNavBar from '../../NavBar/RoomNavBar';
-import RoomListComponent from '../../Myclass/RoomListComponent';
-import JoinRoomListComponent from '../../Myclass/JoinRoomListComponent';
-import { useCookies } from "react-cookie";
+// import RoomListComponent from '../../Myclass/RoomListComponent';
+// import JoinRoomListComponent from '../../Myclass/JoinRoomListComponent';
+// import { useCookies } from "react-cookie";
 import './JoinRoomPage.css';
 import { setIsRoomHost } from '../../../../redux/actions/actions';
 
 
 const JoinRoomPage = (props) =>{
     const { setIsRoomHostAction, isRoomHost} = props;
-    const [cookies] = useCookies();
+    // const [cookies] = useCookies();
     const search = useLocation().search;
 
     useEffect(() =>{

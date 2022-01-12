@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React from 'react';
 import Footer from '../Footer/Footer';
 
@@ -44,7 +45,6 @@ function MainContact() {
                             </div>
                             <ul class="social-icon">
                                 <li><a href="https://github.com/mintorca" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
@@ -57,8 +57,7 @@ function MainContact() {
                                 <h3>Min Gi</h3>
                             </div>
                             <ul class="social-icon">
-                                <li><a href="" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
+                                <li><a href="!#" class="fab fa-github"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -72,7 +71,6 @@ function MainContact() {
                             </div>
                             <ul class="social-icon">
                                 <li><a href="https://github.com/johney-suk" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
@@ -86,7 +84,6 @@ function MainContact() {
                             </div>
                             <ul class="social-icon">
                                 <li><a href="https://github.com/nagggyung" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
@@ -100,7 +97,6 @@ function MainContact() {
                             </div>
                             <ul class="social-icon">
                                 <li><a href="https://github.com/ynsseon07" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
