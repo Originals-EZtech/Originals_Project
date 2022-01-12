@@ -8,6 +8,7 @@ const ejs = require('ejs');
 const saltRounds = 10
 const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
+var requestIp = require('request-ip');
 var jwt = require('jsonwebtoken');
 oracledb.autoCommit = true;
 //oracledb connection
@@ -144,10 +145,23 @@ router.post("/register", function (req, res) {
                     res.status(200).json({
                         success: true, msg: "회원가입 되셨습니다."
                     })
+                    //여기
+                    const userIp = requestIp.getClientIp(req)
+                    const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
+
+                    conn.execute("INSERT INTO USERLOG_TABLE (USERLOG_SEQ, USERLOG_ACTION, USER_EMAIL, USERLOG_IP) VALUES(USERLOG_SEQ.NEXTVAL, 'SIGN-UP' , :email, :ip)", [req.body.email,user_Ip], function (err3, result3) {
+                        if(err3) {console.log(err3)}
+                        else{
+                            console.log(result3)
+                        }
+                    })
+
+
                 }
                 console.log("sign-up insert 성공");
             })
         })
+
     }
 });
 
@@ -195,7 +209,13 @@ router.post('/imgUpload', upload.single('image'), (req, res) => {
  * access는 refresh 비해 짧은 유효시간을 가져
  * 계속해서 refresh에 의존해 이후 검증 파트에서 재발급 받는 구조
  */
-router.post("/login", function (req, res) {
+ 
+var requestIp = require('request-ip');
+ router.post("/login", function (req, res) {
+
+    const userIp = requestIp.getClientIp(req)
+    const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
+
     const userEmail = req.body.email
     const userPassword = req.body.password
     if (userEmail === '' || userPassword === '') {
@@ -236,6 +256,12 @@ router.post("/login", function (req, res) {
                                 .cookie("user_flag", result.rows[0][5])
                                 .status(200)
                                 .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], role:result.rows[0][3], msg: userEmail + " 로그인 성공" })
+                        }
+                    })
+                    conn.execute("INSERT INTO USERLOG_TABLE (USERLOG_SEQ, USERLOG_ACTION, USER_EMAIL, USERLOG_IP) VALUES(USERLOG_SEQ.NEXTVAL, 'SIGN-IN' , :email, :ip)", [userEmail,user_Ip], function (err3, result3) {
+                        if(err3) {console.log(err3)}
+                        else{
+                            console.log(result3)
                         }
                     })
                     // 비번일치안한다면
