@@ -1,18 +1,18 @@
 import io from 'socket.io-client';
-import { setRoomId, setParticipants, setSocketId} from '../store/actions';
-import store from '../store/store.js';
 import * as webRTCHandler from './webRTCHandler';
 import { appendNewMessageToChatHistory } from './directMessages';
+import { setParticipants, setRoomId, setSocketId, sttword } from '../../../../redux/actions/actions.js';
+import store from '../../../../redux/store/store';
 
-const SERVER = 'http://localhost:5000';
+
+const serverip = require('../../../../config/ipconfig');
+const SERVER = serverip.server;
 
 let socket = null;
 
 export const connectWithSocketIOServer = () =>{
     socket = io(SERVER);
     socket.on('connect', ()=>{
-        console.log('successfully connected with socket.io server');
-        console.log(socket.id);   
         store.dispatch(setSocketId(socket.id));    
     });
     socket.on('room-id', (data)=>{
@@ -45,29 +45,39 @@ export const connectWithSocketIOServer = () =>{
     });
 
     socket.on('direct-message', (data) =>{
-        console.log("direct message came");
-        console.log(data);
+
         appendNewMessageToChatHistory(data);
+    });
+    socket.on('conn-stt', (data)=>{
+        store.dispatch(sttword(data.transcript));
     });
 };
 
+
+
 //identity : our user name
-export const createNewRoom = (identity, onlyAudio) =>{
+export const createNewRoom = (identity, onlyAudio, user_seq, roomNameValue, roomId, myRoomId) =>{
     //emit an event to server that we would like to create new room
     const data = {
         identity,
-        onlyAudio
+        onlyAudio,
+        user_seq,
+        roomNameValue,
+        roomId,
+        myRoomId
     };
 
     socket.emit('create-new-room', data);
 }
 
-export const joinRoom = (identity, roomId, onlyAudio) =>{
+export const joinRoom = (identity, roomId, onlyAudio, user_seq, myRoomId) =>{
     //emit an event to server that we would like to join a room
     const data = {
         roomId,
         identity,
-        onlyAudio
+        onlyAudio,
+        user_seq,
+        myRoomId
     };
     socket.emit('join-room' ,data);
 }
@@ -80,13 +90,8 @@ export const signalPeerData = (data) =>{
 
 export const sendDirectMessage = (data) =>{
     socket.emit('direct-message', data);
-    //console.log(data); 
 };
 
-/*
-export const sendSTT =() =>{
-    console.log('ddddd');
-   // socket.emit('send_stt', data);
+export const sendSTT =(data) =>{
+    socket.emit('send-stt', data);
 };
-*/
-

@@ -8,12 +8,15 @@ const NewMessage = ({activeConversation, identity})=>{
     const [message, setMessage] = useState('');
 
     const sendMessage = ()=>{
-       wss.sendDirectMessage({
-           receiverSocketId: activeConversation.socketId,
-           identity: identity,
-           messageContent: message,
-       });
-       setMessage('');
+        if(message.length >0){
+            wss.sendDirectMessage({
+                receiverSocketId: activeConversation.socketId,
+                identity: identity,
+                messageContent: message,
+            });
+            setMessage('');
+        }
+      
     };
 
     const handleTextChange = (event)=>{
@@ -22,7 +25,7 @@ const NewMessage = ({activeConversation, identity})=>{
     }
 
     const handleKeyPressed = (event) =>{
-        if (event.key === 'Enter'){
+        if (event.key === 'Enter' && message.length >0 ){
             event.preventDefault();
             sendMessage();
         }
@@ -43,6 +46,7 @@ const NewMessage = ({activeConversation, identity})=>{
                 className='new_message_button'
                 src = {sendMessageButton}
                 onClick={sendMessage}
+                alt=''
             />
         </div>
     );

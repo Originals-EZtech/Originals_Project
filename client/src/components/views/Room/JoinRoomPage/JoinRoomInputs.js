@@ -13,7 +13,7 @@ const Input = ({placeholder, value, changeHandler})=> {
 }
 
 const JoinRoomInputs = (props) =>{
-    const { roomIdValue, setRoomIdValue, nameValue, setNameValue, isRoomHost } =
+    const { roomIdValue, setRoomIdValue, nameValue, setNameValue, isRoomHost, roomNameValue, setRoomNameValue } =
     props;
 
     const handleRoomIdValueChange = (event) =>{
@@ -22,15 +22,26 @@ const JoinRoomInputs = (props) =>{
     const handleNameValueChange = (event) => {
         setNameValue(event.target.value);
     }
+    const handleRoomNameValueChange = (event) => {
+        setRoomNameValue(event.target.value);
+    }
+
+    //!는 논리부정연산자 && 는 앞에 조건이 참이면 뒤에 실행 거짓이면 무시
     return <div className = 'join_room_inputs_container'>
         {!isRoomHost && (<Input 
-        placeholder= 'Enter meeting ID'
+        placeholder= 'Class ID'
         value = {roomIdValue}
         changeHandler={handleRoomIdValueChange}
         />
         )}
+        {!!isRoomHost && (<Input 
+         placeholder = 'Class Name'
+         value = {roomNameValue}
+         changeHandler={handleRoomNameValueChange}
+        />
+        )}
         <Input 
-         placeholder = 'Enter your Name'
+         placeholder = 'Your Name'
          value = {nameValue}
          changeHandler={handleNameValueChange}
         />

@@ -3,7 +3,6 @@ import styles from '../NavBar/navbar.module.css';
 import { Link } from 'react-router-dom';
 
 function MainNavBar() {
-
     const navbarStyle={
         float: "right"
     }
@@ -51,6 +50,7 @@ function MainNavBar() {
                             <li><Link to="/register" class="smoothScroll" className={styles.loginStyle}>SignUp</Link></li>
                         </ul>
                     </div>
+
                 </div>
             </section>
     </div>

@@ -1,11 +1,8 @@
-import { setDirectChatHistory } from "../store/actions";
-import store from "../store/store";
+import { setDirectChatHistory } from "../../../../redux/actions/actions";
+import store from "../../../../redux/store/store";
 
 export const appendNewMessageToChatHistory = (data) =>{
     const {isAuthor, receiverSocketId, authorSocketId} = data;
-    //console.log(isAuthor);
-    //console.log(receiverSocketId);
-    //console.log(authorSocketId);
     if (isAuthor){
         appendMessageToChatHistory(receiverSocketId, data);
     }else{
@@ -15,9 +12,7 @@ export const appendNewMessageToChatHistory = (data) =>{
 
 const appendMessageToChatHistory = (userSocketId, data) =>{
     const chatHistory = [...store.getState().directChatHistory];
-
     const userChatHistory = chatHistory.find(h => h.socketId === userSocketId);
-    console.log(userChatHistory);
     if(userChatHistory) {
         const newDirectMessage = {
             isAuthor: data.isAuthor,
@@ -27,7 +22,7 @@ const appendMessageToChatHistory = (userSocketId, data) =>{
 
         const newUserChatHistory = {
             ...userChatHistory,
-            chatHistory: [...userChatHistory.ChatHistory, newDirectMessage]
+            ChatHistory: [...userChatHistory.ChatHistory, newDirectMessage]
         }
 
         const newChatHistory = [
@@ -39,7 +34,8 @@ const appendMessageToChatHistory = (userSocketId, data) =>{
     }else{
         const newUserChatHistory = {
             socketId: userSocketId,
-            ChatHistory: [{
+            ChatHistory: [
+            {
                 isAuthor: data.isAuthor,
                 messageContent: data.messageContent,
                 identity: data.identity
@@ -50,4 +46,4 @@ const appendMessageToChatHistory = (userSocketId, data) =>{
 
         store.dispatch(setDirectChatHistory(newChatHistory));
     }
-}
+};

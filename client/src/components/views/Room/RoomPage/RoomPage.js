@@ -1,17 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import ChatSection from './ChatSection/ChatSection';
 import ParticipantsSection from './ParticipantsSection/ParticipantsSection';
 import VideoSection from './VideoSection/VideoSection';
 import RoomLabel from './RoomLabel';
-import { connect} from 'react-redux';
+import {connect} from 'react-redux';
 import * as webRTCHandler from '../utils/webRTCHandler';
 import Overlay from './Overlay';
-//import Dictaphone from './Stt/Dictaphone';
-
+import Sttsection from './Stt/SttSection'
+import { isBrowser } from 'react-device-detect';
 import './RoomPage.css';
+import { useCookies } from "react-cookie";
 
-const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio  }) => {
-      
+const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAudio, roomNameValue, myRoomId }) => {
+    const [cookies] = useCookies();
+    const user_seq = cookies.user_seq;
+    console.log("RoomPage roomId::: "+roomId )
+    console.log("RoomPage myRoomId:::"+myRoomId)
+    
     useEffect(() => {
         if(!isRoomHost && !roomId){
             const siteUrl = window.location.origin; // get current url
@@ -21,21 +27,26 @@ const RoomPage = ({ roomId, identity, isRoomHost, showOverlay, connectOnlyWithAu
                 isRoomHost,
                 identity,
                 roomId,
-                //showOverlay,
-                connectOnlyWithAudio
+                connectOnlyWithAudio,
+                user_seq,
+                roomNameValue,
+                myRoomId
             );
         }
     }, []);
 
+    
     return (
-        <div className = 'room_container'>
-           <ParticipantsSection />
+        <div className = 'room_container' >
+           {isBrowser && <ParticipantsSection />}
            <VideoSection />
-           <ChatSection />
+           {isBrowser && <ChatSection />} 
+           <Sttsection />
            <RoomLabel roomId = {roomId} />
           {showOverlay && <Overlay />}
         </div>
     );
+    
 };
 
 const mapStoreStateToProps = (state) =>{

@@ -9,55 +9,38 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import JoinRoomPage from './components/views/Room/JoinRoomPage/JoinRoomPage';
 import RoomPage from './components/views/Room/RoomPage/RoomPage';
 import IntroductionPage from './components/views/Room/IntroductionPage/IntroductionPage';
-// import Room from './components/views/Room/Room';
-// import RoomCreate from './components/views/Room/RoomCreate/RoomCreate';
-// import RoomJoin from './components/views/Room/RoomJoin/RoomJoin';
-// import RoomAdmin from './components/views/Room/RoomCreate/RoomAdmin';
-// import RoomParticipant from './components/views/Room/RoomJoin/RoomParticipant';
+import MyRoomPage from './components/views/Myclass/MyRoomPage';
+
 import Auth from './hoc/auth'
 
-import { connectWithSocketIOServer} from './components/views/Room/utils/wss';
+import { connectWithSocketIOServer } from './components/views/Room/utils/wss';
+import DashboardApp from './components/views/Dashboard/DashboardApp/DashboardApp';
+import DashboardUser from './components/views/Dashboard/DashboardUser/DashboardUser';
+import ThemeConfig from './components/views/Dashboard/dashboard_theme';
+import GlobalStyles from './components/views/Dashboard/dashboard_theme/globalStyles';
+import ScrollToTop from './components/views/Dashboard/dashboard_components/ScrollToTop';
+import { BaseOptionChartStyle } from './components/views/Dashboard/dashboard_components/charts/BaseOptionChart';
+
 
 const AnimatedSwitch = () => {
   const location = useLocation();
 
   return (
-    // <TransitionGroup component={null}>
-    //   <CSSTransition key={location.key} classNames="fade" timeout={500}>
-    //     <Switch location={location}>
-    //     <Route exact path="/" component={Auth(MainPage, null )  } />
-    //     <Route exact path="/login" component={Auth(LoginPage, null )  } />
-    //     <Route exact path="/register" component={Auth(RegisterPage, null )  } />
-
-    //     <Route exact path = "/join-room" component = {Auth(JoinRoomPage, null) } />
-    //     <Route exact path ="/room" component ={Auth(RoomPage, null)} />
-    //     <Route exact path ="/intro" component = {Auth(IntroductionPage, null)} />
-
-    //     {/* <Route exact path="/room" component={Auth(Room, null )  } />
-    //     <Route exact path="/roomcreate" component={Auth(RoomCreate, null )  } />
-    //     <Route exact path="/RoomJoin" component={Auth(RoomJoin, null )  } />
-    //     <Route exact path="/RoomAdmin" component={Auth(RoomAdmin, null )  } />
-    //     <Route exact path="/RoomParticipant" component={Auth(RoomParticipant, null )  } /> */}
-    //     </Switch>
-    //   </CSSTransition>
-    // </TransitionGroup>
-
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
         <Switch location={location}>
-        <Route exact path="/" component={MainPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/login" component={Auth(LoginPage, false)} />
+          <Route exact path="/register" component={Auth(RegisterPage, false)} />
 
-        <Route exact path = "/join-room" component = {JoinRoomPage} />
-        <Route exact path ="/room" component ={RoomPage} />
-        <Route exact path ="/intro" component = {IntroductionPage} />
+          <Route exact path="/join-room" component={Auth(JoinRoomPage, true)} />
+          <Route exact path="/room" component={Auth(RoomPage, true)} />
+          <Route exact path="/intro" component={Auth(IntroductionPage, true)} />
 
-        {/* <Route exact path="/room" component={Auth(Room, null )  } />
-        <Route exact path="/roomcreate" component={Auth(RoomCreate, null )  } />
-        <Route exact path="/RoomJoin" component={Auth(RoomJoin, null )  } />
-        <Route exact path="/RoomAdmin" component={Auth(RoomAdmin, null )  } />
-        <Route exact path="/RoomParticipant" component={Auth(RoomParticipant, null )  } /> */}
+          <Route exact path="/myclass" component={Auth(MyRoomPage,true)} />
+
+          <Route exact path="/dashboard/app" component={Auth(DashboardApp,true,true)} />
+          <Route exact path="/dashboard/user" component={Auth(DashboardUser,true,true)} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>
@@ -65,13 +48,18 @@ const AnimatedSwitch = () => {
 };
 
 function App() {
-  useEffect(()=>{
+  useEffect(() => {
     connectWithSocketIOServer();
   }, []);
 
   return (
     <BrowserRouter>
-      <AnimatedSwitch />
+      <ThemeConfig>
+        <ScrollToTop />
+        <GlobalStyles />
+        <BaseOptionChartStyle />
+        <AnimatedSwitch />
+      </ThemeConfig>
     </BrowserRouter>
   );
 }
