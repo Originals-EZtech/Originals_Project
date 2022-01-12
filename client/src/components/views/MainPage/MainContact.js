@@ -3,6 +3,7 @@ import Footer from '../Footer/Footer';
 
 function MainContact() {
 
+    
     const footerStyle={
         position: "absolute",
         bottom: 0,
@@ -10,6 +11,7 @@ function MainContact() {
     }
 
     return (
+        
         <>
         {/* 팀원 소개 */}
         <section id="contact">
