@@ -41,6 +41,7 @@ const AnimatedSwitch = () => {
 
           <Route exact path="/dashboard/app" component={Auth(DashboardApp,true,true)} />
           <Route exact path="/dashboard/user" component={Auth(DashboardUser,true,true)} />
+          <Route exact path="/dashboard/userlog" component={Auth(DashboardUser,true,true)} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>
