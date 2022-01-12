@@ -42,10 +42,11 @@ const SingleParticipant = (props) => {
     console.log(checkMessageSign);
     let showParti;
     let showHost;
+    let showCheck;
     if(participant.socketId !== socketId){
         showParti=(
             <>
-                <p style= {checkMessageSign ? {backgroundColor: "#29ca8e"} : null} className = 'participants_paragraph' onClick={handleOpenActiveChatbox}>{identity}</p>
+                <p className = 'participants_paragraph' onClick={handleOpenActiveChatbox}>{identity}</p>
                 {!lastItem && <span className = 'participants_separator_line'></span>}
             </>
         )
@@ -83,6 +84,7 @@ const SingleParticipant = (props) => {
         <> 
             {showParti}
             {showHost}
+            {showCheck}
         </>
   );
 
