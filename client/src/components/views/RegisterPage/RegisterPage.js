@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css"
 import Timer from '../../../hoc/authTimer';
 import { authEmail, fileUpload, registerUser, setActiveChat } from '../../../redux/actions/actions';
 import store from '../../../redux/store/store';
+import { Icon } from '@iconify/react';
+import infoFill from '@iconify/icons-ant-design/info-circle-filled';
 
 function Register(props) {
     const { registerUserAction, authEmailAction, fileUploadAction } = props;
@@ -23,6 +25,7 @@ function Register(props) {
     const [AuthEmailSuccess, setAuthEmailSuccess] = useState(false);
     const [Time, setTime] = useState(false);
     const [isTeacher, setTeacher] = useState(false);
+    const [isStudent, setStudent] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
 
     // 정규식 메세지 상태
@@ -46,11 +49,11 @@ function Register(props) {
         if (event.target.value.length < 1) {
             setEmailMessage('')
         } else if (!emailRegex.test(event.target.value)) {
-            setEmailMessage('이메일 형식을 확인해주세요')
+            setEmailMessage('이메일 형식이 맞지 않습니다')
         } else if(event.target.value.length>25){
-            setEmailMessage('이메일 길이는 최대 25글자 이내로 사용하세요.')
+            setEmailMessage('이메일 길이는 최대 25글자 이내입니다')
         } else {
-            setEmailMessage('올바른 이메일 형식 - 인증을 진행해주세요 ')
+            setEmailMessage('올바른 이메일 형식 - 인증이 필요합니다')
         }
     }
 
@@ -58,7 +61,7 @@ function Register(props) {
         setName(event.target.value)
 
         if (event.target.value.length > 15) {
-            setNameMessage('이름의 길이는 최대 15글자 이내로 사용하세요.')
+            setNameMessage('이름 길이는 최대 15글자 이내입니다')
         }
     }
 
@@ -70,9 +73,9 @@ function Register(props) {
         if (event.target.value.length < 1) {
             setPasswordMessage('')
         } else if (event.target.value.length > 16 || !passwordRegex.test(event.target.value) || event.target.value.length < 8) {
-            setPasswordMessage('8~16자 영문, 숫자를 사용하세요.')
+            setPasswordMessage('8~16자 영문, 숫자를 사용해야 합니다')
         } else {
-            setPasswordMessage('올바른 비밀번호 형식이에요')
+            setPasswordMessage('올바른 비밀번호 형식입니다')
         }
     }
 
@@ -81,12 +84,12 @@ function Register(props) {
 
         if (event.target.value.length < 1) {
             setConfirmPasswordMessage("")
-        }else if(PasswordMessage ==='8~16자 영문, 숫자를 사용하세요.'){
-            setConfirmPasswordMessage("8~16자 영문, 숫자를 사용하세요.")
+        }else if(PasswordMessage ==='8~16자 영문, 숫자를 사용해야 합니다'){
+            setConfirmPasswordMessage("8~16자 영문, 숫자를 사용해야 합니다")
         }else if (Password === event.target.value) {
-            setConfirmPasswordMessage("비밀번호가 일치합니다.")
+            setConfirmPasswordMessage("비밀번호가 일치합니다")
         } else {
-            setConfirmPasswordMessage("비밀번호가 틀립니다. 다시 확인해주세요")
+            setConfirmPasswordMessage("비밀번호가 틀립니다")
         }
     }
 
@@ -96,10 +99,10 @@ function Register(props) {
         if (event.target.value.length < 1) {
             setAuthCodeMessage("")
         } else if (SecurityCode === event.target.value) {
-            setAuthCodeMessage("보안코드 일치해요")
+            setAuthCodeMessage("보안코드 일치합니다")
             setTime(false);
         } else {
-            setAuthCodeMessage("보안코드가 일치하지않습니다.")
+            setAuthCodeMessage("보안코드가 일치하지 않습니다")
         }
     }
 
@@ -134,27 +137,27 @@ function Register(props) {
 
         // 입력하지 않은 값이 존재할 경우
         if (Email === "" || Password === "" || ConfirmPassword === "" || AuthCode === "" || Name === "") {
-            return toast.error("모든 값을 입력하세요");
+            return toast.error("모든 값을 입력해야 합니다");
         }
 
         // 보안코드가 일치하지 않을 경우
         if (AuthCode !== SecurityCode) {
-            return toast.error('보안코드가 일치하지 않습니다.');
+            return toast.error('보안코드가 일치하지 않습니다');
         }
 
         // 올바른 비밀번호 형식 아닐 경우
         const passwordRegex =
             /^.*((?=.*[0-9])(?=.*[a-zA-Z]){8,16}).*$/
         if (!passwordRegex.test(Password)) {
-            return toast.error('올바른 비밀번호 형식이 아닙니다.');
+            return toast.error('올바른 비밀번호 형식이 아닙니다');
         }
 
         if (Email.length >25) {
-            return toast.error('이메일 길이는 최대 25글자 이내로 사용하세요.')
+            return toast.error('이메일 길이는 최대 25글자 이내입니다')
         }
 
         if (Name.length >15) {
-            return toast.error('이름은 최대 15글자 이내로 사용하세요.')
+            return toast.error('이름은 최대 15글자 이내입니다')
         }
 
         // 입력한 비밀번호와 비밀번호 확인이 같지 않을 경우
@@ -162,7 +165,10 @@ function Register(props) {
             return toast.error('비밀번호와 비밀번호 확인은 같아야 합니다.')
         }
 
-        
+        // Student or Teacher 둘 중 아무것도 선택하지 않을 경우
+        if (!isStudent && !isTeacher) {
+            return toast.error('오른쪽 상단의 Student / Teacher 중 하나를 선택해야 합니다')
+        }
 
         // 회원가입시 보내줄 body 데이터를 학생 / 선생님 구분해서 서버로 전송
         let body = {}
@@ -192,7 +198,7 @@ function Register(props) {
 
         // Teacher 체크박스에 체크만 하고 첨부파일 올리지 않을 경우
         if (isTeacher && (selectedFile === null)) {
-            return toast.error('첨부파일을 확인해주세요.')
+            return toast.error('재직증명서를 업로드해야 합니다')
         }
         
         // user 테이블에 data 먼저 insert
@@ -213,19 +219,15 @@ function Register(props) {
         })
     }
 
-    // 체크박스 체크여부 확인
-    const checkboxHandler = (event) => {
-        //이메일(아이디) 입력X 또는 이메일(아이디) 인증X 인 경우
-        if (Email === "" || !AuthEmailSuccess || AuthCodeMessage !== "보안코드 일치해요") {
-            event.target.checked = false;
-            return toast.error("이메일 인증을 먼저 진행해주세요.");
-        }
+    // 회원가입시 권한 제어
+    const checkStudent = () => {
+        setStudent(true);
+        setTeacher(false);
+    }
 
-        if (event.target.checked) {
-            setTeacher(true);
-        } else {
-            setTeacher(false);
-        }
+    const checkTeacher = () => {
+        setTeacher(true);
+        setStudent(false);
     }
 
     // 파일업로드 관련 함수
@@ -233,7 +235,7 @@ function Register(props) {
         setSelectedFile(event.target.files[0]);
     }
 
-    const handleFileUpload = (event) => {
+    const handleFileUpload = () => {
 
         const body = {
             email: Email,
@@ -314,33 +316,42 @@ function Register(props) {
                         {/* <br /> */}
                         <input type="submit" className={styles.btn} value="SIGN UP" />
 
-                        <br />
+                        <div style={{paddingTop: 5}} />
                         <Link to="/login" className={styles.btn_signup} ><span>One of Us?</span></Link>
                     </form>
 
                     <div className={styles.authDiv}>
+                        <div className={styles.checkRole}>
+                            <div>
+                                <span 
+                                    className={styles.roleStudent} 
+                                    onClick={checkStudent}
+                                    style={isStudent ? {backgroundColor:"#2deebed0", borderRadius:10} : null}
+                                >Student</span> 
+                                &nbsp; / &nbsp; 
+                                <span 
+                                    className={styles.roleTeacher} 
+                                    onClick={checkTeacher}
+                                    style={isTeacher ? {backgroundColor:"#2deebed0", borderRadius:10} : null}
+                                >Teacher</span>
+                            </div>
+                        </div>
                         <div className={styles.authentication}>
                             <button onClick={authEmailHandler} className={styles.authBtn}>Authentication</button>
                             {Time ? <Timer mm={1} ss={0} /> : null}
                         </div>
-                        <div className={styles.checkRole}>
-                            <label className={styles.checkbox_container}>
-                                <input type="checkbox" value={isTeacher} onChange={checkboxHandler} />
-                                <span>Teacher?</span><br/>
-                                <span className={styles.checkmark}></span>
-                            </label>
-                        </div>
                         {
                             isTeacher
                             ?
-                            <div style={{display:"block"}}>
-                                <form onSubmit={handleFileUpload}>
-                                    <input type="file" name="image" accept="image/*" onChange={handleFileChange}/>
-                                </form>
+                            <div>
+                                <label className={styles.uploadFile} for="input-file">
+                                    <span>재직증명서를 업로드</span>
+                                    <input type="file" id="input-file" name="image" accept="image/*" onChange={handleFileChange} />
+                                </label>
+                                <Icon icon={infoFill} style={{width: 24, height: 24, cursor: "pointer"}} onClick={() => toast.info('선생님은 재직증명서를 업로드 해야 웹 사이트 정상 이용이 가능합니다.')}/>
                             </div>
                             : null
                         }
-
                     </div>
                 </div>
                 <div className={styles.img}>

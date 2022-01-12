@@ -14,55 +14,6 @@ function doRelease(connection) {
         }
     });
 }
-// router.post("/roomcreatedata_test", (req, res) => {
-//     const insertarray = [req.body.room_name]
-//     //테이블에 방 이름 방 비밀번호 입력 
-//     oracledb.getConnection(dbConfig, (err, conn) => {
-//         roomNameInsert(err, conn);
-//     });
-//         function roomNameInsert(err, connection) {
-//             if (err) {
-//                 console.error(err.message);
-//                 console.log("데이터 가져오기 실패");
-//                 return;
-//             }
-//             connection.execute("insert into room_table (ROOM_SEQ,ROOM_ID,USER_ID,ROOM_NAME,ROOM_DATE) values(ROOM_SEQ.NEXTVAL,:room_id,9,:room_name,SYSDATE)", insertarray, function (err, result) {
-//                 if (err) {
-//                     console.error(err.message);
-//                     doRelease(connection);
-//                     return;
-//                 }
-//                 res.send(result);
-//                 doRelease(connection);
-//             });
-//     }
-// });
-
-
-// router.post("/roomjoindata_test", (req, res) => {
-//     const insertarray = [req.body.room_id, req.body.room_name]
-//     //테이블에 방 이름 방 비밀번호 입력 
-//     oracledb.getConnection(dbConfig, (err, conn) => {
-//         roomNameInsert(err, conn);
-//     });
-//         function roomNameInsert(err, connection) {
-//             if (err) {
-//                 console.error(err.message);
-//                 console.log("데이터 가져오기 실패");
-//                 return;
-//             }
-//             connection.execute("insert into room_table (ROOM_SEQ,ROOM_ID,USER_ID,ROOM_NAME,ROOM_DATE) values(ROOM_SEQ.NEXTVAL,:room_id,9,:room_name,SYSDATE)", insertarray, function (err, result) {
-//                 if (err) {
-//                     console.error(err.message);
-//                     doRelease(connection);
-//                     return;
-//                 }
-//                 res.send(result);
-//                 doRelease(connection);
-//             });
-//     }
-// });
-
 
 
 router.post("/roomlist_2", (req, res) => {
@@ -79,14 +30,15 @@ router.post("/roomlist_2", (req, res) => {
             //{outFormat:oracledb.OBJECT} => 칼럼명을 오프잭트마다 제이슨 형식으로 이름 부여해주기
             // 참고링크 https://gaemi606.tistory.com/entry/Nodejs-Oracle-%EC%97%B0%EB%8F%99-npm-oracledb
             // 참고링크 오라클 공식문서 http://oracle.github.io/node-oracledb/doc/api.html
-            connection.execute("SELECT ROOM_ID,USER_SEQ,ROOM_NAME,ROOM_DATE FROM ROOM_TABLE WHERE USER_SEQ=:user_seq ORDER BY ROOM_DATE DESC", selectarray,{outFormat:oracledb.OBJECT}, function (err, result) {
+            connection.execute("SELECT ROOM_ID,USER_SEQ,ROOM_NAME,TO_CHAR(ROOM_DATE + 9/24, 'YYYY/MM/DD  DAY HH24:MI:SS')AS ROOM_DATE FROM ROOM_TABLE WHERE USER_SEQ=:user_seq ORDER BY ROOM_DATE DESC", selectarray, {outFormat:oracledb.OBJECT}, function (err, result) {
+            console.log("result.rows[0].ROOM_DATE ::: "+result.rows[0].ROOM_DATE)    
                 if (err) {
                     console.error(err.message);
                     doRelease(connection);
                     return;
                 }
                 res.send(result);
-                //console.log("result.rows.room_id"+result.rows[0].ROOM_NAME)
+                console.log("resul 89 line"+result.rows[0].ROOM_DATE)
                 doRelease(connection);
             });
     }
@@ -113,7 +65,6 @@ router.post("/roomjoinlist_2", (req, res) => {
                     return;
                 }
                 res.send(result);
-                //console.log("result.rows.room_id"+result.rows[0].ROOM_NAME)
                 doRelease(connection);
             });
     }

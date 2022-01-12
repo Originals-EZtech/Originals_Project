@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React from 'react';
 import Footer from '../Footer/Footer';
 
@@ -44,21 +45,19 @@ function MainContact() {
                             </div>
                             <ul class="social-icon">
                                 <li><a href="https://github.com/mintorca" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-6">
                         <div class="team-thumb">
                             <div class="team-image">
-                                <img src="assets/images/author-image3.jpg" class="img-responsive" alt="" />
+                                <img src="assets/images/mingi.jpg" class="img-responsive" alt="" />
                             </div>
                             <div class="team-info">
                                 <h3>Min Gi</h3>
                             </div>
                             <ul class="social-icon">
-                                <li><a href="" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
+                                <li><a href="!#" class="fab fa-github"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -72,7 +71,6 @@ function MainContact() {
                             </div>
                             <ul class="social-icon">
                                 <li><a href="https://github.com/johney-suk" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
@@ -86,7 +84,6 @@ function MainContact() {
                             </div>
                             <ul class="social-icon">
                                 <li><a href="https://github.com/nagggyung" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>
@@ -100,7 +97,6 @@ function MainContact() {
                             </div>
                             <ul class="social-icon">
                                 <li><a href="https://github.com/ynsseon07" class="fab fa-github"></a></li>
-                                {/* <li><a href="" class="fa fa-instagram"></a></li> */}
                             </ul>
                         </div>
                     </div>

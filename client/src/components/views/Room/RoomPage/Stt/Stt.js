@@ -26,7 +26,6 @@ const Dictaphone = ({socketId}) => {
     }
     
     const stop=()=>{
-      //console.log(transcript);
       setnow(now => !now);
       SpeechRecognition.abortListening();
       resetTranscript();
@@ -38,8 +37,6 @@ const Dictaphone = ({socketId}) => {
 
     const sendToAll = (transcript)=>{
       //const users = participants.filter(participant => participant.socketId !== socketId);
-      //console.log(socketId);
-      //console.log(participants);
       if(now === true){
         wss.sendSTT({
           socketId,
@@ -80,7 +77,6 @@ const Dictaphone = ({socketId}) => {
   };
   
   const mapStoreStateToProps = (state) =>{
-    //console.log(state);
     return {
         ...state
     }

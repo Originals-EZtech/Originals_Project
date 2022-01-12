@@ -26,8 +26,11 @@ const NewMessage = ({activeConversation, identity})=>{
     };
 
     const handleTextChange = (event)=>{
+<<<<<<< HEAD
         //console.log(event.target.value);
         store.dispatch(setCheckMessageSign(false));
+=======
+>>>>>>> 691781935d57eedc96b3a7ac2f5fed9e99f7c48f
         setMessage(event.target.value);
     }
 
@@ -37,7 +40,6 @@ const NewMessage = ({activeConversation, identity})=>{
             sendMessage();
         }
     }
-    //console.log(message);
     return (
         
         <div className= 'new_message_container new_message_direct_border'>

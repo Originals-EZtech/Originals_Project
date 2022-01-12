@@ -1,8 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 
 const SingleMessage = ({messageContent, isAuthor}) =>{
-    //console.log(isAuthor);
-    //console.log(messageContent);
+
     const messageStyling = isAuthor
     ? 'author_direct_message'
     :'receiver_direct_message'; 
@@ -30,7 +29,6 @@ const MessagesContainer = ({messages}) =>{
     }, [
         messages
     ]);
-    //console.log(messages);
 
         return (
             <div className='direct_messages_container'>
