@@ -22,7 +22,6 @@ function JoinRoomComponent() {
         );
     }
     else{
-        // console.log(cookies.user_role);
         return (
             <div className="myall">
                 <div className="mycalss_room_conta">

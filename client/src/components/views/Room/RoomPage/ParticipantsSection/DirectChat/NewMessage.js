@@ -20,7 +20,6 @@ const NewMessage = ({activeConversation, identity})=>{
     };
 
     const handleTextChange = (event)=>{
-        //console.log(event.target.value);
         setMessage(event.target.value);
     }
 
@@ -30,7 +29,6 @@ const NewMessage = ({activeConversation, identity})=>{
             sendMessage();
         }
     }
-    //console.log(message);
     return (
         
         <div className= 'new_message_container new_message_direct_border'>

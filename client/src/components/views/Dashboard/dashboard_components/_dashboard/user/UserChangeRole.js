@@ -15,7 +15,6 @@ function UserChangeRole (props) {
 
     const changeRole = (user) => {
         let body = { email: user.USER_EMAIL }
-        console.log("on chagerole click", body)
         chartInfoService.changeRole(body)
         .then();
         toast.success(" 승인처리 되었습니다.");
