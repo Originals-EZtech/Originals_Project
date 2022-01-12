@@ -25,7 +25,9 @@ const Actions ={
     SET_GOTFILE: "SET_GOTFILE",
     SET_ROOMNAMEVALUE:"SET_ROOMNAMEVALUE",
     SET_MYROOMID:"SET_MYROOMID",
-    SET_ACTIVE_CHAT: "SET_ACTIVE_CHAT"
+    SET_ACTIVE_CHAT: "SET_ACTIVE_CHAT",
+    SET_CHECK_MESSAGE:"SET_CHECK_MESSAGE",
+    SET_CHECK_MESSAGE_SIGN: "SET_CHECK_MESSAGE_SIGN"
 };
 
 export const setIsRoomHost = (isRoomHost) => {
@@ -234,6 +236,20 @@ export const setMyRoomId = (myRoomId) => {
     return {
         type: Actions.SET_MYROOMID,
         myRoomId,
+    }
+}
+
+export const setCheckMessage = (checkMessage) =>{
+    return {
+        type: Actions.SET_CHECK_MESSAGE,
+        checkMessage,
+    }
+}
+
+export const setCheckMessageSign = (checkMessageSign) =>{
+    return{
+        type: Actions.SET_CHECK_MESSAGE_SIGN,
+        checkMessageSign
     }
 }
 
