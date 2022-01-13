@@ -13,7 +13,10 @@ const SwitchToScreenSharingButton = () =>{
     const [isScreenSharingActive, setIsScreenSharingActive] = useState(false);
     const [screenSharingStream, setScreenSharingStream] = useState(null);
 
-
+//질문 1. 버튼을 만들었다면 어떤 메커니즘으로 그것이 실행되느냐?
+//질문 2. 화면공유는 어떠한 라이브러리를 사용했는가?
+//질문 3. 쿠키에 대한 근본적인 질문. 쿠키란 무엇이고 그걸 왜 거기서 써서 그렇게 했는가?
+//질문 4. 
     const handleScreenShareToggle = async() =>{
         if(!isScreenSharingActive){
             let stream = null;
