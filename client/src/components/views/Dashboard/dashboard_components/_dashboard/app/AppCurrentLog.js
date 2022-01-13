@@ -5,11 +5,39 @@ import { Card, CardHeader, Box } from '@mui/material';
 //
 import { BaseOptionChart } from '../../charts';
 import moment from 'moment';
+import { useEffect, useState } from 'react';
+import chartInfoService from '../../../DashboardApp/service/chartInfoService';
 
 // ----------------------------------------------------------------------
 
 
+
+
 export default function AppCurrentLog() {
+
+  const initState = {
+    "errorA": [0],
+    "errorB": [0],
+    "errorC": [0],
+    "errorD": [0],
+    "errorE": [0],
+    "errorF": [0],
+    "errorG": [0],
+    "errorH": [0],
+    "errorI": [0],
+    "errorJ": [0],
+    "errorK": [0]
+  }
+  
+  const [errorLogCount, setErrorLogCount] = useState(initState);
+
+  console.log("errorLogCount",errorLogCount.errorA)
+
+  useEffect(() => {
+    chartInfoService.getErrorLogCount().then(res =>{
+      setErrorLogCount(res.data);
+    })  
+  }, [])
 
   const CHART_DATA = [
     // {
@@ -20,7 +48,7 @@ export default function AppCurrentLog() {
     {
       name: '가입자수',
       type: 'column',
-      data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+      data: [errorLogCount.errorA, errorLogCount.errorB, errorLogCount.errorC, errorLogCount.errorD, errorLogCount.errorE, errorLogCount.errorF, errorLogCount.errorG, errorLogCount.errorH, errorLogCount.errorI, errorLogCount.errorJ, errorLogCount.errorK]
     },
     // {
     //   name: '방문자수',

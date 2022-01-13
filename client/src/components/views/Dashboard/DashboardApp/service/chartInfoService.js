@@ -63,7 +63,11 @@ const chartInfoService = () => {
         const result = await axios.get('/api/log/errorlog')
         return result;
     }
+    const getErrorLogCount = async () => {
+        const result = await axios.get('/api/log/errorlogcount')
+        return result;
+    }
 
-    return {getUserTotal, getVisitorTotal, getRoomsTotal, getUsersCount, getPermitList, changeRole, getVisitorCount,getVisitorlist, getSignUpList,getRoomUpList,getUsageTime, getUserloglist, getErrorloglist}
+    return {getUserTotal, getVisitorTotal, getRoomsTotal, getUsersCount, getPermitList, changeRole, getVisitorCount,getVisitorlist, getSignUpList,getRoomUpList,getUsageTime, getUserloglist, getErrorloglist,getErrorLogCount}
 }
 export default chartInfoService();
