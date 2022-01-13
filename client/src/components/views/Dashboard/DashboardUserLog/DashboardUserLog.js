@@ -53,7 +53,6 @@ const initState = {
 function DashboardUserLog(props) {
   const { open, sideOpenAction } = props;
   const [userlog, setUserLog] = useState(initState);
-  console.log("userlog", userlog)
   useEffect(() => {
     sideOpenAction(false);
     chartInfoService.getUserloglist().then(res => {
@@ -130,9 +129,9 @@ function DashboardUserLog(props) {
               Request
             </Typography>
           </Stack>
-          <Card style={{maxHeight:400}}>
+          <Card style={{maxHeight:600}}>
             <Scrollbar>
-              <TableContainer sx={{ minWidth: 500 ,maxHeight: 400 ,overflow: "scroll" }}>
+              <TableContainer sx={{ minWidth: 500 ,maxHeight: 600 ,overflow: "scroll" }}>
                 <Table>
                   <UserListHead
                     headLabel={TABLE_HEAD}
