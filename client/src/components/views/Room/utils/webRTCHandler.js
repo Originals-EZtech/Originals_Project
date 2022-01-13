@@ -17,7 +17,7 @@ const defaultConstraints = {
 
 const onlyAudioConstraints ={
     audio: true,
-    video: false
+    video: false,
 };
 
 let localStream;

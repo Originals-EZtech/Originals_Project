@@ -14,7 +14,7 @@ function Login(props) {
  
     
 
-    window.onpopstate = function (event) { props.history.go(1);};
+    window.onpopstate = function (event) { props.history.go(1); };
     // const dispatch = useDispatch();
 
     const { loginUserAction } = props;
