@@ -90,7 +90,7 @@ export default function AppCurrentLog() {
 
   return (
     <Card>
-      <CardHeader title="Website Visits" subheader="Error Log Monitoring" />
+      <CardHeader title="Error Log" subheader="Error Log Monitoring" />
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
         <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} height={364} />
       </Box>

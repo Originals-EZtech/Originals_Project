@@ -73,3 +73,24 @@ TypeError: Cannot read properties of undefined (reading 'rows')
 2022-01-13T11:06:40.959Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
 TypeError: Cannot read properties of undefined (reading 'rows')
     at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:140:23
+2022-01-13T11:11:19.706Z error: Error: ORA-00942: 테이블 또는 뷰가 존재하지 않습니다
+2022-01-13T11:11:19.725Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:140:23
+2022-01-13T11:13:31.698Z error: Error: ORA-00942: 테이블 또는 뷰가 존재하지 않습니다
+2022-01-13T11:13:31.712Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:138:23
+2022-01-13T11:13:55.916Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:138:23
+2022-01-13T11:14:24.984Z error: uncaughtException: Cannot read properties of undefined (reading 'log')
+TypeError: Cannot read properties of undefined (reading 'log')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:136:36
+2022-01-13T11:14:32.650Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:136:36
+2022-01-13T11:14:51.070Z error: Error: ORA-00942: 테이블 또는 뷰가 존재하지 않습니다
+2022-01-13T11:14:51.086Z error: uncaughtException: user_Ip is not defined
+ReferenceError: user_Ip is not defined
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:132:184
