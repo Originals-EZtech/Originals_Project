@@ -12,8 +12,8 @@ const constraints = {
 const SwitchToScreenSharingButton = () =>{
     const [isScreenSharingActive, setIsScreenSharingActive] = useState(false);
     const [screenSharingStream, setScreenSharingStream] = useState(null);
-    
-    
+
+
     const handleScreenShareToggle = async() =>{
         if(!isScreenSharingActive){
             let stream = null;
@@ -40,7 +40,7 @@ const SwitchToScreenSharingButton = () =>{
         }
 
         //setIsScreenSharingActive(!isScreenSharingActive);
-    
+
 };
     return(
         <>
