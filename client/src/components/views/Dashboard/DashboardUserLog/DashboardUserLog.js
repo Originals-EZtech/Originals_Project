@@ -132,7 +132,7 @@ function DashboardUserLog(props) {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h3" gutterBottom style={{fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>
-              Request for A 
+              Request
             </Typography>
           </Stack>
           <Card>

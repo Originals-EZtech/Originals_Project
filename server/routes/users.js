@@ -191,7 +191,6 @@ router.post('/imgUpload', upload.single('image'), (req, res) => {
     let image = '/api/image/' + req.file.filename;
     const param = [email, image];
 
-
     conn.execute('insert into attachment_table (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
         if (err) {
             const loging = err.toString();
@@ -243,7 +242,15 @@ router.post("/login", function (req, res) {
     }
 
     conn.execute('select USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_SEQ, USER_FLAG from USER_TABLE where USER_EMAIL = :email ', [userEmail], function (err, result) {
-        if (err) console.log("select err", err)
+        if (err) {
+            const loging = err.toString();
+            winston.error(loging)
+            conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, USER_EMAIL, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :email, :ip)", [loging, userEmail, user_Ip], function (err4, result4) {
+            })
+            res.status(200).json({
+                uploadSuccess: false, msg: "파일 업로드가 실패했습니다."
+            })
+    }
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
             res.status(200).json({
