@@ -161,3 +161,7 @@ TypeError: Cannot read properties of undefined (reading 'rows')
 2022-01-13T11:41:13.490Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
 TypeError: Cannot read properties of undefined (reading 'rows')
     at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:136:36
+2022-01-13T12:10:35.973Z error: Error: ORA-00904: "CREATDATE": 부적합한 식별자
+2022-01-13T12:10:35.993Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:136:36
