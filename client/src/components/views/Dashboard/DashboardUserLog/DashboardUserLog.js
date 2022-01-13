@@ -128,7 +128,7 @@ function DashboardUserLog(props) {
               User Log Monitoring
             </Typography>
           </Stack>
-          <Card style={{maxHeight:6500}}>
+          <Card style={{maxHeight:650}}>
             <Scrollbar>
               <TableContainer sx={{ minWidth: 500 ,maxHeight: 650 ,overflow: "scroll" }}>
                 <Table>
