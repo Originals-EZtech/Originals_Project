@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';//stt라이브러리
 import * as wss from './../../utils/wss';
-import {useCookies} from "react-cookie";
 import onbut from '../../resources/images/stt_on_icon.svg';
 import offbut from '../../resources/images/stt_off_icon.svg';
 import Stt from './Sttand';
 
 
-const Dictaphone = ({socketId}) => {
+const Dictaphone = (props) => {
     const [now,setnow]= useState(false);
-    const [cookies]=useCookies();
+    const { userRole, socketId } = props;
     const reset="";
     const {
       transcript,
@@ -54,8 +53,8 @@ const Dictaphone = ({socketId}) => {
         })
       }
      
-    }   
-    if(cookies.user_role ==='general'){
+      }   
+    if(userRole ==='general'){
       return(
         <Stt />
       );
@@ -67,12 +66,14 @@ const Dictaphone = ({socketId}) => {
           className="sttb"
           onClick={start} 
           src={now ? null:offbut}
+          alt=''
           >
           </img>
           <img
           className="sttb"
           onClick={stop} 
           src={!now ? null:onbut}
+          alt=''
           >
           </img>
           <div className="te">

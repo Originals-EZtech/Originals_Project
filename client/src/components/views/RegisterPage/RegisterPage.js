@@ -196,7 +196,7 @@ function Register(props) {
         // 학생일 경우 바로 registerUserAction 실행 후 종료
         // 선생님일 경우 아래 모두 실행
 
-        // Teacher 체크박스에 체크만 하고 첨부파일 올리지 않을 경우
+        // 선생님이 첨부파일 올리지 않을 경우
         if (isTeacher && (selectedFile === null)) {
             return toast.error('재직증명서를 업로드해야 합니다')
         }
@@ -345,7 +345,7 @@ function Register(props) {
                             ?
                             <div>
                                 <label className={styles.uploadFile} for="input-file">
-                                    <span>재직증명서를 업로드</span>
+                                    <span>재직증명서 업로드</span>
                                     <input type="file" id="input-file" name="image" accept="image/*" onChange={handleFileChange} />
                                 </label>
                                 <Icon icon={infoFill} style={{width: 24, height: 24, cursor: "pointer"}} onClick={() => toast.info('선생님은 재직증명서를 업로드 해야 웹 사이트 정상 이용이 가능합니다.')}/>

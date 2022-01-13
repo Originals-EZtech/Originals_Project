@@ -3,8 +3,10 @@ import { useCookies } from "react-cookie";
 import { connect } from 'react-redux';
 
 
-const LeaveRoomButton = ({roomId}) =>{
+const LeaveRoomButton = (props) =>{
     const [cookies] = useCookies();
+    const { userRole, roomId } = props;
+
     // this logic will allow us to redirect to that first page, introduction page
     const handleRoomDisconnection = () =>{
         const user_seq = cookies.user_seq
@@ -50,12 +52,12 @@ const LeaveRoomButton = ({roomId}) =>{
     }
     
     return <div className='video_button_container'>
-        {cookies.user_role === 'prof' &&
+        {userRole === 'prof' &&
         <button className='video_button_end' onClick={handleRoomDisconnectionProf}>
             Leave Room
         </button>
         }
-        {cookies.user_role === 'general' &&
+        {userRole === 'general' &&
         <button className='video_button_end' onClick={handleRoomDisconnection}>
             Leave Room
         </button>
