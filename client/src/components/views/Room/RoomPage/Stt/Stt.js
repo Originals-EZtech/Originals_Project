@@ -8,9 +8,10 @@ import offbut from '../../resources/images/stt_off_icon.svg';
 import Stt from './Sttand';
 
 
-const Dictaphone = ({socketId}) => {
+const Dictaphone = (props) => {
     const [now,setnow]= useState(false);
     const [cookies]=useCookies();
+    const { userRole, socketId } = props;
     const {
       transcript,
       resetTranscript,
@@ -45,7 +46,7 @@ const Dictaphone = ({socketId}) => {
       }
      
       }   
-    if(cookies.user_role ==='general'){
+    if(userRole ==='general'){
       return(
         <Stt />
       );

@@ -267,9 +267,6 @@ router.post("/login", function (req, res) {
                         } else {
                             res.cookie("refreshToken", refreshToken)
                                 .cookie("accessToken", accessToken)
-                                .cookie("user_name", result.rows[0][2])
-                                .cookie("user_email", result.rows[0][0])
-                                .cookie("user_role", result.rows[0][3])
                                 .cookie("user_seq", result.rows[0][4])
                                 .cookie("user_flag", result.rows[0][5])
                                 .status(200)

@@ -124,12 +124,10 @@ function DashboardApp(props) {
       setUsageTime(res.data);
     })
 
-    // setIsLoaded(true)
-
     setTimeout(() =>
       setIsLoaded(true)
     , 1500)
-    
+
   }, [sideOpenAction])
 
   return (
