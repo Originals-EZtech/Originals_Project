@@ -20,8 +20,7 @@ router.get("/userlog", function (req, res) {
             console.log(err);
         }
         console.log(result)
-        res.status(200).json(result.rows)
-        // res.status(200).json(result.rows[0][0])
+        res.status(200).json({list:result.rows})
     })
 });
 
