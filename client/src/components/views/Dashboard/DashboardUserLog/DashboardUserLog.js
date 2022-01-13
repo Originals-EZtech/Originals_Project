@@ -129,15 +129,9 @@ function DashboardUserLog(props) {
               Request
             </Typography>
           </Stack>
-<<<<<<< HEAD
           <Card style={{maxHeight:6500}}>
             <Scrollbar>
               <TableContainer sx={{ minWidth: 500 ,maxHeight: 650 ,overflow: "scroll" }}>
-=======
-          <Card style={{maxHeight:600}}>
-            <Scrollbar>
-              <TableContainer sx={{ minWidth: 500 ,maxHeight: 600 ,overflow: "scroll" }}>
->>>>>>> b28aa30045ddce1d90bb4271a110e057236d630e
                 <Table>
                   <UserListHead
                     headLabel={TABLE_HEAD}
