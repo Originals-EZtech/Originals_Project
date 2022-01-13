@@ -160,7 +160,7 @@ router.get("/signuplist", function (req, res) {
                 WHERE 1=1 AND USER_DATE >= SYSDATE-11 \
                 GROUP BY TO_CHAR(USER_DATE,'YYYY-MM-DD') \
                 ORDER BY LOL"
-    
+
     conn.execute(qry, function (err, result) {
         if (err) {
             console.log(err);
@@ -186,10 +186,16 @@ router.get("/roomslist", function (req, res) {
                 WHERE 1=1 AND ROOM_DATE >= SYSDATE-11  \
                 GROUP BY TO_CHAR(ROOM_DATE,'YYYY-MM-DD') \
                 ORDER BY LOL"
-    
+    const userIp = requestIp.getClientIp(req)
+    const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
+
+
     conn.execute(qry, function (err, result) {
         if (err) {
-            console.log(err);
+            const loging = err.toString();
+            winston.error(loging)
+            conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :ip)", [loging, req.body.email, user_Ip], function (err4, result4) {
+            })
         }
         res.json({
             roomA: result.rows[0][0],
@@ -237,6 +243,15 @@ router.get("/usertest", function (req, res) {
 
 // 화상채팅 사용 시간
 router.get("/usagetime", function (req, res) {
+    conn.execute("select SUM(round((LEAVEROOM_DATE - ROOM_DATE)*24*60)) from ROOM_TABLE", function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.status(200).json(result.rows[0][0])
+    })
+});
+
+router.get("/errorlogcount", function (req, res) {
     conn.execute("select SUM(round((LEAVEROOM_DATE - ROOM_DATE)*24*60)) from ROOM_TABLE", function (err, result) {
         if (err) {
             console.log(err);

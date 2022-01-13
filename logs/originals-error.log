@@ -37,3 +37,9 @@ TypeError: Cannot read properties of undefined (reading 'rows')
 2022-01-12T11:28:58.140Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
 TypeError: Cannot read properties of undefined (reading 'rows')
     at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\users.js:56:20
+2022-01-13T04:50:10.250Z error: uncaughtException: winston.err is not a function
+TypeError: winston.err is not a function
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\users.js:19:17
+2022-01-13T06:28:02.431Z error: uncaughtException: winston.err is not a function
+TypeError: winston.err is not a function
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\users.js:19:17

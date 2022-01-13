@@ -250,7 +250,7 @@ router.post("/login", function (req, res) {
             res.status(200).json({
                 uploadSuccess: false, msg: "파일 업로드가 실패했습니다."
             })
-    }
+        }
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
             res.status(200).json({
@@ -299,16 +299,5 @@ router.post("/login", function (req, res) {
         }
     })
 });
-
-
-/**
- * 토큰으로 검증시 
- * access가 만료되었다면
- * refresh를 통해 DB에 접근해 해당유저의 email을 가져와
- * new access 발급
- * refresh가 만료되었다면
- * access를 복화시켜
- * new refresh 발급후 DB에 저장
- */
 
 module.exports = router;
