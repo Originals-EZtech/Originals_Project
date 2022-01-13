@@ -191,7 +191,6 @@ router.post('/imgUpload', upload.single('image'), (req, res) => {
     let image = '/api/image/' + req.file.filename;
     const param = [email, image];
 
-
     conn.execute('insert into attachment_table (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
         if (err) {
             const loging = err.toString();
@@ -243,7 +242,12 @@ router.post("/login", function (req, res) {
     }
 
     conn.execute('select USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_SEQ, USER_FLAG from USER_TABLE where USER_EMAIL = :email ', [userEmail], function (err, result) {
-        if (err) console.log("select err", err)
+        if (err) {
+            const loging = err.toString();
+            winston.error(loging)
+            conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, USER_EMAIL, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :email, :ip)", [loging, userEmail, user_Ip], function (err4, result4) {
+            })
+        }
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {
             res.status(200).json({
@@ -267,9 +271,6 @@ router.post("/login", function (req, res) {
                         } else {
                             res.cookie("refreshToken", refreshToken)
                                 .cookie("accessToken", accessToken)
-                                .cookie("user_name", result.rows[0][2])
-                                .cookie("user_email", result.rows[0][0])
-                                .cookie("user_role", result.rows[0][3])
                                 .cookie("user_seq", result.rows[0][4])
                                 .cookie("user_flag", result.rows[0][5])
                                 .status(200)
@@ -292,16 +293,5 @@ router.post("/login", function (req, res) {
         }
     })
 });
-
-
-/**
- * 토큰으로 검증시 
- * access가 만료되었다면
- * refresh를 통해 DB에 접근해 해당유저의 email을 가져와
- * new access 발급
- * refresh가 만료되었다면
- * access를 복화시켜
- * new refresh 발급후 DB에 저장
- */
 
 module.exports = router;

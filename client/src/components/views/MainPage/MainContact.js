@@ -57,7 +57,7 @@ function MainContact() {
                                 <h3>Min Gi</h3>
                             </div>
                             <ul class="social-icon">
-                                <li><a href="!#" class="fab fa-github"></a></li>
+                                <li><a href="https://github.com/Yoo-mingi" class="fab fa-github"></a></li>
                             </ul>
                         </div>
                     </div>
