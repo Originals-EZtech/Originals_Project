@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';//stt라이브러리
 import * as wss from './../../utils/wss';
-import {useCookies} from "react-cookie";
 import onbut from '../../resources/images/stt_on_icon.svg';
 import offbut from '../../resources/images/stt_off_icon.svg';
 import Stt from './Sttand';
@@ -10,7 +9,6 @@ import Stt from './Sttand';
 
 const Dictaphone = (props) => {
     const [now,setnow]= useState(false);
-    const [cookies]=useCookies();
     const { userRole, socketId } = props;
     const reset="";
     const {
