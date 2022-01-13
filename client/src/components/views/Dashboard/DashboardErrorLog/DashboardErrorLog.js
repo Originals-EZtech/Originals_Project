@@ -29,23 +29,24 @@ import { sideOpen } from '../../../../redux/actions/actions';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
   { id: 'Email', label: 'Email', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: 'attached', label: 'Attached', alignRight: false }
+  { id: 'Level', label: 'Level', alignRight: false },
+  { id: 'Error Message', label: 'Error Message', alignRight: false },
+  { id: 'IP Address', label: 'IP Address', alignRight: false },
+  { id: 'Issue Date', label: 'Issue Date', alignRight: false }
 ];
 
 // ----------------------------------------------------------------------
 
 const initState = {
-  permitlist: [
+  list: [
     {
-      EMAIL: "",
-      NAME: "",
-      ROLE: "",
-      FLAG: ""
+      ERRORLOG_SEQ:"",
+      ERRORLOG_LEVEL: "",
+      ERRORLOG_MESSAGE: "",
+      USER_EMAIL: "",
+      ERRORLOG_IP: "",
+      ERRORLOG_DATE: ""
     }
   ]
 }
@@ -53,12 +54,13 @@ const initState = {
 function DashboardUserLog(props) {
   const { open, sideOpenAction } = props;
 
-  const [users, setUsers] = useState(initState);
+  const [errorloglist, setErrorloglist] = useState(initState);
 
+  console.log(errorloglist)
   useEffect(() => {
     sideOpenAction(false);
-    chartInfoService.getPermitList().then(res => {
-      setUsers(res.data)
+    chartInfoService.getErrorloglist().then(res => {
+      setErrorloglist(res.data)
     })
   }, [sideOpenAction])
 
@@ -87,11 +89,11 @@ function DashboardUserLog(props) {
   /* 스타일 설정 */
 
 
-  const list = users.permitlist.map((user) => {
+  const list = errorloglist.list.map((user) => {
     
     return <TableRow
       hover
-      key={user.USER_EMAIL}
+      key={user.ERRORLOG_SEQ}
       tabIndex={-1}
     >
       <TableCell></TableCell>
@@ -99,30 +101,27 @@ function DashboardUserLog(props) {
       <TableCell component="th" scope="row" padding="none">
         <Stack direction="row" alignItems="center" spacing={2}>
           <Typography variant="subtitle2" noWrap>
-            {user.USER_NAME}
+            {user.USER_EMAIL}
           </Typography>
         </Stack>
       </TableCell>
 
       <TableCell align="left">
-        {user.USER_EMAIL}
+        {user.ERRORLOG_LEVEL}
       </TableCell>
 
       <TableCell align="left">
-        {user.USER_ROLE}
+        {user.ERRORLOG_MESSAGE}
       </TableCell>
 
       <TableCell align="left">
-        {user.USER_FLAG ? 'No' : 'Yes'}
+        {user.ERRORLOG_IP}
       </TableCell>
 
       <TableCell align="left">
-        <UserChangeRole user={user} />
+        {user.ERRORLOG_DATE}
       </TableCell>
 
-      <TableCell align="left">
-        <UserCheckFile image={user.DIRECTORY} />
-      </TableCell>
     </TableRow>
   })
 
