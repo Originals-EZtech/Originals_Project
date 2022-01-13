@@ -49,7 +49,7 @@ const initState = {
   ]
 }
 
-function DashboardUser(props) {
+function DashboardUserLog(props) {
   const { open, sideOpenAction } = props;
 
   const [users, setUsers] = useState(initState);
@@ -132,7 +132,7 @@ function DashboardUser(props) {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h3" gutterBottom style={{fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>
-              Request for Approval 
+              Request for A 
             </Typography>
           </Stack>
           <Card>
@@ -168,4 +168,4 @@ const mapActionsToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStoreStateToProps, mapActionsToProps)(DashboardUser);
+export default connect(mapStoreStateToProps, mapActionsToProps)(DashboardUserLog);
