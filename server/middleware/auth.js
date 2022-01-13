@@ -62,6 +62,7 @@ router.get('/auth', function (req, res) {
             conn.execute('SELECT USER_ROLE FROM USER_TABLE WHERE USER_EMAIL = :email', [email_user], function (err5, result5) {
                 if (err5) {
                     console.log(err5)
+                    return res.json({ isAuth: false, err: true });
                 } if (result5.rows[0][0] === 'admin') {
                     res.json({ isAuth: true, isAdmin: true })
                 } else {

@@ -1,0 +1,22 @@
+2022-01-12T10:42:34.808Z [winston-test] error: uncaughtException: Cannot create property 'Symbol(level)' on string 'listening on port(server) 4000!'
+TypeError: Cannot create property 'Symbol(level)' on string 'listening on port(server) 4000!'
+    at DerivedLogger.log (C:\Users\user\Originals-EZtech\Originals_Project\node_modules\winston\lib\winston\logger.js:214:20)
+    at Server.<anonymous> (C:\Users\user\Originals-EZtech\Originals_Project\server\index.js:18:32)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitListeningNT (node:net:1368:10)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)
+2022-01-12T10:42:42.086Z [winston-test] error: uncaughtException: Cannot create property 'Symbol(level)' on string 'listening on port(server) 4000!'
+TypeError: Cannot create property 'Symbol(level)' on string 'listening on port(server) 4000!'
+    at DerivedLogger.log (C:\Users\user\Originals-EZtech\Originals_Project\node_modules\winston\lib\winston\logger.js:214:20)
+    at Server.<anonymous> (C:\Users\user\Originals-EZtech\Originals_Project\server\index.js:18:32)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitListeningNT (node:net:1368:10)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)
+2022-01-12T10:48:10.029Z [winston-test] info: hi
+2022-01-12T10:50:51.921Z [winston-test] info: hi
+2022-01-12T10:51:11.336Z [winston-test] info: hi
+2022-01-12T10:51:43.885Z [winston-test] info: hi
+2022-01-12T10:51:52.575Z [winston-test] info: hi
+2022-01-12T10:52:09.137Z [winston-test] info: hi

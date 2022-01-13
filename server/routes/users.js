@@ -10,12 +10,13 @@ const oracledb = require('oracledb');
 const nodemailer = require('nodemailer');
 var requestIp = require('request-ip');
 var jwt = require('jsonwebtoken');
+const winston = require('../config/winston')
 oracledb.autoCommit = true;
 //oracledb connection
 var conn;
 oracledb.getConnection(dbConfig, function (err, con) {
     if (err) {
-        console.log('접속 실패', err);
+        winston.err('접속 실패', err);
         return;
     }
     conn = con;
@@ -33,10 +34,15 @@ oracledb.getConnection(dbConfig, function (err, con) {
  */
 router.post('/emailauth', (req, res) => {
     const userEmail = [req.body.email];
+    const userIp = requestIp.getClientIp(req)
+    const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
 
     conn.execute('select USER_EMAIL from USER_TABLE where USER_EMAIL = :email ', userEmail, function (err, result) {
         if (err) {
-            console.log("select error from emailauth", err)
+            const loging = err.toString();
+            winston.error(loging)
+            conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, USER_EMAIL, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :email, :ip)", [loging, req.body.email, user_Ip], function (err4, result4) {
+            })
         }
 
         // 아이디가 이미 존재한다면        
@@ -89,13 +95,13 @@ router.post('/emailauth', (req, res) => {
 });
 
 
+
 // SELECT query all users
 router.get("/list", function (req, res) {
     conn.execute("select * from user_table", [], { outFormat: oracledb.OBJECT }, function (err, result) {
         if (err) {
             console.log("조회 실패");
         }
-
         res.send(result)
     })
 });
@@ -120,6 +126,8 @@ router.get("/userList", function (req, res) {
  * 동시에 연관관계 토큰테이블에 해당 유저 email로 컬럼추가
  */
 router.post("/register", function (req, res) {
+    const userIp = requestIp.getClientIp(req)
+    const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
     //클라이언트에서 받아온 정보
     const param = [req.body.email, req.body.password, req.body.name, req.body.role, req.body.flag]
     if (param.email === '' || param.password === '' || param.name) {
@@ -133,14 +141,21 @@ router.post("/register", function (req, res) {
 
             conn.execute('INSERT INTO USER_TABLE (USER_SEQ, USER_EMAIL, USER_PASSWORD, USER_NAME, USER_ROLE, USER_FLAG) VALUES(user_seq.NEXTVAL, :email, :password, :name, :role, :flag)', param, function (err, result) {
                 if (err) {
-                    console.log(err)
+                    const loging = err.toString();
+                    winston.error(loging)
+
+                    conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, USER_EMAIL, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :email, :ip)", [loging, req.body.email, user_Ip], function (err4, result4) {
+                    })
+
                     res.status(200).json({
                         success: false, msg: "회원가입 실패하셨습니다."
                     })
                     // 토큰 칼럼생성 파트
                 } else {
                     conn.execute('INSERT INTO TOKEN_TABLE (TOKEN_SEQ, USER_EMAIL) VALUES(token_seq.NEXTVAL,:user_email)', [req.body.email], function (err2, result2) {
-                        if (err2) console.log(err2)
+                        if (err2) {
+                            console.log(err2)
+                        }
                     })
                     res.status(200).json({
                         success: true, msg: "회원가입 되셨습니다."
@@ -149,9 +164,9 @@ router.post("/register", function (req, res) {
                     const userIp = requestIp.getClientIp(req)
                     const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
 
-                    conn.execute("INSERT INTO USERLOG_TABLE (USERLOG_SEQ, USERLOG_ACTION, USER_EMAIL, USERLOG_IP) VALUES(USERLOG_SEQ.NEXTVAL, 'SIGN-UP' , :email, :ip)", [req.body.email,user_Ip], function (err3, result3) {
-                        if(err3) {console.log(err3)}
-                        else{
+                    conn.execute("INSERT INTO USERLOG_TABLE (USERLOG_SEQ, USERLOG_ACTION, USER_EMAIL, USERLOG_IP) VALUES(USERLOG_SEQ.NEXTVAL, 'SIGN-UP' , :email, :ip)", [req.body.email, user_Ip], function (err3, result3) {
+                        if (err3) { console.log(err3) }
+                        else {
                             console.log(result3)
                         }
                     })
@@ -179,7 +194,10 @@ router.post('/imgUpload', upload.single('image'), (req, res) => {
 
     conn.execute('insert into attachment_table (USER_EMAIL, DIRECTORY) values(:email, :dir)', param, function (err, result) {
         if (err) {
-            console.log(err);
+            const loging = err.toString();
+            winston.error(loging)
+            conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, USER_EMAIL, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :email, :ip)", [loging, email, user_Ip], function (err4, result4) {
+            })
             res.status(200).json({
                 uploadSuccess: false, msg: "파일 업로드가 실패했습니다."
             })
@@ -209,9 +227,9 @@ router.post('/imgUpload', upload.single('image'), (req, res) => {
  * access는 refresh 비해 짧은 유효시간을 가져
  * 계속해서 refresh에 의존해 이후 검증 파트에서 재발급 받는 구조
  */
- 
+
 var requestIp = require('request-ip');
- router.post("/login", function (req, res) {
+router.post("/login", function (req, res) {
 
     const userIp = requestIp.getClientIp(req)
     const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
@@ -255,12 +273,12 @@ var requestIp = require('request-ip');
                                 .cookie("user_seq", result.rows[0][4])
                                 .cookie("user_flag", result.rows[0][5])
                                 .status(200)
-                                .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], role:result.rows[0][3], msg: userEmail + " 로그인 성공" })
+                                .json({ loginSuccess: true, email: userEmail, name: result.rows[0][2], role: result.rows[0][3], msg: userEmail + " 로그인 성공" })
                         }
                     })
-                    conn.execute("INSERT INTO USERLOG_TABLE (USERLOG_SEQ, USERLOG_ACTION, USER_EMAIL, USERLOG_IP) VALUES(USERLOG_SEQ.NEXTVAL, 'SIGN-IN' , :email, :ip)", [userEmail,user_Ip], function (err3, result3) {
-                        if(err3) {console.log(err3)}
-                        else{
+                    conn.execute("INSERT INTO USERLOG_TABLE (USERLOG_SEQ, USERLOG_ACTION, USER_EMAIL, USERLOG_IP) VALUES(USERLOG_SEQ.NEXTVAL, 'SIGN-IN' , :email, :ip)", [userEmail, user_Ip], function (err3, result3) {
+                        if (err3) { console.log(err3) }
+                        else {
                             console.log(result3)
                         }
                     })
