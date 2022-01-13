@@ -13,17 +13,16 @@ import {
   TableContainer,
   Grid,
 } from '@mui/material';
-import { AppWebsiteVisits } from '../dashboard_components/_dashboard/app';
 import { styled } from '@mui/material/styles';
 // components
 import Scrollbar from '../dashboard_components/Scrollbar';
-import { UserListHead, UserCheckFile, UserChangeRole } from '../dashboard_components/_dashboard/user';
-
+import { UserListHead } from '../dashboard_components/_dashboard/user';
 import DashboardNavbar from '../dashboard_layouts/DashboardNavbar';
 import DashboardSidebar from '../dashboard_layouts/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
 import { ToastContainer } from 'react-toastify';
 import { sideOpen } from '../../../../redux/actions/actions';
+import AppCurrentLog from '../dashboard_components/_dashboard/app/AppCurrentLog';
 
 
 // ----------------------------------------------------------------------
@@ -41,7 +40,7 @@ const TABLE_HEAD = [
 const initState = {
   list: [
     {
-      ERRORLOG_SEQ:"",
+      ERRORLOG_SEQ: "",
       ERRORLOG_LEVEL: "",
       ERRORLOG_MESSAGE: "",
       USER_EMAIL: "",
@@ -90,7 +89,7 @@ function DashboardUserLog(props) {
 
 
   const list = errorloglist.list.map((user) => {
-    
+
     return <TableRow
       hover
       key={user.ERRORLOG_SEQ}
@@ -132,13 +131,14 @@ function DashboardUserLog(props) {
       <MainStyle>
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-            <Typography variant="h3" gutterBottom style={{fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>
-              Error Log
+            <Typography variant="h3" gutterBottom style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif" }}>
+              Error Log Monitoring
             </Typography>
           </Stack>
-          <Card style={{maxHeight:400}}>
+        <AppCurrentLog />
+          <Card style={{ maxHeight: 400 }}>
             <Scrollbar>
-              <TableContainer sx={{ minWidth: 800 ,maxHeight:500 ,overflow:"scroll"}}>
+              <TableContainer sx={{ minWidth: 800, maxHeight: 500, overflow: "scroll" }}>
                 <Table>
                   <UserListHead
                     headLabel={TABLE_HEAD}
@@ -150,7 +150,7 @@ function DashboardUserLog(props) {
               </TableContainer>
             </Scrollbar>
           </Card>
-          
+
         </Container>
       </MainStyle>
       <ToastContainer hideProgressBar={true} />
@@ -158,15 +158,15 @@ function DashboardUserLog(props) {
   );
 }
 
-const mapStoreStateToProps = (state) =>{
+const mapStoreStateToProps = (state) => {
   return {
-      ...state,
+    ...state,
   }
 }
 
 const mapActionsToProps = (dispatch) => {
   return {
-      sideOpenAction: (open) => dispatch(sideOpen(open))
+    sideOpenAction: (open) => dispatch(sideOpen(open))
   }
 }
 
