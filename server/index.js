@@ -10,6 +10,7 @@ app.use(express.json());
 app.use('/api/users', require('./routes/users'));
 app.use('/api/data2', require('./routes/rooms'));
 app.use('/api/chart', require('./routes/chartinfo'));
+app.use('/api/log', require('./routes/log'));
 app.use('/api/image', express.static('./upload'));
 app.use('/api/auth', require('./middleware/auth'));
 
