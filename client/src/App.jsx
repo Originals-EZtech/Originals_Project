@@ -16,6 +16,8 @@ import Auth from './hoc/auth'
 import { connectWithSocketIOServer } from './components/views/Room/utils/wss';
 import DashboardApp from './components/views/Dashboard/DashboardApp/DashboardApp';
 import DashboardUser from './components/views/Dashboard/DashboardUser/DashboardUser';
+import DashboardUserLog from './components/views/Dashboard/DashboardUserLog/DashboardUserLog';
+import DashboardErrorLog from './components/views/Dashboard/DashboardErrorLog/DashboardErrorLog';
 import ThemeConfig from './components/views/Dashboard/dashboard_theme';
 import GlobalStyles from './components/views/Dashboard/dashboard_theme/globalStyles';
 import ScrollToTop from './components/views/Dashboard/dashboard_components/ScrollToTop';
@@ -41,7 +43,8 @@ const AnimatedSwitch = () => {
 
           <Route exact path="/dashboard/app" component={Auth(DashboardApp,true,true)} />
           <Route exact path="/dashboard/user" component={Auth(DashboardUser,true,true)} />
-          <Route exact path="/dashboard/userlog" component={Auth(DashboardUser,true,true)} />
+          <Route exact path="/dashboard/userlog" component={Auth(DashboardUserLog,true,true)} />
+          <Route exact path="/dashboard/errorlog" component={Auth(DashboardErrorLog,true,true)} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>

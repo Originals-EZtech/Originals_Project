@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const dbConfig = require('../config/dbConfig');
 const oracledb = require('oracledb');
+var requestIp = require('request-ip');
+const winston = require('../config/winston')
 oracledb.autoCommit = true;
 
 var conn;
@@ -121,11 +123,17 @@ router.get("/visitors", function (req, res) {
 
 // 최근 10일간 방문자수 쿼리
 router.get("/visitorlist", function (req, res) {
+    // const userIp = requestIp.getClientIp(req)
+    // const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
     conn.execute("SELECT VISITOR_COUNT from VISITOR_TABLE WHERE CREATEDATE >= (SYSDATE-11) ORDER BY createdate", function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        console.log("조회 성공");
+            if (err) {
+                const loging = err.toString();
+                winston.error(loging)
+                conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :ip)", [loging, user_Ip], function (err4, result4) {
+                    if(err4){console.log(err4)}
+                })
+            }
+        console.log("조회 성공",result.rows);
         res.json({
             a: result.rows[0],
             b: result.rows[1],
@@ -160,7 +168,7 @@ router.get("/signuplist", function (req, res) {
                 WHERE 1=1 AND USER_DATE >= SYSDATE-11 \
                 GROUP BY TO_CHAR(USER_DATE,'YYYY-MM-DD') \
                 ORDER BY LOL"
-    
+
     conn.execute(qry, function (err, result) {
         if (err) {
             console.log(err);
@@ -186,10 +194,17 @@ router.get("/roomslist", function (req, res) {
                 WHERE 1=1 AND ROOM_DATE >= SYSDATE-11  \
                 GROUP BY TO_CHAR(ROOM_DATE,'YYYY-MM-DD') \
                 ORDER BY LOL"
-    
+    const userIp = requestIp.getClientIp(req)
+    const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
+
+
     conn.execute(qry, function (err, result) {
         if (err) {
-            console.log(err);
+            const loging = err.toString();
+            winston.error(loging)
+            conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :ip)", [loging, req.body.email, user_Ip], function (err4, result4) {
+                if(err4){console.log(err4)}
+            })
         }
         res.json({
             roomA: result.rows[0][0],
@@ -244,6 +259,9 @@ router.get("/usagetime", function (req, res) {
         res.status(200).json(result.rows[0][0])
     })
 });
+
+
+
 
 
 module.exports = router;

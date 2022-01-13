@@ -21,7 +21,12 @@ const sidebarConfig = [
     title: 'User Log',
     path: '/dashboard/userlog',
     icon: getIcon(peopleFill)
-  }
+  },
+  // {
+  //   title: 'Error Log',
+  //   path: '/dashboard/errorlog',
+  //   icon: getIcon(peopleFill)
+  // }
 ];
 
 export default sidebarConfig;

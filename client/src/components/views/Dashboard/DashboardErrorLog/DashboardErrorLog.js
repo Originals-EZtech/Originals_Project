@@ -11,29 +11,28 @@ import {
   Container,
   Typography,
   TableContainer,
-
+  Grid,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // components
 import Scrollbar from '../dashboard_components/Scrollbar';
-import { UserListHead  } from '../dashboard_components/_dashboard/user';
-
+import { UserListHead } from '../dashboard_components/_dashboard/user';
 import DashboardNavbar from '../dashboard_layouts/DashboardNavbar';
 import DashboardSidebar from '../dashboard_layouts/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
 import { ToastContainer } from 'react-toastify';
 import { sideOpen } from '../../../../redux/actions/actions';
+import AppCurrentLog from '../dashboard_components/_dashboard/app/AppCurrentLog';
 
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'User', label: 'User', alignRight: false },
-  { id: 'action', label: 'Action', alignRight: false },
-  { id: 'IP', label: 'IP Address', alignRight: false },
-  { id: 'Date', label: 'Date', alignRight: false },
-  // { id: 'status', label: 'Status', alignRight: false },
-  // { id: 'attached', label: 'Attached', alignRight: false }
+  { id: 'Email', label: 'Email', alignRight: false },
+  { id: 'Level', label: 'Level', alignRight: false },
+  { id: 'Error Message', label: 'Error Message', alignRight: false },
+  { id: 'IP Address', label: 'IP Address', alignRight: false },
+  { id: 'Issue Date', label: 'Issue Date', alignRight: false }
 ];
 
 // ----------------------------------------------------------------------
@@ -41,23 +40,26 @@ const TABLE_HEAD = [
 const initState = {
   list: [
     {
-      USERLOG_SEQ: "",
+      ERRORLOG_SEQ: "",
+      ERRORLOG_LEVEL: "",
+      ERRORLOG_MESSAGE: "",
       USER_EMAIL: "",
-      USERLOG_IP: "",
-      USERLOG_ACTION: "",
-      USERLOG_DATE: ""
+      ERRORLOG_IP: "",
+      ERRORLOG_DATE: ""
     }
   ]
 }
 
 function DashboardUserLog(props) {
   const { open, sideOpenAction } = props;
-  const [userlog, setUserLog] = useState(initState);
+
+  const [errorloglist, setErrorloglist] = useState(initState);
+
+  console.log(errorloglist)
   useEffect(() => {
     sideOpenAction(false);
-    chartInfoService.getUserloglist().then(res => {
-      setUserLog(res.data)
-      console.log(res.data)
+    chartInfoService.getErrorloglist().then(res => {
+      setErrorloglist(res.data)
     })
   }, [sideOpenAction])
 
@@ -86,10 +88,11 @@ function DashboardUserLog(props) {
   /* 스타일 설정 */
 
 
-  const list = userlog.list.map((user) => {
+  const list = errorloglist.list.map((user) => {
+
     return <TableRow
       hover
-      key={user.USERLOG_SEQ}
+      key={user.ERRORLOG_SEQ}
       tabIndex={-1}
     >
       <TableCell></TableCell>
@@ -103,17 +106,21 @@ function DashboardUserLog(props) {
       </TableCell>
 
       <TableCell align="left">
-        {user.USERLOG_ACTION}
+        {user.ERRORLOG_LEVEL}
       </TableCell>
 
       <TableCell align="left">
-        {user.USERLOG_IP}
+        {user.ERRORLOG_MESSAGE}
       </TableCell>
-
 
       <TableCell align="left">
-        {user.USERLOG_DATE}
+        {user.ERRORLOG_IP}
       </TableCell>
+
+      <TableCell align="left">
+        {user.ERRORLOG_DATE}
+      </TableCell>
+
     </TableRow>
   })
 
@@ -125,12 +132,13 @@ function DashboardUserLog(props) {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h3" gutterBottom style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif" }}>
-              User Log Monitoring
+              Error Log Monitoring
             </Typography>
           </Stack>
-          <Card style={{maxHeight:6500}}>
+        <AppCurrentLog />
+          <Card style={{ maxHeight: 400 }}>
             <Scrollbar>
-              <TableContainer sx={{ minWidth: 500 ,maxHeight: 650 ,overflow: "scroll" }}>
+              <TableContainer sx={{ minWidth: 800, maxHeight: 500, overflow: "scroll" }}>
                 <Table>
                   <UserListHead
                     headLabel={TABLE_HEAD}
@@ -142,6 +150,7 @@ function DashboardUserLog(props) {
               </TableContainer>
             </Scrollbar>
           </Card>
+
         </Container>
       </MainStyle>
       <ToastContainer hideProgressBar={true} />
