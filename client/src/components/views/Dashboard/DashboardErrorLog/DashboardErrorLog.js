@@ -11,8 +11,9 @@ import {
   Container,
   Typography,
   TableContainer,
-
+  Grid,
 } from '@mui/material';
+import { AppWebsiteVisits } from '../dashboard_components/_dashboard/app';
 import { styled } from '@mui/material/styles';
 // components
 import Scrollbar from '../dashboard_components/Scrollbar';
@@ -87,6 +88,7 @@ function DashboardUserLog(props) {
 
 
   const list = users.permitlist.map((user) => {
+    
     return <TableRow
       hover
       key={user.USER_EMAIL}
@@ -132,12 +134,12 @@ function DashboardUserLog(props) {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h3" gutterBottom style={{fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>
-              Request
+              Error Log
             </Typography>
           </Stack>
-          <Card>
+          <Card style={{maxHeight:400}}>
             <Scrollbar>
-              <TableContainer sx={{ minWidth: 800 ,maxHeight:800 ,overflow:"scroll"}}>
+              <TableContainer sx={{ minWidth: 800 ,maxHeight:500 ,overflow:"scroll"}}>
                 <Table>
                   <UserListHead
                     headLabel={TABLE_HEAD}
@@ -149,6 +151,7 @@ function DashboardUserLog(props) {
               </TableContainer>
             </Scrollbar>
           </Card>
+          
         </Container>
       </MainStyle>
       <ToastContainer hideProgressBar={true} />
