@@ -18,6 +18,7 @@ const SingleParticipant = (props) => {
         ,socketId
          } = props;
     console.log(checkMessage);
+    //메세지에 대한 
     const handleOpenActiveChatbox = () =>{
         store.dispatch(setCheckMessageSign(false));
         console.log(participant.socketId); //선택한 user 
@@ -26,7 +27,7 @@ const SingleParticipant = (props) => {
             console.log("check");
             setActiveConversationAction(participant)
         }
-        
+
     };
   
     if(checkMessage !== null){
@@ -36,6 +37,11 @@ const SingleParticipant = (props) => {
             store.dispatch(setCheckMessageSign(true));
             store.dispatch(setCheckMessage(null));
             //alert(`${identity} sent you a message`);
+
+
+
+
+
         }
     }
     //store.dispatch(setCheckMessageSign(false))

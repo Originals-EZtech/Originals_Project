@@ -12,7 +12,6 @@ const VideoButtons = (props) =>{
         return(
             <div className ='video_buttons_container'>
                 <LeaveRoomButton />
-                
             </div>
             
         );

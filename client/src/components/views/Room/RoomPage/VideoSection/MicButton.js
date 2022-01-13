@@ -10,6 +10,7 @@ const MicButton = () =>{
         webRTCHandler.toggleMic(isMicMuted);
         setIsMicMuted(!isMicMuted);
     }
+
     return(
         <div className='video_button_container'>
             <img 
