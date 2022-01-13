@@ -7,6 +7,7 @@ wdad
 node_modules
 /.pnp
 .pnp.js
+.log
 
 # config
 dbConfig.js
