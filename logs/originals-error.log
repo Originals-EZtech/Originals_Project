@@ -43,3 +43,33 @@ TypeError: winston.err is not a function
 2022-01-13T06:28:02.431Z error: uncaughtException: winston.err is not a function
 TypeError: winston.err is not a function
     at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\users.js:19:17
+2022-01-13T10:40:12.640Z error: Error: ORA-00904: "LL": 부적합한 식별자
+2022-01-13T10:40:12.669Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:203:27
+2022-01-13T10:40:56.919Z error: Error: ORA-00904: "O_CHAR": 부적합한 식별자
+2022-01-13T10:40:56.934Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:203:27
+2022-01-13T10:41:00.865Z error: Error: ORA-00904: "O_CHAR": 부적합한 식별자
+2022-01-13T10:41:00.881Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:203:27
+2022-01-13T10:42:06.481Z error: Error: ORA-00904: "OOM_DATE": 부적합한 식별자
+2022-01-13T10:42:06.496Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:204:27
+2022-01-13T10:47:35.511Z error: Error: ORA-00942: 테이블 또는 뷰가 존재하지 않습니다
+2022-01-13T10:47:35.524Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:140:23
+2022-01-13T10:59:26.612Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:284:37
+2022-01-13T10:59:41.472Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:284:37
+2022-01-13T11:06:40.946Z error: Error: ORA-00942: 테이블 또는 뷰가 존재하지 않습니다
+2022-01-13T11:06:40.959Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\Users\user\Originals-EZtech\Originals_Project\server\routes\chartinfo.js:140:23
