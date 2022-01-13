@@ -247,9 +247,6 @@ router.post("/login", function (req, res) {
             winston.error(loging)
             conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, USER_EMAIL, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :email, :ip)", [loging, userEmail, user_Ip], function (err4, result4) {
             })
-            res.status(200).json({
-                uploadSuccess: false, msg: "파일 업로드가 실패했습니다."
-            })
         }
         // 아이디가 존재하지 않다면
         if (result.rows == 0) {

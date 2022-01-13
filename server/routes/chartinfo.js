@@ -123,13 +123,13 @@ router.get("/visitors", function (req, res) {
 
 // 최근 10일간 방문자수 쿼리
 router.get("/visitorlist", function (req, res) {
-    // const userIp = requestIp.getClientIp(req)
-    // const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
-    conn.execute("SELECT VISITOR_COUNT from VISITOR_TABLE WHERE CREATEDATE >= (SYSDATE-11) ORDER BY createdate", function (err, result) {
+    const userIp = requestIp.getClientIp(req)
+    const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
+    conn.execute("SELECT VISITOR_COUNT from VISITOR_TABLE WHERE CREATEDATE >= (SYSDATE-11) ORDER BY creatdate", function (err, result) {
             if (err) {
                 const loging = err.toString();
                 winston.error(loging)
-                conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message, :ip)", [loging, user_Ip], function (err4, result4) {
+                conn.execute("INSERT INTO ERRORLOG_TABLE (ERRORLOG_SEQ, ERRORLOG_LEVEL, ERRORLOG_MESSAGE, USER_EMAIL, ERRORLOG_IP) VALUES(errorlog_seq.NEXTVAL, 'ERROR', :message,'ADMIN', :ip)", [loging, user_Ip], function (err4, result4) {
                     if(err4){console.log(err4)}
                 })
             }
