@@ -135,9 +135,9 @@ function DashboardUser(props) {
               Request for Approval 
             </Typography>
           </Stack>
-          <Card>
+          <Card style={{ maxHeight:650}}>
             <Scrollbar>
-              <TableContainer sx={{ minWidth: 800 }}>
+              <TableContainer sx={{ minWidth: 800 ,maxHeight: 650 ,overflow: "scroll"}}>
                 <Table>
                   <UserListHead
                     headLabel={TABLE_HEAD}

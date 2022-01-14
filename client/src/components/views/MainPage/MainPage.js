@@ -4,7 +4,12 @@ import MainHome from './MainHome';
 import MainService from './MainService';
 import MainContact from './MainContact';
 
-function MainPage() {
+function MainPage({history}) {
+
+    window.onpopstate = function(event) {
+        history.back();
+    }
+
     return (
         <div>
             <MainNavBar />

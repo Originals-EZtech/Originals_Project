@@ -31,7 +31,7 @@ const AnimatedSwitch = () => {
     <TransitionGroup component={null}>
       <CSSTransition key={location.key} classNames="fade" timeout={500}>
         <Switch location={location}>
-          <Route exact path="/" component={MainPage} />
+          <Route exact path="/" component={Auth(MainPage, false)} />
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
 

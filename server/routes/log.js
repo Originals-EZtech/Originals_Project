@@ -28,16 +28,11 @@ router.get("/errorlog", function (req, res) {
         if (err) {
             console.log(err);
         }
-        console.log(result)
         res.status(200).json({list:result.rows})
     })
 });
 
-//select count(*), TO_CHAR(errorlog_date, 'YYYY-MM-DD') AS LOL FROM errorlog_table 
-// where 1=1
-// and errorlog_date >= sysdate-10
-// group by TO_CHAR(errorlog_date,'YYYY-MM-DD')
-// ORDER BY LOL;
+
 router.get("/errorlogcount", function (req, res) {
 
     const qry = 
@@ -50,7 +45,6 @@ router.get("/errorlogcount", function (req, res) {
         if (err) {
             console.log(err);
         }
-        console.log(result.rows)
         res.json({
             errorA: result.rows[0][0],
             errorB: result.rows[1][0],
