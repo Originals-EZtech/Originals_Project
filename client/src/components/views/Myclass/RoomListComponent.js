@@ -6,7 +6,7 @@ import { connect} from 'react-redux';
 import { setMyRoomId, setIsRoomHost, setIdentity } from '../../../redux/actions/actions';
 
 function RoomListComponent(props) {
-  const { setMyRoomIdAction, setIsRoomHostAction, setIdentityAction, userName } = props;
+  const { setMyRoomIdAction, setIsRoomHostAction, setIdentityAction } = props;
   const [cookies] = useCookies();
   
   const [state, setState] = useState({
@@ -19,7 +19,7 @@ function RoomListComponent(props) {
     const myRoomId=room.ROOM_ID;
     setMyRoomIdAction(myRoomId);
     setIsRoomHostAction(true);
-    setIdentityAction(userName);
+    setIdentityAction(cookies.un);
     props.history.push('/room');
   };
 

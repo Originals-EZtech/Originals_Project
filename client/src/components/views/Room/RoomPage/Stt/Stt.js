@@ -5,11 +5,13 @@ import * as wss from './../../utils/wss';
 import onbut from '../../resources/images/stt_on_icon.svg';
 import offbut from '../../resources/images/stt_off_icon.svg';
 import Stt from './Sttand';
+import { useCookies } from 'react-cookie';
 
 
 const Dictaphone = (props) => {
+  const [cookies] = useCookies();
     const [now,setnow]= useState(false);
-    const { userRole, socketId } = props;
+    const { socketId } = props;
     const reset="";
     const {
       transcript,
@@ -54,7 +56,7 @@ const Dictaphone = (props) => {
       }
      
       }   
-    if(userRole ==='general'){
+    if(cookies.ur ==='general'){
       return(
         <Stt />
       );

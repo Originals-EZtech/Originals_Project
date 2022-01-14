@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 const LeaveRoomButton = (props) =>{
     const [cookies] = useCookies();
-    const { userRole, roomId } = props;
+    const { roomId } = props;
 
     // this logic will allow us to redirect to that first page, introduction page
     const handleRoomDisconnection = () =>{
@@ -27,7 +27,8 @@ const LeaveRoomButton = (props) =>{
           // res는 서버에서 받은 객체 형태는 log로 출력해보길
           .then((res) => res.json())
 
-        window.location.href = '/intro'; // 현재 페이지에서 siteUrl 페이지로 이동 
+        // window.location.href = '/intro'; // 현재 페이지에서 siteUrl 페이지로 이동 
+        props.history.push('/intro');
     }
     const handleRoomDisconnectionProf = () =>{
         const user_seq = cookies.user_seq
@@ -52,12 +53,12 @@ const LeaveRoomButton = (props) =>{
     }
     
     return <div className='video_button_container'>
-        {userRole === 'prof' &&
+        {cookies.ur === 'prof' &&
         <button className='video_button_end' onClick={handleRoomDisconnectionProf}>
             Leave Room
         </button>
         }
-        {userRole === 'general' &&
+        {cookies.ur === 'general' &&
         <button className='video_button_end' onClick={handleRoomDisconnection}>
             Leave Room
         </button>
