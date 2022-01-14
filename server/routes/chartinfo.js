@@ -125,7 +125,7 @@ router.get("/visitors", function (req, res) {
 router.get("/visitorlist", function (req, res) {
     const userIp = requestIp.getClientIp(req)
     const user_Ip = userIp.substring(userIp.lastIndexOf(':') + 1)
-    conn.execute("SELECT VISITOR_COUNT from VISITOR_TABLE WHERE CREATEDATE >= (SYSDATE-11) ORDER BY creatdate", function (err, result) {
+    conn.execute("SELECT VISITOR_COUNT from VISITOR_TABLE WHERE CREATEDATE >= (SYSDATE-11) ORDER BY createdate", function (err, result) {
             if (err) {
                 const loging = err.toString();
                 winston.error(loging)

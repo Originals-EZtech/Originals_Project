@@ -5,10 +5,12 @@ import { Link, withRouter } from 'react-router-dom';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { logout } from '../../../redux/actions/actions';
+import { useCookies } from 'react-cookie';
 
 
 function RoomNavBar(props) {
-    const { logoutAction, userName } = props;
+    const { logoutAction } = props;
+    const [cookies] = useCookies();
 
     const navbarStyle={
         float: "right",
@@ -66,7 +68,7 @@ function RoomNavBar(props) {
 
                     <div class="collapse navbar-collapse" style={navbarStyle}>
                         <ul class="nav navbar-nav ml-auto" style={firstNav}>
-                            <li style={{marginTop: 15}}><h4>환영합니다 &nbsp; {userName}님</h4></li>
+                            <li style={{marginTop: 15}}><h4>환영합니다 &nbsp; {cookies.un}님</h4></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" style={secondNav}>
                             <li><Link to="" class="smoothScroll" className={styles.loginStyle} onClick={logoutHandler}>LogOut</Link></li>
