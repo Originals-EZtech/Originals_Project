@@ -46,7 +46,7 @@ export default function AppCurrentLog() {
     //   data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
     // },
     {
-      name: '가입자수',
+      name: 'Error Count',
       type: 'column',
       data: [errorLogCount.errorA, errorLogCount.errorB, errorLogCount.errorC, errorLogCount.errorD, errorLogCount.errorE, errorLogCount.errorF, errorLogCount.errorG, errorLogCount.errorH, errorLogCount.errorI, errorLogCount.errorJ, errorLogCount.errorK]
     },
