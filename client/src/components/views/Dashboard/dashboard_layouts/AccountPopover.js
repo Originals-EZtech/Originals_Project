@@ -21,7 +21,7 @@ function AccountPopover(props) {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [cookies] = useCookies();
-  const { logoutAction, userEmail, userName } = props;
+  const { logoutAction } = props;
 
   const handleOpen = () => {
     setOpen(true);
@@ -80,11 +80,11 @@ function AccountPopover(props) {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            {userName}
+            {cookies.un}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+          {/* <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {userEmail}
-          </Typography>
+          </Typography> */}
         </Box>
 
         <Divider sx={{ my: 1 }} />

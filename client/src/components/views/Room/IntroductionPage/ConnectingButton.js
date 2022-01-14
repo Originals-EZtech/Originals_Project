@@ -1,11 +1,14 @@
 /* eslint-disable no-const-assign */
 import React from 'react';
 import { connect } from 'react-redux';
+import { useCookies } from 'react-cookie';
+
 
 const ConnectingButton = (props) => {
-    const { onClickHandler, buttonText , userRole } = props;
+    const { onClickHandler, buttonText } = props;
+    const [cookies] = useCookies();
 
-    if(userRole === 'prof'){
+    if(cookies.ur === 'prof'){
         return(
             <button className={'create_room_button'} onClick ={onClickHandler}>
                 {buttonText}
