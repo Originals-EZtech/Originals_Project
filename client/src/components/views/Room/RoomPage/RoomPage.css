@@ -524,6 +524,7 @@ video {
   width: 96%;
   height:88%;
   z-index: 2;
+  background-size: 300px 300px;
   display: flex;
   align-items: center;
   justify-content: center;
