@@ -54,21 +54,13 @@ export const getLocalPreviewAndInitRoomConnection = async (
     }).catch((err) => {
         console.log('error occured when trying to get an access to local stream'); 
         console.log(err);
-        if(constraints.audio === null){
-            alert('check your audio');
-            if(isRoomHost === true){
-                window.location.replace('/join-room?host=true')
-            }else{
-                window.location.replace('/join-room')
-            }
+        alert('check your camera and audio!');
+        if(isRoomHost === true){
+            window.location.replace('/join-room?host=true')
         }else{
-            alert('check your camera!');
-            if(isRoomHost === true){
-                window.location.replace('/join-room?host=true')
-            }else{
-                window.location.replace('/join-room')
-            }
+            window.location.replace('/join-room')
         }
+        
     });
     
 }
