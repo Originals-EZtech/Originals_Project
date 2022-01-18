@@ -16,7 +16,7 @@ import {
 import { styled } from '@mui/material/styles';
 // components
 import Scrollbar from '../dashboard_components/Scrollbar';
-import { UserListHead, UserCheckFile, UserChangeRole } from '../dashboard_components/_dashboard/user';
+import { UserListHead  } from '../dashboard_components/_dashboard/user';
 
 import DashboardNavbar from '../dashboard_layouts/DashboardNavbar';
 import DashboardSidebar from '../dashboard_layouts/DashboardSidebar';
@@ -28,36 +28,36 @@ import { sideOpen } from '../../../../redux/actions/actions';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'Email', label: 'Email', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: 'attached', label: 'Attached', alignRight: false }
+  { id: 'User', label: 'User', alignRight: false },
+  { id: 'action', label: 'Action', alignRight: false },
+  { id: 'IP', label: 'IP Address', alignRight: false },
+  { id: 'Date', label: 'Date', alignRight: false },
+  // { id: 'status', label: 'Status', alignRight: false },
+  // { id: 'attached', label: 'Attached', alignRight: false }
 ];
 
 // ----------------------------------------------------------------------
 
 const initState = {
-  permitlist: [
+  list: [
     {
-      EMAIL: "",
-      NAME: "",
-      ROLE: "",
-      FLAG: ""
+      USERLOG_SEQ: "",
+      USER_EMAIL: "",
+      USERLOG_IP: "",
+      USERLOG_ACTION: "",
+      USERLOG_DATE: ""
     }
   ]
 }
 
 function DashboardUserLog(props) {
   const { open, sideOpenAction } = props;
-
-  const [users, setUsers] = useState(initState);
-
+  const [userlog, setUserLog] = useState(initState);
   useEffect(() => {
     sideOpenAction(false);
-    chartInfoService.getPermitList().then(res => {
-      setUsers(res.data)
+    chartInfoService.getUserloglist().then(res => {
+      setUserLog(res.data)
+      console.log(res.data)
     })
   }, [sideOpenAction])
 
@@ -86,10 +86,10 @@ function DashboardUserLog(props) {
   /* 스타일 설정 */
 
 
-  const list = users.permitlist.map((user) => {
+  const list = userlog.list.map((user) => {
     return <TableRow
       hover
-      key={user.USER_EMAIL}
+      key={user.USERLOG_SEQ}
       tabIndex={-1}
     >
       <TableCell></TableCell>
@@ -97,29 +97,22 @@ function DashboardUserLog(props) {
       <TableCell component="th" scope="row" padding="none">
         <Stack direction="row" alignItems="center" spacing={2}>
           <Typography variant="subtitle2" noWrap>
-            {user.USER_NAME}
+            {user.USER_EMAIL}
           </Typography>
         </Stack>
       </TableCell>
 
       <TableCell align="left">
-        {user.USER_EMAIL}
+        {user.USERLOG_ACTION}
       </TableCell>
 
       <TableCell align="left">
-        {user.USER_ROLE}
+        {user.USERLOG_IP}
       </TableCell>
 
-      <TableCell align="left">
-        {user.USER_FLAG ? 'No' : 'Yes'}
-      </TableCell>
 
       <TableCell align="left">
-        <UserChangeRole user={user} />
-      </TableCell>
-
-      <TableCell align="left">
-        <UserCheckFile image={user.DIRECTORY} />
+        {user.USERLOG_DATE}
       </TableCell>
     </TableRow>
   })
@@ -131,13 +124,13 @@ function DashboardUserLog(props) {
       <MainStyle>
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-            <Typography variant="h3" gutterBottom style={{fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>
-              Request for A 
+            <Typography variant="h3" gutterBottom style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif" }}>
+              User Log Monitoring
             </Typography>
           </Stack>
-          <Card>
+          <Card style={{maxHeight:650}}>
             <Scrollbar>
-              <TableContainer sx={{ minWidth: 800 }}>
+              <TableContainer sx={{ minWidth: 500 ,maxHeight: 650 ,overflow: "scroll" }}>
                 <Table>
                   <UserListHead
                     headLabel={TABLE_HEAD}
@@ -156,15 +149,15 @@ function DashboardUserLog(props) {
   );
 }
 
-const mapStoreStateToProps = (state) =>{
+const mapStoreStateToProps = (state) => {
   return {
-      ...state,
+    ...state,
   }
 }
 
 const mapActionsToProps = (dispatch) => {
   return {
-      sideOpenAction: (open) => dispatch(sideOpen(open))
+    sideOpenAction: (open) => dispatch(sideOpen(open))
   }
 }
 

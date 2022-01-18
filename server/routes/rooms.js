@@ -31,14 +31,17 @@ router.post("/roomlist_2", (req, res) => {
             // 참고링크 https://gaemi606.tistory.com/entry/Nodejs-Oracle-%EC%97%B0%EB%8F%99-npm-oracledb
             // 참고링크 오라클 공식문서 http://oracle.github.io/node-oracledb/doc/api.html
             connection.execute("SELECT ROOM_ID,USER_SEQ,ROOM_NAME,TO_CHAR(ROOM_DATE + 9/24, 'YYYY/MM/DD  DAY HH24:MI:SS')AS ROOM_DATE FROM ROOM_TABLE WHERE USER_SEQ=:user_seq ORDER BY ROOM_DATE DESC", selectarray, {outFormat:oracledb.OBJECT}, function (err, result) {
-            console.log("result.rows[0].ROOM_DATE ::: "+result.rows[0].ROOM_DATE)    
-                if (err) {
-                    console.error(err.message);
+                if (result.rows == 0) {
+                    res.send(result);
+                } else {
+                    if (err) {
+                        console.error(err.message);
+                        doRelease(connection);
+                        return;
+                    }
+                    res.send(result);
                     doRelease(connection);
-                    return;
                 }
-                res.send(result);
-                console.log("resul 89 line"+result.rows[0].ROOM_DATE)
                 doRelease(connection);
             });
     }

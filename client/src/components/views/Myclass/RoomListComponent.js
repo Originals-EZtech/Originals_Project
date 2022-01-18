@@ -19,7 +19,7 @@ function RoomListComponent(props) {
     const myRoomId=room.ROOM_ID;
     setMyRoomIdAction(myRoomId);
     setIsRoomHostAction(true);
-    setIdentityAction(cookies.user_name);
+    setIdentityAction(cookies.un);
     props.history.push('/room');
   };
 
@@ -81,8 +81,8 @@ function RoomListComponent(props) {
 const mapStoreStateToProps = (state) =>{
   return {
       ...state,
-  };
-};
+  }
+}
 
 const mapActionsToProps = (dispatch) => {
   return {

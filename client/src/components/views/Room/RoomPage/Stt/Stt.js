@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';//stt라이브러리
 import * as wss from './../../utils/wss';
-import {useCookies} from "react-cookie";
 import onbut from '../../resources/images/stt_on_icon.svg';
 import offbut from '../../resources/images/stt_off_icon.svg';
 import Stt from './Sttand';
+import { useCookies } from 'react-cookie';
 
 
-const Dictaphone = ({socketId}) => {
+const Dictaphone = (props) => {
+  const [cookies] = useCookies();
     const [now,setnow]= useState(false);
-    const [cookies]=useCookies();
+    const { socketId } = props;
+    const reset="";
     const {
       transcript,
       resetTranscript,
@@ -20,17 +22,20 @@ const Dictaphone = ({socketId}) => {
       return <span>Browser doesn't support speech recognition.</span>;
     }
     const start=()=>{
-      setnow(now => !now);
+      setnow(true);
       SpeechRecognition.startListening({ continuous: {now},language: 'ko' });
       console.log("시작");
     }
     
     const stop=()=>{
-      setnow(now => !now);
+      setnow(false);
+      
       SpeechRecognition.abortListening();
       resetTranscript();
+      console.log('정지');
+      
     }
-    
+    console.log(now);
     if (transcript.length>100 ) {
       resetTranscript();
     }
@@ -43,9 +48,15 @@ const Dictaphone = ({socketId}) => {
           transcript
         })
       }
+      if(now === false){
+        wss.sendSTT({
+          socketId,
+          reset
+        })
+      }
      
       }   
-    if(cookies.user_role ==='general'){
+    if(cookies.ur ==='general'){
       return(
         <Stt />
       );
@@ -57,13 +68,15 @@ const Dictaphone = ({socketId}) => {
           className="sttb"
           onClick={start} 
           src={now ? null:offbut}
-          alt="">
+          alt=''
+          >
           </img>
           <img
           className="sttb"
           onClick={stop} 
           src={!now ? null:onbut}
-          alt="">
+          alt=''
+          >
           </img>
           <div className="te">
             <p className="sttc">{transcript}</p>

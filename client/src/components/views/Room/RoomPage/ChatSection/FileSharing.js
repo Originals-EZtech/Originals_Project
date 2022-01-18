@@ -42,6 +42,7 @@ const FileSharing = ({gotFile, fileName})=>{
                     src={download}
                     alt=""
                   ></img>
+               
               </div>
           )
       }
@@ -49,6 +50,15 @@ const FileSharing = ({gotFile, fileName})=>{
           fileNamePrompt =(
               <div className="file_name">
                   <p className="file_na">{file.name}</p>
+                  <label>
+                    <img
+                    className="file_up"
+                    onClick={sendFile}
+                    src={file_upload}
+                    alt=""
+                    ></img>
+                
+                  </label>
               </div>
           )
       }
@@ -71,15 +81,7 @@ const FileSharing = ({gotFile, fileName})=>{
                 {fileNamePrompt}
             </div>
 
-            <label>
-                <img
-                className="file_up"
-                onClick={sendFile}
-                src={file_upload}
-                alt=""
-                ></img>
-                
-            </label>
+            
         </div>
 
     )
