@@ -71,11 +71,13 @@
 .file_sending_button {
   position: absolute;
   right: 5%;
-  bottom:12%;
+  bottom:13%;
   border-radius: 50%;
   background-color:white;
   padding:2px;
 }
+
+
 
 .messages_container {
   width: calc(100% - 20px);
@@ -674,9 +676,9 @@ video {
 }
 
 .sttb{
-  top: 15px;
+  top: 12px;
   position: absolute;
-  left: 1.5%;
+  left: 1%;
   padding:10px;
   z-index: 3;
 }
@@ -686,10 +688,11 @@ video {
   vertical-align: bottom;
   color: black;
   margin-top: 13px;
-  margin-left: 50px;
+  margin-left: 60px;
   margin-bottom: 10px;
   margin-right: 10px;
   font-family: Helvetica, Arial, sans-serif;
+  font-size: 20px;
   
 }
 
@@ -699,7 +702,7 @@ video {
   margin-left: 60px;
   margin-bottom: 30px;
   margin-right: 10px;
-  
+  font-size: 20px;
   
 }
 .te{
@@ -761,7 +764,7 @@ video {
   width: 75%;
   height: 38px;
   left: 7%;
-  bottom: 11.5%;
+  bottom: 12.5%;
   border-radius: 10px;
   position: absolute;
   z-index: 1;
@@ -774,7 +777,7 @@ video {
   width: 75%;
   height: 38px;
   left: 7%;
-  bottom: 11.5%;
+  bottom: 12.5%;
   border-radius: 10px;
   position: absolute;
   z-index: 1;
@@ -791,6 +794,7 @@ video {
   white-space: nowrap;
   margin-bottom: 5px;
   margin-top: 5px;
+  color:rgb(87, 85, 85);
 }
 
 .mark > summary{

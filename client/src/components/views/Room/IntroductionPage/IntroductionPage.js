@@ -7,9 +7,10 @@ import RoomNavBar from '../../NavBar/RoomNavBar';
 
 import './IntroductionPage.css';
 import { setIsRoomHost } from '../../../../redux/actions/actions';
+import store from '../../../../redux/store/store';
 
 const IntroductionPage = ({setIsRoomHostAction}) => {
-    
+
     useEffect(()=> {
         setIsRoomHostAction(false);
     }, []);
@@ -28,6 +29,7 @@ const IntroductionPage = ({setIsRoomHostAction}) => {
 const mapActionsToProps = (dispatch) => {
     return{
         setIsRoomHostAction: (isRoomHost) => dispatch(setIsRoomHost(isRoomHost)),
-    };
-};
+    }
+}
+
 export default connect(null, mapActionsToProps)(IntroductionPage);

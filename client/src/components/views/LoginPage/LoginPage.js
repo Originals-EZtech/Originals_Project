@@ -46,7 +46,7 @@ function Login(props) {
                     if(response.response.role === 'admin'){
                         window.location.href='/dashboard/app';
                     }else{
-                    props.history.push('/intro');
+                        props.history.push('/intro');
                     }
                 }, 1200)
             } else {
