@@ -7,8 +7,12 @@
 -----------------------
 ## Description
 
+
 -----------------------
 ## 💻 Development Stack  
+
+
+-----------------------
 ## ⚙ Service Architecture
 
 ---
