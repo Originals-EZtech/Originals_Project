@@ -19,4 +19,4 @@ TypeError: Cannot create property 'Symbol(level)' on string 'listening on port(s
 2022-01-12T10:51:11.336Z [winston-test] info: hi
 2022-01-12T10:51:43.885Z [winston-test] info: hi
 2022-01-12T10:51:52.575Z [winston-test] info: hi
-2022-01-12T10:52:09.137Z [winston-test] info: hi
+2022-01-12T10:52:09.137Z [winston-test] info: hi 
