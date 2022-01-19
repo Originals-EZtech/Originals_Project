@@ -20,9 +20,9 @@
 ### 🙋‍♂️Role
 
 
-##팀원소개 <a id="2" />
+<!-- ##팀원소개 <a id="2" />
 <hr/>
-
+ -->
 이름 | GitHub |  Email | Position |
  --- | ------- | ------| ------- | 
 최윤선 |<img src="http://img.shields.io/badge/-655ced?style=social&logo=github"/>[GitHub](https://github.com/ynsseon07) | ynsseon@gmail.com | Front-End | [게인 블로그나 노션](#)
