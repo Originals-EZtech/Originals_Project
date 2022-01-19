@@ -31,13 +31,3 @@
 조나경 | <img src="http://img.shields.io/badge/-655ced?style=social&logo=github"/>[GitHub](https://github.com/nagggyung) | skql775@gmail.com | WebRtc | [게인 블로그나 노션](#)
 유민기 | <img src="http://img.shields.io/badge/-655ced?style=social&logo=github"/>[GitHub](https://github.com/Yoo-mingi) | zerotansan@gmail.com | WebRtc | [게인 블로그나 노션](#)
 양찬혁 | <img src="http://img.shields.io/badge/-655ced?style=social&logo=github"/>[GitHub](https://github.com/mintorca) | chanhuk96@gmail.com | STT | [게인 블로그나 노션](#)
-
-
-
-
-최윤선님 : Front-End 개발
-석현일님 : Back-End API 개발
-신동수님 : Back-End API 개발
-조나경님 : WebRtc 기능 개발
-유민기님 : WebRtc 기능 개발
-양찬혁님 : STT 기능 개발 
