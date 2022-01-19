@@ -12,8 +12,7 @@
 
 
 ## Description
-
-###Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움으로 극복했던 것처럼<br/>
+Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움으로 극복했던 것처럼<br/>
 청각장애인들의 교육에 도움이 되고 나아가 온라인 수업환경에 도움이 될 수있는 자막 서비스를 제공하는 원격수업 플랫폼
 ![image](https://user-images.githubusercontent.com/74586346/150089914-f4b0bf44-1892-4118-a031-5b9afc482504.png)
 
