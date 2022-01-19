@@ -14,8 +14,6 @@ Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움
 -----------------------
 ## 💻 Development Stack  
 
-![image](https://user-images.githubusercontent.com/74586346/150091316-a25e7299-4333-4512-ac00-1aedbd771609.png)
-
 <img src="https://user-images.githubusercontent.com/74586346/150092246-ecdb5c0e-e75d-44d7-bc26-a1ae5462a944.png"  width="550" height="280"/>
                                                                                                                                          
 -----------------------
