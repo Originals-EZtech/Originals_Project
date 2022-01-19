@@ -19,7 +19,35 @@
 
 ### 🙋‍♂️Role
 
-`@김 `  
+`@최윤선 `  
+* Front-End 개발
+  - *Front-End 개발*
+
+`@석현일 `  
 * Chat_Server
   - *로그인/회원가입 구축*
 
+`@신동수 `  
+* Chat_Server
+  - *로그인/회원가입 구축*
+
+`@조나경 `  
+* Chat_Server
+  - *로그인/회원가입 구축*
+
+`@유민기 `  
+* Chat_Server
+  - *로그인/회원가입 구축*
+
+`@양찬혁 `  
+* Chat_Server
+  - *로그인/회원가입 구축*
+
+
+
+최윤선님 : Front-End 개발
+석현일님 : Back-End API 개발
+신동수님 : Back-End API 개발
+조나경님 : WebRtc 기능 개발
+유민기님 : WebRtc 기능 개발
+양찬혁님 : STT 기능 개발 
