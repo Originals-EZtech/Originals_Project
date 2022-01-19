@@ -23,8 +23,8 @@
 ##팀원소개 <a id="2" />
 <hr/>
 
-이름 | GitHub |  Email | Position | blog
- --- | ------- | ------| ---- | ----
+이름 | GitHub |  Email | Position |
+ --- | ------- | ------| ------- | 
 최윤선 | [GitHub](https://github.com/ynsseon07) | test@gmail.com | Front-End | [게인 블로그나 노션](#)
 석현일 | [GitHub](https://github.com/johney-suk) | test@gmail.com | Back-End API | [게인 블로그나 노션](#)
 신동수 | [GitHub](https://github.com/sjagz) | test@gmail.com | Back-End API | [게인 블로그나 노션](#)
