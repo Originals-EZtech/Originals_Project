@@ -44,14 +44,16 @@
   - *로그인/회원가입 구축*
 
 
+##팀원소개 <a id="2" />
 <hr/>
 
-이름 | GitHub |  Email | Position | blog
+이름 | 실명 | GitHub |  Email | Position | blog
  --- | --- | ------- | ------| ---- | ----
- 이승진 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
- 이승진 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
- 이승진 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
- 이승진 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
+seungjin | 이승진 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
+seungjin | 이승진 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
+seungjin | 이승진 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
+seungjin | 이승진 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
+
 
 
 최윤선님 : Front-End 개발
