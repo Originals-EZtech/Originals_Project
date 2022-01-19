@@ -25,7 +25,7 @@
 
 이름 | GitHub |  Email | Position | blog
  --- | ------- | ------| ---- | ----
-최윤선 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
+최윤선 | [GitHub](#https://github.com/ynsseon07) | test@gmail.com | Front | [게인 블로그나 노션](#)
 석현일 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
 신동수 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
 조나경 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
