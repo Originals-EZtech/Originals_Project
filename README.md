@@ -25,10 +25,13 @@
 
 이름 | GitHub |  Email | Position | blog
  --- | ------- | ------| ---- | ----
-이승진 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
-이승진 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
-이승진 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
-이승진 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
+최윤선 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
+석현일 | [GitHub](#) | test@gmail.com | Front | [게인 블로그나 노션](#)
+신동수 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
+조나경 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
+유민기 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
+양찬혁 | [GitHub](#) | test@gmail.com | Back | [게인 블로그나 노션](#)
+
 
 
 
