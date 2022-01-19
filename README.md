@@ -26,7 +26,7 @@
 이름 | GitHub |  Email | Position |
  --- | ------- | ------| ------- | 
 최윤선 | <img src="http://img.shields.io/badge"/>[GitHub](https://github.com/ynsseon07) | test@gmail.com | Front-End | [게인 블로그나 노션](#)
-석현일 | [GitHub](https://github.com/johney-suk) | test@gmail.com | Back-End API | [게인 블로그나 노션](#)
+석현일 | <img src="http://img.shields.io/badge/johney-suk-655ced?style=social&logo=github"/>[GitHub](https://github.com/johney-suk) | test@gmail.com | Back-End API | [게인 블로그나 노션](#)
 신동수 | [GitHub](https://github.com/sjagz) | test@gmail.com | Back-End API | [게인 블로그나 노션](#)
 조나경 | [GitHub](https://github.com/nagggyung) | test@gmail.com | WebRtc | [게인 블로그나 노션](#)
 유민기 | [GitHub](https://github.com/Yoo-mingi) | test@gmail.com | WebRtc | [게인 블로그나 노션](#)
