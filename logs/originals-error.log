@@ -751,3 +751,7 @@ Error: listen EADDRINUSE: address already in use :::4000
     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
 >>>>>>> 0b2319c730ebe3605ae12b1390fd44f0650a9b13
+2022-01-14T03:20:58.587Z error: Error: DPI-1080: connection was closed by ORA-3135
+2022-01-14T03:20:58.696Z error: uncaughtException: Cannot read properties of undefined (reading 'rows')
+TypeError: Cannot read properties of undefined (reading 'rows')
+    at C:\originalsproject_yoonseon\Originals_Project\server\routes\users.js:252:20
