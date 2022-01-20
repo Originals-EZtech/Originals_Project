@@ -22,7 +22,7 @@ Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움
 
 ## 📋 Core Service 
 
-<img src="https://user-images.githubusercontent.com/74586346/150092246-ecdb5c0e-e75d-44d7-bc26-a1ae5462a944.png"  width="550" height="280"/>
+<img src="https://user-images.githubusercontent.com/74586346/150273421-426de63b-fc58-43fe-999b-644eca16ccb0.png"  width="550" height="280"/>
 
 - 실시간 다중 화상 공유 수업
 - 실시간 수업 자막
