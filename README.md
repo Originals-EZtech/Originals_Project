@@ -49,7 +49,7 @@ Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움
  
  자막           |   전체 채팅 & 학습자료 첨부
 :-------------------------:|:-------------------------:
-<img src="https://user-images.githubusercontent.com/74586346/150092246-ecdb5c0e-e75d-44d7-bc26-a1ae5462a944.png"  width="250" height="280"/> |  ![채팅](https://user-images.githubusercontent.com/74586346/150247837-9c05e2a1-cdda-48b1-9508-7f0d4f23e765.png)
+<img src="https://user-images.githubusercontent.com/74586346/150248888-51df0782-989c-4cfd-8f3d-70adec5409f0.png"  width="250" height="280"/> |  ![채팅](https://user-images.githubusercontent.com/74586346/150247837-9c05e2a1-cdda-48b1-9508-7f0d4f23e765.png)
 
 <!-- (https://user-images.githubusercontent.com/74586346/150247656-63a42f52-05df-4762-b486-a0c33a27092c.png)
  -->
