@@ -2,7 +2,6 @@ import React from 'react';
 import { useCookies } from "react-cookie";
 import { connect } from 'react-redux';
 
-
 const LeaveRoomButton = ({roomId}) =>{
     const [cookies] = useCookies();
     // this logic will allow us to redirect to that first page, introduction page
