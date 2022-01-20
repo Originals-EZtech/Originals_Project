@@ -41,9 +41,16 @@ Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움
 ---
 ## 💡 Service UI(example)  
 
-선생님 홈 화면            |  APP 홈 화면
+
+
+수업 화면          |  수업 이력
+:-------------------------:|:-------------------------:
+ ![수업화면](https://user-images.githubusercontent.com/74586346/150248270-6dd14776-a787-4290-93bc-1ddd10506ee5.png) |  ![MyClass](https://user-images.githubusercontent.com/74586346/150248359-22a12078-62ec-4fee-a22f-ce8a94a468f4.png)
+ 
+ 자막           |   전체 채팅 & 학습자료 첨부
 :-------------------------:|:-------------------------:
 ![자막](https://user-images.githubusercontent.com/74586346/150247656-63a42f52-05df-4762-b486-a0c33a27092c.png) |  ![채팅](https://user-images.githubusercontent.com/74586346/150247837-9c05e2a1-cdda-48b1-9508-7f0d4f23e765.png) 
+
 
 ### 🙋‍♂️Role
 
