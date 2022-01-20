@@ -1,11 +1,14 @@
 /* eslint-disable no-const-assign */
 import React from 'react';
-import { useCookies } from "react-cookie";
+import { connect } from 'react-redux';
+import { useCookies } from 'react-cookie';
 
-const ConnectingButton = ({ onClickHandler, buttonText }) => {
+
+const ConnectingButton = (props) => {
+    const { onClickHandler, buttonText } = props;
     const [cookies] = useCookies();
 
-    if(cookies.user_role === 'prof'){
+    if(cookies.ur === 'prof'){
         return(
             <button className={'create_room_button'} onClick ={onClickHandler}>
                 {buttonText}
@@ -20,4 +23,10 @@ const ConnectingButton = ({ onClickHandler, buttonText }) => {
     }
 };
 
-export default ConnectingButton;
+const mapStoreStateToProps = (state) =>{
+    return {
+        ...state,
+    }
+}
+
+export default connect(mapStoreStateToProps, null)(ConnectingButton);

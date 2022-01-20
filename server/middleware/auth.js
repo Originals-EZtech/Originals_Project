@@ -87,9 +87,9 @@ router.get('/logout', function (req, res) {
             if (err) { console.log(err) }
             res.clearCookie("accessToken")
             res.clearCookie("refreshToken")
-            res.clearCookie("user_name")
+            res.clearCookie("un")
             res.clearCookie("user_email")
-            res.clearCookie("user_role")
+            res.clearCookie("ur")
             res.clearCookie("user_seq")
             res.clearCookie("user_flag")
                 .status(200).json({

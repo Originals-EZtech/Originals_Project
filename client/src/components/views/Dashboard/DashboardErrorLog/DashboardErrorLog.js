@@ -11,53 +11,55 @@ import {
   Container,
   Typography,
   TableContainer,
-
+  Grid,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // components
 import Scrollbar from '../dashboard_components/Scrollbar';
-import { UserListHead, UserCheckFile, UserChangeRole } from '../dashboard_components/_dashboard/user';
-
+import { UserListHead } from '../dashboard_components/_dashboard/user';
 import DashboardNavbar from '../dashboard_layouts/DashboardNavbar';
 import DashboardSidebar from '../dashboard_layouts/DashboardSidebar';
 import chartInfoService from '../DashboardApp/service/chartInfoService';
 import { ToastContainer } from 'react-toastify';
 import { sideOpen } from '../../../../redux/actions/actions';
+import AppCurrentLog from '../dashboard_components/_dashboard/app/AppCurrentLog';
 
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
   { id: 'Email', label: 'Email', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: 'attached', label: 'Attached', alignRight: false }
+  { id: 'Level', label: 'Level', alignRight: false },
+  { id: 'Error Message', label: 'Error Message', alignRight: false },
+  { id: 'IP Address', label: 'IP Address', alignRight: false },
+  { id: 'Issue Date', label: 'Issue Date', alignRight: false }
 ];
 
 // ----------------------------------------------------------------------
 
 const initState = {
-  permitlist: [
+  list: [
     {
-      EMAIL: "",
-      NAME: "",
-      ROLE: "",
-      FLAG: ""
+      ERRORLOG_SEQ: "",
+      ERRORLOG_LEVEL: "",
+      ERRORLOG_MESSAGE: "",
+      USER_EMAIL: "",
+      ERRORLOG_IP: "",
+      ERRORLOG_DATE: ""
     }
   ]
 }
 
-function DashboardUser(props) {
+function DashboardUserLog(props) {
   const { open, sideOpenAction } = props;
 
-  const [users, setUsers] = useState(initState);
+  const [errorloglist, setErrorloglist] = useState(initState);
 
+  console.log(errorloglist)
   useEffect(() => {
     sideOpenAction(false);
-    chartInfoService.getPermitList().then(res => {
-      setUsers(res.data)
+    chartInfoService.getErrorloglist().then(res => {
+      setErrorloglist(res.data)
     })
   }, [sideOpenAction])
 
@@ -86,10 +88,11 @@ function DashboardUser(props) {
   /* 스타일 설정 */
 
 
-  const list = users.permitlist.map((user) => {
+  const list = errorloglist.list.map((user) => {
+
     return <TableRow
       hover
-      key={user.USER_EMAIL}
+      key={user.ERRORLOG_SEQ}
       tabIndex={-1}
     >
       <TableCell></TableCell>
@@ -97,30 +100,27 @@ function DashboardUser(props) {
       <TableCell component="th" scope="row" padding="none">
         <Stack direction="row" alignItems="center" spacing={2}>
           <Typography variant="subtitle2" noWrap>
-            {user.USER_NAME}
+            {user.USER_EMAIL}
           </Typography>
         </Stack>
       </TableCell>
 
       <TableCell align="left">
-        {user.USER_EMAIL}
+        {user.ERRORLOG_LEVEL}
       </TableCell>
 
       <TableCell align="left">
-        {user.USER_ROLE}
+        {user.ERRORLOG_MESSAGE}
       </TableCell>
 
       <TableCell align="left">
-        {user.USER_FLAG ? 'No' : 'Yes'}
+        {user.ERRORLOG_IP}
       </TableCell>
 
       <TableCell align="left">
-        <UserChangeRole user={user} />
+        {user.ERRORLOG_DATE}
       </TableCell>
 
-      <TableCell align="left">
-        <UserCheckFile image={user.DIRECTORY} />
-      </TableCell>
     </TableRow>
   })
 
@@ -131,13 +131,14 @@ function DashboardUser(props) {
       <MainStyle>
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-            <Typography variant="h3" gutterBottom style={{fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>
-              Request for Approval 
+            <Typography variant="h3" gutterBottom style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif" }}>
+              Error Log Monitoring
             </Typography>
           </Stack>
-          <Card style={{ maxHeight:650}}>
+        <AppCurrentLog />
+          <Card style={{ maxHeight: 400 }}>
             <Scrollbar>
-              <TableContainer sx={{ minWidth: 800 ,maxHeight: 650 ,overflow: "scroll"}}>
+              <TableContainer sx={{ minWidth: 800, maxHeight: 500, overflow: "scroll" }}>
                 <Table>
                   <UserListHead
                     headLabel={TABLE_HEAD}
@@ -149,6 +150,7 @@ function DashboardUser(props) {
               </TableContainer>
             </Scrollbar>
           </Card>
+
         </Container>
       </MainStyle>
       <ToastContainer hideProgressBar={true} />
@@ -156,16 +158,16 @@ function DashboardUser(props) {
   );
 }
 
-const mapStoreStateToProps = (state) =>{
+const mapStoreStateToProps = (state) => {
   return {
-      ...state,
+    ...state,
   }
 }
 
 const mapActionsToProps = (dispatch) => {
   return {
-      sideOpenAction: (open) => dispatch(sideOpen(open))
+    sideOpenAction: (open) => dispatch(sideOpen(open))
   }
 }
 
-export default connect(mapStoreStateToProps, mapActionsToProps)(DashboardUser);
+export default connect(mapStoreStateToProps, mapActionsToProps)(DashboardUserLog);

@@ -125,13 +125,14 @@ export const sttword = (word) =>{
 export const loginUser = async (loginData) => {
     const request = await axios.post('/api/users/login', loginData)
     const response = request.data;
+    // console.log('action의 response::', response);
     return {
         type: Actions.SET_LOGIN_USER,
         response
     }
 }
 
-  // 회원가입
+// 회원가입
 export const registerUser = async (registerData) => {
     const request = await axios.post('/api/users/register', registerData)
     const response = request.data;

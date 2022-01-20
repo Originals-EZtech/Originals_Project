@@ -23,13 +23,14 @@ function AccountPopover(props) {
   const [cookies] = useCookies();
   const { logoutAction } = props;
 
-
   const handleOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+
   const logoutHandler = (e) => {
     e.preventDefault();
 
@@ -79,11 +80,11 @@ function AccountPopover(props) {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            {cookies.user_name}
+            {cookies.un}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {cookies.user_email}
-          </Typography>
+          {/* <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+            {userEmail}
+          </Typography> */}
         </Box>
 
         <Divider sx={{ my: 1 }} />
@@ -121,10 +122,16 @@ function AccountPopover(props) {
   );
 }
 
+const mapStoreStateToProps = (state) =>{
+  return {
+      ...state,
+  }
+}
+
 const mapActionsToProps = (dispatch) => {
   return {
       logoutAction: () => dispatch(logout())
   }
 }
 
-export default withRouter(connect(null, mapActionsToProps)(AccountPopover));
+export default withRouter(connect(mapStoreStateToProps, mapActionsToProps)(AccountPopover));

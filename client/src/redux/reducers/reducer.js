@@ -1,6 +1,7 @@
 import Actions from "../actions/actions";
 
 const initState = {
+    /* webRTC & STT */
     identity: '',
     isRoomHost: false,
     connectOnlyWithAudio: false,
@@ -13,7 +14,6 @@ const initState = {
     directChatHistory: [],
     socketId: null,
     word: "",
-    open: false, // dashboard 페이지 화면 축소 상태일 때 side bar 작동하기 위해 필요
     disabled: false,
     fileName : '',
     gotFile: false,
@@ -23,6 +23,8 @@ const initState = {
     checkMessage: null,
     checkMessageSign:false,
 
+    /* Dashboard */
+    open: false, // dashboard 페이지 화면 축소 상태일 때 side bar 작동하기 위해 필요
 };
 
 // reducer는 state의 상태를 변화시켜주는 함수
@@ -86,13 +88,11 @@ const reducer = (state = initState, action) => {
             };
         case Actions.SET_LOGIN_USER:
             return {
-                ...state, 
-                loginSuccess: action.response.loginSuccess
+                ...state
             };
         case Actions.SET_REGISTER_USER:
             return {
                 ...state,
-                success:action.response.success
             };
         case Actions.SET_AUTH_EMAIL:
             return {
@@ -109,7 +109,6 @@ const reducer = (state = initState, action) => {
         case Actions.SET_FILE_UPLOAD:
             return{
                 ...state,
-                uploadSuccess: action.response.uploadSuccess
             }
         case Actions.SET_WORD:
             return{
