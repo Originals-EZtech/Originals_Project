@@ -56,8 +56,8 @@ Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움
 :-------------------------:|:-------------------------:
 <img src="https://user-images.githubusercontent.com/74586346/150272930-8092fed0-e251-443a-b33f-f779465e34b4.png" width="640" height="483"> |  <img src="https://user-images.githubusercontent.com/74586346/150261326-de53c0bb-54f0-489d-ba13-0d3873bab465.png"  width="320" height="483"/>
 
-수업 화면          |  수업 이력
-:-------------------------:|:-------------------------:
+수업 이력         |
+:--------------------------------------------------:
  |  ![MyClass](https://user-images.githubusercontent.com/74586346/150272708-e126d30c-cfc3-426f-a00e-79f49ab1a963.png)
 
 <!--  ![수업화면](https://user-images.githubusercontent.com/74586346/150250669-a4a3cb5c-b2dd-4e26-baac-1d48c908da14.png) ![수업화면](https://user-images.githubusercontent.com/74586346/150252252-41ba6cb4-a224-4630-83f1-a5257da829f6.png) | <img src="https://user-images.githubusercontent.com/74586346/150247837-9c05e2a1-cdda-48b1-9508-7f0d4f23e765.png"  width="450" height="580"/> 
