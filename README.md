@@ -1,6 +1,6 @@
 # Originals Project📖
 # 청각장애인을 위한 공개용 STT API를 이용한 원격수업 플랫폼
-# Online live class platform using STT API for auditory disordered people
+## Online live class platform using STT API for auditory disordered people
 #### Project nickname : Helen Class
 #### Project execution period : 2021.11.30~2022.01.14
 
@@ -13,8 +13,8 @@
 
 ## Description
 
-Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움으로 극복했던 것처럼 청각장애인들의 교육에 도움이 되고<br/>
- 나아가 온라인 수업환경에 도움이 될 수있는 자막 서비스를 제공하는 원격수업 플랫폼
+Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움으로 극복했던 것처럼 <br/>
+청각장애인들의 교육에 도움이 되고 나아가 온라인 수업환경에 도움이 될 수있는 자막 서비스를 제공하는 원격수업 플랫폼
 
 ![image](https://user-images.githubusercontent.com/74586346/150096423-8e1116f3-ed81-446b-bb1c-90f2f1855168.png)
 
