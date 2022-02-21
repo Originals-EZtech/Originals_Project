@@ -1,5 +1,0 @@
-module.exports =
-{
-    TWILIO_ACCOUNT_SID : "ACd3b7fc89c635d018d3775538b71ad9aa",
-    TWILIO_AUTH_TOKEN : "48125fc006c7a688da29502bab9dca78"
-}
