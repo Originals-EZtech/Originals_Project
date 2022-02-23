@@ -39,8 +39,6 @@ Helen Keller가 가졌던 시각,청각,언어 등의 장애를 교육의 도움
 ![](https://user-images.githubusercontent.com/74586346/150274787-1e9927de-2eda-4599-9233-9143e79327ae.png)
                                                                                                                                          
 -----------------------
-## ⚙ Service Architecture
------------------------
 
 ##  UI(example)  
 
